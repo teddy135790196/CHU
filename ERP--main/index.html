@@ -1,0 +1,81 @@
+<!--
+https://data.gov.tw/dataset/101813
+臺南市噪音監測站監測數據
+本資料集提供臺南市噪音監測站監測數據資料。
+
+#用表格呈現
+
+1.拿資料 
+42_ajax_get_post.html
+2. json
+26A_矩陣json.html
+3. 表格
+35_exam.html
+
+
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>發佈到github上</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // load 網頁資料下載後結束後會執行
+        $("#button1").click(function () {
+          let url1 = "https://soa.tainan.gov.tw/Api/Service/Get/895dc515-d959-45be-a48e-0c07caf65d2e";
+          // 打開 demo_test.txt 把內容 #div1
+          $.get(url1, function (data, status) {
+            console.log("Data: " + data + "\nStatus: " + status);
+
+            // 建立表格
+            let table = `<table border='1'><tr>
+                <th>Seq</th>
+                <th>夜</th>
+                <th>夜間標準值</th>
+                <th>日</th>
+                <th>日間標準值</th>
+                <th>早晚標準值</th>
+                <th>測站名稱</th>
+                <th>測站編號</th>
+                <th>監測日期</th>
+                <th>管制區</th>
+                <th>音源別</th>
+              </tr>`;
+
+            //如果資料正確
+            if (data.success) {
+              data.data.forEach((station) => {
+                // console.log(station);
+                table += `<tr>
+                  <td>${station.Seq}</td>
+                  <td>${station.夜}</td>
+                  <td>${station.夜間標準值}</td>
+                  <td>${station.日}</td>
+                  <td>${station.日間標準值}</td>
+                  <td>${station.早晚標準值}</td>
+                  <td>${station.測站名稱}</td>
+                  <td>${station.測站編號}</td>
+                  <td>${station.監測日期}</td>
+                  <td>${station.管制區}</td>
+                  <td>${station.音源別}</td>
+                  </tr>`;
+              });
+            }
+
+            table += "</table>";
+            $("#div1").html(table);
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>
+      <a href="https://data.gov.tw/dataset/101813"> 臺南市噪音監測站監測數據</a>
+    </h1>
+    <div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
+    <button id="button1">HTTP Get 有CROS 的問題</button>
+  </body>
+</html>
