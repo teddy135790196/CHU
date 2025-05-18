@@ -1,2 +1,0 @@
-# CHU
-Chien Hsin University
