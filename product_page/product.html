@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>商品頁面</title>
+
+    
+<!-- 載入bs5 -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/productCss.css" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- 搜尋欄 -->
+          <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">棲遲書屋</a>
+            <div
+              class="collapse navbar-collapse"
+              id="bs-example-navbar-collapse-1"
+            >
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="#"
+                    >全站商品 <span class="sr-only">(current)</span></a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">排行榜</a>
+                </li>
+              </ul>
+              <form class="form-inline">
+                <input class="form-control mr-sm-2" type="text" />
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">
+                  查詢
+                </button>
+              </form>
+              <ul class="navbar-nav ml-md-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#"
+                    >會員專區 <span class="sr-only">(current)</span></a
+                  >
+                </li>
+                <li class="nav-item dropdown">
+                  <div
+                    class="dropdown-menu dropdown-menu-right"
+                    aria-labelledby="navbarDropdownMenuLink"
+                  >
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <!-- 現在位置 -->
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="#">首頁</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="#">文學類</a>
+              </li>
+               <li class="breadcrumb-item">
+                <a href="litProducts.html">小說</a>
+              </li>
+              <li class="breadcrumb-item active">紅樓夢</li>
+            </ol>
+          </nav>
+
+          <div class="row">
+            <!-- 這串是分類 -->
+            <div class="col-md-2">
+              <ul class="nav flex-column bookTag">
+                <li class="nav-item">
+                  <button id="lit">文學類</button>
+                  <ul id="litShow">
+                    <li><a class="nav-link" href="#">詩詞</a></li>
+                    <li>
+                      <a class="nav-link" href="litProducts.html">小說</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">科學類</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">社會科學類</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">歷史與地理類</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">藝術與設計類</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">生活與休閒類</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">商業與管理類</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">宗教與哲學類</a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- 切版10，商品圖+標題說明 -->
+            <div class="col-md-10">
+              <div class="row">
+                <div class="col-md-6">
+                  <!-- 商品圖 -->
+                  <div class="prodP">
+                    <img
+                      src="https://lh3.googleusercontent.com/pw/AP1GczNW-aj9QTAIFhrpMkbhn14egJ1TZb0LRG8TCsJrySB4QZgY2rFZ2SzERDGxpmDrP0fWBw0BknpQsikrxMv0-M_kJuw1MawLICb-cBH56Ezb8Eviev3ODVMZRizn7o8ipI3_4T0dDmaBiNSRQ1AsE40a=w378-h476-s-no-gm?authuser=0"
+                      alt=""
+                    />
+                  </div>
+                </div>
+
+                <!-- 再從6裡切作者資訊跟價格 -->
+
+                <div class="col-md-3">
+                  <!-- 書名 -->
+                  <h1>紅樓夢</h1>
+                  <hr />
+                  <ul>
+                    <li>作者/ <a href="#">石心寺</a></li>
+                    <li>出版社/ <a href="">知返</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-3">
+                  <h2 class="price">$750</h2>
+                </div>
+              </div>
+              <hr />
+
+              <h3>
+                紅樓夢哭蝶火固正歡申共羽和尾由
+                節姐一物事。校里要金竹田杯朋助綠干歡找，登許樹還入休哪眼示時知邊休節才小嗎給高肖？相開位里。燈唱已停。
+              </h3>
+
+              <p>
+                植根很害寸以知走山大毛。雪士裝去喜往室消路魚兌每實爪天棵果至。在友村。都樹公送化。雲裏相石拍已黃西哭因拍，抓良能相背英孝雪吃而假乍英習找月吃頁。七抱重象眼園小且共九地跑很怪几躲。
+                夕荷南力月方收勿尾黃完往夕讀直化花北交。坡來屋右泉院禾弓；還雲兌虎十呢二很豆訴內貝高起麼筆筆「升力姐」瓜只時兔米畫乾會采刃的植呢乙果重？哪少位游頭平。
+                鳥收者昌蝶了朵門胡寺故昌房爬：里故遠後菜害松婆己十美鴨記雲、杯這兄足才麼老跑父孝聲念師吉看丁冬飛細几，刀戊誰乾放兌戶，後杯百乍車哥戶。
+                的言結第法得，水交工就屋視叫左花做。
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <!-- toggle卡片選單 -->
+              <div id="card-1">
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="card-link"
+                      data-toggle="collapse"
+                      data-parent="#card-1"
+                      href="#card-element-2"
+                      >商品規格▼</a
+                    >
+                  </div>
+                  <div id="card-element-2" class="collapse show">
+                    <div class="card-body">
+                      <p><span>ISBN：</span>16001</p>
+                      <p><span>頁數：</span>500</p>
+                      <p><span>尺寸：</span>B5</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <a
+                      class="collapsed card-link"
+                      data-toggle="collapse"
+                      data-parent="#card-1"
+                      href="#card-element-3"
+                    >
+                      運送地區▼</a
+                    >
+                  </div>
+                  <div id="card-element-3" class="collapse">
+                    <div class="card-body">僅限台灣本島</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 推薦 -->
+          <div class="page-header">
+            <h4 class="txtMaybeLike"><i>你可能也喜歡...</i></h4>
+          </div>
+          <!-- 推薦小圖 -->
+          <div class="row smProduct">
+            <div class="col-md-4">
+              <img
+                src="https://lh3.googleusercontent.com/pw/AP1GczNGzZmS2g8XVsuAbL7vJy5d142k7pFlmxW978vl7IokzwTidV9nKAuGUeMOAwIVPrsx0B7o2MLnQIXm_WrYy4J5cddQQIJ0-qxhVtir2EFzl9vmD01geUDx7S7ZYVDg-mZD_wn_OK_LKCkAUzny76o9=w460-h580-s-no-gm?authuser=0"
+                alt=""
+              />
+              <h2>水中泉涓</h2>
+              <p>
+                水中泉涓哭蝶火固正歡申共羽和尾由節姐一物事。校里要金竹田杯朋助綠干歡找，登許樹還入休哪眼示時知邊休節才小嗎給高肖？相開位里。燈唱已停。
+              </p>
+            </div>
+            <div class="col-md-4">
+              <img
+                src="https://media.discordapp.net/attachments/1372605401174118532/1373345773332332717/h.jpg?ex=682a136b&is=6828c1eb&hm=c2e39ec4a2ea7c5b0b106e8125d33077d52eaea2fa7b8328a347d4270e0f3588&=&format=webp&width=574&height=813"
+                alt=""
+              />
+              <h2>麻雀都去哪裡了?</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Doloremque, nulla!
+              </p>
+            </div>
+            <div class="col-md-4">
+              <img
+                src="https://media.discordapp.net/attachments/1372605401174118532/1373498003880546304/-06.png?ex=682aa132&is=68294fb2&hm=1661df81ca5357d803d3112e84e06f61d70b4b9700c15cada5c41dd9b0a7140b&=&format=webp&quality=lossless&width=644&height=813"
+                alt=""
+              />
+              <h2>焰心</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Similique ab iste vitae ut aut optio!
+              </p>
+            </div>
+          </div>
+          <!-- 下拉 -->
+          <nav class="fixed-bottom">
+            <ul class="myFlex">
+              <li>
+                <button type="button"><a href="#">收藏</a></button>
+              </li>
+              <li>
+                <button type="button"><a href="#">加到購物車</a></button>
+              </li>
+              <li>
+                <button type="button"><a href="#">回到頂部</a></button>
+              </li>
+            </ul>
+          </nav>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+    <!-- 載入js -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/productJs.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  </body>
+</html>

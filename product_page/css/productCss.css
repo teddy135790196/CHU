@@ -1,0 +1,82 @@
+* {
+  margin: 0;
+}
+/* 底部的收藏/加到購物車/回頂部 */
+.myFlex {
+  display: flex;
+  list-style: none;
+  background-color: aqua;
+}
+.myFlex li {
+  margin: 0 auto;
+}
+.myFlex a {
+  font-size: 30px;
+  padding: 0 10px;
+  display: block;
+  width: 220px;
+}
+.myFlex button {
+  border-radius: 10px;
+}
+/* 將分類按鈕改成不像按鈕，但還是按鈕 */
+.bookTag button {
+  text-align: left;
+  border: 0;
+  width: 100%;
+}
+
+/* 子標籤隱藏 */
+#litShow {
+  display: none;
+}
+.prodP {
+  margin: 0 auto;
+}
+.prodP img {
+  width: 100%;
+}
+/* 價格 */
+.price {
+  font-weight: bold;
+  color: white;
+  background-color: brown;
+  padding: 15px 30px;
+  border-radius: 40px;
+  text-align: center;
+}
+/* 分類頁的作者跟價格 */
+.authorP {
+  display: flex;
+  justify-content: space-between;
+}
+.authorP p{color: rgb(102, 88, 71);}
+.authorP h4 {
+font-weight: bold;
+  color: brown;
+}
+/* 商品規格 */
+.card a {
+  font-size: 20px;
+  color: aliceblue;
+}
+.card-body {
+  margin: 10px 30px;
+}
+.card-header {
+  background-color: rgb(222, 127, 127);
+}
+
+/* 你可能會喜歡_小圖區 */
+.txtMaybeLike {
+  color: brown;
+  margin: 12px 0;
+}
+
+.smProduct img {
+  /* width: 150px; */
+  height: 300px;
+}
+.smProduct {
+  margin-bottom: 100px;
+}
