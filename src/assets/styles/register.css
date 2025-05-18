@@ -43,6 +43,7 @@
 	.soild {
 		height: 2px;
 		background-color: var(--main-color);
+		z-index: 1;
 	}
 
 	input {

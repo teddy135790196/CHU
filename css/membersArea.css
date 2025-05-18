@@ -1,0 +1,139 @@
+.box {
+	width: 100%;
+	/* height: 100vh; */
+
+	background-color: bisque;
+	/* 輔助待刪 */
+}
+
+/* 響應式：手機時上下堆疊，寬度100% */
+@media (max-width: 991px) {
+	.box {
+		padding: 30px 0;
+		/* height: 700px; */
+		width: 100%;
+
+	}
+}
+
+
+/* 內容區塊 */
+.content {
+	margin: 20px 0;
+	padding: 10px;
+	width: 80%;
+	min-width: 320px;
+	min-height: 90vh;
+}
+
+.userInformation {
+	align-items: center;
+
+	/* 會員頭像 */
+	.userAvatar img {
+		margin-right: 30px;
+		border: 2px solid var(--quote-text-color);
+		border-radius: 50%;
+
+		width: 80%;
+		min-width: 72px;
+	}
+
+	/* 會員暱稱 */
+	.userNick {
+		display: flex;
+		align-items: center;
+		height: 100%;
+
+		/* 暱稱 */
+		h3 {
+			font-weight: bold;
+			margin: 0;
+		}
+
+	}
+
+
+
+}
+
+/* 手風琴 - 個人資料 */
+.accordion {
+	/* transform: translate(-120px, 80px); */
+	/* margin-top: -40px; */
+	/* JS動態上移 */
+	margin-top: var(--dynamic-margin);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	width: 100%;
+
+
+	.accordion-item {
+		margin-bottom: 30px;
+
+		background-color: transparent;
+		border: none;
+
+		/* 調整手風琴位置對齊暱稱 */
+		.accordion-button,
+		.accordion-body {
+			padding-left: 3px;
+		}
+
+		/* 手風琴點擊區塊 */
+		.accordion-header .accordion-button {
+
+			padding: 0.5rem auto;
+			background-color: transparent;
+
+			/* 改變 hr 顏色 */
+			&:not(.collapsed) {
+				border-bottom: 2px solid var(--quote-text-color);
+				/* 設定線條顏色 */
+			}
+		}
+
+		/* 手風琴內容區塊 */
+		.accordion-collapse {
+			/* position: static; */
+		}
+	}
+
+
+
+
+
+}
+
+
+
+/* 功能選單區塊 */
+.menu {
+	display: flex;
+	margin-bottom: 20px;
+
+	/* 選項區塊 */
+	.menu-item {
+		flex: 1;
+		text-align: center;
+		/* 游標變手指 */
+		cursor: pointer;
+		padding: 10px 0;
+		/* 防止選取 */
+		user-select: none;
+		font-size: 12px;
+		padding: 5px;
+	}
+
+	/* 當前選中 */
+	/* 同時有 menu-item 與 active 的類別才套用該樣式 */
+	.menu-item.active {
+		border-top: 2px solid var(--main-color);
+
+		font-size: 15PX;
+		font-weight: bold;
+		color: var(--main-color);
+	}
+}

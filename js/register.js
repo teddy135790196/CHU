@@ -1,15 +1,16 @@
+/* 【註冊頁面更新 */
+
 // 更新按鈕文字
 function updateButtonText() {
 	const prevBtn = document.getElementById("prevBtn");
 	const nextBtn = document.getElementById("nextBtn");
 
 	// 更新按鈕文字
-	prevBtn.textContent = nowStep === 1 ? "離　開" : "上一頁";
-	nextBtn.textContent = nowStep === 4 ? "完　成" : "下一步";
+	prevBtn.textContent = nowStep === 1 ? "離開" : "上一頁";
+	nextBtn.textContent = nowStep === 4 ? "完成" : "下一步";
 }
 
-
-/* 【註冊頁面更新 */
+// 顯示畫面
 let nowStep = 1;
 const progressWidth = [40, 70, 90, 100];
 function showStep(step) {
@@ -35,7 +36,7 @@ function nextStep() {
 	if (nowStep < 4) {
 		nowStep++;
 		showStep(nowStep);
-	}else {
+	} else {
 		// 使用確認訊息框來提示離開
 		const isExit = confirm("確認資料是否無誤？");
 		if (isExit) { window.location.href = "./login.html"; }
@@ -80,3 +81,11 @@ function prevStep() {
 
 	}
 }
+
+
+
+
+
+
+// 輸入驗證
+input

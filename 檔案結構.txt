@@ -1,0 +1,20 @@
+src
+├── assets            # 靜態資源 (圖片、CSS 等)
+│   ├── images        ## 圖片資料夾
+│   │   └── logo.png
+│   └── styles        ## 樣式檔案
+│       ├── login.css
+│       ├── register.css
+│       └── themes.css
+├── components        # 全局元件
+│   └── Section       ## 存放區塊相關的元件
+│       ├── LoginSection.vue
+│       ├── Register.vue
+│       └── WelcomeSection.vue
+├── router            # 路由配置
+│   └── index.js
+├── views             # 頁面 (如 LoginPage、HomePage 等)
+│   ├── LoginPage.vue
+│   └── RegisterPage.vue
+├── App.vue           # 根元件
+└── main.js           # 入口文件

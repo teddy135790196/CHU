@@ -29,9 +29,9 @@
 	}
 
 	.soild {
-		height: 4px;
-		margin-bottom: -2px;
+		height: 2px;
 		background-color: var(--main-color);
+		z-index: 1;
 	}
 
 	input {
@@ -208,7 +208,7 @@
 	/* 動畫】 */
 }
 
-/* 左側登入區域 】*/
+/* 左側歡迎區域 】*/
 
 
 

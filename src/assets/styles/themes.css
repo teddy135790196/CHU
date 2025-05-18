@@ -1,0 +1,23 @@
+/* 經典主題 */
+:root {
+	/* 主色調 */
+	--main-color: rgb(150, 0, 0);
+	/* 輔色調 */
+	--second-color: rgb(?, ?, ?);
+	/* 輔色調(淺) */
+	--second-colorLight: rgba(248, 249, 250, 0.5);
+	/* --classic-second-colorLight: #f8f9fa; */
+
+	/* 主色調文字色 */
+	--main-text-color: white;
+	/* 輔色調文字色 */
+	--second-text-color: black;
+
+
+
+	/* 引用文字色 */
+	--quote-text-color: #777;
+
+	/* 輸入框焦點背景顏色 */
+	--inputfocus: #FFF8DF;
+}
