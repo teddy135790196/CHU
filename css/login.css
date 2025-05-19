@@ -23,6 +23,7 @@
 	margin-bottom: 24px;
 
 	p {
+		font-family: '王翰宗顏楷體';
 		font-size: 24px;
 		color: var(--main-color);
 		margin-bottom: 0;
@@ -96,12 +97,14 @@
 
 	/* 棲遲書屋 */
 	h1 {
+		font-family: '王翰宗中行書';
 		font-size: 60px;
 		text-align: center;
 	}
 
 	/* 歡迎標語 */
 	.welcome {
+		font-family: '王翰宗粗鋼體';
 		margin-top: 40px;
 		
 
@@ -159,6 +162,7 @@
 
 	/* 名言引用 */
 	.quotations {
+		font-family: '王翰宗顏楷體';
 		margin: 0 auto;
 
 		/* 作者 */
@@ -220,11 +224,13 @@
 		border: 0;
 		border-radius: 4px;
 		background-color: var(--main-color);
+		font-family: '王翰宗粗鋼體';
 		color: var(--main-text-color);
 	}
 
 	/* 超大或 */
 	.or {
+		font-family: '王翰宗中行書';
 		font-size: 72px;
 		margin: 0;
 	}

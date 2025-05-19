@@ -1,0 +1,14 @@
+@font-face {
+  font-family: '王翰宗粗鋼體';
+  src: url('../../fonts/wangfonts/TrueType/WCL-07.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: '王翰宗顏楷體';
+  src: url('../../fonts/wangfonts/TrueType/wt064.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: '王翰宗中行書';
+  src: url('../../fonts/wangfonts/TrueType/wt071.ttf') format('truetype');
+}

@@ -1,0 +1,195 @@
+/* 基本樣式：左右各50%寬，高度佔滿 */
+.box-md-6 {
+	width: 50%;
+	height: 100vh;
+}
+
+/* 響應式：手機時上下堆疊，寬度100% */
+@media (max-width: 991px) {
+	.box-md-6 {
+		width: 100%;
+		height: 700px;
+	}
+}
+
+
+/****************************** 標準區 - 開始 ******************************/
+
+
+/* 圓角內容區塊 */
+.content {
+	background-color: var(--second-colorLight);
+	border-radius: 10px;
+
+
+	width: 36%;
+	min-width: 320px;
+	min-height: 480px;
+	text-align: center;
+}
+
+/****************************** 標準區 - 結束 ******************************/
+
+
+
+/* 圓角區塊設定 */
+.content-left,
+.content-right {
+	padding: 20px 30px 30px 30px;
+
+	/* 所有內容 */
+	* {
+		max-width: 300px;
+
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+
+/* 【左側歡迎區域 */
+.content-left {
+
+	/* 棲遲書屋 */
+	h1 {
+		font-size: 60px;
+		text-align: center;
+	}
+
+	/* 歡迎標語 */
+	.welcome {
+		margin-top: 40px;
+		
+
+		/* 主題 */
+		h2 {
+			margin-bottom: 0;
+			font-size: 27px;
+			text-align: center;
+		}
+
+		/* 橫線 */
+		.welcomeSoild {
+			margin: 10px auto;
+			height: 2px;
+			width: 70%;
+			background-color: var(--second-text-color);
+
+		}
+
+		/* 內容 */
+		span {
+			margin: 0 auto;
+			width: 80%;
+
+			font-size: 14px;
+			text-align: justify;
+		}
+	}
+
+	/* 【歡迎標語-動畫 (讓引用區淡入顯示，避免元素區塊一開始突兀出現展開) */
+	.welcome-anime {
+
+		/* 標題先出現 */
+		.welcomeTitle {
+			/* 透明 */
+			opacity: 0;
+			/* 指定透明：淡入效果	ease:常見預設值，慢 - 快 - 慢 */
+			transition: opacity 1s ease;
+		}
+
+		/* 訊息再出來 */
+		.welcomeMessage,
+		.welcomeSoild {
+			opacity: 0;
+			transition: opacity 1s ease 1s;
+		}
+
+		/* JS加入的樣式，用以啟動上方動畫效果 */
+		.show {
+			/* 顯示 */
+			opacity: 1;
+		}
+
+	}
+
+	/* 名言引用 */
+	.quotations {
+		margin: 0 auto;
+
+		/* 作者 */
+		.author {
+			margin: 0;
+			margin-top: 5px;
+
+			font-size: 12px;
+			text-align: right;
+			color: var(--quote-text-color);
+			display: inline-block;
+			/* 確保在一行內 */
+
+			/* 偽樣式 —— */
+			&::before {
+				content: "——";
+				margin-right: 4px;
+			}
+		}
+	}
+
+	/* 【名言引用-動畫 (讓引用區淡入顯示，避免元素區塊一開始突兀出現展開) */
+	.quotations-anime {
+
+		/* 名言先出現 */
+		.quote {
+			/* 透明 */
+			opacity: 0;
+			/* 指定透明：淡入效果	ease:常見預設值，慢 - 快 - 慢 */
+			transition: opacity 1.5s ease 1.5s;
+		}
+
+		/* 作者再出來 */
+		.author {
+			opacity: 0;
+			transition: opacity 1s ease 2s;
+		}
+
+		/* JS加入的樣式，用以啟動上方動畫效果 */
+		.show {
+			/* 顯示 */
+			opacity: 1;
+		}
+
+	}
+
+	/* 動畫】 */
+}
+
+/* 左側歡迎區域 】*/
+
+
+
+/* 【右側登入區域 */
+.content-right {
+
+	/* 登入按鈕 */
+	button {
+		border: 0;
+		border-radius: 4px;
+		background-color: var(--main-color);
+		color: var(--main-text-color);
+	}
+
+	/* 超大或 */
+	.or {
+		font-size: 72px;
+		margin: 0;
+	}
+
+	/* 忘記密碼與登入會員 */
+	.other {
+		flex-direction: row;
+		justify-content: center;
+	}
+}
+
+/* 右側登入區域】 */

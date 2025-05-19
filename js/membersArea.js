@@ -38,7 +38,11 @@ function updateAccordionMargin() {
     const dynamicMargin = Math.max(-rowHeight / 3, -40);
 
     // 設定 CSS 變數
-    accordion.style.setProperty('--dynamic-margin', `${dynamicMargin}px`);
+    if (window.innerWidth >= 768) {
+        accordion.style.setProperty('--dynamic-margin', `${dynamicMargin}px`);
+    }else{
+        accordion.style.setProperty('--dynamic-margin', `0px`);
+    }
 }
 
 

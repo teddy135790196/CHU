@@ -5,150 +5,21 @@
         <div class="content d-flex flex-column">
           <!-- 進度條 -->
           <div class="progress mb-1">
-            <div
-              class="progress-bar"
-              :style="{ width: progressWidth[nowStep - 1] + '%' }"
-            ></div>
+            <div class="progress-bar" :style="{ width: progressWidth[nowStep - 1] + '%' }"></div>
           </div>
 
-          <!-- 註冊步驟表單 -->
-          <div>
-            <!-- Step 1 -->
-            <div :class="['step', nowStep === 1 ? 'active-step' : '']">
-              <h4>【壹．設定您的帳號與密碼】</h4>
-              <div class="inp_modle">
-                <p>帳號</p>
-                <div class="soild"></div>
-                <input
-                  v-model="form.username"
-                  type="text"
-                  placeholder="請輸入您的帳號或電子郵箱"
-                />
-                <span class="quote">請輸入您的帳號</span>
-              </div>
-              <div class="inp_modle">
-                <p>密碼</p>
-                <div class="soild"></div>
-                <input
-                  v-model="form.password"
-                  type="password"
-                  placeholder="請輸入您的密碼"
-                />
-                <span class="quote">請輸入8位以上英數混合密碼</span>
-              </div>
-              <div class="inp_modle">
-                <p>確認密碼</p>
-                <div class="soild"></div>
-                <input
-                  v-model="form.repassword"
-                  type="password"
-                  placeholder="請再次輸入您的密碼"
-                />
-                <span class="quote">請輸入8位以上英數混合密碼</span>
-              </div>
-            </div>
-
-            <!-- Step 2 -->
-            <div :class="['step', nowStep === 2 ? 'active-step' : '']">
-              <h4>【貳．設定您的個人資料】</h4>
-              <div class="inp_modle">
-                <p>暱稱</p>
-                <div class="soild"></div>
-                <input
-                  v-model="form.nickname"
-                  type="text"
-                  placeholder="請輸入您的暱稱"
-                />
-                <span class="quote">請輸入您的暱稱</span>
-              </div>
-              <div class="inp_modle">
-                <p>性別</p>
-                <div class="soild"></div>
-                <div class="gender">
-                  <div class="gender-check">
-                    <input
-                      type="radio"
-                      id="male"
-                      value="male"
-                      v-model="form.gender"
-                    />
-                    <label for="male">&nbsp;男性</label>
-                  </div>
-                  <div class="gender-check">
-                    <input
-                      type="radio"
-                      id="female"
-                      value="female"
-                      v-model="form.gender"
-                    />
-                    <label for="female">&nbsp;女性</label>
-                  </div>
-                  <div class="gender-check">
-                    <input
-                      type="radio"
-                      id="hidden"
-                      value="hidden"
-                      v-model="form.gender"
-                    />
-                    <label for="hidden">&nbsp;隱藏</label>
-                  </div>
-                </div>
-                <span class="quote">請選擇您的性別</span>
-              </div>
-              <div class="inp_modle">
-                <p>生日</p>
-                <div class="soild"></div>
-                <input
-                  v-model="form.birth"
-                  type="date"
-                  placeholder="請選擇您的生日"
-                />
-                <span class="quote">請選擇您的出生年月</span>
-              </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div :class="['step', nowStep === 3 ? 'active-step' : '']">
-              <h4>【參．想知道您的聯絡方式】</h4>
-              <div class="inp_modle">
-                <p>電子郵件</p>
-                <div class="soild"></div>
-                <input
-                  v-model="form.email"
-                  type="email"
-                  placeholder="請輸入您的電子郵箱"
-                />
-                <span class="quote">請輸入您的電子郵箱</span>
-              </div>
-              <div class="inp_modle">
-                <p>手機號碼</p>
-                <div class="soild"></div>
-                <input
-                  v-model="form.phone"
-                  type="tel"
-                  placeholder="請輸入您的手機號碼"
-                />
-                <span class="quote">10位數字</span>
-              </div>
-            </div>
-
-            <!-- Step 4 -->
-            <div :class="['step', nowStep === 4 ? 'active-step' : '']">
-              <h4>【肆．確認您的資料並驗證】</h4>
-              <p>暱稱：{{ form.nickname }}</p>
-              <p>性別：{{ form.gender }}</p>
-              <p>生日：{{ form.birth }}</p>
-              <p>電子郵件：{{ form.email }}</p>
-              <p>電話：{{ form.phone }}</p>
-            </div>
-          </div>
+          <!-- 註冊步驟子元件 -->
+          <RegisterStep1 v-show="nowStep === 1" ref="step1Ref" :nowStep="nowStep" v-model:form="form" />
+          <RegisterStep2 v-show="nowStep === 2" ref="step2Ref" :nowStep="nowStep" v-model:form="form" />
+          <RegisterStep3 v-show="nowStep === 3" ref="step3Ref" :nowStep="nowStep" v-model:form="form" />
+          <RegisterStep4 v-show="nowStep === 4" :nowStep="nowStep" :form="form" />
 
           <!-- 按鈕區 -->
           <div class="btn-group mt-auto">
             <button class="btn btn-primary" @click="prevStep">
               {{ nowStep === 1 ? "離開" : "上一頁" }}
             </button>
-            <button class="btn btn-success" @click="nextStep">
+            <button class="btn btn-success" @click="handleNextStep">
               {{ nowStep === 4 ? "完成" : "下一步" }}
             </button>
           </div>
@@ -158,51 +29,67 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "RegisterPage",
-  data() {
-    return {
-      nowStep: 1,
-      progressWidth: [40, 70, 90, 100],
-      form: {
-        username: "",
-        password: "",
-        repassword: "",
-        nickname: "",
-        gender: "hidden",
-        birth: "",
-        email: "",
-        phone: "",
-      },
-    };
-  },
-  methods: {
-    // showStep(step) {
-    //   this.nowStep = step;
-    // },
-    nextStep() {
-      if (this.nowStep < 4) {
-        this.nowStep++;
-      } else {
-        // 完成按鈕點擊行為
-        if (confirm("確認資料是否無誤？")) {
-          // 這裡可以改成路由跳轉或其他行為
-          window.location.href = "./login";
-        }
-      }
-    },
-    prevStep() {
-      if (this.nowStep > 1) {
-        this.nowStep--;
-      } else {
-        if (confirm("您確定要離開註冊流程嗎？")) {
-          window.location.href = "./login";
-        }
-      }
-    },
-  },
-};
+
+<script setup>
+import { ref, reactive } from 'vue';
+
+import RegisterStep1 from './RegisterStep1.vue';
+import RegisterStep2 from './RegisterStep2.vue';
+import RegisterStep3 from './RegisterStep3.vue';
+import RegisterStep4 from './RegisterStep4.vue';
+
+const nowStep = ref(1);
+const progressWidth = [40, 70, 90, 100];
+
+// 表單資料統一放這裡（傳給子元件雙向綁定）
+const form = reactive({
+  username: '',
+  password: '',
+  repassword: '',
+  nickname: '',
+  gender: 'hidden',
+  birth: '',
+  email: '',
+  phone: ''
+});
+
+// 建立各步驟元件的 ref，供驗證時調用 validateForm()
+const step1Ref = ref(null);
+const step2Ref = ref(null);
+const step3Ref = ref(null);
+
+// 前一步按鈕
+function prevStep() {
+  if (nowStep.value > 1) {
+    nowStep.value--;
+  } else {
+    if (confirm('您確定要離開註冊流程嗎？')) {
+      window.location.href = './login';
+    }
+  }
+}
+
+// 下一步按鈕（含驗證邏輯）
+function handleNextStep() {
+  if (nowStep.value === 1) {
+    if (step1Ref.value?.validateForm()) {
+      nowStep.value++;
+    }
+  } else if (nowStep.value === 2) {
+    if (step2Ref.value?.validateForm()) {
+      nowStep.value++;
+    }
+  } else if (nowStep.value === 3) {
+    if (step3Ref.value?.validateForm()) {
+      nowStep.value++;
+    }
+  } else if (nowStep.value === 4) {
+    // 最後一步提交
+    if (confirm('確認資料是否無誤？')) {
+      window.location.href = './login'; // 可改為 router.push 或 emit
+    }
+  }
+}
 </script>
 
 <style scoped>
