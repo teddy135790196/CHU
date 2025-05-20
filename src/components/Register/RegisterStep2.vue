@@ -52,39 +52,44 @@
 	</div>
 </template>
 
-<script setup>
-import { reactive } from 'vue';
+<script>
 import BaseInput from '@/components/Form/BaseInput.vue';
 
-const form = reactive({
-	nickname: '',
-	gender: '',
-	birth: ''
-});
+export default {
+	name: "RegisterStep2",
+  components: {
+    BaseInput
+  },
+  props: {
+    nowStep: Number
+  },
+  data() {
+    return {
+      form: {
+        nickname: '',
+        gender: '',
+        birth: ''
+      },
+      formErrors: {
+        nickname: '',
+        gender: '',
+        birth: ''
+      }
+    };
+  },
+  methods: {
+    validateForm() {
+      this.formErrors.nickname = this.form.nickname ? '' : '暱稱不得為空';
+      this.formErrors.gender = this.form.gender ? '' : '請選擇性別';
+      this.formErrors.birth = this.form.birth ? '' : '請選擇生日';
 
-const formErrors = reactive({
-	nickname: '',
-	gender: '',
-	birth: ''
-});
-
-defineProps({
-	nowStep: Number
-});
-
-function validateForm() {
-	formErrors.nickname = form.nickname ? '' : '暱稱不得為空';
-	formErrors.gender = form.gender ? '' : '請選擇性別';
-	formErrors.birth = form.birth ? '' : '請選擇生日';
-
-	// 驗證結果回傳
-	return !formErrors.nickname && !formErrors.gender && !formErrors.birth;
-}
-
-defineExpose({
-	validateForm
-});
+    //   return !this.formErrors.nickname && !this.formErrors.gender && !this.formErrors.birth;
+    return true;
+    }
+  }
+};
 </script>
+
 
 <style scoped>
 .gender {

@@ -62,8 +62,9 @@
 
 	h4 {
 		/* text-align: left; */
+		font-family: '王翰宗粗鋼體';
 		font-size: 18px;
-		font-weight: bold;
+		/* font-weight: bold; */
 		color: var(--main-color);
 
 		margin-bottom: 30px;

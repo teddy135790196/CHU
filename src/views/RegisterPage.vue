@@ -1,17 +1,17 @@
 <template>
   <div id="app" class="wrap">
-    <Register />
+    <RegisterForm />
   </div>
 </template>
 
 <script>
 // 路徑要對應到 components 底下的元件位置
-import Register from "@/components/Register.vue";
+import RegisterForm from "@/components/Register/RegisterForm.vue";
 
 export default {
   name: "RegisterPage",
   components: {
-    Register,
+    RegisterForm,
   },
 };
 </script>

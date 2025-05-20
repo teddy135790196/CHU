@@ -25,40 +25,46 @@
 	</div>
 </template>
 
-<script setup>
-import { reactive } from 'vue';
+<script>
 import BaseInput from '@/components/Form/BaseInput.vue';
 
-const form = reactive({
-	email: '',
-	phone: ''
-});
+export default {
+	name: "RegisterStep3",
+  components: {
+    BaseInput,
+  },
+  props: {
+    nowStep: Number,
+  },
+  data() {
+    return {
+      form: {
+        email: '',
+        phone: '',
+      },
+      formErrors: {
+        email: '',
+        phone: '',
+      },
+    };
+  },
+  methods: {
+    validateForm() {
+      // email 格式驗證
+      this.formErrors.email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(this.form.email)
+        ? ''
+        : '請輸入有效的電子郵箱';
 
-const formErrors = reactive({
-	email: '',
-	phone: ''
-});
+      // 手機號碼驗證（10 位數字）
+      this.formErrors.phone = /^\d{10}$/.test(this.form.phone)
+        ? ''
+        : '請輸入 10 位數字的手機號碼';
 
-defineProps({
-	nowStep: Number
-});
-
-function validateForm() {
-	// email 格式驗證
-	formErrors.email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(form.email)
-		? ''
-		: '請輸入有效的電子郵箱';
-
-	// 手機號碼驗證（10 位數字）
-	formErrors.phone = /^\d{10}$/.test(form.phone)
-		? ''
-		: '請輸入 10 位數字的手機號碼';
-
-	// 驗證是否通過
-	return !formErrors.email && !formErrors.phone;
-}
-
-defineExpose({
-	validateForm
-});
+      // 驗證是否通過
+    //   return !this.formErrors.email && !this.formErrors.phone;
+      return true;
+    },
+  },
+};
 </script>
+

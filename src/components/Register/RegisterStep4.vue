@@ -11,13 +11,26 @@
 	</div>
 </template>
 
-<script setup>
-const props = defineProps({
-	nowStep: Number,
-	form: {
-		type: Object,
-		required: true
-	}
-});
-
+<script>
+export default {
+	name: "RegisterStep4",
+  props: {
+    nowStep: Number,
+    form: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+  genderText() {
+    switch (this.form.gender) {
+      case 'male': return '男';
+      case 'female': return '女';
+      case 'hidden': return '隱藏';
+      default: return '未選擇';
+    }
+  }
+}
+}
 </script>
+

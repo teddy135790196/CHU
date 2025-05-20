@@ -1,42 +1,51 @@
 <template>
-	<div class="inp_modle">
-		<p>{{ label }}</p>
-		<div class="soild"></div>
-		<input :id="id" :type="type" :placeholder="placeholder" :value="modelValue"
-			@input="$emit('update:modelValue', $event.target.value)" />
-		<span class="quote" :class="{ error: errorMessage }">
-			{{ errorMessage || quote }}
-		</span>
-	</div>
+  <div class="inp_modle">
+    <p>{{ label }}</p>
+    <div class="soild"></div>
+    <input
+			:id="id"
+			:type="type"
+			:placeholder="placeholder"
+			:value="value"
+			@input="$emit('input', $event.target.value)"
+			@blur="$emit('blur')"
+		/>
+    <span class="quote" :class="{ error: errorMessage }">
+      {{ errorMessage || quote }}
+    </span>
+  </div>
 </template>
 
-<script setup>
-defineProps({
-	id: String,
-	label: String,
-	type: {
-		type: String,
-		default: 'text'
-	},
-	placeholder: String,
-	modelValue: String,
-	quote: String	// 預設提示
-	errorMessage: String // 錯誤訊息（可選）
-});
+<script>
+export default {
+  name: 'BaseInput',
+  props: {
+    id: String,
+    label: String,
+    type: {
+      type: String,
+      default: 'text'
+    },
+    placeholder: String,
+    value: String,
+    quote: String,
+    errorMessage: String,
+  },
+};
 </script>
 
 
 <!-- scoped 表示只在這個.vue裡面使用 -->
-<style scoped>
+<style>
 /* 標準輸入區 */
 .inp_modle {
-
 	width: 100%;
 	text-align: left;
 	line-height: normal;
 	margin-bottom: 24px;
 
 	p {
+		font-family: '王翰宗顏楷體';
 		font-size: 24px;
 		color: var(--main-color);
 		margin-bottom: 0;
@@ -45,7 +54,6 @@ defineProps({
 	.soild {
 		height: 2px;
 		background-color: var(--main-color);
-		z-index: 1;
 	}
 
 	input {
@@ -67,7 +75,8 @@ defineProps({
 	.quote {
 		border-left: 2.4px solid #777;
 		padding-left: 0.5em;
-		font-size: 11px;
+		font-family: '王翰宗中仿宋';
+		font-size: 12px;
 		font-style: italic;
 		color: #777;
 		line-height: 1.6;
@@ -75,6 +84,7 @@ defineProps({
 
 	.quote.error {
 		color: var(--error);
+		/* font-weight: bold; */
 	}
 
 }
