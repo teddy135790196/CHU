@@ -6,41 +6,66 @@
 	/* 輔助待刪 */
 }
 
-/* 響應式：手機時上下堆疊，寬度100% */
-@media (max-width: 991px) {
-	.box {
-		padding: 30px 0;
-		height: 700px;
-		width: 100%;
-
-	}
-}
-
-
-/****************************** 標準區 - 開始 ******************************/
-
-
 /* 圓角內容區塊 */
 .content {
+	margin: 50px 0;
+	padding: 20px;
 	background-color: var(--second-colorLight);
 	border-radius: 10px;
 
 	width: 36%;
-	min-width: 320px;
-	min-height: 480px;
-	text-align: center;
-}
-
-/****************************** 標準區 - 結束 ******************************/
-
-
-/* 圓角內容區塊 */
-.content {
-	padding: 20px;
-	margin: 50px 0;
+	min-width: 540px;
+	min-height: 600px;
+	
 	text-align: left;
 	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
+
+/* 【輸入區塊 */
+.step {
+	display: none;
+	width: 100%;
+
+	h4 {
+		margin-top: 10px;
+		margin-bottom: 30px;
+
+		font-family: '王翰宗粗鋼體';
+		font-size: 24px;
+		color: var(--main-color);
+
+		
+	}
+}
+
+/* sm */
+@media (max-width: 540px) {
+	.box {
+		padding: 30px 0;
+		height: 100vh;
+		width: 100%;
+
+	}
+
+	/* 圓角內容區塊 */
+	.content {
+		background-color: var(--second-colorLight);
+		border-radius: 0px;
+
+		width: 100%;
+		min-width: 100%;
+		min-height: 540px;
+		max-height: 600px;
+	}
+
+	/* 【輸入區塊 */
+	.step {
+		h4 {
+			font-size: 22px;
+		}
+	}
+}
+
 
 
 /* 進度條 */
@@ -55,21 +80,7 @@
 }
 
 
-/* 【輸入區塊 */
-.step {
-	display: none;
-	width: 100%;
 
-	h4 {
-		/* text-align: left; */
-		font-family: '王翰宗粗鋼體';
-		font-size: 18px;
-		/* font-weight: bold; */
-		color: var(--main-color);
-
-		margin-bottom: 30px;
-	}
-}
 
 .active-step {
 	display: block;
@@ -78,47 +89,22 @@
 /* 輸入區塊】 */
 
 
-/* Step2-性別核取 */
-.gender {
-	display: flex;
-	flex-direction: row;
-	/* 對齊 - 調整核取少了2px */
-	margin-top: 2px;
 
-	gap: 10px;
-
-	.gender-check {
-		display: flex;
-
-		margin-right: 36px;
-
-		input[type="radio"] {
-			box-shadow: none;
-
-		}
-
-		label {
-			white-space: nowrap;
-			/* 防止意外換行 */
-		}
-	}
-
-
-}
-
-/* Step2-生日 */
-#birth {
-	/* 調整生日輸入框少了內部上下1px */
-	padding: 1px 0;
-}
 
 .btn-group {
 	display: flex;
 	margin-top: 20px;
 	width: 100%;
 
-	.btn{
-		/* 每個按鈕各占50%寬度 */
-		width: 50%;   
+	.btn {
+
+		&:first-child {
+			width: 40%;
+		}
+
+		&:last-child {
+			width: 60%;
+		}
+
 	}
 }

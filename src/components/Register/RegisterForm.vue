@@ -9,11 +9,34 @@
           </div>
 
           <!-- 註冊步驟子元件 -->
-          <RegisterStep1 v-show="nowStep === 1" :nowStep="nowStep" :form.sync="form" ref="step1" />
-          <RegisterStep2 v-show="nowStep === 2" :nowStep="nowStep" :form.sync="form" ref="step2" />
-          <RegisterStep3 v-show="nowStep === 3" :nowStep="nowStep" :form.sync="form" ref="step3" />
-          <RegisterStep4 v-show="nowStep === 4" :nowStep="nowStep" :form="form" ref="step4" />
+          <RegisterStep1 
+          v-show="nowStep === 1" 
+          :nowStep="nowStep" 
+          :formData="{ username: form.username, password: form.password, repassword: form.repassword }"
+          @updateForm="updatePartialForm" 
+          ref="step1" />
 
+          <RegisterStep2 
+          v-show="nowStep === 2" 
+          :nowStep="nowStep" 
+          :formData="{ nickname: form.nickname, gender: form.gender, birth: form.birth }"
+          @updateForm="updatePartialForm"
+          ref="step2" />
+
+          <RegisterStep3 
+          v-show="nowStep === 3" 
+          :nowStep="nowStep" 
+          :formData="{ email: form.email, phone: form.phone }"
+          @updateForm="updatePartialForm"
+          ref="step3" />
+
+          <RegisterStep4 
+          v-show="nowStep === 4" 
+          :nowStep="nowStep" 
+          :form="form" 
+          ref="step4" />
+
+          
           <!-- 按鈕區 -->
           <div class="btn-group mt-auto">
             <button class="btn btn-primary" @click="prevStep">
@@ -23,7 +46,12 @@
               {{ nowStep === 4 ? "完成" : "下一步" }}
             </button>
           </div>
+          <!-- 測試用 -->
+          <button class="btn btn-light" v-show="nowStep <= 3" @click="nowStep++">
+            {{ "跳過" }}
+          </button>
         </div>
+        
       </div>
     </div>
   </div>
@@ -55,6 +83,12 @@ export default {
   },
   // 方法
   methods: {
+    updatePartialForm(updatedFields) {
+      this.form = {
+        ...this.form,
+        ...updatedFields,
+      };
+    },
     // @click 前一頁
     prevStep() {
       if (this.nowStep > 1) this.nowStep--;
@@ -80,12 +114,4 @@ export default {
 <style scoped>
 @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css");
 
-.wrap {
-  height: 100vh;
-}
-
-.btn-group button {
-  width: 50%;
-  /* 固定按鈕寬度 */
-}
 </style>

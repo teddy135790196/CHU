@@ -6,6 +6,25 @@
 <hr>
 
 <details>
+<summary>0521｜註冊頁面完成元件化、驗證條件與響應式</summary>
+
+- **更新**
+  - 註冊頁面完成元件化
+  - 註冊頁面基本驗證功能完成
+  - 註冊頁面基本響應式設計完成
+
+</details>
+
+<details>
+<summary>0520｜註冊頁面Step1完成元件化與驗證條件</summary>
+
+- **更新**
+  - 註冊頁面的 Step1 完成元件化
+  - Step1 的帳號、密碼、重複密碼的驗證功能完成
+
+</details>
+
+<details>
 <summary>0519｜更新字體與 VUE 註冊頁面元件化 (未完成)</summary>
 
 - **新增**

@@ -22,84 +22,60 @@
       </span>
     </div> -->
 
-		<BaseInput
-			id="username"
-			label="帳號"
-			type="text"
-			placeholder="請輸入您的帳號或電子郵箱"
-			quote="請輸入您的帳號"
-			v-model="localForm.username"
-			@blur="validateUsername"
-			:errorMessage="formErrors.username"
-		/>
+		<BaseInput id="username" label="帳號" type="text" placeholder="請輸入您的帳號或電子郵箱" quote="請輸入您的帳號"
+			v-model="localForm.username" :errorMessage="formErrors.username" @blur="validateUsername" />
 
-		<BaseInput
-			id="password"
-			label="密碼"
-			type="password"
-			placeholder="請輸入您的密碼"
-			quote="請輸入8位以上英數混合密碼"
-			v-model="localForm.password"
-			@blur="validatePassword"
-			:error-message="formErrors.password"
-		/>
+		<BaseInput id="password" label="密碼" type="password" placeholder="請輸入您的密碼" quote="請輸入8位以上英數混合密碼"
+			v-model="localForm.password" :error-message="formErrors.password" @blur="validatePassword" />
 
-		<BaseInput
-			id="repassword"
-			label="確認密碼"
-			type="password"
-			placeholder="請再次輸入您的密碼"
-			quote="請輸入8位以上英數混合密碼"
-			v-model="localForm.repassword"
-			@blur="validateRepassword"
-			:error-message="formErrors.repassword"
-		/>
+		<BaseInput id="repassword" label="確認密碼" type="password" placeholder="請再次輸入您的密碼" quote="請輸入8位以上英數混合密碼"
+			v-model="localForm.repassword" :error-message="formErrors.repassword" @blur="validateRepassword" />
 	</div>
 </template>
 
 
 <script>
-	import BaseInput from '@/components/Form/BaseInput.vue';
+import BaseInput from '@/components/Form/BaseInput.vue';
 
-	export default {
+export default {
 	// 註冊名稱
-  name: "RegisterStep1",
+	name: "RegisterStep1",
 	// 引入子元件
-  components: { BaseInput },
+	components: { BaseInput },
 	// 接收資料
-  props: {
-    nowStep: Number,
-    form: {
-      type: Object,
-      required: true
-    }
-  },
+	props: {
+		nowStep: Number,
+		formData: {
+			type: Object,
+			required: true
+		}
+	},
 	// 本地資料庫
-  data() {
-    return {
-      // localForm: { ...this.form },  // 複製 prop 避免直接改
-      localForm: { 
-				username: this.form.username,
-				password: this.form.password,
-				repassword: this.form.repassword
+	data() {
+		return {
+			localForm: {
+				username: this.formData.username,
+				password: this.formData.password,
+				repassword: this.formData.repassword
 			},  // 複製 prop 避免直接改
-      formErrors: {
-        username: '',
-        password: '',
-        repassword: ''
-      }
-    };
-  },
+			formErrors: {
+				username: '',
+				password: '',
+				repassword: ''
+			}
+		};
+	},
+	// 監測
 	watch: {
-		localForm: {
+		localForm: {    // localForm 物件數值變動
 			handler(newVal) {
 				console.log('localForm 變更了：', newVal);
-				this.$emit('update:form', { ...newVal }); // 同步給父元件
+				this.$emit('updateForm', newVal); // 只 emit 自己的欄位
 			},
 			deep: true // <- 必須加這個
 		}
 	},
-  methods: {
+	methods: {
 		// 驗證帳號
 		validateUsername() {
 			this.formErrors.username = this.localForm.username ? '' : '帳號不得為空';
@@ -142,10 +118,11 @@
 		// 驗證全部回傳父元件
 		validateForm() {
 			// 全部欄位驗證整合
-			const v1 = this.validateUsername();
-			const v2 = this.validatePassword();
-			const v3 = this.validateRepassword();
-			return v1 && v2 && v3;
+			const ispass_1 = this.validateUsername();
+			const ispass_2 = this.validatePassword();
+			const ispass_3 = this.validateRepassword();
+
+			return ispass_1 && ispass_2 && ispass_3;
 		}
 	}
 };
