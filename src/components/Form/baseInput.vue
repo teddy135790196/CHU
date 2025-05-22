@@ -74,7 +74,7 @@ export default {
 
 	/* 針對 date 類型的 input */
 	input[type="date"] {
-		padding: 1px 0;
+		padding: 1px 6px;
 	}
 
 	/* 引用區塊樣式 */

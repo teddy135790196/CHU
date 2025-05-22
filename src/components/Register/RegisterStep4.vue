@@ -1,36 +1,56 @@
 <template>
   <!-- Step 4 -->
   <div id="step4" :class="['step', nowStep === 4 ? 'active-step' : '']">
-    <h4>【肆．確認您的資料並驗證】</h4>
+    <h4>{{ message.stepTitle }}</h4>
 
     <h5>{{ form.nickname }} 您好</h5>
     <div class="underline"></div>
 
     <div class="form">
       <div class="col">
-        <span class="name">性別：</span>
+        <span class="name">{{ message.labelText.gender }}：</span>
         <span class="data">{{ genderText }}</span>
       </div>
       <div class="col">
-        <span class="name">生日：</span>
+        <span class="name">{{ message.labelText.birth }}：</span>
       <span class="data">{{ form.birth }}</span>
       </div>
       <div class="col">
-        <span class="name">電子郵件：</span>
+        <span class="name">{{ message.labelText.email }}：</span>
         <span class="data">{{ form.email }}</span>
       </div>
       <div class="col">
-        <span class="name">電話：</span>
+        <span class="name">{{ message.labelText.phone }}：</span>
         <span class="data">{{ form.phone }}</span>
       </div>
     </div>
     
+
+    <div class="col">
+      <!-- <span class="name">驗證碼：</span> -->
+      <div class="captcha" style="">
+        <!-- <input type="text" v-model="captchaInput" placeholder="請輸入驗證碼" style="width: 120px; margin-right: 10px;"> -->
+        <BaseInput 
+        id="captcha" 
+        type="text" 
+        label="驗證碼" 
+        placeholder="請輸入驗證碼" 
+        quote="message.quote.repassword"
+        error-message="" 
+        v-model="captchaInput" />
+        <img :src="captchaImage" style="" alt="captcha">
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import BaseInput from '@/components/Form/BaseInput.vue';
+
 export default {
   name: "RegisterStep4",
+  // 引入子元件
+	components: { BaseInput },
   props: {
     nowStep: Number,
     form: {
@@ -48,6 +68,20 @@ export default {
         email: this.form.email,
         phone: this.form.phone,
       },  // 複製 prop 避免直接改
+
+      // 修改顯示訊息區
+      message: {
+
+        stepTitle: '【肆．確認您的資料並驗證】',
+
+        labelText: {
+          gender: '性別',
+          birth: '生日',
+          email: '電子郵件',
+          phone: '電話',
+        },
+
+      },
     };
   },
   computed: {
@@ -75,7 +109,8 @@ export default {
 
   /* 暱稱 */
   h5 {
-    font-size: 22px;
+    font-size: 36px;
+    font-family: "王翰宗粗鋼體";
     color: var(--main-color);
     text-align: center;
     margin-bottom: 0;
@@ -93,21 +128,54 @@ export default {
     padding: 0 24px;
 
     .col{
+      display: flex;
+      align-items: center;
       margin-bottom: 10px;
     }
 
     /* 文字 */
     .name {
       display: inline-block;
-      font-weight: bold;
+      font-size: 20px;
+      font-family: "王翰宗中仿宋";
       color: var(--main-color);
-      width: 80px;
+      width: 100px;
     }
 
     /* 資料 */
     .data {
       margin-left: 5px;
-      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    
+  }
+
+  .captcha{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 30px;
+    padding: 0 24px;
+    gap: 30px;
+
+    .inp_modle{
+
+      input {
+        flex: 1; 
+        padding: 8px;
+        
+        font-size: 16px;
+      }
+    }
+    
+
+    img {
+      height: 60px; 
+      width: 100%;
+      cursor: pointer; 
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
   }
   
@@ -118,7 +186,7 @@ export default {
 
     /* 暱稱 */
     h5 {
-      font-size: 20px;
+      font-size: 32px;
     }
 
     /* 底線 */
@@ -129,16 +197,28 @@ export default {
     .form{
       padding: 0 10px;
 
-      .col{
+      .col {
+        flex-direction: column; /* 改為上下排列 */
+        align-items: flex-start; /* 讓文字靠左 */
       }
 
       /* 文字 */
       .name {
+        display: block;
+        border-bottom: 1px solid var(--main-color);
       }
 
       /* 資料 */
       .data {
+        width: 100%; /* 滿寬，避免折行 */
+        margin-bottom: 4px; /* 加點間距 */
+        margin-left: 2.4em; /* 或 padding-left: 1em; */
       }
+    }
+
+    .captcha{
+      margin: 20px 0 !important;
+      padding: 0 10px;
     }
     
   }

@@ -1,54 +1,70 @@
 <template>
 	<!-- Step 2 -->
 	<div id="step2" :class="['step', nowStep === 2 ? 'active-step' : '']">
-		<h4>【貳．設定您的個人資料】</h4>
+		<h4>{{ message.stepTitle }}</h4>
 		<!-- 暱稱：{{ localForm.nickname }}<br>	
 		性別：{{ genderText }}<br>	
 		生日：{{ localForm.birth }}<br>	 -->
 		<BaseInput 
 		id="nickname" 
-		label="暱稱" 
 		type="text" 
-		placeholder="請輸入您的暱稱" 
-		quote="請輸入您的暱稱"
-		v-model="localForm.nickname" 
+		:label="message.inputLabel.nickname" 
+		:placeholder="message.inputplahold.nickname" 
+		:quote="message.quote.nickname"
 		:error-message="formErrors.nickname"
-		@blur="validateNickname" />
+		@blur="validateNickname"
+		v-model="localForm.nickname"  />
 
 		<!-- 性別核取區塊 -->
 		<div class="inp_modle">
-			<p>性別</p>
+			<p>{{ message.inputLabel.nickname }}</p>
 			<div class="soild"></div>
-			<div class="gender">
+			<div class="gender" @blur="validateGender">
 				<!-- 男性 -->
 				<div class="gender-check">
-					<input type="radio" name="gender" id="male" value="male" v-model="localForm.gender" />
+					<input 
+					type="radio" 
+					name="gender" 
+					id="male" 
+					value="male" 
+					v-model="localForm.gender" />
 					<label for="male">&nbsp;{{genderMap.male}}</label>
 				</div>
 				<!-- 女性 -->
 				<div class="gender-check">
-					<input type="radio" name="gender" id="female" value="female" v-model="localForm.gender" />
+					<input 
+					type="radio" 
+					name="gender" 
+					id="female" 
+					value="female" 
+					v-model="localForm.gender" />
 					<label for="female">&nbsp;{{genderMap.female}}</label>
 				</div>
 				<!-- 隱藏 -->
 				<div class="gender-check">
-					<input type="radio" name="gender" id="hidden" value="hidden" v-model="localForm.gender" />
+					<input 
+					type="radio" 
+					name="gender" 
+					id="hidden" 
+					value="hidden" 
+					v-model="localForm.gender" />
 					<label for="hidden">&nbsp;{{genderMap.hidden}}</label>
 				</div>
 			</div>
-			<span class="quote">請選擇您的性別</span>
+			<span :class="['quote', formErrors.gender ? 'error' : '']">
+				{{ formErrors.gender || message.quote.gender }}
+			</span>
 		</div>
 
 		<!-- 生日 -->
 		<BaseInput 
 			id="birth" 
-			label="生日" 
 			type="date" 
-			placeholder="請選擇您的生日" 
-			quote="請選擇您的出生年月"
-			v-model="localForm.birth" 
+			:label="message.inputLabel.birth" 
+			:quote="message.quote.birth"
 			:error-message="formErrors.birth"
-			@blur="validateBirth" />
+			@blur="validateBirth"
+			v-model="localForm.birth"  />
 	</div>
 </template>
 
@@ -73,21 +89,59 @@ export default {
 	// 本地資料庫
 	data() {
 		return {
+			// 引入資料
 			localForm: {
 				nickname: this.formData.nickname,
 				gender: this.formData.gender,
 				birth: this.formData.birth,
 			},
+			// 錯誤訊息
 			formErrors: {
 				nickname: '',
 				gender: '',
 				birth: ''
 			},
+			// 性別選項對應文字
 			genderMap: {
-        male: '男性',
-        female: '女性',
-        hidden: '隱藏'
-      },
+				male: '男性',
+				female: '女性',
+				hidden: '隱藏'
+			},
+
+			// 修改顯示訊息區
+			message: {
+				stepTitle: '【貳．設定您的個人資料】',
+
+				// input => label
+				inputLabel: {
+					nickname: '暱稱',
+					gender: '性別',
+					birth: '生日',
+				},
+
+				// input => placeholder
+				inputplahold: {
+					nickname: '範例：棲遲',
+					// gender: '範例：A123456789',
+					// birth: '範例：A123456789',
+				},
+
+				
+				quote: {
+					// 預設提示文字
+					// 驗證：無輸入
+					nickname: '請輸入您的暱稱',
+					gender: '請選擇您的性別',
+					birth: '請選擇您的生日',
+					// 驗證：格式錯誤
+					errformat: {
+						// nickname: '暫留',
+						// gender: '暫留',
+						birth: '格式不符：生日不能是未來的日期',
+					},
+				},
+				
+			},
 		};
 	},
 	// 計算
@@ -98,7 +152,7 @@ export default {
 		}
 	},
 	// 監測
-  watch: {
+	watch: {
 		localForm: {    // localForm 物件數值變動
 			handler(newVal) {
 				console.log('localForm 變更了：', newVal);
@@ -111,9 +165,11 @@ export default {
 		// 驗證暱稱
 		validateNickname() {
 			if (this.localForm.nickname.trim() === '') {
-				this.formErrors.nickname = '請輸入暱稱';
+				// 驗證：無輸入
+				this.formErrors.nickname = this.message.quote.nickname;
 				return false;
 			} else {
+				// 驗證：通過！
 				this.formErrors.nickname = '';
 				return true;
 			}
@@ -121,7 +177,15 @@ export default {
 
 		// 驗證性別
 		validateGender() {
-			return true;
+			if (!this.localForm.gender) {
+				// 驗證：無輸入
+				this.formErrors.gender = this.message.quote.gender;
+				return false;
+			} else {
+				// 驗證：通過！
+				this.formErrors.gender = '';
+				return true;
+			}
 		},
 
 		// 驗證生日
@@ -129,12 +193,15 @@ export default {
 			const today = new Date().toISOString().split('T')[0]; // 取得今天的日期（格式：YYYY-MM-DD）
 
 			if (!this.localForm.birth) {
-				this.formErrors.birth = '請選擇生日';
+				// 驗證：無輸入
+				this.formErrors.birth = this.message.quote.birth;
 				return false;
 			} else if (this.localForm.birth > today) {
-				this.formErrors.birth = '生日不能是未來的日期';
+				// 驗證：格式錯誤
+				this.formErrors.birth = this.message.quote.errformat.birth;
 				return false;
 			} else {
+				// 驗證：通過！
 				this.formErrors.birth = '';
 				return true;
 			}
@@ -161,7 +228,7 @@ export default {
 	.gender {
 		display: flex;
 		flex-direction: row;
-		/* 對齊 - 調整核取少了2px */
+		/* 對齊 - 調整核取整體 */
 		margin-top: 2px;
 		margin-bottom: -2px;
 		margin-right: 20px;
@@ -177,12 +244,20 @@ export default {
 			}
 
 			label {
+				/* 對齊 - 調整核取文字 */
+				margin-top: 4px;
+				margin-bottom: -4px;
 				white-space: nowrap;
 				/* 防止意外換行 */
 			}
 		}
 
 
+	}
+
+	.quote.error {
+		color: var(--error);
+		/* font-weight: bold; */
 	}
 
 	

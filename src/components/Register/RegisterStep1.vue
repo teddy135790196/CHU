@@ -1,7 +1,7 @@
 <template>
 	<!-- Step 1 -->
 	<div :class="['step', { 'active-step': nowStep === 1 }]">
-		<h4>【壹．設定您的帳號與密碼】</h4>
+		<h4>{{message.stepTitle}}</h4>
 
 		<!-- <p>目前步驟：{{ nowStep }}</p>
 		<p>目前步驟：{{ localForm.username }}</p>
@@ -22,14 +22,14 @@
       </span>
     </div> -->
 
-		<BaseInput id="username" label="帳號" type="text" placeholder="請輸入您的帳號或電子郵箱" quote="請輸入您的帳號"
-			v-model="localForm.username" :errorMessage="formErrors.username" @blur="validateUsername" />
+		<BaseInput id="username" type="text" :label="message.inputLabel.username" :placeholder="message.inputplahold.username" :quote="message.quote.username"
+			:errorMessage="formErrors.username" @blur="validateUsername" v-model="localForm.username" />
 
-		<BaseInput id="password" label="密碼" type="password" placeholder="請輸入您的密碼" quote="請輸入8位以上英數混合密碼"
-			v-model="localForm.password" :error-message="formErrors.password" @blur="validatePassword" />
+		<BaseInput id="password" type="password" :label="message.inputLabel.password" :placeholder="message.inputplahold.password" :quote="message.quote.password"
+		:error-message="formErrors.password" @blur="validatePassword" v-model="localForm.password" />
 
-		<BaseInput id="repassword" label="確認密碼" type="password" placeholder="請再次輸入您的密碼" quote="請輸入8位以上英數混合密碼"
-			v-model="localForm.repassword" :error-message="formErrors.repassword" @blur="validateRepassword" />
+		<BaseInput id="repassword" type="password" :label="message.inputLabel.repassword" :placeholder="message.inputplahold.repassword" :quote="message.quote.repassword"
+			:error-message="formErrors.repassword" @blur="validateRepassword" v-model="localForm.repassword" />
 	</div>
 </template>
 
@@ -62,7 +62,53 @@ export default {
 				username: '',
 				password: '',
 				repassword: ''
-			}
+			},
+			message: {
+				stepTitle: '【壹．設定您的帳號與密碼】',
+
+				// input => label
+				inputLabel: {
+					username: '帳號',
+					password: '密碼',
+					repassword: '確認密碼',
+				},
+
+				// input => placeholder
+				inputplahold: {
+					username: '範例：myemail@gmail.com',
+					password: '範例：A123456789',
+					repassword: '範例：A123456789',
+				},
+
+				quote: {
+					// 預設提示文字
+					username: '請輸入您的帳號',
+					password: '請輸入8位以上英數混合密碼',
+					repassword: '請輸入8位以上英數混合密碼',
+					// 驗證：無輸入
+					uninput: {
+						username: '格式不符：帳號不得為空',
+						password: '格式不符：密碼不得為空',
+						repassword: '格式不符：確認密碼不得為空',
+					},
+					// 驗證：格式錯誤(長度)
+					errformatlen: {
+						// username: '暫留',
+						password: '格式不符：密碼需至少 8 碼',
+						repassword: '格式不符：確認密碼需至少 8 碼',
+					},
+					// 驗證：格式錯誤(英數)
+					errformat: {
+						// username: '暫留',
+						password: '格式不符：密碼需含英文字母與數字',
+						repassword: '格式不符：確認密碼需含英文字母與數字',
+					},
+					// 密碼不一致
+					notmatch: '輸入錯誤：與設定密碼不一致',
+				},
+				
+				
+			},
 		};
 	},
 	// 監測
@@ -78,41 +124,66 @@ export default {
 	methods: {
 		// 驗證帳號
 		validateUsername() {
-			this.formErrors.username = this.localForm.username ? '' : '帳號不得為空';
-			return !this.formErrors.username;
+			if (!this.localForm.username || this.localForm.username.trim() === '') {
+				this.formErrors.username = this.message.quote.uninput.username;
+				return false;
+			} else {
+				this.formErrors.username = '';
+				return true;
+			}
 		},
+
 		// 驗證密碼
 		validatePassword() {
 			const password = this.localForm.password;
-			console.log('目前密碼:', password, '長度:', password?.length);
+			const rule = (/[A-Za-z]/.test(password) && /\d/.test(password));
 
-			if (!password) {
-				this.formErrors.password = '密碼不得為空';
+			if (!password || password.trim() === '') {
+				// 驗證：無輸入
+				this.formErrors.password = this.message.quote.uninput.password;
+				return false;
 			} else if (password.length < 8) {
-				this.formErrors.password = '密碼需至少 8 碼';
-			} else if (!(/[A-Za-z]/.test(password) && /\d/.test(password))) {
-				this.formErrors.password = '密碼需含英文字母與數字';
+				// 驗證：格式錯誤(長度)
+				this.formErrors.password = this.message.quote.errformatlen.password;
+				return false;
+			} else if (!rule) {
+				// 驗證：格式錯誤(英數)
+				this.formErrors.password = this.message.quote.errformat.password;
+				return false;
 			} else {
+				// 驗證：通過！
 				this.formErrors.password = '';
+				return true;
 			}
-
-			console.log('錯誤訊息:', this.formErrors.password);
-			return !this.formErrors.password;
 		},
+
 		// 驗證重複密碼
 		validateRepassword() {
-			const repassword = this.localForm.repassword;
 			const password = this.localForm.password;
-			if (repassword.length < 8) {
-				this.formErrors.repassword = '確認密碼需至少 8 碼';
-			} else if (!(/[A-Za-z]/.test(repassword) && /\d/.test(repassword))) {
-				this.formErrors.repassword = '確認密碼需含英文字母與數字';
+			const repassword = this.localForm.repassword;
+			const rule = (/[A-Za-z]/.test(repassword) && /\d/.test(repassword));
+
+			if (!repassword || repassword.trim() === '') {
+				// 驗證：無輸入
+				this.formErrors.repassword = this.message.quote.uninput.repassword;
+				return false;
+			} else if (repassword.length < 8) {
+				// 驗證：格式錯誤(長度)
+				this.formErrors.repassword = this.message.quote.errformatlen.repassword;
+				return false;
+			} else if (!rule) {
+				// 驗證：格式錯誤(英數)
+				this.formErrors.repassword = this.message.quote.errformat.repassword;
+				return false;
 			} else if (repassword !== password) {
-				this.formErrors.repassword = '密碼不一致';
+				// 驗證：密碼不一致
+				this.formErrors.repassword = this.message.quote.notmatch;
+				return false;
 			} else {
+				// 驗證：通過！
 				this.formErrors.repassword = '';
+				return true;
 			}
-			return !this.formErrors.repassword;
 		},
 
 		// 驗證全部回傳父元件

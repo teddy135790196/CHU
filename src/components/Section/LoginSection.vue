@@ -1,6 +1,6 @@
 <template>
   <div
-    class="col box-md-6 bg-secondary d-flex align-items-center justify-content-center"
+    class="col box-md-6 d-flex align-items-center justify-content-center"
   >
     <div class="content content-right d-flex flex-column">
       <div class="login-box d-flex">

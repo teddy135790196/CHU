@@ -25,10 +25,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css");
-
-.wrap {
-  height: 100vh;
-}
+@import '@/assets/styles/pages/login.css';
 </style>
