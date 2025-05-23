@@ -1,0 +1,221 @@
+.wrap-register {
+	background-image: url('../../images/test_back.png');
+	/* 設定背景圖片 */
+	background-position: center;
+	/* 背景位置 */
+	background-repeat: no-repeat;
+	/* 不重複背景圖片 */
+	background-size: cover;
+	/* 背景圖片覆蓋整個區域 */
+	background-attachment: fixed;
+	/* 使背景固定 */
+	height: 100vh;
+	/* 設定高度，確保背景顯示完整 */
+	margin: 0;
+	/* 移除默認邊距 */
+}
+
+/* 基本樣式：左右各50%寬，高度佔滿 */
+.box-md-6 {
+	width: 50%;
+	height: 100vh;
+}
+
+/* 圓角內容區塊 */
+.content-login {
+	background-color: var(--back-color-whiteTransluc);
+	border-radius: 10px !important;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+	width: 36%;
+	min-width: 480px;
+	min-height: 660px;
+
+	text-align: center;
+}
+
+/* 圓角區塊設定 */
+.content-left,
+.content-right {
+	padding: 30px 40px 40px 40px !important;
+
+	/* 所有內容 */
+	* {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+/* 【左側歡迎區域 */
+.content-left {
+	/* 已全部移至對應元件中 */
+}
+
+/* 左側歡迎區域 】*/
+
+
+
+/* 【右側登入區域 */
+.content-right {
+
+	/* 標準輸入區 */
+	.inp_modle {
+		p {
+			font-size: 32px;
+		}
+
+		.soild {
+			height: 3px;
+		}
+
+		input {
+			height: 32px;
+			font-size: 18px;
+		}
+	}
+
+	/* 登入按鈕 */
+	.button {
+		display: block;
+		padding: 5px;
+		border: 0;
+		border-radius: 4px;
+		background-color: var(--main-color);
+
+		font-family: '王翰宗粗鋼體';
+		font-size: 20px;
+		color: var(--main-text-color);
+		text-align: center;
+		text-decoration: none;
+	}
+
+	/* 超大或 */
+	.or {
+		font-family: '王翰宗中行書';
+		font-size: 72px;
+		margin: 0;
+	}
+
+	/* 忘記密碼與登入會員 */
+	.other {
+		flex-direction: row;
+		justify-content: center;
+		gap: 10px;
+
+		a{
+			font-size: 18px;
+			
+			color: var(--second-color);
+			text-decoration: none;
+			
+
+			&:hover{
+				font-weight: bold;
+				
+				text-decoration: underline solid;
+				/* 粗底線 */
+				text-decoration-thickness: 2.2px;
+				/* 與文字的距離 */
+				text-underline-offset: 4px; 
+			}
+		}
+	}
+}
+
+/* 右側登入區域】 */
+
+
+
+
+
+
+
+
+
+
+/* sm：小螢幕裝置（例如手機） */
+@media (max-width: 540px) {
+	.box-md-6 {
+		min-width: 100%;
+		padding: 0 !important;
+
+		height: 540px !important;
+	}
+
+	.content-login {
+		border-radius: 0;
+		background-color: transparent;
+		border-radius: 0px;
+		box-shadow: none;
+
+		min-width: 100%;
+		min-height: 540px;
+	}
+
+	.content-left {
+
+		h1 {
+			font-size: 60px !important;
+		}
+
+		.welcome {
+
+			/* 主題 */
+			h2 {
+				font-size: 33px !important;
+			}
+
+			/* 內容 */
+			span {
+				width: 90% !important;
+				font-size: 20px !important;
+			}
+		}
+
+		/* 名言引用 */
+		.quotations {
+
+			/* 引用區塊樣式 */
+			.quote {
+				font-size: 14px !important;
+			}
+
+			/* 作者 */
+			.author {
+				font-size: 13px !important;
+			}
+		}
+
+	}
+
+	/* 【右側登入區域 */
+	.content-right {
+
+		/* 標準輸入區 */
+		.inp_modle {
+
+			p {
+				font-size: 30px !important;
+			}
+
+			input {
+				height: 28px !important;
+				font-size: 16px !important;
+			}
+		}
+
+		/* 登入按鈕 */
+		button {
+			padding: 4px 0 !important;
+			height: 32px !important;
+		}
+
+		/* 超大或 */
+		/* .or {
+			font-size: 72px;
+		} */
+
+		/* 忘記密碼與登入會員 */
+		.other {}
+	}
+}

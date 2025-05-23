@@ -1,0 +1,32 @@
+🧩 這裡有一些常見的 offset 用法，讓你能更好地應用：
+
+
+
+居中一個元素（如標題或表單）：
+
+<div class="row">
+  <div class="col-12 col-md-6 offset-md-3">
+    <!-- 中央對齊的內容 -->
+  </div>
+</div>
+
+
+
+製作右邊有空白的布局：
+
+<div class="row">
+  <div class="col-8 offset-4">
+    <!-- 內容顯示在右邊，左邊會有空白 -->
+  </div>
+</div>
+
+
+
+自適應偏移量（響應式）：
+
+<div class="row">
+  <div class="col-12 col-sm-6 col-md-4 offset-md-4">
+    <!-- 在小螢幕上佔滿整列，中等螢幕上 6 格，桌面上會居中 -->
+  </div>
+</div>
+🧑‍💻

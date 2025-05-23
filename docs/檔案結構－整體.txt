@@ -1,0 +1,23 @@
+CHU
+├── backend  
+│
+├── docs/
+│   ├── npm run serve.txt
+│   ├── 待更新.txt
+│   └── 檔案結構.txt
+│
+├── frontend
+│   ├── node_modules
+│   │   └── 前端插件/
+│   │
+│   ├── src
+│   │   └── 詳情在檔案結構－前端/
+│   │
+│   ├── .gitignore
+│   ├── babel.config.js
+│   ├── jsconfig.json
+│   ├── package.json
+│   ├── package-lock.json
+│   └── vue.config.js
+│   
+└── README.md

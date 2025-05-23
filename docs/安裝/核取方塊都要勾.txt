@@ -1,0 +1,13 @@
+1. node.js裝好後重開cmd
+
+
+2. 安裝VUE環境
+npm install -g @vue/cli
+
+
+3. 確認是否安裝成功
+node -v
+npm -v
+
+
+4. 如果前後端資料夾中沒有node_modules則解壓縮獲得檔案
