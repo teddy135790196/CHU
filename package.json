@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@vee-validate/i18n": "^4.15.0",
+    "axios": "^1.9.0",
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
     "core-js": "^3.8.3",
