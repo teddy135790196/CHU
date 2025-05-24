@@ -5,6 +5,7 @@ import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 import ShopCheckoutInfo from "@/views/ShopCheckoutInfo.vue";
 import ShopCheckoutSuccess from "@/views/ShopCheckoutSuccess.vue";
+import OrderQuery from "@/views/OrderQuery.vue";
 
 Vue.use(Router);
 
@@ -17,13 +18,14 @@ const router = new Router({
     { path: "/register", component: Register },
     { path: "/checkout-info", component: ShopCheckoutInfo },
     { path: "/checkout-success", component: ShopCheckoutSuccess },
+    { path: "/order-query", component: OrderQuery },
   ],
 });
 
 // 路由守衛
 router.beforeEach((to, from, next) => {
   const isLogin = localStorage.getItem("isLogin");
-  if (to.path === "/cart" && !isLogin) {
+  if (to.path !== "/cart" && to.path !== "/order-query" && !isLogin) {
     next("/login");
   } else {
     next();
