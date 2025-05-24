@@ -11,6 +11,7 @@ npm install
 4. 新增查詢訂單頁面
 5. 更新購物車與訂單邏輯，使訂單正常化
 
+使用方式. 
 1. Carate new project
 2. Download all files to your project folders
 3. Run under your folder : npm run serve
