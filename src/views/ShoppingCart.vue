@@ -27,7 +27,7 @@
                     <span class="quantity">{{ item.count }}</span>
                     <button class="btn btn-sm btn-outline-secondary quantity-btn" @click="updateQuantity(item.id, 1)">+</button>
                     <button class="btn btn-sm btn-danger remove-btn" @click="removeItem(item.id)">
-                      <i class="bi bi-trash"></i>
+                      <i class="bi bi-trash me-1"></i>刪除
                     </button>
                   </div>
                 </div>

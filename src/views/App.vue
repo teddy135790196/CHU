@@ -33,7 +33,7 @@
             </li>
             <li class="nav-item">
               <router-link class="nav-link" to="/checkout/ORDER123">
-                <i class="bi bi-check-circle me-1"></i>訂單成功
+                <i class="bi bi-check-circle me-1"></i>訂單確認
               </router-link>
             </li>
           </ul>

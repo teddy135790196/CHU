@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div class="container py-5">
     <div class="row justify-content-center">
@@ -8,100 +9,108 @@
             <p class="text-muted">請填寫以下資訊以完成訂單</p>
           </div>
           <form @submit.prevent="addOrder" class="checkout-form">
+            <!-- 訂購人資料 -->
             <div class="form-section mb-4">
-              <h4 class="section-title mb-3">基本資料</h4>
+              <h4 class="section-title mb-3">訂購人資料</h4>
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <label for="name" class="form-label">訂購人姓名</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    v-model="form.user.name"
-                    required
-                    placeholder="請輸入姓名"
-                  >
+                  <label for="name" class="form-label">姓名</label>
+                  <input type="text" class="form-control" id="name" v-model="form.user.name" required placeholder="請輸入姓名">
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="email" class="form-label">訂購人信箱</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    v-model="form.user.email"
-                    required
-                    placeholder="請輸入信箱"
-                  >
+                  <label for="tel" class="form-label">電話</label>
+                  <input type="text" class="form-control" id="tel" v-model="form.user.tel" required placeholder="請輸入電話">
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="tel" class="form-label">訂購人電話</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="tel"
-                    v-model="form.user.tel"
-                    required
-                    placeholder="請輸入電話"
-                  >
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="address" class="form-label">訂購人地址</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="address"
-                    v-model="form.user.address"
-                    required
-                    placeholder="請輸入地址"
-                  >
-                </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email" v-model="form.user.email" required placeholder="請輸入信箱">
+              </div>
+              <div class="mb-3">
+                <label for="address" class="form-label">地址</label>
+                <input type="text" class="form-control" id="address" v-model="form.user.address" required placeholder="請輸入地址">
               </div>
             </div>
 
+            <!-- 付款方式 -->
             <div class="form-section mb-4">
-              <h4 class="section-title mb-3">訂單資訊</h4>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="shipping" class="form-label">取貨方式</label>
-                  <select
-                    class="form-select"
-                    id="shipping"
-                    v-model="form.shipping"
-                    required
-                  >
-                    <option value="">請選擇取貨方式</option>
-                    <option value="自取">自取</option>
-                    <option value="外送">外送</option>
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="pay" class="form-label">付款方式</label>
-                  <select
-                    class="form-select"
-                    id="pay"
-                    v-model="form.pay"
-                    required
-                  >
-                    <option value="">請選擇付款方式</option>
-                    <option value="信用卡">信用卡</option>
-                    <option value="現金">現金</option>
-                  </select>
-                </div>
+              <h4 class="section-title mb-3">付款方式</h4>
+              <div class="mb-3">
+                <select class="form-select" id="pay" v-model="form.pay" required>
+                  <option value="">請選擇付款方式</option>
+                  <option value="信用卡">信用卡</option>
+                  <option value="現金">現金</option>
+                </select>
               </div>
             </div>
 
+            <!-- 運送資訊 -->
             <div class="form-section mb-4">
-              <h4 class="section-title mb-3">備註</h4>
-              <textarea
-                class="form-control"
-                id="message"
-                v-model="form.message"
-                rows="3"
-                placeholder="如有特殊需求請在此備註"
-              ></textarea>
+              <h4 class="section-title mb-3">運送資訊</h4>
+              <div class="mb-3">
+                <label for="delivery_id" class="form-label">運送編號</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="delivery_id"
+                  v-model="form.delivery.delivery_id"
+                  required
+                  placeholder="請輸入運送編號"
+                >
+              </div>
+              <div class="mb-3">
+                <label for="delivery_method" class="form-label">運送方式</label>
+                <select
+                  class="form-select"
+                  id="delivery_method"
+                  v-model="form.delivery.delivery_method"
+                  required
+                >
+                  <option value="">請選擇運送方式</option>
+                  <option value="陸運">陸運</option>
+                  <option value="海運">海運</option>
+                  <option value="空運">空運</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="carrier" class="form-label">貨運公司</label>
+                <select
+                  class="form-select"
+                  id="carrier"
+                  v-model="form.delivery.carrier"
+                  required
+                >
+                  <option value="">請選擇貨運公司</option>
+                  <option value="大發">大發</option>
+                  <option value="六崧">六崧</option>
+                </select>
+              </div>
+               <div class="mb-3">
+                <label for="estimated_weight" class="form-label">重量</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="estimated_weight"
+                  v-model.number="form.delivery.estimated_weight"
+                  required
+                  placeholder="請輸入重量"
+                >
+              </div>
+               <div class="mb-3">
+                <label for="shipping_fee" class="form-label">運費</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="shipping_fee"
+                  v-model.number="form.delivery.shipping_fee"
+                  required
+                  placeholder="運費將根據運送方式"
+                  readonly
+                >
+              </div>
             </div>
+
+        
 
             <div class="d-flex justify-content-between align-items-center mt-5">
               <button type="button" class="btn btn-outline-primary" @click="$router.push('/cart')">
@@ -120,11 +129,15 @@
 </template>
 
 <script>
+import { draftOrderService } from '@/services/draftOrderService';
+
 export default {
   name: 'ShopCheckoutInfo',
   data() {
     return {
       isLoading: false,
+      draftId: null,
+      autoSaveTimer: null,
       form: {
         user: {
           name: '',
@@ -133,9 +146,15 @@ export default {
           address: ''
         },
         message: '',
-        shipping: '',
         pay: '',
-        items: []
+        items: [],
+        delivery: {
+          delivery_id: '',
+          delivery_method: '',
+          carrier: '',
+          estimated_weight: null,
+          shipping_fee: null
+        }
       }
     }
   },
@@ -145,9 +164,93 @@ export default {
     if (cartItems) {
       this.form.items = JSON.parse(cartItems);
     }
+
+    // 檢查是否有暫存的訂單
+    this.checkDraftOrder();
+  },
+  mounted() {
+    // 設置自動保存
+    this.setupAutoSave();
+  },
+  beforeDestroy() {
+    // 清除自動保存計時器
+    if (this.autoSaveTimer) {
+      clearInterval(this.autoSaveTimer);
+    }
   },
   methods: {
-    addOrder() {
+    calculateShippingFee() {
+      switch (this.form.delivery.delivery_method) {
+        case '陸運':
+          this.form.delivery.shipping_fee = 60;
+          break;
+        case '海運':
+          this.form.delivery.shipping_fee = 120;
+          break;
+        case '空運':
+          this.form.delivery.shipping_fee = 300;
+          break;
+        default:
+          this.form.delivery.shipping_fee = null;
+      }
+    },
+    setupAutoSave() {
+      // 每5分鐘自動保存一次
+      this.autoSaveTimer = setInterval(() => {
+        this.saveDraft();
+      }, 5 * 60 * 1000);
+    },
+
+    async checkDraftOrder() {
+      try {
+        // 從 URL 參數中獲取草稿 ID
+        const draftId = this.$route.query.draftId;
+        if (draftId) {
+          const response = await draftOrderService.getDraft(draftId);
+          const draftData = response.data;
+          
+          // 恢復草稿資料
+          this.draftId = draftId;
+          this.form = {
+            ...this.form,
+            ...draftData.form_data
+          };
+        }
+      } catch (error) {
+        console.error('獲取草稿訂單失敗：', error);
+      }
+    },
+
+    async saveDraft() {
+      if (this.form.items.length === 0) return;
+
+      try {
+        const draftData = {
+          cart_data: this.form.items,
+          form_data: {
+            user: this.form.user,
+            message: this.form.message,
+            pay: this.form.pay,
+            delivery: this.form.delivery
+          },
+          status: 'draft',
+          last_updated: new Date().toISOString()
+        };
+
+        if (this.draftId) {
+          // 更新現有草稿
+          await draftOrderService.updateDraft(this.draftId, draftData);
+        } else {
+          // 創建新草稿
+          const response = await draftOrderService.saveDraft(draftData);
+          this.draftId = response.data.draftId;
+        }
+      } catch (error) {
+        console.error('保存草稿失敗：', error);
+      }
+    },
+
+    async addOrder() {
       if (this.form.items.length === 0) {
         alert('購物車是空的！');
         return;
@@ -155,7 +258,7 @@ export default {
 
       // 基本驗證
       if (!this.form.user.name || !this.form.user.email || !this.form.user.tel || 
-          !this.form.user.address || !this.form.shipping || !this.form.pay) {
+          !this.form.user.address || !this.form.delivery.delivery_method || !this.form.delivery.carrier || !this.form.delivery.estimated_weight || !this.form.pay) {
         alert('請填寫所有必填欄位！');
         return;
       }
@@ -168,32 +271,87 @@ export default {
       }
 
       this.isLoading = true;
-      console.log('開始提交訂單...');
       
-      // 模擬訂單提交成功
-      setTimeout(() => {
-        try {
-          const orderId = 'ORDER' + Date.now();
-          console.log('訂單提交成功，訂單號：', orderId);
-          
-          // 清空購物車
-          localStorage.removeItem('cartItems');
-          
-          // 跳轉到成功頁面
-          this.$router.push({
-            path: '/checkout-success',
-            query: { orderId: orderId }
-          }).catch(err => {
-            console.error('路由跳轉失敗：', err);
-            alert('頁面跳轉失敗，請稍後重試');
-          });
-        } catch (error) {
-          console.error('訂單處理過程發生錯誤：', error);
-          alert('訂單處理失敗，請稍後重試');
-        } finally {
-          this.isLoading = false;
+      try {
+        // 處理購物車項目，確保每個項目都有正確的計算
+        const processedItems = this.form.items.map(item => ({
+          id: item.id,
+          name: item.itemName,
+          price: item.price,
+          quantity: item.count,
+          subtotal: item.price * item.count
+        }));
+
+        // 計算商品總額
+        const itemsTotal = processedItems.reduce((total, item) => total + item.subtotal, 0);
+
+        // 準備訂單數據
+        const orderData = {
+          user: this.form.user,
+          items: processedItems,
+          payment: this.form.pay,
+          message: this.form.message,
+          totalAmount: itemsTotal + (this.form.delivery.shipping_fee || 0),
+          status: 'pending',
+          createdAt: new Date().toISOString(),
+          delivery: this.form.delivery
+        };
+
+        // 模擬訂單提交成功 (開發階段)
+        const orderId = 'ORDER_' + Date.now(); // 生成一個模擬的訂單ID
+        console.log('模擬訂單提交成功，訂單號：', orderId);
+
+        // 將完整的訂單數據存入 sessionStorage
+        sessionStorage.setItem('latestOrderData', JSON.stringify(orderData));
+
+        // 如果有草稿，刪除它
+        if (this.draftId) {
+          await draftOrderService.deleteDraft(this.draftId);
         }
-      }, 1000);
+
+        // 清空購物車
+        localStorage.removeItem('cartItems');
+        
+        // 跳轉到成功頁面
+        this.$router.push({
+          path: '/checkout-success',
+          query: { orderId: orderId }
+        }).catch(err => {
+          console.error('路由跳轉失敗：', err);
+          alert('頁面跳轉失敗，請稍後重試');
+        });
+
+      } catch (error) {
+        console.error('訂單處理過程發生錯誤：', error);
+        alert('訂單處理失敗，請稍後重試');
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    calculateTotal() {
+      return this.form.items.reduce((total, item) => {
+        return total + (item.price * item.quantity);
+      }, 0);
+    }
+  },
+  watch: {
+    // 監聽表單變化，自動保存
+    'form': {
+      handler() {
+        // 檢查必要的欄位是否存在
+        if (this.form.user && this.form.message !== undefined && this.form.pay !== undefined && this.form.items && this.form.delivery) {
+           this.saveDraft();
+        }
+      },
+      deep: true
+    },
+    // 監聽運送方式變化，計算運費
+    'form.delivery.delivery_method': {
+      handler() {
+        this.calculateShippingFee();
+      },
+      immediate: true // 組件創建時立即執行一次
     }
   }
 }
