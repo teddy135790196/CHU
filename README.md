@@ -16,7 +16,7 @@ npm install
 3. Run under your folder : npm run serve
 4. Into localhost : http://localhost:8080/
 
-![網站預覽](preview.png)
-![網站預覽](preview.png)
-![網站預覽](preview.png)
-![網站預覽](preview.png)
+![網站預覽](shoppingcart.png)
+![網站預覽](orders.png)
+![網站預覽](delivery.png)
+![網站預覽](query.png)
