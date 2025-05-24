@@ -1,35 +1,49 @@
-import Vue from "vue";
-import Router from "vue-router";
-import ShoppingCart from "@/views/ShoppingCart.vue";
-import Login from "@/views/Login.vue";
-import Register from "@/views/Register.vue";
-import ShopCheckoutInfo from "@/views/ShopCheckoutInfo.vue";
-import ShopCheckoutSuccess from "@/views/ShopCheckoutSuccess.vue";
-import OrderQuery from "@/views/OrderQuery.vue";
+import { createRouter, createWebHistory } from 'vue-router'
+import ShopCheckoutInfo from '../views/ShopCheckoutInfo.vue'
+import ShopCheckoutSuccess from '../views/ShopCheckoutSuccess.vue'
 
-Vue.use(Router);
-
-const router = new Router({
-  mode: "history",
-  routes: [
-    { path: "/", redirect: "/cart" },
-    { path: "/cart", component: ShoppingCart },
-    { path: "/login", component: Login },
-    { path: "/register", component: Register },
-    { path: "/checkout-info", component: ShopCheckoutInfo },
-    { path: "/checkout-success", component: ShopCheckoutSuccess },
-    { path: "/order-query", component: OrderQuery },
-  ],
-});
-
-// 路由守衛
-router.beforeEach((to, from, next) => {
-  const isLogin = localStorage.getItem("isLogin");
-  if (to.path !== "/cart" && to.path !== "/order-query" && !isLogin) {
-    next("/login");
-  } else {
-    next();
+const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: () => import('../views/Home.vue')
+  },
+  {
+    path: '/products',
+    name: 'Products',
+    component: () => import('../views/Products.vue')
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('../views/ShoppingCart.vue')
+  },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: ShopCheckoutInfo
+  },
+  {
+    path: '/checkout/:orderId',
+    name: 'CheckoutSuccess',
+    component: ShopCheckoutSuccess,
+    props: true
   }
+]
+
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
+
+// 添加導航守衛來處理路由錯誤
+router.beforeEach((to, from, next) => {
+  console.log('路由跳轉：', { from: from.path, to: to.path });
+  next();
 });
 
-export default router;
+router.onError((error) => {
+  console.error('路由錯誤：', error);
+});
+
+export default router 
