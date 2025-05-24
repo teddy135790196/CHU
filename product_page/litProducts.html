@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="css/productCss.css" />
   </head>
   <body>
-    <div class="container-fluid">
-      <div class="row">
+   
+      <div class="row container-fluid">
         <div class="col-md-12">
           <!-- 搜尋 -->
           <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
@@ -88,10 +88,13 @@
           <div class="row">
             <!-- 這串是分類 -->
             <div class="col-md-2">
-              <h3>出版類型</h3>
+              
               <div id="pubBC">
-                <ul v-for="pub in pubType">
-                  <li>{{pub}}</li></ul>
+               <h3 v-on:click="showPub">出版類型</h3>
+               <ul v-for="pub in pubType" v-show="isVisible" >
+                <li>{{pub.name}}</li></ul>
+
+
               </div>
 
               <hr />
@@ -244,7 +247,7 @@
           <!--  -->
         </div>
       </div>
-    </div>
+    
     <!-- js -->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -255,11 +258,24 @@
       const pub = Vue.createApp({
         data() {
           return {
-            pubType: ["書籍", "漫畫", "雜誌", "繪本", "其他出版物"],
+            pubType: [{name:"書籍",url:"#"},
+            {name:"漫畫",url:"#"},
+            {name:"雜誌",url:"#"},
+            {name:"繪本",url:"#"},
+            {name:"其他出版物",url:"#"}],
+            isVisible:false // 預設不顯示
+
           };
-        },
-      });
-      pub.mount("#pubBc");
+        },methods:{
+          showPub(){
+            this.isVisible=!this.isVisible //=!為相反  是跟之前的顯示為相反的意思
+
+          }
+        }
+          
+        }
+      );
+      pub.mount("#pubBC");
       const bk = Vue.createApp({
         data() {
           return {
