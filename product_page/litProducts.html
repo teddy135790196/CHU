@@ -88,36 +88,31 @@
           <div class="row">
             <!-- 這串是分類 -->
             <div class="col-md-2">
-              <ul class="nav flex-column bookTag">
-                <li class="nav-item">
-                  <button id="lit">文學類</button>
-                  <ul id="litShow">
-                    <li><a class="nav-link" href="#">詩詞</a></li>
-                    <li><a class="nav-link" href="#">小說</a></li>
+              <h3>出版類型</h3>
+              <div id="pubBC">
+                <ul v-for="pub in pubType">
+                  <li>{{pub}}</li></ul>
+              </div>
+
+              <hr />
+              <h3>分類</h3>
+              <div id="bookSC">
+                <!-- 書分類大標題 -->
+                <ul class="nav flex-column bookTag" v-for="item in bookItems">
+                  <li
+                    v-bind:class="{'select':BkBigCat === item}"
+                    v-on:click="BkBigCat=item"
+                  >
+                    {{item}}
+                  </li>
+                  <!-- 書的分類細項 -->
+                  <ul v-show="BkBigCat ===item">
+                    <li v-for="bk in BkSubCat" v-show="bk.type==BkBigCat">
+                      <a v-bind:href="bk.url">{{bk.name}}</a>
+                    </li>
                   </ul>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">科學類</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">社會科學類</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">歷史與地理類</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">藝術與設計類</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">生活與休閒類</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">商業與管理類</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">宗教與哲學類</a>
-                </li>
-              </ul>
+                </ul>
+              </div>
             </div>
 
             <!-- 切版10，商品圖 -->
@@ -129,36 +124,36 @@
                     alt=""
                   />
                   <h4>若是明天<br />我們會見面</h4>
-                   <div class="authorP">
+                  <div class="authorP">
                     <p>佚名</p>
                     <h4>150</h4>
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <a href="">
-                  <img
-                    src="https://media.discordapp.net/attachments/1372605401174118532/1373498006179025026/-09.png?ex=682aa133&is=68294fb3&hm=da7ed88632ca570ce2bbba7b367e8172b0bf857692818c6e90e522545aeabf3b&=&format=webp&quality=lossless&width=644&height=813"
-                    alt=""
-                  />
-                  <h4>龍騰街市</h4> </a>
-                  
-                   <div class="authorP">
+                    <img
+                      src="https://media.discordapp.net/attachments/1372605401174118532/1373498006179025026/-09.png?ex=682aa133&is=68294fb3&hm=da7ed88632ca570ce2bbba7b367e8172b0bf857692818c6e90e522545aeabf3b&=&format=webp&quality=lossless&width=644&height=813"
+                      alt=""
+                    />
+                    <h4>龍騰街市</h4>
+                  </a>
+
+                  <div class="authorP">
                     <p>墨韻山河</p>
                     <h4>300</h4>
-                 
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <a href="product.html">
-                  <img
-                    src="https://lh3.googleusercontent.com/pw/AP1GczNW-aj9QTAIFhrpMkbhn14egJ1TZb0LRG8TCsJrySB4QZgY2rFZ2SzERDGxpmDrP0fWBw0BknpQsikrxMv0-M_kJuw1MawLICb-cBH56Ezb8Eviev3ODVMZRizn7o8ipI3_4T0dDmaBiNSRQ1AsE40a=w378-h476-s-no-gm?authuser=0"
-                    alt=""
-                  />
-                  <h4>紅樓夢</h4></a>
-                   <div class="authorP">
+                    <img
+                      src="https://lh3.googleusercontent.com/pw/AP1GczNW-aj9QTAIFhrpMkbhn14egJ1TZb0LRG8TCsJrySB4QZgY2rFZ2SzERDGxpmDrP0fWBw0BknpQsikrxMv0-M_kJuw1MawLICb-cBH56Ezb8Eviev3ODVMZRizn7o8ipI3_4T0dDmaBiNSRQ1AsE40a=w378-h476-s-no-gm?authuser=0"
+                      alt=""
+                    />
+                    <h4>紅樓夢</h4></a
+                  >
+                  <div class="authorP">
                     <p>石心寺</p>
                     <h4>750</h4>
-                    
                   </div>
                 </div>
                 <div class="col-sm-4">
@@ -167,7 +162,7 @@
                     alt=""
                   />
                   <h4>夏木幽亭</h4>
-                   <div class="authorP">
+                  <div class="authorP">
                     <p>清笛吹夜</p>
                     <h4>300</h4>
                   </div>
@@ -189,7 +184,7 @@
                     alt=""
                   />
                   <h4>冬日翠峰</h4>
-                   <div class="authorP">
+                  <div class="authorP">
                     <p>清笛吹夜</p>
                     <h4>300</h4>
                   </div>
@@ -200,7 +195,7 @@
                     alt=""
                   />
                   <h4>騭菓</h4>
-                   <div class="authorP">
+                  <div class="authorP">
                     <p>清笛吹夜</p>
                     <h4>300</h4>
                   </div>
@@ -211,7 +206,7 @@
                     alt=""
                   />
                   <h4>稻來帝</h4>
-                   <div class="authorP">
+                  <div class="authorP">
                     <p>清笛吹夜</p>
                     <h4>300</h4>
                   </div>
@@ -222,7 +217,7 @@
                     alt=""
                   />
                   <h4>漁捕</h4>
-                   <div class="authorP">
+                  <div class="authorP">
                     <p>清笛吹夜</p>
                     <h4>300</h4>
                   </div>
@@ -253,7 +248,58 @@
     <!-- js -->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/productJs.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script src="js/productJs.js"></script> -->
+    <!-- vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const pub = Vue.createApp({
+        data() {
+          return {
+            pubType: ["書籍", "漫畫", "雜誌", "繪本", "其他出版物"],
+          };
+        },
+      });
+      pub.mount("#pubBc");
+      const bk = Vue.createApp({
+        data() {
+          return {
+            BkBigCat: "",
+            bookItems: [
+              "文學類",
+              "科學類",
+              "社會與科學類",
+              "歷史與地理",
+              "藝術與設計類",
+              "生活與休閒類",
+              "商業與管理類",
+              "宗教與哲學類",
+            ],
+            BkSubCat: [
+              {
+                name: "小說",
+                type: "文學類",
+                url: "https://www.youtube.com/watch?v=9ANzhPJZ2U0",
+              },
+              { name: "散文與詩詞", type: "文學類", url: "" },
+              { name: "自然科學", type: "科學類", url: "" },
+              { name: "科普讀物", type: "科學類", url: "" },
+              { name: "心理與經濟", type: "社會與科學類", url: "#" },
+              { name: "政治與經濟", type: "社會與科學類", url: "#" },
+              { name: "世界與區域歷史", type: "歷史與地理", url: "#" },
+              { name: "地理與文化探索", type: "歷史與地理", url: "#" },
+              { name: "美術與攝影", type: "藝術與設計類", url: "#" },
+              { name: "設計與建築", type: "藝術與設計類", url: "" },
+              { name: "飲食與健康", type: "生活與休閒類", url: "" },
+              { name: "旅遊與手作", type: "生活與休閒類", url: "" },
+              { name: "行銷與創業", type: "商業與管理類", url: "" },
+              { name: "財經與職場技能", type: "商業與管理類", url: "" },
+              { name: "哲學與思辯", type: "宗教與哲學類", url: "" },
+              { name: "宗教信仰與靈修", type: "宗教與哲學類", url: "" },
+            ],
+          };
+        },
+      });
+      bk.mount("#bookSC");
+    </script>
   </body>
 </html>
