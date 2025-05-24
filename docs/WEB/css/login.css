@@ -63,7 +63,7 @@
 
 /* 圓角內容區塊 */
 .content {
-	background-color: var(--back-color-whiteTransluc);
+	background-color: var(--main-back-color-transluc);
 	border-radius: 10px;
 
 
@@ -99,6 +99,7 @@
 	h1 {
 		font-family: '王翰宗中行書';
 		font-size: 60px;
+		color: var(--second-text-color);
 		text-align: center;
 	}
 
@@ -112,6 +113,7 @@
 		h2 {
 			margin-bottom: 0;
 			font-size: 27px;
+			color: var(--second-text-color);
 			text-align: center;
 		}
 
@@ -130,6 +132,7 @@
 			width: 80%;
 
 			font-size: 14px;
+			color: var(--second-text-color);
 			text-align: justify;
 		}
 	}

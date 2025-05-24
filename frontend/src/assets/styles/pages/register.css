@@ -1,11 +1,14 @@
 .wrap-register {
-  background-image: url('../../images/test_back.png'); /* 設定背景圖片 */
-  background-position: center; /* 背景位置 */
-  background-repeat: no-repeat; /* 不重複背景圖片 */
-  background-size: cover; /* 背景圖片覆蓋整個區域 */
-  background-attachment: fixed; /* 使背景固定 */
-  height: 100vh; /* 設定高度，確保背景顯示完整 */
-  margin: 0; /* 移除默認邊距 */
+	background-image: url('../../images/test_back.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	/* 背景圖片覆蓋整個區域 */
+	background-size: cover;
+	/* 讓背景固定在視窗 */
+	background-attachment: fixed;
+	/* 用 min-height 讓內容高度可撐開，兩者效果完全不一樣 */
+	min-height: 100vh;
+	/* margin: 0; */
 }
 
 .box {
@@ -23,7 +26,7 @@
 	width: 36%;
 	min-width: 540px;
 	min-height: 600px;
-	
+
 	text-align: left;
 	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
@@ -41,7 +44,7 @@
 		font-size: 24px;
 		color: var(--main-color);
 
-		
+
 	}
 }
 

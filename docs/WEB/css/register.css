@@ -75,7 +75,7 @@
 
 /* 圓角內容區塊 */
 .content {
-	background-color: var(--back-color-whiteTransluc);
+	background-color: var(--main-back-color-transluc);
 	border-radius: 10px;
 
 	width: 36%;

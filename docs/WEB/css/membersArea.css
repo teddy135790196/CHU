@@ -1,8 +1,21 @@
+.wrap-members {
+	background-image: url(../images/test_back.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	/* 背景圖片覆蓋整個區域 */
+	background-size: cover;
+	/* 讓背景固定在視窗 */
+	background-attachment: fixed; 
+	/* 改用 min-height 讓內容高度可撐開，兩者效果完全不一樣 */
+	/* height: 100vh; */
+	min-height: 100vh; 
+}
+
 .box {
 	/* width: 100%; */
 	/* height: 100vh; */
 
-	background-color: bisque;
+	background-color: var(--main-back-color-transluc);
 	/* 輔助待刪 */
 }
 
@@ -18,7 +31,7 @@
 
 
 /* 內容區塊 */
-.content {
+.content-members {
 	margin: 20px 0;
 	padding: 10px;
 	width: 100%;
@@ -26,6 +39,51 @@
 	min-height: 90vh;
 }
 
+/****************************** 標準區 - 開始 ******************************/
+
+/* 標準輸入區 */
+.inp_modle {
+	width: 100%;
+	text-align: left;
+	line-height: normal;
+	margin-bottom: 24px;
+
+	p {
+		font-family: '王翰宗顏楷體';
+		font-size: 24px;
+		color: var(--main-color);
+		margin-bottom: 0;
+	}
+
+	.soild {
+		height: 2px;
+		background-color: var(--main-color);
+	}
+
+	input, select {
+		padding: 0 8px;
+		width: 100%;
+		height: 40px;
+		/* 內陰影 */
+		/* box-shadow: inset x-offset y-offset blur-radius color; */
+		box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.4);
+		/* 去除邊框 */
+		border: none;
+		/* 去除聚焦外框 */
+		outline: none;
+
+		font-size: 20px;
+
+		&:focus {
+			background-color: var(--inputfocus);
+		}
+	}
+}
+
+/****************************** 標準區 - 結束 ******************************/
+
+
+/* 上方－會員資訊 | 出版按鈕 */
 .userInformation {
 	align-items: center;
 
@@ -48,10 +106,29 @@
 		/* 暱稱 */
 		h3 {
 			font-family: '王翰宗粗鋼體';
+			font-size: 60px;
 			/* font-weight: bold; */
 			/* margin: 0; */
 		}
 
+
+
+	}
+
+	/* 按鈕－出版專區 */
+	a {
+		display: block;
+		padding: 5px;
+		/* margin-left: auto; */
+		border-radius: 5px;
+		width: 120px;
+		background-color: var(--second-color);
+
+		/* transform: translate(-20px, -150px); */
+
+		color: var(--second-text-color);
+		text-align: center;
+		text-decoration: none;
 	}
 
 
@@ -114,24 +191,32 @@
 
 
 
-/* 功能選單區塊 */
+/* 下方－功能選單區塊 */
 .menu {
 	display: flex;
+	gap: 30px;
 	margin-bottom: 20px;
 
 	/* 選項區塊 */
 	.menu-item {
 		flex: 1;
-		text-align: center;
-		/* 游標變手指 */
-		cursor: pointer;
 		padding: 10px 0;
 		/* 防止選取 */
 		user-select: none;
+		/* 游標變手指 */
+		cursor: pointer;
 
 		font-family: '王翰宗粗鋼體';
-		font-size: 12px;
-		padding: 5px;
+		font-size: 18px;
+		text-align: center;
+		row-gap: 10px;
+
+		&:hover {
+			border-top: 2px solid var(--main-color);
+
+			/* font-size: 20PX; */
+			color: var(--main-color);
+		}
 	}
 
 	/* 當前選中 */
@@ -139,8 +224,8 @@
 	.menu-item.active {
 		border-top: 2px solid var(--main-color);
 
-		font-family: '王翰宗顏楷體';
-		font-size: 14PX;
+		font-family: '王翰宗中仿宋';
+		font-size: 20PX;
 		font-weight: bold;
 		color: var(--main-color);
 	}

@@ -11,10 +11,20 @@
 <hr>
 
 <details>
-<summary>0523｜檔案結構重構與初步連結會員VUE</summary>
+<summary>0524｜會員介面設定功能初期設計</summary>
 
 - **新增**
-  - Vue會員頁面簡易建立完成並順利連結
+  - 完整書籍資料EXCEL表格
+- **更新**
+  - 會員頁面設定區HTML設計
+
+</details>
+
+<details>
+<summary>0523｜檔案結構重構與建立會員VUE</summary>
+
+- **新增**
+  - Vue會員頁面簡易建立完成
   - 會員頁面功能HTML功能規劃
   - 通用浮窗元件
 - **更新**
