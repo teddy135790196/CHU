@@ -1,49 +1,88 @@
 * {
   margin: 0;
-}
-/* 底部的收藏/加到購物車/回頂部 */
-.myFlex {
-  display: flex;
   list-style: none;
-  background-color: aqua;
 }
-.myFlex li {
-  margin: 0 auto;
+/* 設定寬度跟置中 */
+.container{margin: 0 auto;
+width: 1500px;}
+
+/* 左側分類 */
+#bookSC li{
+  margin: 10px 0;
+  font-size: 20px;}
+#bookSC ul ul li{
+  font-size: 18px;}
+/* 改icon大小 */
+.fa-solid{scale: 0.7;}
+/* 細項的li整體往左移 */
+.subA{margin-left: -10px;}
+
+/* 底部的收藏/加到購物車/回頂部 */
+.bottFlex {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  padding: 20px 50px;
+  justify-content: center;
+  position: relative;
 }
-.myFlex a {
+/* 回頂部 */
+#backToTop{
+  position: absolute;
+  top: -100px;
+  right: 20px;
+  border: 2px solid black;
+  width: 90px;
+  height: 90px;
+  border-radius: 50px;
+  font-size: 50px;}
+#backToTop a{color: rgb(84, 61, 105);}
+#backToTop:hover{background-color: rgb(220, 220, 220);}
+
+.bottFlex a {
   font-size: 30px;
-  padding: 0 10px;
-  display: block;
-  width: 220px;
-}
-.myFlex button {
+  color: aliceblue;
+  display: block;}
+.bottFlex button {
   border-radius: 10px;
-}
-/* 將分類按鈕改成不像按鈕，但還是按鈕 */
-.bookTag button {
-  text-align: left;
-  border: 0;
-  width: 100%;
-}
+  padding: 10px 90px;
+  margin: 0 50px;
+  background-color: brown;}
+
 
 /* 子標籤隱藏 */
 #litShow {
   display: none;
 }
+/* 產品頁面 */
 .prodP {
   margin: 0 auto;
 }
 .prodP img {
   width: 100%;
 }
+.prodFlex{
+  display: flex;
+  justify-content: space-around;
+}
+/* 書標題 */
+.bookTitle{
+  margin-bottom: 12px;
+  border-bottom:  1px solid black;
+}
 /* 價格 */
 .price {
   font-weight: bold;
   color: white;
   background-color: brown;
-  
-  border-radius: 40px;
-  text-align: center;
+  padding: 15px 70px;
+  border-radius: 10px 40px;
+}
+
+/* 庫存 */
+.Stock{
+  color: brown;
+  font-weight: bold;
+  font-size: 20px;
 }
 /* 分類頁的作者跟價格 */
 .authorP {
@@ -110,13 +149,11 @@ border-radius: 20px;
 }
 .col-sm-4{
   transition: all 1.5s;
-  
 }
-/* 滑到變顏色，可惜手機不能有 */
-/* .col-sm-4:hover h3{} */
-  
-
-
+.col-sm-4:hover{
+  scale: 1.01;
+}
+/* 滑到變圓角，可惜手機不能有 */
 .smProduct img:hover {
   scale: 1.05;
   border-radius: 20px;

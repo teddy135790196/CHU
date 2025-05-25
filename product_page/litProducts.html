@@ -15,10 +15,13 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/productCss.css" />
+    <!-- 匯入font的icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   </head>
   <body>
    
-      <div class="row container-fluid">
+      <div class="row container">
         <div class="col-md-12">
                        
           <!-- 現在位置 -->
@@ -39,25 +42,31 @@
             <div class="col-md-2">
               
               <div id="pubBC">
-               <h3 v-on:click="showPub">出版類型</h3>
+               <h4 v-on:click="showPub">出版類型
+                <i v-if="isVisible==true" class="fa-solid fa-chevron-down"></i>
+                <i v-else class="fa-solid fa-chevron-up"></i>
+               </h4>
+               
                <ul v-for="pub in pubType" v-show="isVisible" >
-                <li>{{pub.name}}</li></ul>
+                <li class="subA"><a href="">{{pub.name}}</a></li></ul>
               </div>
 
               <hr/>
               <h3>分類</h3>
               <div id="bookSC">
                 <!-- 書分類大標題 -->
-                <ul class="nav flex-column bookTag" v-for="item in bookItems">
+                <ul class="nav flex-column" v-for="item in bookItems">
                   <li
                     v-bind:class="{'select':BkBigCat === item}"
-                    v-on:click="BkBigCat=item">{{item}}</li>
+                    v-on:click="BkBigCat=item">{{item}}
+                   <i class="fa-solid fa-plus"></i>
+               
+                  </li>
                   <!-- 書的分類細項 -->
                   <ul v-show="BkBigCat ===item">
                     <li v-for="bk in BkSubCat" v-show="bk.type==BkBigCat">
-                      <a v-bind:href="bk.url">{{bk.name}}</a>
-                    </li>
-                  </ul>
+                      <a v-bind:href="bk.url" class="subA">{{bk.name}}</a>
+                    </li></ul>
                 </ul>
               </div>
             </div>
@@ -69,7 +78,7 @@
                 <!-- 單個商品圖版型 -->
                  
                 <div class="col-sm-4" v-for="n in novels" v-bind:key="n.name" >
-                  <a href="">
+                  <a v-bind:href="n.url">
                   <img
                     v-bind:src="n.imgUrl"
                     alt=""/>
@@ -91,19 +100,15 @@
             </div>
           </div>
 
-          <!-- 下拉 -->
+           <!-- 下拉 -->
           <nav class="fixed-bottom">
-            <ul class="myFlex">
-              <li>
-                <button type="button"><a href="#">收藏</a></button>
-              </li>
-              <li>
+             <button id="backToTop">
+              <a href="#"><i class="fa-duotone fa-solid fa-arrow-up-long"></i></a></button>
+              
+            <div class="bottFlex">
+                <button type="button"><a href="#">收藏</a></button>       
                 <button type="button"><a href="#">加到購物車</a></button>
-              </li>
-              <li>
-                <button type="button"><a href="#">回到頂部</a></button>
-              </li>
-            </ul>
+            </div>
           </nav>
           <!--  -->
         </div>
