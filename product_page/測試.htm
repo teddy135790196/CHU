@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+            <!-- 切版10，商品圖 -->
+            <div class="col-md-10">
+              
+              <div class="row smProduct">
+                <!-- 單個商品圖版型 -->
+                 
+                <div class="col-sm-4" v-for="n in novels" v-bind:key="n.name" >
+                  <a href="">
+                  <img
+                    v-bind:src="n.imgUrl"
+                    alt=""/>
+                  <h4>{{n.name}}</h4>
+                  </a>
+                  <div class="authorP">
+                    <p>{{n.author}}</p>
+                    <h4>{{n.price}}</h4>
+                  </div>
+                </div>
+                
+                <!-- 之後會生出第二個 -->
+                
+              </div>
+              <hr />
+            </div>
+            </div>
+               
+    <!-- vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/litVue.js"></script>
+</body>
+</html>

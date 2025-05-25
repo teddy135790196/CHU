@@ -1,0 +1,31 @@
+// 小說
+const lit= Vue.createApp({
+    data(){
+        return{
+         novels:[
+            {name:"春水遊鯉",author:"清笛吹夜",price:"499",imgUrl:"https://lh3.googleusercontent.com/pw/AP1GczPCJ8LWZwCLfW0LwgECfUmMgButp2CMOa17kc4eBt128WVN6o82cHp8jd1okvUF_Oolhvm3PvqcqrJgkhXyY2ZniTBkKj98QCQWsEGPqV_8qXY6r0opOCNOLOWzq4jqXekt4dO1U5Z25f5ZG61cab5O=w460-h580-s-no-gm?authuser=0"},
+            {name:"焰心",author:"虛白",price:"748",imgUrl:"https://lh3.googleusercontent.com/pw/AP1GczMvIxjPNQ8qqDjisgG-Y5cWUlrZyGAXxn7i3HPHk4JnQJckLHA4IvWXN42ncgR682KQqPQksnPpttlq2EapM_WV3Chl50Q4kPb719UCk9uBQgykIEteUFCcq4a3dJ60DTGZD3Jo2-VM6goQKe0w-tUX=w460-h580-s-no-gm?authuser=0"},
+            {name:"聖堂騎士",author:"虛白",price:"711",imgUrl:"https://lh3.googleusercontent.com/pw/AP1GczP8FyFOY-KTN7PbR3Cka22b-k2107k88E3ynVca64N8UJJkn_1Ks7Lo85LPQqBmGRXQlIfQZnqCCy6tUdV8Bom18eF62BAiBg1ZO_LcDqGd3UjFJbcEjmpsQKcORR_qfYeFjDV-4Siw2WZqs6rJ2hVa=w460-h580-s-no-gm?authuser=0"},
+            {name:"只有我知道那河裡有什麼",author:"趙文生",price:"771",imgUrl:"https://images.plurk.com/50mPmDQHeQevxXRp2RolF8.png"},
+            {name:"星界先鋒",author:"虛白",price:"711",imgUrl:"https://lh3.googleusercontent.com/pw/AP1GczNI8yPBvbuyfH4APmE1RUGq0buKttiLttVLkHwdiOkLDwe4HsH4g2Q46Cqdajf2Pk5-Jhvd2LRBzVArMb3pvfBjubLqVhIBB3kTAmKad2U4lAEbLxAPG_P254_2FLQMA5W7SEUWkDZpR3iEGGCKQMZn=w460-h580-s-no-gm?authuser=0"},
+            {name:"冬日翠峰",author:"清笛吹夜",price:"499",imgUrl:"https://lh3.googleusercontent.com/pw/AP1GczOTbPPf1mw8a5enAzOrpZbWwQrblIVdAdDNhkdY-gr42oqpNaL933LiRphFkP4YZmB1t7ApkR0ZrqgVVsyzsgQ-0B1UEp-MsTNDIuFchnCJ8rXvbDhUBFHos0SiSq67GNCv6DFaaadAJa8OdWfdQZWM=w460-h580-s-no-gm?authuser=0"},
+            {name:"若是明天我們會見面",author:"袁子涵",price:"818",imgUrl:"https://images.plurk.com/1S1mrYKvyGadaoCkRZMWtv.jpg"},
+            {name:"夏木幽亭",author:"清笛吹夜",price:"499",imgUrl:"https://lh3.googleusercontent.com/pw/AP1GczOAv8iBs3DOiDpLSwhoQyinHiR3IN688C0xKlSt5llQM5mDR13BIWz06KCrENX3OXmyKKth_MIAODt_jELUaNhGZ6-dQ8nt5SoBtf2zN8kwcsEJqwSDk-MjDOMQ0D2X5Lc3lq3wvUkj6t8gLwx56t-a=w460-h580-s-no-gm?authuser=0"},
+            {name:"三國演義",author:"黃問游",price:"540",imgUrl:"https://lh3.googleusercontent.com/pw/AP1GczM6GitAYhwBCR1iZqaL4aEx2LScTRzc8y6HyyqZVlKWmM76hMaoIoHJkW-YJxlgdx6-KB3BuOJF4nhGnp1g4GihtLZ8Uef4d_l9aCB43Kn28KttPebICmHR6G6HjoMhRloz9d0awUFYcwn_ZvuhCRjp=w428-h538-s-no-gm?authuser=0"},
+            {name:"秋山煙嵐",author:"清笛吹夜",price:"499",imgUrl:"https://lh3.googleusercontent.com/pw/AP1GczN5I0cA84A3a9sQUyWTFBq0_iewuhH0M-kHLkUMAcvd3EbLElImVF_QJGN3uBk71cQdRB1ytboS9tKRDQo0SbmUzkYjw916pHrpQ6lH-Hax6MUyfJScN1BZtJerujkVRz8PnQC4HwhnVeubt5n0RwDV=w460-h580-s-no-gm?authuser=0"},
+            {name:"紅樓夢",author:"石心寺",price:"750",imgUrl:"https://lh3.googleusercontent.com/pw/AP1GczNW-aj9QTAIFhrpMkbhn14egJ1TZb0LRG8TCsJrySB4QZgY2rFZ2SzERDGxpmDrP0fWBw0BknpQsikrxMv0-M_kJuw1MawLICb-cBH56Ezb8Eviev3ODVMZRizn7o8ipI3_4T0dDmaBiNSRQ1AsE40a=w378-h476-s-no-gm?authuser=0"}
+           /* 
+           {name:"",author:"",price:"",imgUrl:""},
+            {name:"",author:"",price:"",imgUrl:""},
+            {name:"",author:"",price:"",imgUrl:""},
+            {name:"",author:"",price:"",imgUrl:""},
+            {name:"",author:"",price:"",imgUrl:""},
+            {name:"",author:"",price:"",imgUrl:""},
+            {name:"",author:"",price:"",imgUrl:""},
+            {name:"",author:"",price:"",imgUrl:""},
+            */
+         ]   
+        }
+    }
+});
+lit.mount("#app");
