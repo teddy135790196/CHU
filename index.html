@@ -15,6 +15,7 @@
     <div class="popup" v-show="showPopup">
       <!-- popupBackground為了讓背景半透明，也為了能夠點擊空白處關閉視窗 -->
       <div class="popupBackground" @click="showPopup = !showPopup"></div>
+      <!-- 可以嘗試用阻止冒泡方式改寫，就不用上面一行。不過這樣又遇到X在popupBody裡面的問題 -->
       <div class="popupBody">
         <div class="popupClose" @click="showPopup = !showPopup">X</div>
         <h2 class="popupHeader">重要說明</h2>
@@ -29,8 +30,11 @@
     <!-- 導航欄 -->
     <header class="titleNav">
       <div class="titleNavTire1">
+        <!-- 無作用，暫時不知道如何修改 -->
         <div class="hamburger" @click="updateShowTitleNavClassification">≡</div>
-        <ul class="titleNavClassification" v-bind:class="showTitleNavClassification">
+        <ul class="titleNavClassification" v-bind:class="classObj">
+          <!-- <div class="hamburger">≡</div>
+        <ul class="titleNavClassification showTitleNavClassification"> -->
           <li class="titleNavBook">
             <a href="">書籍</a>
             <ul class="titleNavTireBook">

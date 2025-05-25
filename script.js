@@ -150,13 +150,19 @@ createApp({
         },
       ],
       showPopup: false, //是否顯示彈出視窗
-      // classObj: {titleNavClassification: true},
+      classObj: {showTitleNavClassification: true}, //測試無效
     };
   },
 
-  // methods: {
-  //   updateShowTitleNavClassification() {
-  //     this.classObj.titleNavClassification = !this.classObj.titleNavClassification;
-  //   },
-  // },
+  methods: {
+    updateShowTitleNavClassification() {
+      this.classObj.showTitleNavClassification = !this.classObj.showTitleNavClassification;
+    },
+  },
 }).mount("#app");
+
+// const hamburgerObj = document.getElementsByClassName("hamburger")[0];
+// const titleNavClassificationObj = document.getElementsByClassName("titleNavClassification")[0];
+// hamburgerObj.addEventListener("click", function () {
+//   titleNavClassificationObj.classList.toggle("titleNavClassification");
+// });
