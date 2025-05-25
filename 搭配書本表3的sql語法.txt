@@ -1,0 +1,23 @@
+
+--先建表
+
+create table 表(
+[ISBN] nvarchar(25),[出版類型] nvarchar(25),
+[分類] nvarchar(25),[類型] nvarchar(25),
+[系列名稱] nvarchar(50),
+[書名] nvarchar(50),[作者] nvarchar(50),
+[簡介] nvarchar(max),
+[出版社] nvarchar(25),[語言] nvarchar(10),
+[頁數] int,[售價] int,[庫存] int,
+[圖片連結] nvarchar(max)
+)
+
+
+--再bulk insert
+
+BULK INSERT 表
+from '檔案路徑\書本表3.csv'
+WITH ( FIELDTERMINATOR='^',
+ROWTERMINATOR='\n',
+DATAFILETYPE='WIDECHAR');
+
