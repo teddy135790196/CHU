@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <!-- 同步讀取，但讀取完js檔才解析網頁 -->
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>棲遲書店</title>
+  </head>
+
+  <body id="app">
+    <!-- 彈出視窗 -->
+    <div class="popup" v-show="showPopup">
+      <!-- popupBackground為了讓背景半透明，也為了能夠點擊空白處關閉視窗 -->
+      <div class="popupBackground" @click="showPopup = !showPopup"></div>
+      <div class="popupBody">
+        <div class="popupClose" @click="showPopup = !showPopup">X</div>
+        <h2 class="popupHeader">重要說明</h2>
+        <p class="popupMain">
+          本網頁一切內容皆為虛購，與現實的人、事、物皆無關連。
+          實際上沒有這間書店；網頁裡呈現的商品也只為展示，一切皆為虛構。
+        </p>
+        <div class="popupFooter">棲遲書店</div>
+      </div>
+    </div>
+
+    <!-- 導航欄 -->
+    <header class="titleNav">
+      <div class="titleNavTire1">
+        <div class="hamburger" @click="updateShowTitleNavClassification">≡</div>
+        <ul class="titleNavClassification" v-bind:class="showTitleNavClassification">
+          <li class="titleNavBook">
+            <a href="">書籍</a>
+            <ul class="titleNavTireBook">
+              <a href=""><li>文學</li></a>
+              <a href=""><li>科學</li></a>
+              <a href=""><li>社會科學</li></a>
+              <a href=""><li>歷史與地理</li></a>
+              <a href=""><li>藝術與設計</li></a>
+              <a href=""><li>生活與休閒</li></a>
+              <a href=""><li>商業與管理</li></a>
+              <a href=""><li>宗教與哲學</li></a>
+            </ul>
+          </li>
+          <a href=""><li>漫畫</li></a>
+          <a href=""><li>雜誌</li></a>
+          <a href=""><li>繪本</li></a>
+          <a href=""><li>其他</li></a>
+        </ul>
+      </div>
+
+      <ul class="titleNavIcon">
+        <li class="logo">
+          <h1>
+            <a href="#"><img src="icon/logo.png" alt="棲遲書店" /></a>
+          </h1>
+        </li>
+        <li class="titleNavEmoji"><a href="#">🧑</a></li>
+        <li class="titleNavEmoji"><a href="#">🛒</a></li>
+      </ul>
+    </header>
+
+    <!-- 首頁主體 -->
+    <main>
+      <div class="Carousel">
+        <img
+          src="https://lh3.googleusercontent.com/pw/AP1GczOD0O5aJr_3w2Hg0mEYeC7BO20PMazSANcR24Pk2ODmMWSA9e2cnwOKVNs1H7iqnpr5Ml2tlhU6I8MomNn4x_BNuznQ-q1o7HyfmZV8AzavB9MlPvwTnHzVUFFXEwK6P5Fl7QGzvwYops_dr2iHHrmc=w1024-h528-s-no-gm?authuser=0"
+          alt="紅樓夢推廣" />
+        <img
+          src="https://lh3.googleusercontent.com/pw/AP1GczOcgbypEEZMW5nKDjl178V3MvVKQk1Z3TtDrEL6iPzEf20rn5cPYXVQ2pvB1sIdTA5TDwYjWwzV_0IUZ-VnqPNSd2GbP28d49xK0HhcS3Y-iO33esHSCFdFpfYmsWvtZjYxUoU4jtM85Szr-zryq13Z=w1013-h754-s-no-gm?authuser=0"
+          alt="三國演義推廣" />
+        <img
+          src="https://lh3.googleusercontent.com/pw/AP1GczObW6R8ISPk64-E_yQU1WE8mxfR48Y-gXrXxdJLxNjdsRRjdgfI9mkVQxFzx7jEhegubH6z3W6CG_ONIpCvDQAyz0LK00sXG0vKkkn5J0KkqTDOR2kb81NaFDIUuY0EPTIlocZlxEvHTwYvz826Lb4M=w1334-h890-s-no-gm?authuser=0"
+          alt="AI淘汰人類推廣" />
+        <img
+          src="https://lh3.googleusercontent.com/pw/AP1GczNzDAevB84GaSI0bRBIPvp0R89Dp-Bx0hGAsy87c74E8x54EqjUFL8M_MvtQRk0MtK6AdC4PkbKyKuRmMsHkqFWA2zAVd_tZJO3Y0Jhbnr327wVNXGPtaJXccoruain-JRVH0ssC609JsdkeJK01qzX=w664-h666-s-no-gm?authuser=0"
+          alt="經典文學特展" />
+        <img
+          src="https://lh3.googleusercontent.com/pw/AP1GczO4U6XUxknnXgg-SvguLKJhuj6Pg6lwmucu-PI5cDSKc3N0gM7bE1BI-qOrP0QvA5JjymOiSVQ3wwScsToeJHf_kuwLHdKjIuFPfz1L1iV2Yhu_Wf0dhzPkre_568h6KOWM1zpHLRFMLScTCUjLvriG=w890-h890-s-no-gm?authuser=0"
+          alt="少年隊防詐騙" />
+        <!-- 輪播圖片下方中間半透明的圓球，選擇特定圖片 -->
+        <div class="CarouselIndex"></div>
+        <div class="CarouselIndex"></div>
+        <div class="CarouselIndex"></div>
+        <div class="CarouselIndex"></div>
+      </div>
+
+      <!-- 商品導航，功能重複，取消 -->
+      <!-- <div class="classification"></div> -->
+
+      <!-- 推薦商品 -->
+      <div class="recommend">
+        <div class="recommendCell" v-for="(book, index) in books" :key="book.ISBN">
+          <img v-bind:src="book.網址" v-bind:alt="book.書名" />
+          <h4 class="bookName">{{book.書名}}</h4>
+          <div class="author">{{book.作者}}</div>
+          <div class="price">${{book.價格}}</div>
+          <div class="shoppingCart"><span>🛒</span>加入購物車</div>
+        </div>
+      </div>
+
+      <!-- 促銷訊息 -->
+      <div class="broadcast">
+        <img
+          src="https://lh3.googleusercontent.com/pw/AP1GczOaiGsYBM0zrSoiqgWZX-FsslrsHg6mNiB42OImZlQJzX91DbZLtNXQK0-YYctsdU1Kx1V095rf3N2jLDOZSUktk8jts-JnXxJJBtKihGY89UI-HnZ0EpT0Eojw2I-TbSfuMgW9GuXJVMbPNoXt-_s_=w647-h649-s-no-gm?authuser=0"
+          alt="浴佛節推廣活動" />
+        <img
+          src="https://lh3.googleusercontent.com/pw/AP1GczNrkAjLCL7S9Jgvc7QS1NiGjCGU_Aq89od3qMwCgFbOWS5G6PcyksFULhn2gwb_-n0dyqIbSSweu7F5KG_l4Ddp1bcOOH6c8YTIIhKLaItxzCbi0SYoVcEspB0MCDw1byYx3kEEI1bT4pUUg0lnGDxQ=w641-h642-s-no-gm?authuser=0"
+          alt="植樹節推廣活動" />
+      </div>
+    </main>
+
+    <!-- 頁尾資訊 -->
+    <footer>
+      <div class="community">
+        <h3>社群連結</h3>
+        <div class="communityIcon">
+          <a href="#"><img src="icon/big-youtube-logo_81131.png" alt="youtube" /></a>
+          <a href="#"><img src="icon/camera_919613.png" alt="ig" /></a>
+          <a href="#"><img src="icon/facebook_3488299.png" alt="fb" /></a>
+          <a href="#"><img src="icon/line_3992580.png" alt="line" /></a>
+        </div>
+        <!-- <div class="communityIcon">
+          <img src="icon/camera_919613.png" alt="" />
+        </div>
+        <div class="communityIcon">
+          <img src="icon/facebook_3488299.png" alt="" />
+        </div>
+        <div class="communityIcon">
+          <img src="icon/line_3992580.png" alt="" />
+        </div> -->
+      </div>
+      <div class="termsOfService">
+        <h3>服務條款</h3>
+        <a href="#">服務條款</a>
+        <a href="#">隱私權條款</a>
+      </div>
+      <p class="copyright">Copyright © 2025 All rights reserved. Web design by xxx xxxxxx</p>
+    </footer>
+  </body>
+</html>
