@@ -48,53 +48,41 @@ function updateAccordionMargin() {
 
 
 // 修改資料按鈕
-function setupToggleEdit(sectionId, toggleBtnId, overlayId) {
-    const section = document.getElementById(sectionId);
-    const toggleBtn = document.getElementById(toggleBtnId);
-    const overlay = overlayId ? document.getElementById(overlayId) : null;
+const toggleBtn = document.getElementById('toggleEditBtn');
+const inputs = document.querySelectorAll('.edit-input');
+const texts = document.querySelectorAll('.display-text');
+const overlay = document.getElementById('overlay');
+const infoSection = document.getElementById('infoSection');
 
-    const inputs = section.querySelectorAll('.edit-input');
-    const texts = section.querySelectorAll('.display-text');
+let isEditing = false;
 
-    let isEditing = false;
+toggleBtn.addEventListener('click', () => {
+    isEditing = !isEditing;
 
-    toggleBtn.addEventListener('click', () => {
-        isEditing = !isEditing;
-
-        inputs.forEach(input => {
-            input.style.display = isEditing ? 'block' : 'none';
-            if (!isEditing) {
-                const p = input.nextElementSibling;
-                if (p) {
-                    if (input.tagName === 'SELECT') {
-                        p.textContent = input.options[input.selectedIndex].text;
-                    } else {
-                        p.textContent = input.value;
-                    }
+    inputs.forEach(input => {
+        input.style.display = isEditing ? 'block' : 'none';
+        if (!isEditing) {
+            const p = input.nextElementSibling;
+            if (p) {
+                if (input.tagName === 'SELECT') {
+                    p.textContent = input.options[input.selectedIndex].text;
+                } else {
+                    p.textContent = input.value;
                 }
             }
-        });
-
-        texts.forEach(p => {
-            p.style.display = isEditing ? 'none' : 'block';
-        });
-
-        toggleBtn.textContent = isEditing ? '完成修改' : toggleBtn.getAttribute('data-edit-text');
-        toggleBtn.classList.toggle('btn-outline-primary', !isEditing);
-        toggleBtn.classList.toggle('btn-primary', isEditing);
-
-        if (overlay) {
-            overlay.style.display = isEditing ? 'block' : 'none';
         }
-        section.classList.toggle('editing', isEditing);
     });
-}
 
-// 呼叫示範
-setupToggleEdit('infoSection', 'toggleEditBtn', 'overlay');
-setupToggleEdit('contactSection', 'toggleContactEditBtn', 'overlay');
-setupToggleEdit('accountSection', 'toggleAccountEditBtn', 'overlay');
-setupToggleEdit('passwordSection', 'togglePasswordEditBtn', 'overlay');
+    texts.forEach(p => {
+        p.style.display = isEditing ? 'none' : 'block';
+    });
+
+    toggleBtn.textContent = isEditing ? '完成修改' : '修改個人資訊';
+
+    // 控制遮罩與區塊高亮
+    overlay.style.display = isEditing ? 'block' : 'none';
+    infoSection.classList.toggle('editing', isEditing);
+});
 
 
 

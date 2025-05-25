@@ -5,10 +5,10 @@
 	/* 背景圖片覆蓋整個區域 */
 	background-size: cover;
 	/* 讓背景固定在視窗 */
-	background-attachment: fixed; 
+	background-attachment: fixed;
 	/* 改用 min-height 讓內容高度可撐開，兩者效果完全不一樣 */
 	/* height: 100vh; */
-	min-height: 100vh; 
+	min-height: 100vh;
 }
 
 .box {
@@ -55,12 +55,10 @@
 		margin-bottom: 0;
 	}
 
-	.soild {
-		height: 2px;
-		background-color: var(--main-color);
-	}
 
-	input, select {
+
+	input,
+	select {
 		padding: 0 8px;
 		width: 100%;
 		height: 40px;
@@ -229,4 +227,148 @@
 		font-weight: bold;
 		color: var(--main-color);
 	}
+}
+
+
+
+
+
+/* 資訊管理 */
+#settings {
+
+	/* 留出左右空白 */
+	section {
+		padding: 0 30px;
+	}
+
+	/* 小區標題 */
+	h5 {
+		margin: 0;
+		font-size: 28px;
+		font-family: "王翰宗粗鋼體";
+		color: var(--main-color);
+	}
+
+	.inp_modle {
+		display: flex;
+		align-items: center;
+		margin-bottom: 10px;
+
+		label {
+			/* 不允許縮小 */
+			flex-shrink: 0;
+			margin: 0;
+			width: 118px;
+			height: 40px;
+			font-size: 22px;
+			font-family: "王翰宗顏楷體";
+			color: var(--second-color);
+			line-height: 40px;
+		}
+
+		p {
+			height: 40px;
+			font-size: 22px;
+			font-family: initial;
+			color: var(--second-text-color);
+			line-height: 40px;
+		}
+
+		input,
+		select {
+			.label-badge {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+
+				label {
+					margin: 0;
+				}
+			}
+		}
+
+		select {
+			padding-left: 5px;
+		}
+
+	}
+
+	.inp_modle.towline {
+		flex-direction: column;
+		align-items: flex-start;
+
+		input,
+		p {
+			width: 100%;
+		}
+
+		button {
+			width: 120px;
+		}
+	}
+
+	/* 編輯時白色高亮 */
+	.personal-info-section {
+		z-index: 100;
+		padding-top: 10px;
+		padding-bottom: 20px;
+
+
+	}
+
+	.personal-info-section.editing {
+		position: relative;
+		z-index: 999;
+
+		background-color: var(--back-color-white);
+		box-shadow: 0 0 15px var(--second-back-color-transluc);
+
+		font-family: none;
+
+
+	}
+
+	/* 帳號密碼 */
+	#accountSection.personal-info-section,
+	#passwordSection.personal-info-section {
+		margin-bottom: -20px;
+	}
+
+	/* 帳號密碼編輯狀態增加左右白色區域 */
+	#accountSection.personal-info-section.editing,
+	#passwordSection.personal-info-section.editing {
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: -52px;
+			right: -52px;
+			background-color: var(--back-color-white);
+			box-shadow: 0 0 15px var(--second-back-color-transluc);
+			z-index: -1;
+		}
+	}
+}
+
+.soild {
+	margin: 10px 0;
+	height: 2px;
+	background-color: var(--main-color);
+}
+
+
+
+
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	/* 半透明黑色遮罩 */
+	z-index: 998;
+	display: none;
 }

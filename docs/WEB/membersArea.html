@@ -54,7 +54,7 @@
 										<h3 class="mb-0">長安不問</h3>
 									</div>
 									<!-- 出版按鈕 -->
-									<a href="./publisherArea.html">我要出版！</a>
+									<a class="bg-warning" href="./publisherArea.html">我要出版！</a>
 								</div>
 
 
@@ -102,80 +102,368 @@
 						<div class="menu">
 							<div class="menu-item active" data-section="wishlist">收藏書櫃</div>
 							<div class="menu-item" data-section="purchase">消費紀錄</div>
-							<div class="menu-item" data-section="settings">資訊管理</div>
+							<div class="menu-item" data-section="settings">個人設定</div>
 						</div>
 
 
 
-						<!-- 書櫃管理－始 -->
+						<!-- 區塊：書櫃管理－始 -->
 						<div class="selectContent" id="wishlist">
-							<h5 class="mb-3">願望清單書籍</h5>
-							<div class="row g-3">
-								<div class="col-md-6">
-									<div class="card h-100">
-										<div class="row g-0">
-											<div class="col-4">
-												<img src="book.jpg" class="img-fluid rounded-start" alt="書封">
-											</div>
-											<div class="col-8">
-												<div class="card-body">
-													<h6 class="card-title">書名</h6>
-													<p class="card-text"><small>作者名稱</small></p>
-													<div class="d-flex justify-content-between align-items-center">
-														<select class="form-select form-select-sm w-auto">
-															<option>想看</option>
-															<option>在讀</option>
-															<option>已讀</option>
-														</select>
-														<button class="btn btn-sm btn-outline-danger">移除</button>
-													</div>
+							<h5 class="mb-3">書櫃展示（僅展示效果，未實作，等設計好的商品卡片。這段會刪掉）</h5>
+							<div class="section-divider mb-4">
+								<h5 class="section-title">願望清單書籍</h5>
+							</div>
+							<div class="row mb-5 g-3">
+								<div class="position-relative">
+									<!-- 左右按鈕 -->
+									<button
+										class="scroll-btn left btn btn-light position-absolute top-50 start-0 translate-middle-y z-3">←</button>
+									<button
+										class="scroll-btn right btn btn-light position-absolute top-50 end-0 translate-middle-y z-3">→</button>
+
+									<!-- 可水平捲動的容器 -->
+									<div class="d-flex overflow-auto gap-3 px-4 scroll-container"
+										style="scroll-behavior: smooth;">
+										<!-- 一本書 -->
+										<div class="card" style="width: 12rem; flex: 0 0 auto;">
+											<img src="./images/book5.png" class="card-img-top" alt="書封">
+											<div class="card-body">
+												<h5 class="card-title fw-bold text-truncate">信仰的仰望：在光與影中追尋</h6>
+												<p class="card-text text-end text-truncate"><small>薇薇安·夜歌</small></p>
+												<div class="d-flex justify-content-between align-items-center">
+													<select class="form-select form-select-sm w-auto">
+														<option>❤想看</option>
+														<option>👁在讀</option>
+														<option>🏅已讀</option>
+													</select>
+													<button class="btn btn-sm btn-outline-danger">移除</button>
 												</div>
 											</div>
 										</div>
+										<!-- 一本書 -->
+										<div class="card" style="width: 12rem; flex: 0 0 auto;">
+											<img src="./images/book6.png" class="card-img-top" alt="書封">
+											<div class="card-body">
+												<h5 class="card-title fw-bold text-truncate">潮汐的印記：探尋古老信仰的邊界</h6>
+												<p class="card-text text-end text-truncate"><small>薇薇安·夜歌</small></p>
+												<div class="d-flex justify-content-between align-items-center">
+													<select class="form-select form-select-sm w-auto">
+														<option>❤想看</option>
+														<option>👁在讀</option>
+														<option>🏅已讀</option>
+													</select>
+													<button class="btn btn-sm btn-outline-danger">移除</button>
+												</div>
+											</div>
+										</div>
+										<!-- 加更多卡片 -->
 									</div>
 								</div>
-								<!-- 更多書籍卡片 -->
 							</div>
+
+							<div class="section-divider mb-4">
+								<h5 class="section-title">擁有書籍</h5>
+							</div>
+							<div class="row mb-5 g-3">
+								<div class="position-relative">
+									<!-- 左右按鈕 -->
+									<button
+										class="scroll-btn left btn btn-light position-absolute top-50 start-0 translate-middle-y z-3">←</button>
+									<button
+										class="scroll-btn right btn btn-light position-absolute top-50 end-0 translate-middle-y z-3">→</button>
+
+									<!-- 可水平捲動的容器 -->
+									<div class="d-flex overflow-auto gap-3 px-4 scroll-container"
+										style="scroll-behavior: smooth;">
+										<!-- 一本書 -->
+										<div class="card" style="width: 12rem; flex: 0 0 auto;">
+											<img src="./images/book1.png" class="card-img-top" alt="書封">
+											<div class="card-body">
+												<h5 class="card-title fw-bold text-truncate">春水遊鯉</h6>
+												<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
+												<div class="d-flex justify-content-between align-items-center">
+													<select class="form-select form-select-sm w-auto">
+														<option>❤想看</option>
+														<option selected>👁在讀</option>
+														<option>🏅已讀</option>
+													</select>
+													<button class="btn btn-sm btn-outline-danger">移除</button>
+												</div>
+											</div>
+										</div>
+										<!-- 一本書 -->
+										<div class="card" style="width: 12rem; flex: 0 0 auto;">
+											<img src="./images/book2.png" class="card-img-top" alt="書封">
+											<div class="card-body">
+												<h5 class="card-title fw-bold text-truncate">夏木幽亭</h6>
+												<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
+												<div class="d-flex justify-content-between align-items-center">
+													<select class="form-select form-select-sm w-auto">
+														<option>❤想看</option>
+														<option>👁在讀</option>
+														<option selected>🏅已讀</option>
+													</select>
+													<button class="btn btn-sm btn-outline-danger">移除</button>
+												</div>
+											</div>
+										</div>
+										<!-- 一本書 -->
+										<div class="card" style="width: 12rem; flex: 0 0 auto;">
+											<img src="./images/book3.png" class="card-img-top" alt="書封">
+											<div class="card-body">
+												<h5 class="card-title fw-bold text-truncate">秋山煙嵐</h6>
+												<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
+												<div class="d-flex justify-content-between align-items-center">
+													<select class="form-select form-select-sm w-auto">
+														<option>❤想看</option>
+														<option>👁在讀</option>
+														<option selected>🏅已讀</option>
+													</select>
+													<button class="btn btn-sm btn-outline-danger">移除</button>
+												</div>
+											</div>
+										</div>
+										<!-- 一本書 -->
+										<div class="card" style="width: 12rem; flex: 0 0 auto;">
+											<img src="./images/book4.png" class="card-img-top" alt="書封">
+											<div class="card-body">
+												<h5 class="card-title fw-bold text-truncate">冬日翠峰</h6>
+												<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
+												<div class="d-flex justify-content-between align-items-center">
+													<select class="form-select form-select-sm w-auto">
+														<option>❤想看</option>
+														<option>👁在讀</option>
+														<option selected>🏅已讀</option>
+													</select>
+													<button class="btn btn-sm btn-outline-danger">移除</button>
+												</div>
+											</div>
+										</div>
+										<!-- 加更多卡片 -->
+									</div>
+								</div>
+							</div>
+
+							<div class="section-divider mb-4">
+								<h5 class="section-title">閱讀紀錄</h5>
+							</div>
+							<div class="row mb-5 g-3">
+								<div class="position-relative">
+									<!-- 左右按鈕 -->
+									<button
+										class="scroll-btn left btn btn-light position-absolute top-50 start-0 translate-middle-y z-3">←</button>
+									<button
+										class="scroll-btn right btn btn-light position-absolute top-50 end-0 translate-middle-y z-3">→</button>
+
+									<!-- 可水平捲動的容器 -->
+									<div class="d-flex overflow-auto gap-3 px-4 scroll-container"
+										style="scroll-behavior: smooth;">
+										<!-- 一本書 -->
+										<div class="card" style="width: 12rem; flex: 0 0 auto;">
+											<img src="./images/book1.png" class="card-img-top" alt="書封">
+											<div class="card-body">
+												<h5 class="card-title fw-bold text-truncate">春水遊鯉</h6>
+												<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
+												<div class="d-flex justify-content-end align-items-center">
+													<button class="btn btn-sm btn-outline-danger">移除</button>
+												</div>
+											</div>
+										</div>
+										<!-- 一本書 -->
+										<div class="card" style="width: 12rem; flex: 0 0 auto;">
+											<img src="./images/book2.png" class="card-img-top" alt="書封">
+											<div class="card-body">
+												<h5 class="card-title fw-bold text-truncate">夏木幽亭</h6>
+												<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
+												<div class="d-flex justify-content-end align-items-center">
+													<button class="btn btn-sm btn-outline-danger">移除</button>
+												</div>
+											</div>
+										</div>
+										<!-- 一本書 -->
+										<div class="card" style="width: 12rem; flex: 0 0 auto;">
+											<img src="./images/book3.png" class="card-img-top" alt="書封">
+											<div class="card-body">
+												<h5 class="card-title fw-bold text-truncate">秋山煙嵐</h6>
+												<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
+												<div class="d-flex justify-content-end align-items-center">
+													<button class="btn btn-sm btn-outline-danger">移除</button>
+												</div>
+											</div>
+										</div>
+										<!-- 一本書 -->
+										<div class="card" style="width: 12rem; flex: 0 0 auto;">
+											<img src="./images/book4.png" class="card-img-top" alt="書封">
+											<div class="card-body">
+												<h5 class="card-title fw-bold text-truncate">冬日翠峰</h6>
+												<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
+												<div class="d-flex justify-content-end align-items-center">
+													<button class="btn btn-sm btn-outline-danger">移除</button>
+												</div>
+											</div>
+										</div>
+										<!-- 加更多卡片 -->
+									</div>
+								</div>
+							</div>
+
+							<script>
+								const scrollBlocks = document.querySelectorAll('.position-relative'); // 每一組書櫃區塊
+
+								scrollBlocks.forEach(block => {
+									const container = block.querySelector('.scroll-container');
+									const btnLeft = block.querySelector('.scroll-btn.left');
+									const btnRight = block.querySelector('.scroll-btn.right');
+									const scrollAmount = 200;
+
+									btnLeft.addEventListener('click', () => {
+										container.scrollLeft -= scrollAmount;
+									});
+
+									btnRight.addEventListener('click', () => {
+										container.scrollLeft += scrollAmount;
+									});
+								});
+							</script>
+
+							<style>
+								.section-divider {
+									display: flex;
+									align-items: center;
+									text-align: center;
+								}
+
+								/* 置中 */
+								.section-divider h5 {
+									line-height: 28px;
+									margin: 0;
+									color: var(--second-color);
+									font-family: "王翰宗中行書";
+									font-size: 24px;
+								}
+
+								.section-divider::before,
+								.section-divider::after {
+									content: "";
+									flex: 1;
+									border-top: 3px solid var(--second-color);
+								}
+
+								.section-title {
+									padding: 0 1rem;
+									white-space: nowrap;
+								}
+							</style>
 						</div>
-						<!-- 書櫃管理－終 -->
+						<!-- 區塊：書櫃管理－終 -->
 
 
 
-						<!-- 購買紀錄－始 -->
+						<!-- 區塊：購買紀錄－始 -->
 						<div class="selectContent" id="purchase" style="display: none;">
-							<h5 class="mb-3">歷史訂單</h5>
-							<div class="list-group">
+							<h5 class="mb-3">歷史訂單（僅展示效果，未實作。這段會刪掉）</h5>
+							<!-- 一筆訂單 -->
+							<div class="list-group mb-4">
 								<div class="list-group-item">
 									<div class="d-flex justify-content-between align-items-center">
 										<div>
-											<strong>訂單編號：</strong>#20240521<br>
-											<small>日期：2024-05-21</small>
+											<strong>訂單編號：</strong>#202405251234569<br>
+											<small>下單日期：2024-05-25</small>
 										</div>
 										<div>
-											<span class="badge bg-success">已完成</span>
+											<span class="badge bg-info">已下單</span>
 											<button class="btn btn-sm btn-outline-primary">查看明細</button>
 										</div>
 									</div>
 								</div>
-								<!-- 更多訂單 -->
 							</div>
+							<!-- 一筆訂單 -->
+							<div class="list-group mb-4">
+								<div class="list-group-item">
+									<div class="d-flex justify-content-between align-items-center">
+										<div>
+											<strong>訂單編號：</strong>#202405211234569<br>
+											<small>出貨日期：2024-05-25</small>
+										</div>
+										<div>
+											<span class="badge bg-warning">運送中</span>
+											<button class="btn btn-sm btn-outline-primary">查看明細</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 一筆訂單 -->
+							<div class="list-group mb-4">
+								<div class="list-group-item">
+									<div class="d-flex justify-content-between align-items-center">
+										<div>
+											<strong>訂單編號：</strong>#202405141234569<br>
+											<small>下單日期：2024-05-14</small><br>
+											<small>出貨日期：2024-05-19</small><br>
+											<small>結算日期：2024-05-24</small>
+										</div>
+										<div>
+											<span class="badge bg-success">已完成</span>
+											<button class="btn btn-sm btn-primary">查看明細</button>
+										</div>
+									</div>
+								</div>
+								<!-- 明細 -->
+								<div class="list-group-item">
+									<div class="d-flex justify-content-between align-items-center">
+										<div>
+											<p>春水遊鯉</p>
+											<p>冬日翠峰</p>
+											<p>秋山煙嵐</p>
+											<p>夏木幽亭</p>
+										</div>
+										<div>
+											<p>售價：399</p>
+											<p>售價：399</p>
+											<p>售價：399</p>
+											<p>售價：399</p>
+										</div>
+										<div>
+											<p>1本</p>
+											<p>1本</p>
+											<p>1本</p>
+											<p>1本</p>
+										</div>
+										<div>
+											<p>小計：399</p>
+											<p>小計：798</p>
+											<p>小計：1197</p>
+											<p>小計：1596</p>
+										</div>
+									</div>
+									<hr>
+									<div class="d-flex justify-content-end align-items-center">
+										<div>
+											<p>折扣：-0</p>
+											<p>總計：1596</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 更多訂單 -->
 						</div>
-						<!-- 購買紀錄－終 -->
+						<!-- 區塊：購買紀錄－終 -->
 
 
 
-						<!-- 個人設定－始 -->
+						<!-- 區塊：個人設定－始 -->
 						<div class="selectContent" id="settings" style="display: none;">
 							<!-- 🌈 個人化設定 -->
 							<section class="mb-4">
-								<h5 class="mb-3">個人化設定</h5>
+								<h5>個人化設定</h5>
+								<div class="soild"></div>
 								<!-- <div class="form-check form-switch">
 									<input class="form-check-input" type="checkbox" id="darkModeToggle">
 									<label class="form-check-label" for="darkModeToggle">深色模式</label>
 								</div> -->
-								<div class="mt-2">
+								<div class="inp_modle mt-2">
 									<label class="form-label">主題風格</label>
-									<select class="form-select" id="themeSelector">
+									<select id="themeSelector">
 										<option value="default" selected>經典金虹</option>
 										<option value="ocean">海青嵐（測試主題）</option>
 										<option value="dark">墨韻黑（測試主題）</option>
@@ -183,71 +471,104 @@
 								</div>
 							</section>
 
-							<!-- 👤 個人資料管理 -->
-							<section class="mb-4">
-								<!-- 編輯中用INPUT，否則只顯示文字，還想除了這區塊以外加個遮罩 -->
-								<h5 class="mb-3 text-center">個人資料管理</h5>
+							<!-- 個人資料管理 -->
+							<section id="infoSection" class="mb-4 personal-info-section">
+								<h5>個人資料管理</h5>
+								<div class="soild"></div>
 								<div class="inp_modle">
-									<p>暱稱</p>
-									<div class="soild"></div>
-									<input type="text" value="長安不問">
+									<label>暱稱</label>
+									<input type="text" value="長安不問" class="edit-input" style="display:none;">
+									<p class="display-text">長安不問</p>
 								</div>
 								<div class="inp_modle">
 									<label class="form-label">性別</label>
-									<div class="soild"></div>
-									<select>
+									<select class="edit-input" style="display:none;">
 										<option>男性</option>
 										<option>女性</option>
 										<option>其他 / 不透露</option>
 									</select>
+									<p class="display-text">男性</p>
 								</div>
 								<div class="inp_modle">
 									<label class="form-label">生日</label>
-									<div class="soild"></div>
-									<input type="date">
+									<input type="date" value="2000-01-01" class="edit-input" style="display:none;">
+									<p class="display-text">2000-01-01</p>
 								</div>
-								<button class="btn btn-sm btn-primary mt-2">修改個人資訊</button>
-								<!-- <button class="btn btn-sm btn-outline-primary mt-2">修改個人資訊</button> -->
+
+								<button id="toggleEditBtn" data-edit-text="修改個人資訊"
+									class="btn btn-sm btn-outline-primary mt-2">修改個人資訊</button>
 							</section>
 
 							<!-- 📱 聯繫方式 -->
-							<section class="mb-4">
+							<section id="contactSection" class="mb-4 personal-info-section">
 								<h5 class="mb-3">聯繫方式</h5>
-								<div class="mb-2 d-flex align-items-center justify-content-between">
-									<div class="inp_model ">
-										<label class="form-label mb-0">電子信箱</label>
-										<p class="mb-0 small text-muted">user@example.com</p>
+								<div class="soild"></div>
+
+								<div class="inp_modle towline">
+									<div class="label-badge">
+										<label>電子信箱</label>
+										<span class="badge bg-success">已驗證</span>
 									</div>
-									<span class="badge bg-success">已驗證</span>
-								</div>
-								<div class="mb-2 d-flex align-items-center justify-content-between">
-									<div>
-										<label class="form-label mb-0">手機號碼</label>
-										<p class="mb-0 small text-muted">+886 912345678</p>
+									<div class="d-flex align-items-center w-100">
+										<input type="email" value="user@example.com" class="edit-input"
+											style="display:none;">
+										<p class="display-text">user@example.com</p>
+										<!-- <button
+											class="display-text btn btn-sm btn-outline-secondary ms-2">寄送驗證信</button> -->
 									</div>
-									<span class="badge bg-warning text-dark">未驗證</span>
 								</div>
-								<button class="btn btn-sm btn-outline-primary mt-2">修改聯繫方式</button>
+
+								<div class="inp_modle towline">
+									<div class="label-badge">
+										<label>手機號碼</label>
+										<span class="badge bg-warning text-dark">未驗證</span>
+									</div>
+									<div class="d-flex align-items-center w-100">
+										<input type="text" value="0912345678" class="edit-input"
+											style="display:none;">
+										<p class="display-text">0912345678</p>
+										<button
+											class="display-text btn btn-sm btn-outline-secondary ms-2">寄送驗證信</button>
+									</div>
+								</div>
+
+								<button id="toggleContactEditBtn" data-edit-text="修改聯繫方式"
+									class="btn btn-sm btn-outline-primary mt-2">修改聯繫方式</button>
 							</section>
 
 							<!-- 🔐 隱私與安全性 -->
-							<section>
-								<h5 class="mb-3">隱私與安全性</h5>
-								<div class="mb-2">
+							<section class="mb-4">
+								<h5>隱私與安全性</h5>
+								<div class="soild"></div>
+
+								<div id="accountSection" class="inp_modle towline personal-info-section">
 									<label class="form-label">帳號</label>
-									<input type="text" class="form-control" value="chang.an" disabled>
+									<div class="d-flex align-items-center w-100">
+										<input type="email" value="myusername" class="edit-input" style="display:none;">
+										<p class="display-text">myusername</p>
+										<button id="toggleAccountEditBtn" class="btn btn-sm btn-outline-secondary ms-2"
+											data-edit-text="修改帳號">修改帳號</button>
+									</div>
 								</div>
-								<div class="mb-2">
+
+								<div id="passwordSection" class="inp_modle towline personal-info-section">
 									<label class="form-label">密碼</label>
-									<button class="btn btn-sm btn-outline-secondary ms-2">修改密碼</button>
+									<div class="d-flex align-items-center w-100">
+										<input type="email" value="a***************a" class="edit-input"
+											style="display:none;">
+										<p class="display-text">a***************a</p>
+										<button id="togglePasswordEditBtn" class="btn btn-sm btn-outline-secondary ms-2"
+											data-edit-text="修改密碼">修改密碼</button>
+									</div>
 								</div>
-								<div class="d-flex justify-content-between">
-									<button class="btn btn-outline-danger">登出</button>
-									<button class="btn btn-outline-dark">刪除帳號</button>
+
+								<div class="d-flex justify-content-end mt-5">
+									<button class="btn btn-outline-dark">帳號登出</button>
+									<button class="btn btn-danger">刪除帳號</button>要有浮窗輸入DELETE才能刪除
 								</div>
 							</section>
 						</div>
-						<!-- 個人設定－終 -->
+						<!-- 區塊：個人設定－終 -->
 					</div>
 				</div>
 			</div>
@@ -264,6 +585,9 @@
 			</div>
 
 		</div>
+
+		<!-- 遮罩 -->
+		<div class="overlay" id="overlay"></div>
 	</div>
 
 	<!-- 一定要放最後！否則沒辦法使用JS功能 -->

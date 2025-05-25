@@ -1,14 +1,25 @@
 CHU
-├── backend  
+├── backend  			#  後端資料夾
+│   ├── database        ## 資料庫檔案(方便轉移)
+│   │
+│   ├── node_modules
+│   │   └── 後端插件/
+│   │
+│   ├── package-lock.json
+│   ├── package.json
+│   └── server.js		### 設定用來啟動後端連線(類似於npm run serve)
 │
-├── docs/
+├── docs/  				#  資訊文件
 │   ├── npm run serve.txt
 │   ├── 待更新.txt
 │   └── 檔案結構.txt
 │
-├── frontend
+├── frontend  			#  前端資料夾
 │   ├── node_modules
 │   │   └── 前端插件/
+│   │
+│   ├── public			##  開放權限文件夾
+│   │   └── index.html	### 實際網頁渲染的文件
 │   │
 │   ├── src
 │   │   └── 詳情在檔案結構－前端/
@@ -16,8 +27,8 @@ CHU
 │   ├── .gitignore
 │   ├── babel.config.js
 │   ├── jsconfig.json
-│   ├── package.json
 │   ├── package-lock.json
+│   ├── package.json
 │   └── vue.config.js
 │   
 └── README.md
