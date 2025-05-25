@@ -3,30 +3,38 @@
   list-style: none;
 }
 /* 設定寬度跟置中 */
-.container{margin: 0 auto;
-width: 1500px;}
+.container {
+  margin: 0 auto;
+  width: 1500px;
+}
 
 /* 左側分類 */
-#bookSC li{
+#bookSC li {
   margin: 10px 0;
-  font-size: 20px;}
-#bookSC ul ul li{
-  font-size: 18px;}
+  font-size: 20px;
+}
+#bookSC ul ul li {
+  font-size: 18px;
+}
 /* 改icon大小 */
-.fa-solid{scale: 0.7;}
+.fa-solid {
+  scale: 0.7;
+}
 /* 細項的li整體往左移 */
-.subA{margin-left: -10px;}
+.subA {
+  margin-left: -10px;
+}
 
 /* 底部的收藏/加到購物車/回頂部 */
 .bottFlex {
   display: flex;
   background-color: rgb(255, 255, 255);
-  padding: 20px 50px;
+  padding: 10px 50px;
   justify-content: center;
   position: relative;
 }
 /* 回頂部 */
-#backToTop{
+#backToTop {
   position: absolute;
   top: -100px;
   right: 20px;
@@ -34,20 +42,26 @@ width: 1500px;}
   width: 90px;
   height: 90px;
   border-radius: 50px;
-  font-size: 50px;}
-#backToTop a{color: rgb(84, 61, 105);}
-#backToTop:hover{background-color: rgb(220, 220, 220);}
+  font-size: 50px;
+}
+#backToTop a {
+  color: rgb(84, 61, 105);
+}
+#backToTop:hover {
+  background-color: rgb(220, 220, 220);
+}
 
 .bottFlex a {
   font-size: 30px;
   color: aliceblue;
-  display: block;}
+  display: block;
+}
 .bottFlex button {
   border-radius: 10px;
   padding: 10px 90px;
   margin: 0 50px;
-  background-color: brown;}
-
+  background-color: brown;
+}
 
 /* 子標籤隱藏 */
 #litShow {
@@ -60,26 +74,27 @@ width: 1500px;}
 .prodP img {
   width: 100%;
 }
-.prodFlex{
+.prodFlex {
   display: flex;
   justify-content: space-around;
 }
 /* 書標題 */
-.bookTitle{
+.bookTitle {
   margin-bottom: 12px;
-  border-bottom:  1px solid black;
+  /* border-bottom: 1px solid black; */
 }
 /* 價格 */
 .price {
   font-weight: bold;
   color: white;
   background-color: brown;
-  padding: 15px 70px;
+  padding: 15px 55px;
   border-radius: 10px 40px;
+  margin-top: 40px;
 }
 
 /* 庫存 */
-.Stock{
+.Stock {
   color: brown;
   font-weight: bold;
   font-size: 20px;
@@ -93,19 +108,17 @@ width: 1500px;}
   /* width: 240px; */
 }
 
-.authorP h3{
-font-weight: bold;
+.authorP h3 {
+  font-weight: bold;
   color: brown;
-  border-radius:5px;
   transition: all 1s;
- 
 }
-.authorP button{
-color: aliceblue;
-background-color: brown;
-border: none;
-padding:10px 20px;
-border-radius: 20px;
+.authorP button {
+  color: aliceblue;
+  background-color: brown;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
 }
 /* 商品規格 */
 .card a {
@@ -120,6 +133,7 @@ border-radius: 20px;
 }
 
 /* 你可能會喜歡_小圖區 */
+.MaybeLike{background-color: rgba(165, 42, 42, 0.059);}
 .txtMaybeLike {
   color: brown;
   margin: 12px 0;
@@ -128,33 +142,106 @@ border-radius: 20px;
 .smProduct img {
   /* width: 150px; */
   height: 300px;
-  margin: 15px auto ;
+  margin: 15px auto;
   transition: all 0.5s;
- 
-
 }
 .smProduct {
   margin-bottom: 100px;
   padding: 30px;
 }
-.smProduct a{text-decoration: none;}
+.smProduct a {
+  text-decoration: none;
+}
 /* .smProduct h4{
 
 } */
-.smProduct span{
-  padding-bottom: 10px ;
+.smProduct span {
+  padding-bottom: 10px;
   display: inline-block;
   border-bottom: 1px solid black;
-
 }
-.col-sm-4{
+.col-sm-4 {
   transition: all 1.5s;
 }
-.col-sm-4:hover{
+.col-sm-4:hover {
   scale: 1.01;
 }
 /* 滑到變圓角，可惜手機不能有 */
 .smProduct img:hover {
   scale: 1.05;
   border-radius: 20px;
+}
+
+
+/* 改尺寸 */
+
+/* 中尺寸 */
+@media (min-width: 577px) and (max-width: 992px) {
+ 
+  /* 底部的收藏/加到購物車/回頂部 */
+  .bottFlex {
+    padding: 10px 0;
+    justify-content: space-between;
+  }
+  /* 回頂部 */
+
+  .bottFlex button {
+    padding: 10px 15%;
+    margin: 0 auto;
+  }
+   /* 分類頁的作者跟價格 */
+
+.authorP{
+  flex-direction: column;
+justify-content: center;
+margin-top: 30px;
+margin-left: 60px;
+}
+
+.authorP button {
+width: 200px;
+}
+/* 小圖區 */
+.col-sm-4{
+  margin: 0 30px;
+  width: 900px;
+
+}
+/* 細項的li整體往左移 */
+.subA {
+  margin-left: -20px;
+}
+}
+
+/* 小尺寸 */
+@media (max-width: 576px) {
+ .container {
+  margin: 0 auto;
+  width: 100%;
+}
+  /* 底部的收藏/加到購物車/回頂部 */
+  .bottFlex {
+    padding: 20px 0;
+    justify-content: space-between;
+  }
+  /* 回頂部 */
+  #backToTop {
+    top: -150px;
+    font-size: 50px;
+  }
+  .bottFlex button {
+    padding: 10px 60px;
+    margin: 0 auto;
+  }
+  /*  */
+  /* 分類頁的作者跟價格 */
+.authorP{
+flex-direction: column;
+justify-content: left;
+}
+
+.authorP button {
+width: 100%;
+border-radius: 0%;
+}
 }
