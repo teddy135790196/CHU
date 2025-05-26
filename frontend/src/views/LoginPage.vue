@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="wrap-register">
+  <div id="app" class="wrap back-img">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row page-login">
         <!-- 左側歡迎區 -->
         <WelcomeArea />
         <!-- 右側登入區 -->

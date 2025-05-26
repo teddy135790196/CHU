@@ -1,0 +1,22 @@
+/* 背景：圖片 */
+.wrap.back-img {
+	background-image: url('../../images/test_back.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	/* 背景圖片覆蓋整個區域 */
+	background-size: cover;
+	/* 讓背景固定在視窗 */
+	background-attachment: fixed;
+	/* 用 min-height 讓內容高度可撐開，和height兩者效果完全不一樣 */
+	min-height: 100vh;
+	/* margin: 0; */
+}
+
+
+
+/* 圓角內容區塊 */
+.content {
+	background-color: var(--back-color-whiteTransluc);
+	border-radius: 10px !important;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}

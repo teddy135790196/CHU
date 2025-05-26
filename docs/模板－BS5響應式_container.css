@@ -3,30 +3,8 @@
    寫好的CSS貼在這區
 ======================================== */
 
-/* 讓父元素有高度才能置中 */
-.row.page-login {
-		height: 100vh;
-	}
+/* 預設的全局樣式 */
 
-/* 登入區 && 圓角內容區塊 */
-.content.page-login {
-	width: 36%;
-	min-width: 480px;
-	min-height: 660px;
-	text-align: center;
-}
-
-/* 圓角區塊設定 */
-.content-left,
-.content-right {
-	padding: 30px 40px 40px 40px !important;
-
-	/* 所有內容 */
-	* {
-		display: flex;
-		flex-direction: column;
-	}
-}
 
 
 
@@ -34,67 +12,61 @@
    xxl: ≥ 1400px (大桌機、4K 螢幕)
    container 寬度: 1320px
 ======================================== */
-@media (min-width: 1400px) {}
+@media (min-width: 1400px) {
+   
+}
+
+
+
 
 /* ========================================
    xl: 1200px ~ 1399px (一般桌機)
    container 寬度: 1140px
 ======================================== */
 @media (min-width: 1200px) and (max-width: 1399px) {
-	.content.page-login {
-		min-width: 80%;
-	}
+   
 }
+
+
+
 
 /* ========================================
    lg: 992px ~ 1199px (小型桌機、橫向大型平板)
    container 寬度: 960px
 ======================================== */
 @media (min-width: 992px) and (max-width: 1199px) {
-	.content.page-login {
-		min-width: 90%;
-	}
+   
 }
+
+
+
 
 /* ========================================
    md: 768px ~ 991px (橫向 iPad、小型平板)
    container 寬度: 720px
 ======================================== */
 @media (min-width: 768px) and (max-width: 991px) {
-	
-
-	.content.page-login {
-		/* height: 100vh; */
-		min-width: 100%;
-
-	}
+   
 }
+
+
+
 
 /* ========================================
    sm: 577px ~ 767px (大型手機、直向平板)
    container 寬度: 540px
 ======================================== */
 @media (min-width: 577px) and (max-width: 767px) {
-	.content.page-login {
-		border-radius: 0 !important;
-		box-shadow: none;
-
-		min-width: 80%;
-		min-height: 540px;
-	}
+   
 }
+
+
+
 
 /* ========================================
    xs: ≤ 576px (手機)
    container 寬度: 100% (fluid)
 ======================================== */
 @media (max-width: 576px) {
-	.content.page-login {
-		border-radius: 0;
-		background-color: transparent;
-		box-shadow: none;
-
-		min-width: 100%;
-		min-height: 540px;
-	}
+   
 }

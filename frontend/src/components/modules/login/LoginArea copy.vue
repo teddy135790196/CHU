@@ -2,7 +2,7 @@
   <div
     class="col-sm-12 col-md-6 d-flex align-items-center justify-content-center"
   >
-    <div class="content page-login content-right d-flex flex-column">
+    <div class="content login content-right d-flex flex-column">
       <div class="login-box d-flex">
         <div class="inp_modle">
           <p>帳號</p>

@@ -40,7 +40,7 @@ export default {
 	.welcome {
 		font-family: '王翰宗粗鋼體';
 		margin-top: 50px;
-		
+		user-select: none;
 
 		/* 主題 */
 		h2 {

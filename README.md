@@ -16,6 +16,16 @@
 <hr>
 
 <details>
+<summary>0526｜登入頁面CSS重製</summary>
+
+- **新增**
+  - CSS響應式標準模板(感謝尤乙淳同學提供的樣板)
+- **更新**
+  - 開始將登入頁面的CSS完全重製，目前進度到設定版面寬度
+
+</details>
+
+<details>
 <summary>0525｜會員專區HTML設計完成</summary>
 
 - **新增**
