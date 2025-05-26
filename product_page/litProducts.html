@@ -42,7 +42,7 @@
             <div class="col-md-2">
               
               <div id="pubBC">
-               <h4 v-on:click="showPub">出版類型
+               <h4 v-on:click="showPub" class="cat">出版類型
                 <i v-if="isVisible==true" class="fa-solid fa-chevron-down"></i>
                 <i v-else class="fa-solid fa-chevron-up"></i>
                </h4>
@@ -56,7 +56,7 @@
               <div id="bookSC">
                 <!-- 書分類大標題 -->
                 <ul class="nav flex-column" v-for="item in bookItems">
-                  <li
+                  <li class="cat"
                     v-bind:class="{'select':BkBigCat === item}"
                     v-on:click="BkBigCat=item">{{item}}
                    <i class="fa-solid fa-plus"></i>
