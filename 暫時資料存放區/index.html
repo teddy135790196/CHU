@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>csv obj轉換和查詢（要開啟伺服器）</title>
+  </head>
+  <body>
+    <div id="book"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+      //資料列印到網頁上的程式碼能放到fetch外嗎？如果裡面要用Vue呢？
+
+      // //查詢資料，輸入欄位名稱和要查找的值
+      // function findBookByElement(fields, queryValue) {
+      //   let queryValueArr = [];
+      //   for (let i = 0; i < csvToObj.data.length; i++) {
+      //     if (csvToObj.data[i][fields] === queryValue) {
+      //       queryValueArr.push(i);
+      //     }
+      //   }
+
+      //   return queryValueArr;
+      // }
+
+      //查詢資料，輸入文字，可以輸入多筆，用空白間隔
+      function findBookByValue(queryValue) {
+        const queryResultArr = [];
+        const queryValueStrArr = queryValue.split(" ");
+        // console.log(queryValueStrArr);
+        for (let i = 0; i < csvToObj.data.length; i++) {
+          let hasValue = false;
+          for (value of queryValueStrArr) {
+            // console.log(value, hasValue);
+            if (Object.values(csvToObj.data[i]).includes(value)) {
+              hasValue = true;
+            } else {
+              hasValue = false;
+            }
+          }
+          if (hasValue) {
+            queryResultArr.push(i);
+          }
+        }
+
+        return queryResultArr;
+      }
+
+      let csvToObj;
+      // 讀取 CSV 檔案
+      fetch("bookTable.csv")
+        .then(response => response.text()) // 轉換為文字格式
+        .then(csvData => {
+          // 解析 CSV
+          csvToObj = Papa.parse(csvData, {
+            header: true, // 設定為 true 以轉換為物件格式
+            skipEmptyLines: true, // 跳過空行
+          });
+
+          console.log(csvToObj); // 物件，包含data, errors, meta
+          console.log(csvToObj.data); // 陣列，每個元素都是一個物件，內容就是我要的欄位名配值
+          document.getElementById("book").innerText = JSON.stringify(csvToObj.data, null, 2); //列印到網頁上
+
+          //把物件轉換成字串，寫在這邊而不是外面是為了等上面資料轉換完成才能執行這邊
+          let objToCsv = "";
+          csvToObj.data.forEach(function (obj) {
+            objToCsv += JSON.stringify(obj, null, 2); //null表示不用過濾某些屬性，2代表屬性縮排2空格方便閱讀
+          });
+          console.log(objToCsv);
+
+          // let index = -1;
+          // index = findBookByElement("出版社", "知返");
+          // console.log(index); //(13)&nbsp;[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+          // index = findBookByElement("作者", "游良前");
+          // console.log(index); //[11]
+
+          let index = [];
+          index = findBookByValue("後漢書 知返");
+          console.log(index);
+        })
+        .catch(error => console.error("Error fetching CSV:", error));
+    </script>
+  </body>
+</html>
