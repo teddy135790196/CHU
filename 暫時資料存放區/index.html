@@ -13,40 +13,46 @@
     <script>
       //資料列印到網頁上的程式碼能放到fetch外嗎？如果裡面要用Vue呢？
 
-      // //查詢資料，輸入欄位名稱和要查找的值
-      // function findBookByElement(fields, queryValue) {
-      //   let queryValueArr = [];
-      //   for (let i = 0; i < csvToObj.data.length; i++) {
-      //     if (csvToObj.data[i][fields] === queryValue) {
-      //       queryValueArr.push(i);
-      //     }
-      //   }
-
-      //   return queryValueArr;
-      // }
-
-      //查詢資料，輸入文字，可以輸入多筆，用空白間隔
-      function findBookByValue(queryValue) {
-        const queryResultArr = [];
-        const queryValueStrArr = queryValue.split(" ");
-        // console.log(queryValueStrArr);
+      //查詢資料，輸入欄位名稱和要查找的值
+      function findBookByCondition(fields, queryValue) {
+        let queryValueArr = [];
         for (let i = 0; i < csvToObj.data.length; i++) {
-          let hasValue = false;
-          for (value of queryValueStrArr) {
-            // console.log(value, hasValue);
-            if (Object.values(csvToObj.data[i]).includes(value)) {
-              hasValue = true;
-            } else {
-              hasValue = false;
+          if (fields === "") {
+            //無欄位名，收尋所有欄位
+            if (Object.values(csvToObj.data[i]).includes(queryValue)) {
+              queryValueArr.push(i);
             }
-          }
-          if (hasValue) {
-            queryResultArr.push(i);
+            //有欄位名，搜尋該欄位
+          } else if (csvToObj.data[i][fields] === queryValue) {
+            queryValueArr.push(i);
           }
         }
 
-        return queryResultArr;
+        return queryValueArr;
       }
+
+      // //查詢資料，輸入文字，可以輸入多筆，用空白間隔。未完成，感覺這方法不好，暫時放著。
+      // function findBookByValue(queryValue) {
+      //   const queryResultArr = [];
+      //   const queryValueStrArr = queryValue.split(" ");
+      //   // console.log(queryValueStrArr);
+      //   for (let i = 0; i < csvToObj.data.length; i++) {
+      //     let hasValue = false;
+      //     for (value of queryValueStrArr) {
+      //       // console.log(value, hasValue);
+      //       if (Object.values(csvToObj.data[i]).includes(value)) {
+      //         hasValue = true;
+      //       } else {
+      //         hasValue = false;
+      //       }
+      //     }
+      //     if (hasValue) {
+      //       queryResultArr.push(i);
+      //     }
+      //   }
+
+      //   return queryResultArr;
+      // }
 
       let csvToObj;
       // 讀取 CSV 檔案
@@ -70,16 +76,19 @@
           });
           console.log(objToCsv);
 
-          // let index = -1;
-          // index = findBookByElement("出版社", "知返");
-          // console.log(index); //(13)&nbsp;[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-
-          // index = findBookByElement("作者", "游良前");
-          // console.log(index); //[11]
-
           let index = [];
-          index = findBookByValue("後漢書 知返");
-          console.log(index);
+          index = findBookByCondition("出版社", "知返");
+          console.log(index); //(13) [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+
+          index = findBookByCondition("作者", "游良前");
+          console.log(index); //[31]
+
+          index = findBookByCondition("", "紅樓夢");
+          console.log(index); //[20]
+
+          // let index = [];
+          // index = findBookByValue("後漢書 知返");
+          // console.log(index);
         })
         .catch(error => console.error("Error fetching CSV:", error));
     </script>
