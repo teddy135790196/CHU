@@ -1,42 +1,28 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col box d-flex align-items-center justify-content-center">
-        <div class="content-register d-flex flex-column">
+      <div class="col vh-100 d-flex align-items-center justify-content-center">
+        <div class="content register d-flex flex-column">
           <!-- 進度條 -->
           <div class="progress mb-1">
             <div class="progress-bar" :style="{ width: (progressWidth[nowStep - 1] || 0) + '%' }"></div>
           </div>
 
           <!-- 註冊步驟子元件 -->
-          <RegisterStep1 
-          v-show="nowStep === 1" 
-          :nowStep="nowStep" 
-          :formData="{ username: form.username, password: form.password, repassword: form.repassword }"
-          @updateForm="updatePartialForm" 
-          ref="step1" />
+          <RegisterStep1 v-show="nowStep === 1" :nowStep="nowStep"
+            :formData="{ username: form.username, password: form.password, repassword: form.repassword }"
+            @updateForm="updatePartialForm" ref="step1" />
 
-          <RegisterStep2 
-          v-show="nowStep === 2" 
-          :nowStep="nowStep" 
-          :formData="{ nickname: form.nickname, gender: form.gender, birth: form.birth }"
-          @updateForm="updatePartialForm"
-          ref="step2" />
+          <RegisterStep2 v-show="nowStep === 2" :nowStep="nowStep"
+            :formData="{ nickname: form.nickname, gender: form.gender, birth: form.birth }"
+            @updateForm="updatePartialForm" ref="step2" />
 
-          <RegisterStep3 
-          v-show="nowStep === 3" 
-          :nowStep="nowStep" 
-          :formData="{ email: form.email, phone: form.phone }"
-          @updateForm="updatePartialForm"
-          ref="step3" />
+          <RegisterStep3 v-show="nowStep === 3" :nowStep="nowStep" :formData="{ email: form.email, phone: form.phone }"
+            @updateForm="updatePartialForm" ref="step3" />
 
-          <RegisterStep4 
-          v-show="nowStep === 4" 
-          :nowStep="nowStep" 
-          :form="form" 
-          ref="step4" />
+          <RegisterStep4 v-show="nowStep === 4" :nowStep="nowStep" :form="form" ref="step4" />
 
-          
+
           <!-- 按鈕區 -->
           <div class="btn-group mt-auto">
             <button class="btn btn-primary" @click="prevStep">
@@ -51,7 +37,7 @@
             {{ "跳過" }}
           </button>
         </div>
-        
+
       </div>
     </div>
   </div>
@@ -111,7 +97,60 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css");
 
+/* ========================================
+   基本全局樣式（適用於所有設備）
+   寫好的CSS貼在這區
+======================================== */
+
+/* 圓角內容區塊 */
+.content.register {
+  padding: 20px;
+
+  min-width: 600px;
+  min-height: 720px;
+}
+
+
+
+
+
+
+/* ========================================
+   sm: 577px ~ 767px (大型手機、直向平板)
+   container 寬度: 540px
+======================================== */
+@media (min-width: 577px) and (max-width: 767px) {
+
+  /* 圓角內容區塊 */
+  .content.register {
+    border-radius: 0;
+
+    min-width: 90%;
+
+  }
+
+}
+
+
+
+
+/* ========================================
+   xs: ≤ 576px (手機)
+   container 寬度: 100% (fluid)
+======================================== */
+@media (max-width: 576px) {
+
+  /* 圓角內容區塊 */
+  .content.register {
+    background-color: transparent;
+    box-shadow: none;
+
+    min-width: 100%;
+    min-height: 600px;
+  }
+
+}
 </style>

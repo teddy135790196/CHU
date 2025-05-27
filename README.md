@@ -16,7 +16,16 @@
 <hr>
 
 <details>
-<summary>0526｜登入頁面CSS重製</summary>
+<summary>0527｜登入與註冊Vue頁面CSS重製(未完成)</summary>
+
+- **更新**
+  - 登入頁面歡迎區響應式完成、登入區未調整
+  - 註冊頁面響應式重製完成
+
+</details>
+
+<details>
+<summary>0526｜登入頁面CSS重製(未完成)</summary>
 
 - **新增**
   - CSS響應式標準模板(感謝尤乙淳同學提供的樣板)

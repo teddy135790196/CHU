@@ -3,15 +3,15 @@
    寫好的CSS貼在這區
 ======================================== */
 
-/* 讓父元素有高度才能置中 */
+/* 讓父元素有高度才能垂直置中 */
 .row.page-login {
-		height: 100vh;
-	}
+	height: 100vh;
+}
 
 /* 登入區 && 圓角內容區塊 */
 .content.page-login {
 	width: 36%;
-	min-width: 480px;
+	/* min-width: 480px; */
 	min-height: 660px;
 	text-align: center;
 }
@@ -19,7 +19,8 @@
 /* 圓角區塊設定 */
 .content-left,
 .content-right {
-	padding: 30px 40px 40px 40px !important;
+
+	padding: 50px 50px 60px 50px !important;
 
 	/* 所有內容 */
 	* {
@@ -34,7 +35,18 @@
    xxl: ≥ 1400px (大桌機、4K 螢幕)
    container 寬度: 1320px
 ======================================== */
-@media (min-width: 1400px) {}
+@media (min-width: 1400px) {
+	.content.page-login {
+		min-width: 660px;
+		min-height: 800px;
+	}
+
+	/* BOX內邊距 */
+	.content-left,
+	.content-right {
+		padding: 30px 30px 40px 30px !important;
+	}
+}
 
 /* ========================================
    xl: 1200px ~ 1399px (一般桌機)
@@ -42,8 +54,10 @@
 ======================================== */
 @media (min-width: 1200px) and (max-width: 1399px) {
 	.content.page-login {
-		min-width: 80%;
+		min-width: 580px;
+		min-height: 720px;
 	}
+
 }
 
 /* ========================================
@@ -52,7 +66,14 @@
 ======================================== */
 @media (min-width: 992px) and (max-width: 1199px) {
 	.content.page-login {
-		min-width: 90%;
+		min-width: 480px;
+		/* max-width: 500px; */
+	}
+
+	/* BOX內邊距 */
+	.content-left,
+	.content-right {
+		padding: 30px 40px 40px 40px !important;
 	}
 }
 
@@ -61,11 +82,17 @@
    container 寬度: 720px
 ======================================== */
 @media (min-width: 768px) and (max-width: 991px) {
-	
+
 
 	.content.page-login {
-		/* height: 100vh; */
-		min-width: 100%;
+		min-width: 380px;
+		min-height: 540px;
+	}
+
+	/* BOX內邊距 */
+	.content-left,
+	.content-right {
+		padding: 40px 30px 40px 30px !important;
 
 	}
 }
@@ -82,6 +109,13 @@
 		min-width: 80%;
 		min-height: 540px;
 	}
+
+	/* BOX內邊距 */
+	.content-left,
+	.content-right {
+		padding: 50px 35px 35px 35px !important;
+
+	}
 }
 
 /* ========================================
@@ -96,5 +130,12 @@
 
 		min-width: 100%;
 		min-height: 540px;
+	}
+
+	/* BOX內邊距 */
+	.content-left,
+	.content-right {
+		padding: 50px 30px 40px 30px !important;
+
 	}
 }

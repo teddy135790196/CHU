@@ -1,5 +1,6 @@
 <template>
-  <div id="app" class="wrap-register">
+  <div id="app" class="wrap">
+    <div class="back-img"></div> <!-- 背景層 -->
     <RegisterArea />
   </div>
 </template>

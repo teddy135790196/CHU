@@ -68,7 +68,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--back-color-blackTransluc); /* 半透明黑色遮罩 */
+  background: var(--second-back-color-transluc); /* 半透明黑色遮罩 */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,7 +81,7 @@ export default {
   padding: 30px;
   border-radius: 8px;
   text-align: center;
-  box-shadow: 0 8px 16px var(--back-color-blackTransluc);
+  box-shadow: 0 8px 16px var(--second-back-color-transluc);
   max-width: 400px;
   width: 80%;
 }

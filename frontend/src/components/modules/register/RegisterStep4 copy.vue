@@ -111,12 +111,6 @@ export default {
 </script>
 
 <style>
-
-/* ========================================
-   基本全局樣式（適用於所有設備）
-   寫好的CSS貼在這區
-======================================== */
-
 #step4 {
 
   /* 暱稱 */
@@ -196,71 +190,47 @@ export default {
   
 }
 
+@media (max-width: 540px) {
+  #step4 {
 
+    /* 暱稱 */
+    h5 {
+      font-size: 32px;
+    }
 
-/* ========================================
-   xxl: ≥ 1400px (大桌機、4K 螢幕)
-   container 寬度: 1320px
-======================================== */
-@media (min-width: 1400px) {
-   
-}
+    /* 底線 */
+    .underline {
+      margin: 14px auto;
+    }
 
+    .form{
+      padding: 0 10px;
 
+      .col {
+        flex-direction: column; /* 改為上下排列 */
+        align-items: flex-start; /* 讓文字靠左 */
+      }
 
+      /* 文字 */
+      .name {
+        display: block;
+        border-bottom: 1px solid var(--main-color);
+      }
 
-/* ========================================
-   xl: 1200px ~ 1399px (一般桌機)
-   container 寬度: 1140px
-======================================== */
-@media (min-width: 1200px) and (max-width: 1399px) {
-   
-}
+      /* 資料 */
+      .data {
+        width: 100%; /* 滿寬，避免折行 */
+        margin-bottom: 4px; /* 加點間距 */
+        margin-left: 2.4em; /* 或 padding-left: 1em; */
+      }
+    }
 
-
-
-
-/* ========================================
-   lg: 992px ~ 1199px (小型桌機、橫向大型平板)
-   container 寬度: 960px
-======================================== */
-@media (min-width: 992px) and (max-width: 1199px) {
-   
-}
-
-
-
-
-/* ========================================
-   md: 768px ~ 991px (橫向 iPad、小型平板)
-   container 寬度: 720px
-======================================== */
-@media (min-width: 768px) and (max-width: 991px) {
-   
-}
-
-
-
-
-/* ========================================
-   sm: 577px ~ 767px (大型手機、直向平板)
-   container 寬度: 540px
-======================================== */
-@media (min-width: 577px) and (max-width: 767px) {
-   
-}
-
-
-
-
-/* ========================================
-   xs: ≤ 576px (手機)
-   container 寬度: 100% (fluid)
-======================================== */
-@media (max-width: 576px) {
-  /* 驗證碼區塊 */
-  .captcha{
-    transform: translateY(30px) !important;
+    .captcha{
+      transform: translateY(20px);
+      margin: 20px 0 !important;
+      padding: 0 10px;
+    }
+    
   }
 }
 </style>
