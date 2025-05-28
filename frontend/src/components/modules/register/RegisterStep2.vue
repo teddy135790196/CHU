@@ -222,6 +222,12 @@ export default {
 
 
 <style scoped>
+
+/* ========================================
+   基本全局樣式（適用於所有設備）
+   寫好的CSS貼在這區
+======================================== */
+
 #step2 {
 
 	/* 性別核取 */
@@ -229,9 +235,9 @@ export default {
 		display: flex;
 		flex-direction: row;
 		/* 對齊 - 調整核取整體 */
-		margin-top: 2px;
-		margin-bottom: -2px;
-		margin-right: 20px;
+		margin-top: 4px;
+		margin-bottom: 0px;
+		gap: 30px;
 
 		.gender-check {
 			display: flex;
@@ -240,15 +246,16 @@ export default {
 
 			input[type="radio"] {
 				box-shadow: none;
-
+				transform: scale(1.5); /* 放大 1.5 倍 */
 			}
 
 			label {
 				/* 對齊 - 調整核取文字 */
-				margin-top: 4px;
+				margin-top: 7px;
 				margin-bottom: -4px;
-				white-space: nowrap;
 				/* 防止意外換行 */
+				white-space: nowrap;
+				font-size: 20px;
 			}
 		}
 
@@ -263,5 +270,43 @@ export default {
 	
 }
 
+
+
+
+/* ========================================
+   sm: 577px ~ 767px (大型手機、直向平板)
+   container 寬度: 540px
+======================================== */
+@media (min-width: 577px) and (max-width: 767px) {
+
+  /* 圓角內容區塊 */
+  .content.register {
+    border-radius: 0;
+
+    min-width: 90%;
+
+  }
+
+}
+
+
+
+
+/* ========================================
+   xs: ≤ 576px (手機)
+   container 寬度: 100% (fluid)
+======================================== */
+@media (max-width: 576px) {
+
+  /* 圓角內容區塊 */
+  .content.register {
+    background-color: transparent;
+    box-shadow: none;
+
+    min-width: 100%;
+    min-height: 600px;
+  }
+
+}
 
 </style>

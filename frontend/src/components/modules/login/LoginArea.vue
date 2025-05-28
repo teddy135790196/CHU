@@ -49,6 +49,7 @@ export default {
 
 		.soild {
 			height: 3px;
+			margin: 0;
 		}
 
 		input {
@@ -112,7 +113,35 @@ export default {
    container 寬度: 1320px
 ======================================== */
 @media (min-width: 1400px) {
-   
+   .inp_modle {
+		p {
+			font-size: 42px;
+		}
+
+		input {
+			height: 42px;
+			font-size: 25px;
+		}
+	}
+
+	/* 登入按鈕 */
+	.button {
+		margin-top: 6px;
+		font-size: 24px;
+	}
+
+	/* 超大或 */
+	/* .or {
+		font-size: 72px;
+	} */
+
+	/* 忘記密碼與登入會員 */
+	.other {
+		a{
+			font-size: 22px;
+			
+		}
+	}
 }
 
 
@@ -123,7 +152,35 @@ export default {
    container 寬度: 1140px
 ======================================== */
 @media (min-width: 1200px) and (max-width: 1399px) {
-   
+   .inp_modle {
+		p {
+			font-size: 38px;
+		}
+
+		input {
+			height: 38px;
+			font-size: 23px;
+		}
+	}
+
+	/* 登入按鈕 */
+	.button {
+		margin-top: 4px;
+		font-size: 22px;
+	}
+
+	/* 超大或 */
+	/* .or {
+		font-size: 72px;
+	} */
+
+	/* 忘記密碼與登入會員 */
+	.other {
+		a{
+			font-size: 20px;
+			
+		}
+	}
 }
 
 
@@ -134,7 +191,35 @@ export default {
    container 寬度: 960px
 ======================================== */
 @media (min-width: 992px) and (max-width: 1199px) {
-   
+   .inp_modle {
+		p {
+			font-size: 36px;
+		}
+
+		input {
+			height: 36px;
+			font-size: 21px;
+		}
+	}
+
+	/* 登入按鈕 */
+	.button {
+		margin-top: 4px;
+		font-size: 21px;
+	}
+
+	/* 超大或 */
+	/* .or {
+		font-size: 72px;
+	} */
+
+	/* 忘記密碼與登入會員 */
+	.other {
+		a{
+			font-size: 19px;
+			
+		}
+	}
 }
 
 
@@ -145,7 +230,34 @@ export default {
    container 寬度: 720px
 ======================================== */
 @media (min-width: 768px) and (max-width: 991px) {
-   
+   .inp_modle {
+		p {
+			font-size: 32px;
+		}
+
+		input {
+			height: 32px;
+			font-size: 18px;
+		}
+	}
+
+	/* 登入按鈕 */
+	.button {
+		font-size: 18px;
+	}
+
+	/* 超大或 */
+	/* .or {
+		font-size: 72px;
+	} */
+
+	/* 忘記密碼與登入會員 */
+	.other {
+		a{
+			font-size: 18px;
+			
+		}
+	}
 }
 
 
@@ -156,7 +268,34 @@ export default {
    container 寬度: 540px
 ======================================== */
 @media (min-width: 577px) and (max-width: 767px) {
-   
+   .inp_modle {
+		p {
+			font-size: 36px;
+		}
+
+		input {
+			height: 36px;
+			font-size: 21px;
+		}
+	}
+
+	/* 登入按鈕 */
+	.button {
+		font-size: 21px;
+	}
+
+	/* 超大或 */
+	/* .or {
+		font-size: 72px;
+	} */
+
+	/* 忘記密碼與登入會員 */
+	.other {
+		a{
+			font-size: 20px;
+			
+		}
+	}
 }
 
 
@@ -185,14 +324,12 @@ export default {
 	}
 
 	/* 超大或 */
-	.or {
+	/* .or {
 		font-size: 72px;
-	}
+	} */
 
 	/* 忘記密碼與登入會員 */
 	.other {
-		gap: 10px;
-
 		a{
 			font-size: 18px;
 			

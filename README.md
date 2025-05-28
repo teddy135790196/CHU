@@ -16,6 +16,17 @@
 <hr>
 
 <details>
+<summary>0528｜登入Vue頁面CSS重製完成</summary>
+
+- **新增**
+  - 會員專區HTML轉Vue完成
+  - 資料庫的會員資料表初期設計
+- **更新**
+  - 登入頁面響應式完成
+
+</details>
+
+<details>
 <summary>0527｜登入與註冊Vue頁面CSS重製(未完成)</summary>
 
 - **更新**
