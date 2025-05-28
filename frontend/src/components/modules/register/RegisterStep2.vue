@@ -9,7 +9,7 @@
 		id="nickname" 
 		type="text" 
 		:label="message.inputLabel.nickname" 
-		:placeholder="message.inputplahold.nickname" 
+		:placeholder="message.inputPlahold.nickname" 
 		:quote="message.quote.nickname"
 		:error-message="formErrors.nickname"
 		@blur="validateNickname"
@@ -120,7 +120,7 @@ export default {
 				},
 
 				// input => placeholder
-				inputplahold: {
+				inputPlahold: {
 					nickname: '範例：棲遲',
 					// gender: '範例：A123456789',
 					// birth: '範例：A123456789',
@@ -237,12 +237,10 @@ export default {
 		/* 對齊 - 調整核取整體 */
 		margin-top: 4px;
 		margin-bottom: 0px;
-		gap: 30px;
+		gap: 50px;
 
 		.gender-check {
 			display: flex;
-
-			margin-right: 36px;
 
 			input[type="radio"] {
 				box-shadow: none;
@@ -253,6 +251,7 @@ export default {
 				/* 對齊 - 調整核取文字 */
 				margin-top: 7px;
 				margin-bottom: -4px;
+				margin-left: 8px;
 				/* 防止意外換行 */
 				white-space: nowrap;
 				font-size: 20px;

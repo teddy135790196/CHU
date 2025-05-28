@@ -10,8 +10,7 @@
             <!-- 頭像 -->
             <div class="col-12 col-md-3">
               <div class="userAvatar d-flex justify-content-center">
-                <img src="profile.jpg" alt="用戶頭像"
-                  onerror="this.onerror=null; this.src='./images/userAvatar_default.jpg';">
+                <img :src="profileImg" @error="setDefaultImage" alt="用戶頭像">
               </div>
             </div>
 
@@ -96,6 +95,7 @@ export default {
   },
   data() {
     return {
+      profileImg: 'profile.jpg',
       // 控制選單狀態
       activeSection: 'wishlist',
 
@@ -123,6 +123,10 @@ export default {
   methods: {
     setActiveSection(section) {
       this.activeSection = section;
+    },
+    // 圖片丟失使用預設圖片
+    setDefaultImage(event) {
+      event.target.src = require('@/assets/images/userAvatar_default.jpg');
     },
     updateAccordionMargin() {
       this.$nextTick(() => {
@@ -176,6 +180,12 @@ export default {
 
 
 <style scoped>
+
+/* ========================================
+   基本全局樣式（適用於所有設備）
+   寫好的CSS貼在這區
+======================================== */
+
 .accordion-custom {
   --dynamic-margin: 0px;
   margin-top: var(--dynamic-margin);
@@ -184,5 +194,71 @@ export default {
 .menu-item.active {
   font-weight: bold;
   /* 或其他選中樣式 */
+}
+
+
+
+
+/* ========================================
+   xxl: ≥ 1400px (大桌機、4K 螢幕)
+   container 寬度: 1320px
+======================================== */
+@media (min-width: 1400px) {
+   
+}
+
+
+
+
+/* ========================================
+   xl: 1200px ~ 1399px (一般桌機)
+   container 寬度: 1140px
+======================================== */
+@media (min-width: 1200px) and (max-width: 1399px) {
+   
+}
+
+
+
+
+/* ========================================
+   lg: 992px ~ 1199px (小型桌機、橫向大型平板)
+   container 寬度: 960px
+======================================== */
+@media (min-width: 992px) and (max-width: 1199px) {
+   
+}
+
+
+
+
+/* ========================================
+   md: 768px ~ 991px (橫向 iPad、小型平板)
+   container 寬度: 720px
+======================================== */
+@media (min-width: 768px) and (max-width: 991px) {
+   
+}
+
+
+
+
+/* ========================================
+   sm: 577px ~ 767px (大型手機、直向平板)
+   container 寬度: 540px
+======================================== */
+@media (min-width: 577px) and (max-width: 767px) {
+   
+}
+
+
+
+
+/* ========================================
+   xs: ≤ 576px (手機)
+   container 寬度: 100% (fluid)
+======================================== */
+@media (max-width: 576px) {
+   
 }
 </style>

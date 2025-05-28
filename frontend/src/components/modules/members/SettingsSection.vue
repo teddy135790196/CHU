@@ -42,6 +42,11 @@
 				<input type="date" value="2000-01-01" class="edit-input" style="display:none;">
 				<p class="display-text">2000-01-01</p>
 			</div>
+			<div class="inp_modle">
+				<label class="form-label">個人簡介</label>
+				<input type="date" value="2000-01-01" class="edit-input" style="display:none;">
+				<p class="display-text  text-truncate">或者直接在上面改。天地玄黃，宇宙洪荒。日月盈昃，辰宿列張。寒來暑往，秋收冬藏。閏餘成歲，律召調陽。雲騰致雨，露結為霜。金生麗水，玉出崑岡。劍號巨闕，珠稱夜光。果珍李柰，菜重芥薑。海鹹河淡，鱗潛羽翔。龍師火帝，鳥官人皇。始制文字，乃服衣裳。推位讓國，有虞陶唐。弔民伐罪，周發殷湯。坐朝問道，垂拱平章。愛育黎首，臣伏戎羌。遐邇一體，率賓歸王。鳴鳳在樹，白駒食場。化被草木，賴及萬方。蓋此身髮，四大五常。恭惟鞠養，豈敢毀傷。女慕貞絜，男效才良。知過必改，得能莫忘。罔談彼短，靡恃己長。信使可覆，器欲難量。墨悲絲淬，詩讚羔羊。</p>
+			</div>
 
 			<button id="toggleEditBtn" data-edit-text="修改個人資訊"
 				class="btn btn-sm btn-outline-primary mt-2">修改個人資訊</button>
@@ -74,6 +79,16 @@
 					<input type="text" value="0912345678" class="edit-input" style="display:none;">
 					<p class="display-text">0912345678</p>
 					<button class="display-text btn btn-sm btn-outline-secondary ms-2">寄送驗證信</button>
+				</div>
+			</div>
+
+			<div class="inp_modle towline">
+				<div class="label-badge">
+					<label>通訊地址</label>
+				</div>
+				<div class="d-flex align-items-center w-100">
+					<input type="text" value="320桃園市中壢區健行路229號" class="edit-input" style="display:none;">
+					<p class="display-text">320桃園市中壢區健行路229號</p>
 				</div>
 			</div>
 

@@ -33,9 +33,9 @@
         <BaseInput 
         id="captcha" 
         type="text" 
-        label="驗證碼" 
-        placeholder="請輸入驗證碼" 
-        quote="message.quote.repassword"
+        :label="message.labelText.captcha" 
+        :placeholder="message.labelText.captchaPlahold" 
+        :quote="message.labelText.captchaQuote"
         error-message="" 
         v-model="message.captch.input" />
         <img :src="message.captch.image" style="" alt="captcha">
@@ -79,6 +79,10 @@ export default {
           birth: '生日',
           email: '電子郵件',
           phone: '電話',
+          captcha: '驗證碼',
+          captchaPlahold: '請輸入驗證碼',
+          captchaQuote: '點擊圖片可更換',
+          errformat: '驗證碼錯誤',
         },
 
         // 驗證碼(未實作。等連結後端)

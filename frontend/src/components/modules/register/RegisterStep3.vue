@@ -7,7 +7,7 @@
       type="email" 
       id="email" 
       :label="message.inputLabel.email" 
-      :placeholder="message.inputplahold.email" 
+      :placeholder="message.inputPlahold.email" 
       :quote="message.quote.email"
       :error-message="formErrors.email" 
       @blur="validateEmail" 
@@ -17,7 +17,7 @@
       type="tel" 
       id="phone" 
       :label="message.inputLabel.phone" 
-      :placeholder="message.inputplahold.phone" 
+      :placeholder="message.inputPlahold.phone" 
       :quote="message.quote.email"
       :error-message="formErrors.phone" 
       @blur="validatePhone" 
@@ -67,7 +67,7 @@ export default {
 				},
 
 				// input => placeholder
-				inputplahold: {
+				inputPlahold: {
           email: '範例：myemail@gmail.com',
           phone: '範例：0123456789',
 				},
