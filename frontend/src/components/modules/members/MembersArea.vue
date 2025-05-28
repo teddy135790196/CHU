@@ -1,61 +1,99 @@
-
 <template>
-  <div>
-    <!-- 個人資訊、手風琴等 -->
-    <div class="accordion accordion-custom" id="userAccordion">
-      <div class="row">
-        <div class="col-12 col-md-9 offset-md-3">
-          <div class="accordion-item">
-            <h2 class="accordion-header fixed-header" id="headingOne">
-              <button class="accordion-button collapsed" type="button"
-                      data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                      aria-expanded="false" aria-controls="collapseOne">
-                查看個人簡介
-              </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse"
-                 aria-labelledby="headingOne" data-bs-parent="#userAccordion">
-              <div class="accordion-body">
-                天地玄黃……
+  <div class="row">
+    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 d-flex justify-content-center">
+      <div class="content members d-flex flex-column">
+
+        <!-- 個人資訊區 -->
+        <div class="userInformation">
+          <div class="row">
+
+            <!-- 頭像 -->
+            <div class="col-12 col-md-3">
+              <div class="userAvatar d-flex justify-content-center">
+                <img src="profile.jpg" alt="用戶頭像"
+                  onerror="this.onerror=null; this.src='./images/userAvatar_default.jpg';">
+              </div>
+            </div>
+
+            <!-- 暱稱 -->
+            <div class="col-12 col-md-9 d-flex justify-content-between align-items-start">
+              <div class="userNick">
+                <h3 class="mb-0">長安不問</h3>
+              </div>
+              <!-- 出版按鈕 -->
+              <a class="bg-warning" href="./publisherArea.html">我要出版！</a>
+            </div>
+
+
+          </div>
+        </div>
+
+
+        <!-- 個人資料 - 手風琴 -->
+        <div class="accordion accordion-custom" id="userAccordion">
+          <div class="row">
+
+            <!-- 對齊用 -->
+            <!-- <div class="col-3"></div> -->
+            <!-- offset-3 會產生和 .col-3 一樣的空間，但語意是「向右偏移 3 欄」，這是更推薦的做法。 -->
+
+            <!-- 個人簡介 -->
+            <div class="col-12 col-md-9 offset-md-3">
+              <div class="accordion-item">
+
+                <!-- 固定位置的手風琴標題 -->
+                <h2 class="accordion-header fixed-header" id="headingOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    查看個人簡介
+                  </button>
+                </h2>
+
+                <!-- 展開內容區塊 -->
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                  data-bs-parent="#userAccordion">
+                  <div class="accordion-body">
+                    天地玄黃，宇宙洪荒。日月盈昃，辰宿列張。寒來暑往，秋收冬藏。閏餘成歲，律召調陽。雲騰致雨，露結為霜。金生麗水，玉出崑岡。劍號巨闕，珠稱夜光。果珍李柰，菜重芥薑。海鹹河淡，鱗潛羽翔。龍師火帝，鳥官人皇。始制文字，乃服衣裳。推位讓國，有虞陶唐。弔民伐罪，周發殷湯。坐朝問道，垂拱平章。愛育黎首，臣伏戎羌。遐邇一體，率賓歸王。鳴鳳在樹，白駒食場。化被草木，賴及萬方。蓋此身髮，四大五常。恭惟鞠養，豈敢毀傷。女慕貞絜，男效才良。知過必改，得能莫忘。罔談彼短，靡恃己長。信使可覆，器欲難量。墨悲絲淬，詩讚羔羊。
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
+
         </div>
-      </div>
-    </div>
 
-    <!-- 管理選單 -->
-    <div class="menu">
-      <div
-        v-for="section in ['wishlist', 'purchase', 'settings']"
-        :key="section"
-        :class="['menu-item', { active: activeSection === section }]"
-        @click="setActiveSection(section)"
-        :data-section="section"
-      >
-        {{ section === 'wishlist' ? '收藏書櫃' : section === 'purchase' ? '消費紀錄' : '個人設定' }}
-      </div>
-    </div>
 
-    <!-- 對應內容顯示 -->
-    <div v-show="activeSection === 'wishlist'" class="selectContent" id="wishlist">...</div>
-    <div v-show="activeSection === 'purchase'" class="selectContent" id="purchase">...</div>
-    <div v-show="activeSection === 'settings'" class="selectContent" id="settings">
-      <button @click="toggleEdit('infoSection')">
-        {{ editingSections.infoSection ? '完成修改' : '編輯資料' }}
-      </button>
-      <div v-if="editingSections.infoSection">
-        <!-- 編輯輸入 -->
-      </div>
-      <div v-else>
-        <!-- 顯示資料 -->
+        <!-- 管理選單 -->
+        <div class="menu">
+          <div class="menu-item active" data-section="bookcase">收藏書櫃</div>
+          <div class="menu-item" data-section="purchase">消費紀錄</div>
+          <div class="menu-item" data-section="settings">個人設定</div>
+        </div>
+
+        <BookcaseSection></BookcaseSection>
+        <PurchaseSection></PurchaseSection>
+        <SettingsSection></SettingsSection>
+
+        <!-- 遮罩 -->
+        <div class="overlay" id="overlay"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import BookcaseSection from '@/components/modules/members/BookcaseSection.vue';
+import PurchaseSection from '@/components/modules/members/PurchaseSection.vue';
+import SettingsSection from '@/components/modules/members/SettingsSection.vue';
+
 export default {
+  name: "MembersArea",
+  components: {
+    BookcaseSection,
+    PurchaseSection,
+    SettingsSection,
+  },
   data() {
     return {
       // 控制選單狀態
@@ -73,20 +111,19 @@ export default {
       dynamicMargin: 0
     };
   },
-  mounted() {
-    this.updateAccordionMargin();
-    window.addEventListener('resize', this.updateAccordionMargin);
-  },
   beforeUnmount() {
     window.removeEventListener('resize', this.updateAccordionMargin);
   },
+  mounted() {
+    this.updateAccordionMargin();
+    this.initializeMenu();
+    this.bindMenuEvents();
+    window.addEventListener('resize', this.updateAccordionMargin);
+  },
   methods: {
-    // 切換選單
     setActiveSection(section) {
       this.activeSection = section;
     },
-
-    // 更新手風琴的 margin
     updateAccordionMargin() {
       this.$nextTick(() => {
         const rowElement = this.$el.querySelector('.userInformation .row');
@@ -97,13 +134,44 @@ export default {
         accordion.style.setProperty('--dynamic-margin', `${this.dynamicMargin}px`);
       });
     },
-
-    // 切換編輯狀態
     toggleEdit(sectionKey) {
       this.editingSections[sectionKey] = !this.editingSections[sectionKey];
+    },
+
+    // ✅ 選單初始化
+    initializeMenu() {
+      this.$nextTick(() => {
+        const menuItems = this.$el.querySelectorAll('.menu-item');
+        const sections = this.$el.querySelectorAll('.selectContent');
+        menuItems[0]?.classList.add('active');
+        sections.forEach((section, index) => {
+          section.style.display = index === 0 ? 'block' : 'none';
+        });
+      });
+    },
+
+    // ✅ 綁定選單點擊事件
+    bindMenuEvents() {
+      this.$nextTick(() => {
+        const menuItems = this.$el.querySelectorAll('.menu-item');
+        const sections = this.$el.querySelectorAll('.selectContent');
+
+        menuItems.forEach(item => {
+          item.addEventListener('click', function () {
+            menuItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+
+            const sectionId = this.dataset.section;
+            sections.forEach(section => {
+              section.style.display = section.id === sectionId ? 'block' : 'none';
+            });
+          });
+        });
+      });
     }
   }
 };
+
 </script>
 
 
@@ -112,6 +180,7 @@ export default {
   --dynamic-margin: 0px;
   margin-top: var(--dynamic-margin);
 }
+
 .menu-item.active {
   font-weight: bold;
   /* 或其他選中樣式 */

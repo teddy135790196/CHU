@@ -5,8 +5,17 @@ CHU
 │   ├── node_modules
 │   │   └── 後端插件/
 │   │
+│   ├── controllers/    ## Controller 控制層：處理請求邏輯，調用 Model 取得資料，回應前端
+│   │   └── *.js
+│   │
+│   ├── models/         ## Model 資料層：負責資料存取，與資料庫互動 (CRUD)
+│   │   └── *.js
+│   │
+│   ├── routes/         ## 路由層：負責定義 API 路由規則，轉發請求到對應 Controller
+│   │   └── *.js
+│   │
 │   ├── package-lock.json
-│   ├── package.json
+│   ├── package.json 	# npm 專案設定與依賴列表
 │   └── server.js		### 設定用來啟動後端連線(類似於npm run serve)
 │
 ├── docs/  				#  資訊文件

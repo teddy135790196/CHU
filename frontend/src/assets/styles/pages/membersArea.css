@@ -1,31 +1,65 @@
 .box {
-	width: 100%;
+	/* width: 100%; */
 	/* height: 100vh; */
 
-	background-color: bisque;
+	background-color: var(--main-back-color-transluc);
 	/* 輔助待刪 */
-}
-
-/* 響應式：手機時上下堆疊，寬度100% */
-@media (max-width: 991px) {
-	.box {
-		padding: 30px 0;
-		/* height: 700px; */
-		width: 100%;
-
-	}
 }
 
 
 /* 內容區塊 */
-.content {
-	margin: 20px 0;
+.content.members {
 	padding: 10px;
-	width: 80%;
-	min-width: 320px;
-	min-height: 90vh;
+	padding-top: 30px;
+	border-radius: 0;
+	width: 100%;
+	width: 850px;
+	min-height: 100vh;
 }
 
+/****************************** 標準區 - 開始 ******************************/
+
+/* 標準輸入區 */
+.inp_modle {
+	width: 100%;
+	text-align: left;
+	line-height: normal;
+	margin-bottom: 24px;
+
+	p {
+		font-family: '王翰宗顏楷體';
+		font-size: 24px;
+		color: var(--main-color);
+		margin-bottom: 0;
+	}
+
+
+
+	input,
+	select {
+		padding: 0 8px;
+		width: 100%;
+		height: 40px;
+		/* 內陰影 */
+		/* box-shadow: inset x-offset y-offset blur-radius color; */
+		box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.4);
+		/* 去除邊框 */
+		border: none;
+		/* 去除聚焦外框 */
+		outline: none;
+
+		font-size: 20px;
+
+		&:focus {
+			background-color: var(--inputfocus);
+		}
+	}
+}
+
+/****************************** 標準區 - 結束 ******************************/
+
+
+/* 上方－會員資訊 | 出版按鈕 */
 .userInformation {
 	align-items: center;
 
@@ -35,7 +69,8 @@
 		border: 2px solid var(--quote-text-color);
 		border-radius: 50%;
 
-		width: 80%;
+		width: 100px;
+		height: 100px;
 		min-width: 72px;
 	}
 
@@ -47,10 +82,30 @@
 
 		/* 暱稱 */
 		h3 {
-			font-weight: bold;
-			margin: 0;
+			font-family: '王翰宗粗鋼體';
+			font-size: 60px;
+			/* font-weight: bold; */
+			/* margin: 0; */
 		}
 
+
+
+	}
+
+	/* 按鈕－出版專區 */
+	a {
+		display: block;
+		padding: 5px;
+		/* margin-left: auto; */
+		border-radius: 5px;
+		width: 120px;
+		background-color: var(--second-color);
+
+		/* transform: translate(-20px, -150px); */
+
+		color: var(--second-text-color);
+		text-align: center;
+		text-decoration: none;
 	}
 
 
@@ -79,6 +134,7 @@
 		/* 調整手風琴位置對齊暱稱 */
 		.accordion-button,
 		.accordion-body {
+			box-shadow: none;
 			padding-left: 3px;
 		}
 
@@ -87,6 +143,8 @@
 
 			padding: 0.5rem auto;
 			background-color: transparent;
+
+			font-family: '王翰宗顏楷體';
 
 			/* 改變 hr 顏色 */
 			&:not(.collapsed) {
@@ -97,6 +155,7 @@
 
 		/* 手風琴內容區塊 */
 		.accordion-collapse {
+			font-family: '王翰宗中仿宋';
 			/* position: static; */
 		}
 	}
@@ -109,22 +168,32 @@
 
 
 
-/* 功能選單區塊 */
+/* 下方－功能選單區塊 */
 .menu {
 	display: flex;
+	gap: 30px;
 	margin-bottom: 20px;
 
 	/* 選項區塊 */
 	.menu-item {
 		flex: 1;
-		text-align: center;
-		/* 游標變手指 */
-		cursor: pointer;
 		padding: 10px 0;
 		/* 防止選取 */
 		user-select: none;
-		font-size: 12px;
-		padding: 5px;
+		/* 游標變手指 */
+		cursor: pointer;
+
+		font-family: '王翰宗粗鋼體';
+		font-size: 18px;
+		text-align: center;
+		row-gap: 10px;
+
+		&:hover {
+			border-top: 2px solid var(--main-color);
+
+			/* font-size: 20PX; */
+			color: var(--main-color);
+		}
 	}
 
 	/* 當前選中 */
@@ -132,8 +201,153 @@
 	.menu-item.active {
 		border-top: 2px solid var(--main-color);
 
-		font-size: 15PX;
+		font-family: '王翰宗中仿宋';
+		font-size: 20PX;
 		font-weight: bold;
 		color: var(--main-color);
 	}
+}
+
+
+
+
+
+/* 資訊管理 */
+#settings {
+
+	/* 留出左右空白 */
+	section {
+		padding: 0 30px;
+	}
+
+	/* 小區標題 */
+	h5 {
+		margin: 0;
+		font-size: 28px;
+		font-family: "王翰宗粗鋼體";
+		color: var(--main-color);
+	}
+
+	.inp_modle {
+		display: flex;
+		align-items: center;
+		margin-bottom: 10px;
+
+		label {
+			/* 不允許縮小 */
+			flex-shrink: 0;
+			margin: 0;
+			width: 118px;
+			height: 40px;
+			font-size: 22px;
+			font-family: "王翰宗顏楷體";
+			color: var(--second-color);
+			line-height: 40px;
+		}
+
+		p {
+			height: 40px;
+			font-size: 22px;
+			font-family: initial;
+			color: var(--second-text-color);
+			line-height: 40px;
+		}
+
+		input,
+		select {
+			.label-badge {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+
+				label {
+					margin: 0;
+				}
+			}
+		}
+
+		select {
+			padding-left: 5px;
+		}
+
+	}
+
+	.inp_modle.towline {
+		flex-direction: column;
+		align-items: flex-start;
+
+		input,
+		p {
+			width: 100%;
+		}
+
+		button {
+			width: 120px;
+		}
+	}
+
+	/* 編輯時白色高亮 */
+	.personal-info-section {
+		z-index: 100;
+		padding-top: 10px;
+		padding-bottom: 20px;
+
+
+	}
+
+	.personal-info-section.editing {
+		position: relative;
+		z-index: 999;
+
+		background-color: var(--back-color-white);
+		box-shadow: 0 0 15px var(--second-back-color-transluc);
+
+		font-family: none;
+
+
+	}
+
+	/* 帳號密碼 */
+	#accountSection.personal-info-section,
+	#passwordSection.personal-info-section {
+		margin-bottom: -20px;
+	}
+
+	/* 帳號密碼編輯狀態增加左右白色區域 */
+	#accountSection.personal-info-section.editing,
+	#passwordSection.personal-info-section.editing {
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: -40px;
+			right: -40px;
+			background-color: var(--back-color-white);
+			box-shadow: 0 0 15px var(--second-back-color-transluc);
+			z-index: -1;
+		}
+	}
+}
+
+.soild {
+	margin: 10px 0;
+	height: 2px;
+	background-color: var(--main-color);
+}
+
+
+
+
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	/* 半透明黑色遮罩 */
+	z-index: 998;
+	display: none;
 }
