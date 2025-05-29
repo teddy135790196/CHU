@@ -131,8 +131,8 @@ export default {
   .content.register {
     border-radius: 0;
 
-    min-width: 90%;
-
+    min-width: 520px;
+min-height: 650px;
   }
 
 }

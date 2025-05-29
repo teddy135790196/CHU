@@ -7,20 +7,20 @@
     <div class="underline"></div>
 
     <div class="form">
-      <div class="col">
-        <span class="name">{{ message.labelText.gender }}：</span>
+      <div class="col d-flex flex-column align-items-start">
+        <span class="name me-2">{{ message.labelText.gender }}：</span>
         <span class="data">{{ genderText }}</span>
       </div>
-      <div class="col">
-        <span class="name">{{ message.labelText.birth }}：</span>
+      <div class="col d-flex flex-column align-items-start">
+        <span class="name me-2">{{ message.labelText.birth }}：</span>
       <span class="data">{{ form.birth }}</span>
       </div>
-      <div class="col">
-        <span class="name">{{ message.labelText.email }}：</span>
+      <div class="col d-flex flex-column align-items-start">
+        <span class="name me-2">{{ message.labelText.email }}：</span>
         <span class="data">{{ form.email }}</span>
       </div>
-      <div class="col">
-        <span class="name">{{ message.labelText.phone }}：</span>
+      <div class="col d-flex flex-column align-items-start">
+        <span class="name me-2">{{ message.labelText.phone }}：</span>
         <span class="data">{{ form.phone }}</span>
       </div>
     </div>
@@ -144,23 +144,22 @@ export default {
     padding: 0 24px;
 
     .col{
-      display: flex;
-      align-items: center;
       margin-bottom: 10px;
     }
 
     /* 文字 */
     .name {
       display: inline-block;
-      font-size: 20px;
+      font-size: 30px;
       font-family: "王翰宗中仿宋";
       color: var(--main-color);
-      width: 100px;
+      width: 150px;
     }
 
     /* 資料 */
     .data {
-      margin-left: 5px;
+      margin-left: 35px;
+      font-size: 22px;
       font-weight: bold;
     }
 
@@ -172,7 +171,7 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    transform: translateY(150px);
+    transform: translateY(0px);
 
     margin-top: 30px;
     padding: 0 24px;
@@ -251,7 +250,32 @@ export default {
    container 寬度: 540px
 ======================================== */
 @media (min-width: 577px) and (max-width: 767px) {
-   
+  h5 {
+    font-size: 32px !important;
+  }
+  .underline{
+    margin: 7px auto !important;
+  }
+   /* 表單 */
+  .form{
+
+    /* 文字 */
+    .name {
+      font-size: 24px !important;
+    }
+
+    /* 資料 */
+    .data {
+      margin-left: 32px !important;
+      font-size: 18px !important;
+    }
+  }
+
+  /* 驗證碼區塊 */
+  .captcha{
+    transform: translateY(0px) !important;
+    margin-top: 20px !important;
+  }
 }
 
 
@@ -262,9 +286,38 @@ export default {
    container 寬度: 100% (fluid)
 ======================================== */
 @media (max-width: 576px) {
+/* 暱稱 */
+  h5 {
+    font-size: 28px !important;
+  }
+
+  .underline{
+    margin: 5px auto !important;
+  }
+
+  .col{
+      margin-bottom: 5px !important;
+    }
+
+  /* 表單 */
+  .form{
+
+    /* 文字 */
+    .name {
+      font-size: 22px !important;
+    }
+
+    /* 資料 */
+    .data {
+      margin-left: 30px !important;
+      font-size: 17px !important;
+    }
+  }
+
   /* 驗證碼區塊 */
   .captcha{
-    transform: translateY(30px) !important;
+    transform: translateY(0px) !important;
+    margin-top: 15px !important;
   }
 }
 </style>

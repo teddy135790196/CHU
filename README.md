@@ -16,6 +16,16 @@
 <hr>
 
 <details>
+<summary>0529｜細調響應式設計與會員專區地址</summary>
+
+- **新增**
+  - 會員專區新增地址欄位
+- **更新**
+  - 登入與註冊頁面響應式細調
+
+</details>
+
+<details>
 <summary>0528｜登入Vue頁面CSS重製完成</summary>
 
 - **新增**
