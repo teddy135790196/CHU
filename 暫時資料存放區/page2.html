@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="data">{{books}}</div>
+    </div>
+    <script>
+      const {createApp} = Vue;
+      createApp({
+        data() {
+          return {
+            books: null,
+          };
+        },
+
+        mounted() {
+          this.fetchData();
+        },
+
+        methods: {
+          async fetchData() {
+            const response = await fetch("bookTable.csv");
+            const responseData = await response.text();
+            // this.books = responseData;
+            this.books = Papa.parse(responseData, {
+              header: true, // 設定為 true 以轉換為物件格式
+              skipEmptyLines: true, // 跳過空行
+            }).data;
+
+            // JSON.stringify(csvData, null, 2);
+            console.log(typeof this.books);
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
