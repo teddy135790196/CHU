@@ -49,7 +49,6 @@ export default {
 
 		.soild {
 			height: 3px;
-			margin: 0;
 		}
 
 		input {

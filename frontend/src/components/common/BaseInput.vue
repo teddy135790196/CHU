@@ -51,12 +51,13 @@ export default {
 	}
 
 	.soild {
+		margin: 0;
 		height: 2px;
 		z-index: 1;
 		background-color: var(--main-color);
 	}
 
-	input {
+	input,select,textarea {
 		padding-left: 6px;
 		width: 100%;
 		height: 30px;
@@ -75,6 +76,11 @@ export default {
 	/* 針對 date 類型的 input */
 	input[type="date"] {
 		padding: 1px 6px;
+	}
+
+	/* 針對 select 類型 */
+	select{
+		font-size: 20px;
 	}
 
 	/* 引用區塊樣式 */

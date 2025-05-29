@@ -2,6 +2,8 @@
 :root {
 	/* 主色調 */
 	--main-color: rgb(150, 0, 0);
+	/* 主色調(亮) */
+	--main-colorlight: rgb(216, 62, 62);
 	/* 輔色調 */
 	--second-color: rgb(205, 160, 99);
 	
@@ -26,7 +28,7 @@
 	/* 輸入框背景顏色 */
 	--input: rgb(255, 255, 255);
 	/* 輸入框焦點背景顏色 */
-	--inputfocus: #FFF8DF;
+	--inputfocus: rgb(254, 255, 234);
 
 	/* 錯誤顏色 */
 	--error: red;

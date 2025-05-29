@@ -17,7 +17,7 @@
 
 		<!-- 性別核取區塊 -->
 		<div class="inp_modle">
-			<p>{{ message.inputLabel.nickname }}</p>
+			<p>{{ message.inputLabel.gender }}</p>
 			<div class="soild"></div>
 			<div class="gender" @blur="validateGender">
 				<!-- 男性 -->
@@ -235,26 +235,28 @@ export default {
 		display: flex;
 		flex-direction: row;
 		/* 對齊 - 調整核取整體 */
-		margin-top: 4px;
-		margin-bottom: 0px;
-		gap: 50px;
+		margin-top: 2px;
+		margin-bottom: -2px;
+		margin-left: 4px;
+		gap: 60px;
 
 		.gender-check {
 			display: flex;
 
 			input[type="radio"] {
 				box-shadow: none;
-				transform: scale(1.5); /* 放大 1.5 倍 */
+				transform: scale(1.5);
 			}
 
 			label {
 				/* 對齊 - 調整核取文字 */
-				margin-top: 7px;
+				margin-top: 8px;
 				margin-bottom: -4px;
 				margin-left: 8px;
+				height: 100%;
 				/* 防止意外換行 */
 				white-space: nowrap;
-				font-size: 20px;
+				font-size: 18px;
 			}
 		}
 

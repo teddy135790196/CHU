@@ -5,7 +5,10 @@
         <div class="content register d-flex flex-column">
           <!-- 進度條 -->
           <div class="progress mb-1">
-            <div class="progress-bar" :style="{ width: (progressWidth[nowStep - 1] || 0) + '%' }"></div>
+            <div 
+            class="progress-bar" 
+            :class="{finish: nowStep === 4}"
+            :style="{ width: (progressWidth[nowStep - 1] || 0) + '%' }"></div>
           </div>
 
           <!-- 註冊步驟子元件 -->

@@ -12,49 +12,14 @@
 	padding: 10px;
 	padding-top: 30px;
 	border-radius: 0;
-	width: 100%;
-	width: 850px;
+	/* 用width不知道為什麼消費紀錄不會到那寬度 */
+	min-width: 820px;
 	min-height: 100vh;
 }
 
 /****************************** 標準區 - 開始 ******************************/
 
-/* 標準輸入區 */
-.inp_modle {
-	width: 100%;
-	text-align: left;
-	line-height: normal;
-	margin-bottom: 24px;
 
-	p {
-		font-family: '王翰宗顏楷體';
-		font-size: 24px;
-		color: var(--main-color);
-		margin-bottom: 0;
-	}
-
-
-
-	input,
-	select {
-		padding: 0 8px;
-		width: 100%;
-		height: 40px;
-		/* 內陰影 */
-		/* box-shadow: inset x-offset y-offset blur-radius color; */
-		box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.4);
-		/* 去除邊框 */
-		border: none;
-		/* 去除聚焦外框 */
-		outline: none;
-
-		font-size: 20px;
-
-		&:focus {
-			background-color: var(--inputfocus);
-		}
-	}
-}
 
 /****************************** 標準區 - 結束 ******************************/
 
@@ -184,14 +149,14 @@
 		cursor: pointer;
 
 		font-family: '王翰宗粗鋼體';
-		font-size: 18px;
+		font-size: 24px;
 		text-align: center;
 		row-gap: 10px;
 
 		&:hover {
 			border-top: 2px solid var(--main-color);
 
-			/* font-size: 20PX; */
+			font-size: 26px;
 			color: var(--main-color);
 		}
 	}
@@ -202,141 +167,11 @@
 		border-top: 2px solid var(--main-color);
 
 		font-family: '王翰宗中仿宋';
-		font-size: 20PX;
+		font-size: 28px;
 		font-weight: bold;
 		color: var(--main-color);
 	}
 }
-
-
-
-
-
-/* 資訊管理 */
-#settings {
-
-	/* 留出左右空白 */
-	section {
-		padding: 0 30px;
-	}
-
-	/* 小區標題 */
-	h5 {
-		margin: 0;
-		font-size: 28px;
-		font-family: "王翰宗粗鋼體";
-		color: var(--main-color);
-	}
-
-	.inp_modle {
-		display: flex;
-		align-items: center;
-		margin-bottom: 10px;
-
-		label {
-			/* 不允許縮小 */
-			flex-shrink: 0;
-			margin: 0;
-			width: 118px;
-			height: 40px;
-			font-size: 22px;
-			font-family: "王翰宗顏楷體";
-			color: var(--second-color);
-			line-height: 40px;
-		}
-
-		p {
-			height: 40px;
-			font-size: 22px;
-			font-family: initial;
-			color: var(--second-text-color);
-			line-height: 40px;
-		}
-
-		input,
-		select {
-			.label-badge {
-				display: flex;
-				align-items: center;
-				gap: 5px;
-
-				label {
-					margin: 0;
-				}
-			}
-		}
-
-		select {
-			padding-left: 5px;
-		}
-
-	}
-
-	.inp_modle.towline {
-		flex-direction: column;
-		align-items: flex-start;
-
-		input,
-		p {
-			width: 100%;
-		}
-
-		button {
-			width: 120px;
-		}
-	}
-
-	/* 編輯時白色高亮 */
-	.personal-info-section {
-		z-index: 100;
-		padding-top: 10px;
-		padding-bottom: 20px;
-
-
-	}
-
-	.personal-info-section.editing {
-		position: relative;
-		z-index: 999;
-
-		background-color: var(--back-color-white);
-		box-shadow: 0 0 15px var(--second-back-color-transluc);
-
-		font-family: none;
-
-
-	}
-
-	/* 帳號密碼 */
-	#accountSection.personal-info-section,
-	#passwordSection.personal-info-section {
-		margin-bottom: -20px;
-	}
-
-	/* 帳號密碼編輯狀態增加左右白色區域 */
-	#accountSection.personal-info-section.editing,
-	#passwordSection.personal-info-section.editing {
-		&::before {
-			content: "";
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: -40px;
-			right: -40px;
-			background-color: var(--back-color-white);
-			box-shadow: 0 0 15px var(--second-back-color-transluc);
-			z-index: -1;
-		}
-	}
-}
-
-.soild {
-	margin: 10px 0;
-	height: 2px;
-	background-color: var(--main-color);
-}
-
-
 
 
 
@@ -351,3 +186,64 @@
 	z-index: 998;
 	display: none;
 }
+
+/* ========================================
+   基本全局樣式（適用於所有設備）
+   寫好的CSS貼在這區
+======================================== */
+
+/* 預設的全局樣式 */
+
+
+
+
+/* ========================================
+   xxl: ≥ 1400px (大桌機、4K 螢幕)
+   container 寬度: 1320px
+======================================== */
+@media (min-width: 1400px) {}
+
+
+
+
+/* ========================================
+   xl: 1200px ~ 1399px (一般桌機)
+   container 寬度: 1140px
+======================================== */
+@media (min-width: 1200px) and (max-width: 1399px) {}
+
+
+
+
+/* ========================================
+   lg: 992px ~ 1199px (小型桌機、橫向大型平板)
+   container 寬度: 960px
+======================================== */
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+
+
+
+/* ========================================
+   md: 768px ~ 991px (橫向 iPad、小型平板)
+   container 寬度: 720px
+======================================== */
+@media (min-width: 768px) and (max-width: 991px) {}
+
+
+
+
+/* ========================================
+   sm: 577px ~ 767px (大型手機、直向平板)
+   container 寬度: 540px
+======================================== */
+@media (min-width: 577px) and (max-width: 767px) {}
+
+
+
+
+/* ========================================
+   xs: ≤ 576px (手機)
+   container 寬度: 100% (fluid)
+======================================== */
+@media (max-width: 576px) {}

@@ -12,8 +12,13 @@
 
 
 	.progress-bar {
-		background-color: var(--main-color);
+		/* 左到右的漸變色 */
+		background: linear-gradient(to right, var(--main-colorlight), var(--main-color)); 
 	}
+	/* .progress-bar.finish {
+		background:none;
+		background-color: var(--main-color);
+	} */
 }
 
 /* 步驟內容 */
