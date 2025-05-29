@@ -3,39 +3,138 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>testBooks</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <style>
+      .showCurrentBooksCell {
+        margin: 1%;
+        background-color: gray;
+        width: 150px;
+        display: inline-block;
+      }
+      .showCurrentBooksCell:hover {
+        background-color: aliceblue;
+      }
+      .showCurrentBooksCell img {
+        width: 100px;
+      }
+      .btn span {
+        display: inline-block;
+        background-color: aqua;
+        margin-left: 1%;
+        border-radius: 10px;
+      }
+      .btn span:hover {
+        background-color: lightskyblue;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
-      <div class="data">{{books}}</div>
+      <!-- 觀察原始資料 -->
+      <!-- <div class="data">{{originBooks}}</div> -->
+      <!-- <h3>現在書序號：{{currentIndex}}</h3> -->
+      <div class="btn">
+        <div><span @click="findBookByCondition('', '')">所有書籍</span></div>
+        <div>
+          分類
+          <span @click="findBookByCondition('分類', '文學小說類')">文學小說類 </span>
+          <span @click="findBookByCondition('分類', '藝術設計類')">藝術設計類 </span>
+          <span @click="findBookByCondition('分類', '人文思想類')">人文思想類 </span>
+        </div>
+        <div>
+          類型
+          <span @click="findBookByCondition('類型', '小說')">小說</span>
+          <span @click="findBookByCondition('類型', '散文')">散文</span>
+          <span @click="findBookByCondition('類型', '繪畫')">繪畫</span>
+        </div>
+        <div>
+          系列名稱
+          <span @click="findBookByCondition('系列名稱', '歲時風物志')">歲時風物志</span>
+          <span @click="findBookByCondition('系列名稱', '榮光編年史')">榮光編年史 </span>
+          <span @click="findBookByCondition('系列名稱', '光與影的信箋')">光與影的信箋 </span>
+        </div>
+      </div>
+
+      <div class="showCurrentBooks" v-if="currentIndex < 0">
+        <div
+          class="showCurrentBooksCell"
+          v-for="(book, index) in currentBooks"
+          :key="book.ISBN"
+          @click="updateCurrentIndex(index)"
+        >
+          <!-- 更改資料庫欄位名，去掉() -->
+          <img v-bind:src="book.封面連結複製用" v-bind:alt="book.書名" />
+          <h4 class="bookName">{{book.書名}}</h4>
+          <div class="author">{{book.作者}}</div>
+          <div class="price">${{book.售價}}</div>
+          <div class="shoppingCart"><span>🛒</span>加入購物車</div>
+        </div>
+      </div>
+
+      <div class="bookDetail" v-if="currentIndex >= 0">
+        <h4>書名：{{currentBooks[currentIndex].書名}}</h4>
+        <h5>作者：{{currentBooks[currentIndex].作者}}</h5>
+        <h5>售價：${{currentBooks[currentIndex].售價}}</h5>
+        <h5>簡介：{{currentBooks[currentIndex].簡介}}</h5>
+      </div>
+
+      <!-- end of <div id="app"> -->
     </div>
+
     <script>
-      const {createApp} = Vue;
+      const { createApp } = Vue;
       createApp({
         data() {
           return {
-            books: null,
+            originBooks: null,
+            currentBooks: null,
+            currentIndex: -1,
           };
         },
 
         mounted() {
-          this.fetchData();
+          //先取得CSV資料庫資料，等取值完後再把現在顯示資料等於過去
+          this.fetchData().then(() => {
+            this.currentBooks = this.originBooks;
+          });
         },
 
+        //methods當元件掛載到DOM後會自動執行，名子是自己取的
         methods: {
           async fetchData() {
             const response = await fetch("bookTable.csv");
             const responseData = await response.text();
-            // this.books = responseData;
-            this.books = Papa.parse(responseData, {
+            this.originBooks = Papa.parse(responseData, {
               header: true, // 設定為 true 以轉換為物件格式
               skipEmptyLines: true, // 跳過空行
             }).data;
+          },
 
-            // JSON.stringify(csvData, null, 2);
-            console.log(typeof this.books);
+          //依照欄位名稱和值找出書籍，欄位名稱和值都不寫那就顯示全書目，沒有欄位名稱就搜尋全書目
+          findBookByCondition(fields, queryValue) {
+            let queryBooks = [];
+            for (let i = 0; i < this.originBooks.length; i++) {
+              if (fields === "" && queryValue === "") {
+                queryBooks.push(this.originBooks[i]);
+              } else if (fields === "") {
+                //無欄位名，搜尋所有欄位
+                if (Object.values(this.originBooks[i]).includes(queryValue)) {
+                  queryBooks.push(this.originBooks[i]);
+                }
+                //有欄位名，搜尋該欄位
+              } else if (this.originBooks[i][fields] === queryValue) {
+                queryBooks.push(this.originBooks[i]);
+              }
+            }
+
+            this.currentBooks = queryBooks;
+            this.currentIndex = -1; //重設currentIndex
+          },
+
+          updateCurrentIndex(index) {
+            this.currentIndex = index;
           },
         },
       }).mount("#app");
