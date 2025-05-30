@@ -10,13 +10,11 @@
 
 /* 左側分類 */
 .cat:hover{
-  
   background-color: rgba(0, 0, 0, 0.06);
   border-radius: 20px;
 }
 .cat{
-   
-  padding:10px ;
+   padding:10px ;
   margin: 3px 0;
   transition: all 0.9s;
 }
@@ -178,35 +176,35 @@
 }
 
 /* 跑馬燈 */
+/* 宣告動畫marquee */
 @keyframes marquee{
+  /* 從x軸0的地方跑到-50%的地方 */
   from{transform: translateX(0);}
   to{transform: translateX(-50%);}
 }
-
 .marquee{
   width: 100%;
-  overflow: hidden;
+  overflow: hidden; /* 自動隱藏超出的文字或圖片 */
 }
 .marquee .scroll{
+  /* 寬度等於內容最大寬度，表示內容固有的最大的寬度或高度->text就算會溢出（overflow）也不會換行。 */
   width: max-content;
   display: flex;
-  font-weight: bold;
+  font-weight: 100;
+  /* 線性持續10秒的動畫 */
   animation: marquee 10s linear infinite;
  }
 .mqItem{
-  font-size: 5em;
+  font-size: 5em; /*em:相對長度單位。 若在一個沒有設定 font-size 的「元素」上則會繼承「父元素」的 font-size 屬性值*/
   color: brown;
   display: flex;
-  flex-shrink: 0;
-  white-space: nowrap;
+  align-items: center; /*垂直對齊*/
+  flex-shrink: 0; /*flex-shrink 尚未進行設定時，會按照數字「壓縮」比例分配。0為不被壓縮。*/
+  white-space: nowrap; /*遇到連續空白字元與換行字元時，會合併成一個空白字元，不論外層有沒有容器都強制不換行。 詳情->https://vocus.cc/article/64804d00fd89780001db397d*/
 }
-.mqItem i{font-size: 110px;}
-.scroll .second{animation-delay: -5s;}
-
-
-.marquee:hover .scroll{
-    animation-play-state: paused;
-}
+.scroll .second{animation-delay: -5s;} /*提前五秒開始做*/
+/*hover就暫停動畫*/
+.marquee:hover .scroll{animation-play-state: paused; }
 /*  */
 /* 改尺寸 */
 
