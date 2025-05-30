@@ -12,11 +12,10 @@
 .cat:hover{
   
   background-color: rgba(0, 0, 0, 0.06);
-  
-  
+  border-radius: 20px;
 }
 .cat{
-   border-radius: 20px;
+   
   padding:10px ;
   margin: 3px 0;
   transition: all 0.9s;
@@ -178,6 +177,37 @@
   z-index: 2;
 }
 
+/* 跑馬燈 */
+@keyframes marquee{
+  from{transform: translateX(0);}
+  to{transform: translateX(-50%);}
+}
+
+.marquee{
+  width: 100%;
+  overflow: hidden;
+}
+.marquee .scroll{
+  width: max-content;
+  display: flex;
+  font-weight: bold;
+  animation: marquee 10s linear infinite;
+ }
+.mqItem{
+  font-size: 5em;
+  color: brown;
+  display: flex;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.mqItem i{font-size: 110px;}
+.scroll .second{animation-delay: -5s;}
+
+
+.marquee:hover .scroll{
+    animation-play-state: paused;
+}
+/*  */
 /* 改尺寸 */
 
 /* 中尺寸 */
