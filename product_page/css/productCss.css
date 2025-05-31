@@ -1,6 +1,8 @@
 * {
   margin: 0;
   list-style: none;
+  }
+a:hover,a{text-decoration: none;
 }
 /* 設定寬度跟置中 */
 .container {
@@ -9,12 +11,12 @@
 }
 
 /* 左側分類 */
-.cat:hover{
-  background-color: rgba(0, 0, 0, 0.183);
+.cat:hover {
+  background-color: hsla(36, 83%, 82%, 0.41);;
   border-radius: 20px;
 }
-.cat{
-  padding:10px ;
+.cat {
+  padding: 10px;
   margin: 3px 0;
   transition: all 0.9s;
 }
@@ -68,7 +70,7 @@
   border-radius: 10px;
   padding: 10px 90px;
   margin: 0 50px;
-  background-color: brown;
+  background-color: hsl(353, 100%, 29.2%);
 }
 
 /* 子標籤隱藏 */
@@ -95,7 +97,7 @@
 .price {
   font-weight: bold;
   color: white;
-  background-color: brown;
+  background-color: hsl(353, 100%, 29.2%);
   padding: 15px 55px;
   border-radius: 10px 40px;
   margin-top: 40px;
@@ -103,7 +105,7 @@
 
 /* 庫存 */
 .Stock {
-  color: brown;
+  color: hsl(353, 100%, 29.2%);
   font-weight: bold;
   font-size: 20px;
 }
@@ -112,33 +114,40 @@
   /* border: 1px black solid; */
   display: flex;
   flex-direction: column;
- width: 200px;
-height: 100%;
-margin: auto;
-padding: 0 autp;
+  width: 200px;
+  height: 390px;
+  margin: 10px auto;
+  padding: 0 auto;
+}
+.authorColor {
+  color: hsl(36, 50.7%, 50%);
+  transition: all 0.55s;
+  
+}
+.authorColor:hover{color: hsl(38, 74%, 24%);
 }
 .authorP {
   margin-top: auto;
   display: flex;
   justify-content: space-between;
   /* 垂直置中 */
-  align-items: center;
-    vertical-align: bottom;
-  /* width: 240px; */
+  align-items: end;
 }
 
 .authorP h3 {
   font-weight: bold;
-  color: brown;
+  color: hsl(353, 100%, 29.2%);
   transition: all 1s;
 }
 .authorP button {
-  color: aliceblue;
-  background-color: brown;
+  color: white;
+  background-color: hsl(36, 50.7%, 71.4%);;
   border: none;
-  padding: 10px 15px;
+  padding: 10px;
   border-radius: 20px;
+  transition: all 0.7s;
 }
+.authorP button:hover {  background-color: hsl(353, 100%, 29.2%);}
 /* 商品規格 */
 .card a {
   font-size: 20px;
@@ -156,13 +165,14 @@ padding: 0 autp;
   background-color: rgba(165, 42, 42, 0.059);
 }
 .txtMaybeLike {
-  color: brown;
+  color: hsl(353, 100%, 29.2%);
   margin: 12px 0;
 }
+/* 商品小圖 */
 
 .smProduct img {
   /* width: 150px; */
-  height: 220px;
+  width: 100%;
   margin: 15px auto;
   transition: all 0.5s;
 }
@@ -170,93 +180,113 @@ padding: 0 autp;
   margin-bottom: 50px;
   padding: 30px;
 }
-.smProduct a {
-  text-decoration: none;
-}
-.smProduct span{
+
+/* 書名超連結 */
+.smProduct span {
+  color: rgb(34, 34, 34);
   padding-bottom: 10px;
-  display: inline-block;
-  border-bottom: 1px solid black;
+  display: inline-block; 
+  transition: all 0.55s;
+}
+/* 動態產生線 */
+.smProduct h4::after{
+  background-color: hsl(353, 100%, 29.2%);
+  content: "";
+    /*所以需要轉換成block */
+    display: block;
+    width: 30%;
+    height: 2px;
+    /* 產生動畫-我要在0.4秒後產生一個持續0.5秒的 */
+    transition: all 0.4s;
+}
+.smProduct a:hover h4::after{
+    width: 100%;
 }
 
+
+
 /* 滑到變圓角，可惜手機不能有 */
-.smProduct img:hover {
+.smProduct a:hover img {
   scale: 1.03;
   border-radius: 20px;
   z-index: 2;
 }
+.smProduct a:hover span{
+  color: hsl(36, 50.7%, 71.4%);}
 /* 頁數 */
-.pagination{margin-bottom: 150px;
-/* margin: auto; */
+.pagination {
+  margin-bottom: 150px;
+  /* margin: auto; */
 }
 /* 跑馬燈 */
 /* 宣告動畫marquee */
-@keyframes marquee{
+@keyframes marquee {
   /* 從x軸0的地方跑到-50%的地方 */
-  from{transform: translateX(0);}
-  to{transform: translateX(-50%);}
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
-.marquee{
+.marquee {
   width: 100%;
   overflow: hidden; /* 自動隱藏超出的文字或圖片 */
 }
-.marquee .scroll{
+.marquee .scroll {
   /* 寬度等於內容最大寬度，表示內容固有的最大的寬度或高度->text就算會溢出（overflow）也不會換行。 */
   width: max-content;
   display: flex;
   font-weight: 100;
   /* 線性持續10秒的動畫 */
   animation: marquee 10s linear infinite;
- }
-.mqItem{
+}
+.mqItem {
   font-size: 5em; /*em:相對長度單位。 若在一個沒有設定 font-size 的「元素」上則會繼承「父元素」的 font-size 屬性值*/
-  color: brown;
+  color: hsl(353, 100%, 29.2%);
   display: flex;
   align-items: center; /*垂直對齊*/
   flex-shrink: 0; /*flex-shrink 尚未進行設定時，會按照數字「壓縮」比例分配。0為不被壓縮。*/
   white-space: nowrap; /*遇到連續空白字元與換行字元時，會合併成一個空白字元，不論外層有沒有容器都強制不換行。 詳情->https://vocus.cc/article/64804d00fd89780001db397d*/
 }
-.scroll .second{animation-delay: -5s;} /*提前五秒開始做*/
+.scroll .second {
+  animation-delay: -5s;
+} /*提前五秒開始做*/
 /*hover就暫停動畫*/
-.marquee:hover .scroll{animation-play-state: paused; }
+.marquee:hover .scroll {
+  animation-play-state: paused;
+}
 /*  */
 /* 改尺寸 */
 /* 659~577 */
 @media (min-width: 577px) and (max-width: 670px) {
-  body{background-color: rgb(205, 198, 190);}/* <--為了方便辨認加了背景顏色，之後會拿掉 */
   /* 底部的收藏/加到購物車/回頂部 */
-  .bottFlex {
-    padding: 10px 0;
-    justify-content: space-between;
-  }
-  /* 回頂部 */
-  .bottFlex button {
-    padding: 10px 15%;
-    margin: 0 auto;
-  }
   /* 分類頁的作者跟價格 */
   .authorP {
     flex-direction: column;
-    justify-content: center;
-    margin-top: 30px;
-    margin-left: 60px;
+    margin: 0px auto;
   }
-  /* 書名超連結 */
-  .smProduct a span{font-size: 23px;}
+  .authorP h3 {
+    font-size: 20px;
+    margin-bottom: 0px;
+  }
+  .authorP button {
+    width: 120px;
+    border-radius: 0px;
+  }
 
-  .authorP button {width: 120px;}
   /* 小圖區 */
   .col3 {
     margin: 0 auto;
-    padding: 0 2px;
+    height: 370px;
     width: 150px;
   }
-  /* 細項的li整體往左移 */
-  .subA {margin-left: -20px;}
+  .authorP {
+    margin-top: auto;
+  }
 }
 /* 中尺寸 */
 @media (min-width: 670px) and (max-width: 992px) {
-  body{background-color: burlywood;}/* <--為了方便辨認加了背景顏色，之後會拿掉 */
   /* 底部的收藏/加到購物車/回頂部 */
   .bottFlex {
     padding: 10px 0;
@@ -268,24 +298,32 @@ padding: 0 autp;
     margin: 0 auto;
   }
   /* 分類頁的作者跟價格 */
-  .authorP {
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 30px;
-    margin-left: 60px;
-  }
   /* 書名超連結 */
-  .smProduct a span{font-size: 23px;}
+  .smProduct span {
+    font-size: 23px;
+  }
 
-  .authorP button {width: 120px;}
+  /* 價格 */
+  .authorP {
+    align-items: end;
+  }
+  .authorP h3 {
+    font-size: 25px;
+  }
+  .authorP button {
+    width: 120px;
+  }
   /* 小圖區 */
   .col3 {
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 0 2px;
     width: 190px;
+    height: 360px;
   }
   /* 細項的li整體往左移 */
-  .subA {margin-left: -20px;}
+  .subA {
+    margin-left: -20px;
+  }
 }
 
 /* 小尺寸 */
@@ -294,41 +332,29 @@ padding: 0 autp;
     margin: 0 auto;
     width: 100%;
   }
-  /* 底部的收藏/加到購物車/回頂部 */
-  .bottFlex {
-    padding: 20px 0;
-    justify-content: space-between;
-  }
-  /* 回頂部 */
-  #backToTop {
-    top: -60px;
-    right: 7px;
-    font-size: 30px;
-    width: 50px;
-    height: 50px;
-  }
-  .bottFlex button {
-    padding: 10px 60px;
-    margin: 0 auto;
-  }
+
   /* 分類頁的作者跟價格 */
   .authorP {
     flex-direction: column;
-    justify-content: left;
   }
-
+  /* 價格 */
+  .authorP h3 {
+    font-size: 25px;
+    margin-bottom: 0px;
+  }
   .authorP button {
     width: 100%;
-    border-radius: 0%;
+    border-radius: 0px;
   }
   /* 小圖區 */
   .col3 {
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 0 15px;
-    width: 140px;
+    width: 170px;
+    height: 330px;
   }
-  .smProduct a span{font-size: 23px;}
-  .smProduct img {
-  height: 170px;
-}
+  .smProduct span {
+    font-size: 23px;
+   
+  }
 }

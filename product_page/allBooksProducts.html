@@ -9,7 +9,8 @@
 
     <meta
       name="description"
-      content="Source code generated using layoutit.com"/>
+      content="Source code generated using layoutit.com"
+    />
     <meta name="author" content="LayoutIt!" />
 
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -19,9 +20,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-     <!-- 跟fetch有關 -->
+    <!-- 跟fetch有關 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-  
   </head>
   <body>
     <div class="row container">
@@ -49,9 +49,10 @@
                 <i v-else class="fa-solid fa-chevron-up"></i>
               </h4>
 
-              <ul >
+              <ul>
                 <li v-for="pub in pubType" v-show="isVisible" class="subA">
-                  <a href="">{{pub.name}}</a></li>
+                  <a href="">{{pub.name}}</a>
+                </li>
               </ul>
             </div>
 
@@ -140,15 +141,23 @@
               <div class="row smProduct" v-if="novels.length>0">
                 <!-- 單個商品圖版型 -->
 
-                <div class="col3" 
-                v-for="n in novels" 
-                v-bind:key="n.ISBN">
+                <div class="col3" v-for="n in novels" v-bind:key="n.ISBN">
                   <a v-bind:href="n.url||'#'">
-                    <img v-bind:src="n.imgUrl" 
-                    alt="n.name" />
-                    <h4><span>{{n.name}}</span></h4>
+                    <div class="container-fluid">
+                      <img v-bind:src="n.imgUrl" alt="n.name" />
+                    </div>
+                    <!-- 若書名超過15則會... -->
+                    <div v-if="n.name.length>15">
+                        <h4><span>{{n.name.slice(0,15)}}...</span></h4>
+                      </div>
+                      <div v-else> <h4><span>{{n.name}}</span></h4></div>
+                    
+                    
                   </a>
-                  <a href="#">{{n.author}}</a>
+                  <a href="#" class="authorColor">
+                    <!-- 若作者超過20就:用三元運算寫 -->
+                     {{ n.author.length>17 ?  n.author.slice(0, 17)+'...' : n.author }}
+                    </a>
                   <div class="authorP">
                     <i><h3><small>$</small>{{n.price}}</h3></i
                     ><button>加入購物車</button>
@@ -157,39 +166,12 @@
               </div>
               <hr />
             </div>
-  <!-- 頁數 -->
-        <nav>
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#">Previous</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">4</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">5</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
 
             <!-- 切版10結束 -->
           </div>
         </div>
-      
-        
-        <!-- 下拉 -->
+
+        <!-- 下拉 
         <nav class="fixed-bottom">
           <button id="backToTop">
             <a href="#"><i class="fa-duotone fa-solid fa-arrow-up-long"></i></a>
@@ -200,7 +182,7 @@
             <button type="button"><a href="#">查看購物車</a></button>
           </div>
         </nav>
-        
+        -->
       </div>
     </div>
 
@@ -214,7 +196,7 @@
     <script src="js/getAllBooksVue_csv.js"></script>
     <script>
       const pub = new Vue({
-        el:'#pubBC',
+        el: "#pubBC",
         data() {
           return {
             pubType: [
@@ -235,7 +217,7 @@
       });
       // pub.mount("#pubBC"); <-因為mount這是vue3專用
       const bk = new Vue({
-        el:'#bookSC',
+        el: "#bookSC",
         data() {
           return {
             BkBigCat: "",
