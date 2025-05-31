@@ -140,7 +140,7 @@
               <div class="row smProduct" v-if="novels.length>0">
                 <!-- 單個商品圖版型 -->
 
-                <div class="col-sm-4" 
+                <div class="col3" 
                 v-for="n in novels" 
                 v-bind:key="n.ISBN">
                   <a v-bind:href="n.url||'#'">
@@ -157,9 +157,7 @@
               </div>
               <hr />
             </div>
-          </div>
-        </div>
-        <!-- 頁數 -->
+  <!-- 頁數 -->
         <nav>
           <ul class="pagination">
             <li class="page-item">
@@ -186,7 +184,11 @@
           </ul>
         </nav>
 
-        <!--  -->
+            <!-- 切版10結束 -->
+          </div>
+        </div>
+      
+        
         <!-- 下拉 -->
         <nav class="fixed-bottom">
           <button id="backToTop">
@@ -198,7 +200,7 @@
             <button type="button"><a href="#">查看購物車</a></button>
           </div>
         </nav>
-        <!--  -->
+        
       </div>
     </div>
 

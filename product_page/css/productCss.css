@@ -108,11 +108,22 @@
   font-size: 20px;
 }
 /* 分類頁的作者跟價格 */
+.col3 {
+  /* border: 1px black solid; */
+  display: flex;
+  flex-direction: column;
+ width: 200px;
+height: 100%;
+margin: auto;
+padding: 0 autp;
+}
 .authorP {
+  margin-top: auto;
   display: flex;
   justify-content: space-between;
   /* 垂直置中 */
   align-items: center;
+    vertical-align: bottom;
   /* width: 240px; */
 }
 
@@ -125,7 +136,7 @@
   color: aliceblue;
   background-color: brown;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 20px;
 }
 /* 商品規格 */
@@ -151,18 +162,18 @@
 
 .smProduct img {
   /* width: 150px; */
-  height: 300px;
+  height: 220px;
   margin: 15px auto;
   transition: all 0.5s;
 }
 .smProduct {
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   padding: 30px;
 }
 .smProduct a {
   text-decoration: none;
 }
-.smProduct span {
+.smProduct span{
   padding-bottom: 10px;
   display: inline-block;
   border-bottom: 1px solid black;
@@ -174,7 +185,10 @@
   border-radius: 20px;
   z-index: 2;
 }
-
+/* 頁數 */
+.pagination{margin-bottom: 150px;
+/* margin: auto; */
+}
 /* 跑馬燈 */
 /* 宣告動畫marquee */
 @keyframes marquee{
@@ -207,9 +221,41 @@
 .marquee:hover .scroll{animation-play-state: paused; }
 /*  */
 /* 改尺寸 */
+/* 659~577 */
+@media (min-width: 577px) and (max-width: 670px) {
+  body{background-color: rgb(205, 198, 190);}/* <--為了方便辨認加了背景顏色，之後會拿掉 */
+  /* 底部的收藏/加到購物車/回頂部 */
+  .bottFlex {
+    padding: 10px 0;
+    justify-content: space-between;
+  }
+  /* 回頂部 */
+  .bottFlex button {
+    padding: 10px 15%;
+    margin: 0 auto;
+  }
+  /* 分類頁的作者跟價格 */
+  .authorP {
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30px;
+    margin-left: 60px;
+  }
+  /* 書名超連結 */
+  .smProduct a span{font-size: 23px;}
 
+  .authorP button {width: 120px;}
+  /* 小圖區 */
+  .col3 {
+    margin: 0 auto;
+    padding: 0 2px;
+    width: 150px;
+  }
+  /* 細項的li整體往左移 */
+  .subA {margin-left: -20px;}
+}
 /* 中尺寸 */
-@media (min-width: 577px) and (max-width: 992px) {
+@media (min-width: 670px) and (max-width: 992px) {
   body{background-color: burlywood;}/* <--為了方便辨認加了背景顏色，之後會拿掉 */
   /* 底部的收藏/加到購物車/回頂部 */
   .bottFlex {
@@ -228,18 +274,22 @@
     margin-top: 30px;
     margin-left: 60px;
   }
-  .authorP button {width: 200px;}
+  /* 書名超連結 */
+  .smProduct a span{font-size: 23px;}
+
+  .authorP button {width: 120px;}
   /* 小圖區 */
-  .col-sm-4 {
-    margin: 0 30px;
-    width: 900px;
+  .col3 {
+    margin: 0 auto;
+    padding: 0 2px;
+    width: 190px;
   }
   /* 細項的li整體往左移 */
   .subA {margin-left: -20px;}
 }
 
 /* 小尺寸 */
-@media (max-width: 576px) {
+@media (max-width: 577px) {
   .container {
     margin: 0 auto;
     width: 100%;
@@ -251,14 +301,16 @@
   }
   /* 回頂部 */
   #backToTop {
-    top: -150px;
-    font-size: 50px;
+    top: -60px;
+    right: 7px;
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
   }
   .bottFlex button {
     padding: 10px 60px;
     margin: 0 auto;
   }
-  /*  */
   /* 分類頁的作者跟價格 */
   .authorP {
     flex-direction: column;
@@ -270,12 +322,13 @@
     border-radius: 0%;
   }
   /* 小圖區 */
-  .col-sm-4 {
+  .col3 {
     margin: 0 auto;
-    width: 900px;
+    padding: 0 15px;
+    width: 140px;
   }
+  .smProduct a span{font-size: 23px;}
   .smProduct img {
-  margin: 30px auto;
-  transition: all 0.5s;
+  height: 170px;
 }
 }
