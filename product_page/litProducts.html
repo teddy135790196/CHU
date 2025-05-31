@@ -9,8 +9,7 @@
 
     <meta
       name="description"
-      content="Source code generated using layoutit.com"
-    />
+      content="Source code generated using layoutit.com"/>
     <meta name="author" content="LayoutIt!" />
 
     <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -47,8 +46,9 @@
                 <i v-else class="fa-solid fa-chevron-up"></i>
               </h4>
 
-              <ul v-for="pub in pubType" v-show="isVisible">
-                <li class="subA"><a href="">{{pub.name}}</a></li>
+              <ul >
+                <li v-for="pub in pubType" v-show="isVisible" class="subA">
+                  <a href="">{{pub.name}}</a></li>
               </ul>
             </div>
 
@@ -118,13 +118,16 @@
               <div class="scroll">
                 <!-- 第一個 -->
                 <div class="mqItem first">
-                  <span>棲遲書屋</span> <span>小說專區</span><i class="fa-solid fa-book-open"></i><span>棲遲書屋</span> <span>小說專區</span><i class="fa-solid fa-book-open"></i>
+                  <span>棲遲書屋</span> <span>小說專區</span
+                  ><i class="fa-solid fa-book-open"></i><span>棲遲書屋</span>
+                  <span>小說專區</span><i class="fa-solid fa-book-open"></i>
                 </div>
                 <!-- 第二個mqItem_做偏移 -->
                 <div class="mqItem second">
-                   <span>棲遲書屋</span> <span>小說專區</span><i class="fa-solid fa-book-open"></i><span>棲遲書屋</span> <span>小說專區</span><i class="fa-solid fa-book-open"></i>
-                
-                 </div>
+                  <span>棲遲書屋</span> <span>小說專區</span
+                  ><i class="fa-solid fa-book-open"></i><span>棲遲書屋</span>
+                  <span>小說專區</span><i class="fa-solid fa-book-open"></i>
+                </div>
               </div>
             </div>
             <!-- 跑馬燈結束 -->
@@ -134,7 +137,9 @@
               <div class="row smProduct">
                 <!-- 單個商品圖版型 -->
 
-                <div class="col-sm-4" v-for="n in novels" v-bind:key="n.name">
+                <div class="col-sm-4" 
+                v-for="n in novels" 
+                v-bind:key="n.name">
                   <a v-bind:href="n.url">
                     <img v-bind:src="n.imgUrl" alt="" />
                     <h4><span>{{n.name}}</span></h4>
@@ -143,8 +148,7 @@
                   <div class="authorP">
                     <i
                       ><h3><small>$</small>{{n.price}}</h3></i
-                    >
-                    <button>加入購物車</button>
+                    ><button>加入購物車</button>
                   </div>
                 </div>
               </div>
@@ -200,10 +204,14 @@
     <!-- <script src="js/bootstrap.min.js"></script> -->
 
     <!-- vue -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="js/litVue.js"></script>
+    <!-- 下行是vue3 -->
+    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+    <!-- Vue 2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+    <!-- <script src="js/litVue.js"></script> -->
     <script>
-      const pub = Vue.createApp({
+      const pub = new Vue({
+        el:'#pubBC',
         data() {
           return {
             pubType: [
@@ -222,8 +230,9 @@
           },
         },
       });
-      pub.mount("#pubBC");
-      const bk = Vue.createApp({
+      // pub.mount("#pubBC"); <-因為mount這是vue3專用
+      const bk = new Vue({
+        el:'#bookSC',
         data() {
           return {
             BkBigCat: "",
@@ -262,7 +271,7 @@
           };
         },
       });
-      bk.mount("#bookSC");
+      // bk.mount("#bookSC");
     </script>
   </body>
 </html>
