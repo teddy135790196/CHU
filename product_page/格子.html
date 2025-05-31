@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>分類格子</title>
+
+   <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/格子.css" />
+   
+    <!-- 跟fetch有關 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  </head>
+  <body>
+    <div class="row container">
+      <div class="col-md-12">
+        <div class="row">
+         <!-- 切版10，商品圖 -->
+          <div class="col-md-10">
+           <!-- 條列化商品 -->
+            <div id="app">
+              <!-- 若裡面有資料 -->
+              <div class="row smProduct" v-if="novels.length>0"> 
+                
+                <!-- 單個商品圖版型 -->
+                <div class="col3" v-for="n in novels" v-bind:key="n.ISBN">
+                  <a v-bind:href="n.url||'#'">
+                    <div class="container-fluid">
+                      <img v-bind:src="n.imgUrl" alt="n.name" />
+                    </div>
+                    <!-- 若書名超過15則會... -->
+                    <div v-if="n.name.length>15">
+                        <h4><span>{{n.name.slice(0,15)}}...</span></h4>
+                      </div>
+                      <div v-else> <h4><span>{{n.name}}</span></h4></div>
+                  </a>
+                  <a href="#" class="authorColor">
+                    <!-- 若作者超過17就:用三元運算寫 -->
+                     {{ n.author.length>17 ? n.author.slice(0, 17)+'...' : n.author }}
+                    </a>
+                  <div class="PandChartBtn">
+                    <i><h3><small>$</small>{{n.price}}</h3></i
+                    ><button>加入購物車</button>
+                  </div>
+                </div>
+              </div>
+              <hr />
+            </div>
+            <!-- 切版10結束 -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  
+    <!-- vue -->
+    <!-- Vue 2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+    <script src="js/getAllBooksVue_csv.js"></script>
+ 
+  </body>
+</html>
