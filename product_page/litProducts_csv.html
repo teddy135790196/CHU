@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>分類</title>
+
+    <meta
+      name="description"
+      content="Source code generated using layoutit.com"/>
+    <meta name="author" content="LayoutIt!" />
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/productCss.css" />
+    <!-- 匯入font的icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="row container">
+      <div class="col-md-12">
+        <!-- 現在位置 -->
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">首頁</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="#">文學類</a>
+            </li>
+            <li class="breadcrumb-item active">小說</li>
+          </ol>
+        </nav>
+
+        <div class="row">
+          <!-- 這串是分類 -->
+          <div class="col-md-2">
+            <div id="pubBC">
+              <h4 v-on:click="showPub" class="cat">
+                出版類型
+                <i v-if="isVisible==true" class="fa-solid fa-chevron-down"></i>
+                <i v-else class="fa-solid fa-chevron-up"></i>
+              </h4>
+
+              <ul >
+                <li v-for="pub in pubType" v-show="isVisible" class="subA">
+                  <a href="">{{pub.name}}</a></li>
+              </ul>
+            </div>
+
+            <hr />
+            <h3>分類</h3>
+            <div id="bookSC">
+              <!-- 書分類大標題 -->
+              <ul class="nav flex-column" v-for="item in bookItems">
+                <li
+                  class="cat"
+                  v-bind:class="{'select':BkBigCat === item}"
+                  v-on:click="BkBigCat=item"
+                >
+                  {{item}}
+                  <i class="fa-solid fa-plus"></i>
+                </li>
+                <!-- 書的分類細項 -->
+                <ul v-show="BkBigCat ===item">
+                  <li v-for="bk in BkSubCat" v-show="bk.type==BkBigCat">
+                    <a v-bind:href="bk.url" class="subA">{{bk.name}}</a>
+                  </li>
+                </ul>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 切版10，商品圖 -->
+          <div class="col-md-10">
+            <!-- 輪播 -->
+            <div class="carousel slide">
+              <ol class="carousel-indicators">
+                <li data-slide-to="0" class="active"></li>
+                <li data-slide-to="1"></li>
+                <li data-slide-to="2"></li>
+              </ol>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img
+                    class="d-block w-100"
+                    alt="Carousel Bootstrap First"
+                    src="https://images.plurk.com/1l6lOvPL96QyQhUcggTNB8.jpg "
+                  />
+                  <div class="carousel-caption">
+                    <h4>全站好康</h4>
+                    <p>全站只要購買小說分類即送書籤一張</p>
+                  </div>
+                </div>
+              </div>
+              <a
+                class="carousel-control-prev"
+                href="#carousel-84227"
+                data-slide="prev"
+                ><span class="carousel-control-prev-icon"></span>
+                <span class="sr-only">Previous</span></a
+              >
+              <a
+                class="carousel-control-next"
+                href="#carousel-84227"
+                data-slide="next"
+                ><span class="carousel-control-next-icon"></span>
+                <span class="sr-only">Next</span></a
+              >
+            </div>
+
+            <!-- 跑馬燈 -->
+            <div class="marquee">
+              <div class="scroll">
+                <!-- 第一個 -->
+                <div class="mqItem first">
+                  <span>棲遲書屋</span> <span>小說專區</span
+                  ><i class="fa-solid fa-book-open"></i><span>棲遲書屋</span>
+                  <span>小說專區</span><i class="fa-solid fa-book-open"></i>
+                </div>
+                <!-- 第二個mqItem_做偏移 -->
+                <div class="mqItem second">
+                  <span>棲遲書屋</span> <span>小說專區</span
+                  ><i class="fa-solid fa-book-open"></i><span>棲遲書屋</span>
+                  <span>小說專區</span><i class="fa-solid fa-book-open"></i>
+                </div>
+              </div>
+            </div>
+            <!-- 跑馬燈結束 -->
+
+            <!-- 條列化商品 -->
+            <div id="app">
+              <div class="row smProduct">
+                <!-- 單個商品圖版型 -->
+
+                <div class="col-sm-4" 
+                v-for="n in novels" 
+                v-bind:key="n.name">
+                  <a v-bind:href="n.url">
+                    <img v-bind:src="n.imgUrl" alt="" />
+                    <h4><span>{{n.name}}</span></h4>
+                  </a>
+                  <a href="#">{{n.author}}</a>
+                  <div class="authorP">
+                    <i
+                      ><h3><small>$</small>{{n.price}}</h3></i
+                    ><button>加入購物車</button>
+                  </div>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
+        <!-- 頁數 -->
+        <nav>
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="#">Previous</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">4</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">5</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+
+        <!--  -->
+        <!-- 下拉 -->
+        <nav class="fixed-bottom">
+          <button id="backToTop">
+            <a href="#"><i class="fa-duotone fa-solid fa-arrow-up-long"></i></a>
+          </button>
+
+          <div class="bottFlex">
+            <button type="button"><a href="#">收藏</a></button>
+            <button type="button"><a href="#">查看購物車</a></button>
+          </div>
+        </nav>
+        <!--  -->
+      </div>
+    </div>
+
+    <!-- js -->
+    <!-- <script src="js/jquery.min.js"></script> -->
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+
+    <!-- vue -->
+    <!-- 下行是vue3 -->
+    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+    <!-- Vue 2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+    <!-- <script src="js/litVue.js"></script> -->
+    <script>
+      const pub = new Vue({
+        el:'#pubBC',
+        data() {
+          return {
+            pubType: [
+              { name: "書籍", url: "#" },
+              { name: "漫畫", url: "#" },
+              { name: "雜誌", url: "#" },
+              { name: "繪本", url: "#" },
+              { name: "其他出版物", url: "#" },
+            ],
+            isVisible: false, // 預設不顯示
+          };
+        },
+        methods: {
+          showPub() {
+            this.isVisible = !this.isVisible; //=!為相反  是跟之前的顯示為相反的意思
+          },
+        },
+      });
+      // pub.mount("#pubBC"); <-因為mount這是vue3專用
+      const bk = new Vue({
+        el:'#bookSC',
+        data() {
+          return {
+            BkBigCat: "",
+            bookItems: [
+              "文學類",
+              "科學類",
+              "社會與科學類",
+              "歷史與地理",
+              "藝術與設計類",
+              "生活與休閒類",
+              "商業與管理類",
+              "宗教與哲學類",
+            ],
+            BkSubCat: [
+              {
+                name: "小說",
+                type: "文學類",
+                url: "https://www.youtube.com/watch?v=9ANzhPJZ2U0",
+              },
+              { name: "散文與詩詞", type: "文學類", url: "" },
+              { name: "自然科學", type: "科學類", url: "" },
+              { name: "科普讀物", type: "科學類", url: "" },
+              { name: "心理與經濟", type: "社會與科學類", url: "#" },
+              { name: "政治與經濟", type: "社會與科學類", url: "#" },
+              { name: "世界與區域歷史", type: "歷史與地理", url: "#" },
+              { name: "地理與文化探索", type: "歷史與地理", url: "#" },
+              { name: "美術與攝影", type: "藝術與設計類", url: "#" },
+              { name: "設計與建築", type: "藝術與設計類", url: "" },
+              { name: "飲食與健康", type: "生活與休閒類", url: "" },
+              { name: "旅遊與手作", type: "生活與休閒類", url: "" },
+              { name: "行銷與創業", type: "商業與管理類", url: "" },
+              { name: "財經與職場技能", type: "商業與管理類", url: "" },
+              { name: "哲學與思辯", type: "宗教與哲學類", url: "" },
+              { name: "宗教信仰與靈修", type: "宗教與哲學類", url: "" },
+            ],
+          };
+        },
+      });
+      // bk.mount("#bookSC");
+    </script>
+  </body>
+</html>

@@ -10,16 +10,13 @@
 
 /* 左側分類 */
 .cat:hover{
-  background-color: rgba(0, 0, 0, 0.06);
+  background-color: rgba(0, 0, 0, 0.183);
   border-radius: 20px;
 }
 .cat{
-   padding:10px ;
+  padding:10px ;
   margin: 3px 0;
   transition: all 0.9s;
-  /* 在2下添加 */
-  display: block;
-  min-height: 30px;
 }
 #bookSC li {
   font-size: 20px;
