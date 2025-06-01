@@ -1,0 +1,60 @@
+新增頁面與功能時應修改的項目與操作說明
+
+當你在本專案中新增一個 Vue 頁面（例如 About.vue），請務必同步修改幾個關鍵檔案，以確保功能能正確運作，且整體架構維持一致。首先，你需要在 `router/index.js` 中註冊這個新頁面，讓它能透過指定路由正確顯示，設定方式如下：
+
+```js
+import About from '@/views/About.vue'
+
+{
+  path: '/about',
+  name: 'About',
+  component: About
+}
+```
+
+接著，如果該頁面需要與後端進行資料交換（如取得商品資料），請至 `services/` 目錄下建立對應的 API 檔案。例如新增 `productService.js` 並寫入以下內容：
+
+```js
+import axios from 'axios'
+const API_BASE = 'https://your-backend-api.com'
+
+export function getAllProducts() {
+  return axios.get(`${API_BASE}/products`)
+}
+```
+
+這樣就能在頁面元件中透過 `import { getAllProducts } from '@/services/productService'` 呼叫這個函式，在生命週期中載入資料。
+
+再來，如果你的頁面中包含可重用的區塊（如商品卡片），請將其獨立為元件並放入 `components/` 目錄，例如建立 `ProductCard.vue`，並撰寫以下內容：
+
+```vue
+<template>
+  <div class="product-card">
+    <img :src="product.image" alt="">
+    <h3>{{ product.name }}</h3>
+    <p>NT$ {{ product.price }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['product']
+}
+</script>
+```
+
+這個元件就可以在其他頁面中透過 `<ProductCard :product="item" />` 方式重複使用，提升開發效率與維護性。
+
+最後，若有使用圖片或樣式資源，請務必將圖片放入 `assets/images/` 目錄，並在模板中透過如下方式引用：
+
+```vue
+<img src="@/assets/images/logo.png" alt="Logo">
+```
+
+樣式部分，如果有共用樣式檔如 `main.css`，請將其放入 `assets/css/` 目錄，並於 `main.js` 中使用以下方式引入：
+
+```js
+import '@/assets/css/main.css'
+```
+
+總結來說，每當你新增一個頁面或功能，請記得同時處理四件事：在 `router/index.js` 註冊路由、於 `services/` 寫入 API、將可重複 UI 拆成元件放入 `components/`、靜態資源統一管理於 `assets/`，如此才能確保整體運作正常且維護容易。請所有組員依照上述流程開發，保持團隊協作一致性。
