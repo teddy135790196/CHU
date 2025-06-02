@@ -156,8 +156,9 @@
                   <a v-bind:href="n.url||'#'">
                     <div class="container-fluid">
                       <!-- 注意圖片網址要綁data-src ，原本是v-bind:src="n.imgUrl"-->
-                      <img v-bind:data-src="n.imgUrl"
-                      src="https://images.plurk.com/6tWG2VNkzOaAvv5wuhRvkn.jpg"  
+                      <img class="lazy-load-image"
+                      v-bind:data-src="n.imgUrl"
+                      src="https://images.plurk.com/GzgdRIhMnbmDrtsBlbANQ.jpg"  
                       alt="n.name" />
                     </div>
                     <!-- 若書名超過15則會... -->
@@ -166,16 +167,13 @@
                     </div>
                     <div v-else>
                       <h4><span>{{n.name}}</span></h4>
-                    </div>
-                  </a>
+                    </div></a>
                   <a href="#" class="authorColor">
                     <!-- 若作者超過20就:用三元運算寫 -->
                     {{ n.author.length>17 ? n.author.slice(0, 17)+'...' :
-                    n.author }}
-                  </a>
+                    n.author }}</a>
                   <div class="PandChartBtn">
-                    <i
-                      ><h3><small>$</small>{{n.price}}</h3></i
+                    <i><h3><small>$</small>{{n.price}}</h3></i
                     ><button>加入購物車</button>
                   </div>
                 </div>

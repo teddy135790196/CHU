@@ -2,17 +2,17 @@
 const allBooks = new Vue({
   el: "#app",
   data() {
-    return {
-      ob: [],
-      novels: [],
-    };
+    return {ob: [],novels: []};
   },
   mounted() {
     //先取得CSV資料庫資料，等取值完後再把現在顯示資料等於過去
     this.fetchData().then(() => {
       this.novels = this.ob;
       // 輸入資料要啟用initLazyLoadImages函式
-      this.initLazyLoadImages();
+      // this.initLazyLoadImages(); <--太快就出現了需要等vue渲染完再開始
+      this.$nextTick(() => { //等畫面（DOM）更新完成後，再執行裡面的程式
+      this.initLazyLoadImages(); // ✅ 保證圖片出現後才監聽
+    });
     });
   },
   methods: {
