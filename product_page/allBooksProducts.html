@@ -7,12 +7,6 @@
 
     <title>分類</title>
 
-    <meta
-      name="description"
-      content="Source code generated using layoutit.com"
-    />
-    <meta name="author" content="LayoutIt!" />
-
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/productCss.css" />
     <!-- 匯入font的icon -->
@@ -26,18 +20,7 @@
   <body>
     <div class="row container">
       <div class="col-md-12">
-        <!-- 現在位置 -->
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="#">首頁</a>
-            </li>
-            <li class="breadcrumb-item">
-              <a href="#">文學類</a>
-            </li>
-            <li class="breadcrumb-item active">小說</li>
-          </ol>
-        </nav>
+        
 
         <div class="row">
           <!-- 這串是分類 -->
@@ -82,11 +65,15 @@
           <!-- 切版10，商品圖 -->
           <div class="col-md-10">
             <!-- 輪播 -->
-            <div class="carousel slide">
+            <div class="carousel slide" id="carousel-84227">
               <ol class="carousel-indicators">
-                <li data-slide-to="0" class="active"></li>
-                <li data-slide-to="1"></li>
-                <li data-slide-to="2"></li>
+                <li data-slide-to="0" 
+                data-target="#carousel-84227"
+                class="active"></li>
+                <li data-slide-to="1"
+                data-target="#carousel-84227"></li>
+                <li data-slide-to="2" 
+                data-target="#carousel-84227"></li>
               </ol>
               <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -96,8 +83,32 @@
                     src="https://images.plurk.com/1l6lOvPL96QyQhUcggTNB8.jpg "
                   />
                   <div class="carousel-caption">
-                    <h4>全站好康</h4>
-                    <p>全站只要購買小說分類即送書籤一張</p>
+                    <h4>全站優惠</h4>
+                    <p>5/10起~6/2日買小說即送《棲遲書屋》官方書籤！</p>
+                  </div>
+                </div>
+                <!-- 第二張圖 -->
+                 <div class="carousel-item">
+                  <img
+                    class="d-block w-100"
+                    alt="Carousel Bootstrap First"
+                    src="https://images.plurk.com/1l6lOvPL96QyQhUcggTNB8.jpg "
+                  />
+                  <div class="carousel-caption">
+                    <h4>限定折扣</h4>
+                    <p>暢銷小說限時5折！抓住機會讓你的書架更精彩！</p>
+                  </div>
+                </div>
+                <!-- 第三張圖 -->
+                 <div class="carousel-item">
+                  <img
+                    class="d-block w-100"
+                    alt="Carousel Bootstrap First"
+                    src="https://images.plurk.com/1l6lOvPL96QyQhUcggTNB8.jpg "
+                  />
+                  <div class="carousel-caption">
+                    <h4>專題推薦</h4>
+                    <p>探索《棲遲書屋》中國小說專題，品味歷史、武俠與奇幻的經典之作！</p>
                   </div>
                 </div>
               </div>
@@ -144,119 +155,50 @@
                 <div class="col3" v-for="n in novels" v-bind:key="n.ISBN">
                   <a v-bind:href="n.url||'#'">
                     <div class="container-fluid">
-                      <img v-bind:src="n.imgUrl" alt="n.name" />
+                      <!-- 注意圖片網址要綁data-src ，原本是v-bind:src="n.imgUrl"-->
+                      <img v-bind:data-src="n.imgUrl"
+                      src=""  
+                      alt="n.name" />
                     </div>
                     <!-- 若書名超過15則會... -->
                     <div v-if="n.name.length>15">
-                        <h4><span>{{n.name.slice(0,15)}}...</span></h4>
-                      </div>
-                      <div v-else> <h4><span>{{n.name}}</span></h4></div>
-                    
-                    
+                      <h4><span>{{n.name.slice(0,15)}}...</span></h4>
+                    </div>
+                    <div v-else>
+                      <h4><span>{{n.name}}</span></h4>
+                    </div>
                   </a>
                   <a href="#" class="authorColor">
                     <!-- 若作者超過20就:用三元運算寫 -->
-                     {{ n.author.length>17 ?  n.author.slice(0, 17)+'...' : n.author }}
-                    </a>
+                    {{ n.author.length>17 ? n.author.slice(0, 17)+'...' :
+                    n.author }}
+                  </a>
                   <div class="PandChartBtn">
-                    <i><h3><small>$</small>{{n.price}}</h3></i
+                    <i
+                      ><h3><small>$</small>{{n.price}}</h3></i
                     ><button>加入購物車</button>
                   </div>
                 </div>
               </div>
-              <hr />
             </div>
 
             <!-- 切版10結束 -->
           </div>
         </div>
-
-        <!-- 下拉 
-        <nav class="fixed-bottom">
-          <button id="backToTop">
-            <a href="#"><i class="fa-duotone fa-solid fa-arrow-up-long"></i></a>
-          </button>
-
-          <div class="bottFlex">
-            <button type="button"><a href="#">收藏</a></button>
-            <button type="button"><a href="#">查看購物車</a></button>
-          </div>
-        </nav>
-        -->
       </div>
     </div>
 
     <!-- js -->
-    <!-- <script src="js/jquery.min.js"></script> -->
-    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
     <!-- vue -->
     <!-- Vue 2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+    <script src="js/bookSub.js"></script>
     <script src="js/getAllBooksVue_csv.js"></script>
     <script>
-      const pub = new Vue({
-        el: "#pubBC",
-        data() {
-          return {
-            pubType: [
-              { name: "書籍", url: "#" },
-              { name: "漫畫", url: "#" },
-              { name: "雜誌", url: "#" },
-              { name: "繪本", url: "#" },
-              { name: "其他出版物", url: "#" },
-            ],
-            isVisible: false, // 預設不顯示
-          };
-        },
-        methods: {
-          showPub() {
-            this.isVisible = !this.isVisible; //=!為相反  是跟之前的顯示為相反的意思
-          },
-        },
-      });
-      // pub.mount("#pubBC"); <-因為mount這是vue3專用
-      const bk = new Vue({
-        el: "#bookSC",
-        data() {
-          return {
-            BkBigCat: "",
-            bookItems: [
-              "文學類",
-              "科學類",
-              "社會與科學類",
-              "歷史與地理",
-              "藝術與設計類",
-              "生活與休閒類",
-              "商業與管理類",
-              "宗教與哲學類",
-            ],
-            BkSubCat: [
-              {
-                name: "小說",
-                type: "文學類",
-                url: "https://www.youtube.com/watch?v=9ANzhPJZ2U0",
-              },
-              { name: "散文與詩詞", type: "文學類", url: "" },
-              { name: "自然科學", type: "科學類", url: "" },
-              { name: "科普讀物", type: "科學類", url: "" },
-              { name: "心理與經濟", type: "社會與科學類", url: "#" },
-              { name: "政治與經濟", type: "社會與科學類", url: "#" },
-              { name: "世界與區域歷史", type: "歷史與地理", url: "#" },
-              { name: "地理與文化探索", type: "歷史與地理", url: "#" },
-              { name: "美術與攝影", type: "藝術與設計類", url: "#" },
-              { name: "設計與建築", type: "藝術與設計類", url: "" },
-              { name: "飲食與健康", type: "生活與休閒類", url: "" },
-              { name: "旅遊與手作", type: "生活與休閒類", url: "" },
-              { name: "行銷與創業", type: "商業與管理類", url: "" },
-              { name: "財經與職場技能", type: "商業與管理類", url: "" },
-              { name: "哲學與思辯", type: "宗教與哲學類", url: "" },
-              { name: "宗教信仰與靈修", type: "宗教與哲學類", url: "" },
-            ],
-          };
-        },
-      });
-      // bk.mount("#bookSC");
+     
     </script>
   </body>
 </html>
