@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: 'http://localhost:8080'
+  // origin: 'http://localhost:8080'
 }));
 
 // 引入 db.js
@@ -17,6 +17,14 @@ const database = require('./db');
 // 路由
 app.get('/', (req, res) => {
   res.send('Hello from backend with MySQL!');
+});
+
+// 測試書籍
+app.get('/books', (req, res) => {
+  database.query('SELECT * FROM T_book', (err, results) => {
+    if (err) return res.status(500).json({ error: '查詢失敗', details: err });
+    res.json(results);
+  });
 });
 
 // 取得全部商品資料
