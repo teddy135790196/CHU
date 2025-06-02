@@ -20,19 +20,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <!-- 現在位置 -->
-          <nav>
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="#">首頁</a>
-              </li>
-              <li class="breadcrumb-item">文學類</li>
-              <li class="breadcrumb-item">
-                <a href="litProducts.html">小說</a>
-              </li>
-              <li class="breadcrumb-item active">紅樓夢</li>
-            </ol>
-          </nav>
+     
 
           <div class="row">
             <!-- 這串是分類 -->
@@ -114,6 +102,7 @@
                       這部經典小說以賈、史、王、薛四大家族的興衰為主線，描繪了一個鐘鳴鼎食、詩禮簪纓的貴族家庭由盛轉衰的歷史圖景。故事聚焦於賈寶玉與林黛玉、薛寶釵之間纏綿悱惻的愛情糾葛，以及大觀園中眾多閨閣女兒的悲歡離合。曹雪芹以精湛的筆法，塑造了賈寶玉的叛逆與深情、林黛玉的敏感與才華、薛寶釵的端莊與世故等一系列鮮活的人物形象。書中不僅細緻入微地展現了清代社會的風俗人情、飲食服飾、詩詞歌賦，更深刻揭示了封建社會的弊端與人性的複雜多變。這是一部百科全書式的巨著。
                     </p>
                   </div>
+                  
                 </div>
               </div>
               <hr />
@@ -124,7 +113,7 @@
               <!-- toggle卡片選單 -->
               <div id="card-1">
                 <!-- 1 -->
-                <div class="card">
+                <div class="card" id="card_spe">
                   <div class="card-header">
                     <a
                       class="card-link"
@@ -144,7 +133,7 @@
                 </div>
 
                 <!-- 3 -->
-                <div class="card">
+                <div class="card" id="card_del">
                   <div class="card-header">
                     <a
                       class="collapsed card-link"
@@ -165,7 +154,8 @@
                         <dt>出貨時間</dt>
                         <dd>
                           -訂單確認後一般於 1–3
-                          個工作天內出貨（不含例假日與國定假日）。如遇特殊促銷或物流旺季，出貨時間可能延長，還請耐心等候。
+                          個工作天內出貨（不含例假日與國定假日）。<br>
+                          -如遇特殊促銷或物流旺季，出貨時間可能延長，還請耐心等候。
                         </dd>
                         <dt>配送方式與時間</dt>
                         <dd>
@@ -174,13 +164,13 @@
                         </dd>
                         <dt>訂單查詢</dt>
                         <dd>
-                          -出貨後將以電子郵件通知物流單號，您可透過該單號查詢配送進度。如未收到通知信，請先檢查垃圾郵件匣，或聯絡客服協助處理。
+                          -出貨後將以電子郵件通知物流單號，您可透過該單號查詢配送進度。<br>-如未收到通知信，請先檢查垃圾郵件匣，或聯絡客服協助處理。
                         </dd>
                         <dt>退換貨說明</dt>
                         <dd>
                           -若收到商品有破損、缺頁、印刷錯誤等情況，請於收到商品
                           7
-                          天內聯絡我們，提供照片及訂單資訊，我們將盡快為您處理退換貨。退換貨僅限商品本身有瑕疵，恕不接受因個人因素（如不喜歡內容）申請退貨。
+                          天內聯絡我們，提供照片及訂單資訊，我們將盡快為您處理退換貨。<br>-退換貨僅限商品本身有瑕疵，恕不接受因個人因素（如不喜歡內容）申請退貨。
                         </dd>
                         <dt>客服聯絡方式</dt>
                         <dd>
@@ -225,33 +215,29 @@
             <!-- 推薦小圖 -->
             <div class="row smProduct" id="youMaybeLike">
               <div
-                class="col-md-4"
+                class="col3"
                 v-for="(n,index) in novels"
                 v-bind:key="n.書名"
               >
                 <a href="">
                   <img v-bind:src="n.imgUrl" alt="" />
-                  <h2>{{n.書名}}</h2>
+                  <h4>{{n.書名}}</h4>
+                  <p class="authorColor">作者:{{n.作者}}</p>
+
                 </a>
                 <!-- {{ n.expanded ? n.簡介 : n.簡介.slice(0, 50) + (n.簡介.length > 50 ? '...' : '') }} -->
                 <div v-if="n.expanded">{{n.簡介}}</div>
                 <div v-else>
-                  <div v-if="n.簡介.length>50">{{n.簡介.slice(0, 50)}}...</div>
+                  <div v-if="n.簡介.length>20">{{n.簡介.slice(0, 20)}}...</div>
                 </div>
+                 <div class="PandChartBtn">
+                    <i
+                      ><h3><small>$</small>{{n.price}}</h3></i
+                    ><button>加入購物車</button>
+                  </div>
               </div>
             </div>
           </div>
-          <!-- 下拉 
-          <nav class="fixed-bottom">
-             <button id="backToTop">
-              <a href="#"><i class="fa-duotone fa-solid fa-arrow-up-long"></i></a></button>
-              
-            <div class="bottFlex">
-                <button type="button"><a href="#">收藏</a></button>       
-                <button type="button"><a href="#">加到購物車</a></button>
-            </div>
-          </nav>
-            -->
         </div>
       </div>
     </div>
@@ -259,7 +245,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/productJs.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
     <!-- vue -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="js/litVue.js"></script>

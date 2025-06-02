@@ -15,7 +15,7 @@ a {
 
 /* 左側分類 */
 .cat:hover {
-  background-color:  hsla(36, 51%, 50%, 0.3);
+  background-color: hsla(36, 51%, 50%, 0.3);
   border-radius: 20px;
 }
 .cat {
@@ -35,23 +35,70 @@ a {
   color: hsl(36, 50.7%, 50%);
 }
 /* 細項的li整體往左移 */
-.subA{
+.subA {
   display: block;
   margin-left: 20px;
   padding: 10px 0;
   font-size: 20px;
 }
-.subA,.subA a{
+.subA,
+.subA a {
   color: hsl(353, 51%, 33%);
-  transition: all 0.55s;}
-.subA:hover,.subA a:hover{color: hsl(36, 50.7%, 50%);}
-
+  transition: all 0.55s;
+}
+.subA:hover,
+.subA a:hover {
+  color: hsl(36, 50.7%, 50%);
+}
 
 /* 子標籤隱藏 */
 #litShow {
   display: none;
-
 }
+
+/* 分類頁的作者跟價格 */
+.col3 {
+  /* border: 1px black solid; */
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 390px;
+  margin: 10px auto;
+  padding: 0 auto;
+}
+.authorColor {
+  color: hsl(36, 50.7%, 50%);
+  transition: all 0.55s;
+}
+.authorColor:hover {
+  color: hsl(38, 74%, 24%);
+}
+.PandChartBtn {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: end; /* 垂直置中 */
+}
+/* 分類頁的價格 */
+.PandChartBtn h3 {
+  font-weight: bold;
+  color: hsl(353, 100%, 29.2%);
+  transition: all 1s;
+}
+/* 分類頁的加入購物車按鈕 */
+.PandChartBtn button {
+  color: white;
+  background-color: hsl(36, 50.7%, 71.4%);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+  transition: all 0.7s;
+}
+.PandChartBtn button:hover {
+  background-color: hsl(353, 100%, 29.2%);
+}
+/* 商品頁 */
+
 /* 產品頁面 */
 .prodP {
   margin: 0 auto;
@@ -72,9 +119,9 @@ a {
 .price {
   font-weight: bold;
   color: white;
-  background-color: hsl(353, 51%, 33%);
-  padding: 15px 55px;
-  border-radius: 10px 40px;
+  background-color: hsl(36, 50.7%, 50%);
+  padding: 15px 45px;
+  border-radius: 0px 30px;
   margin-top: 40px;
 }
 
@@ -84,55 +131,40 @@ a {
   font-weight: bold;
   font-size: 20px;
 }
-
-/* 分類頁的作者跟價格 */
-.col3 {
-  /* border: 1px black solid; */
-  display: flex;
-  flex-direction: column;
-  width: 200px;
-  height: 390px;
-  margin: 10px auto;
-  padding: 0 auto;
+/* 商品頁的作者跟出版商 */
+.prodFlex {
+  font-size: 20px;
 }
-.authorColor {
-  color: hsl(36, 50.7%, 50%);
-  transition: all 0.55s;
-}
-.authorColor:hover {color: hsl(38, 74%, 24%);}
-.PandChartBtn{margin-top: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: end;/* 垂直置中 */
-}
-/* 分類頁的價格 */
-.PandChartBtn h3 {
-  font-weight: bold;
+.prodFlex a {
   color: hsl(353, 100%, 29.2%);
-  transition: all 1s;
 }
-/* 分類頁的加入購物車按鈕 */
-.PandChartBtn button {
-  color: white;
-  background-color: hsl(36, 50.7%, 71.4%);
-  border: none;
-  padding: 10px 15px;
-  border-radius: 20px;
-  transition: all 0.7s;
+/* 商品頁的內文描述 */
+.describe i {
+  color: hsl(353, 100%, 29.2%);
 }
-.PandChartBtn button:hover {background-color: hsl(353, 100%, 29.2%);
-}
-
 /* 商品頁的商品規格 */
+#card-1 {
+  display: flex;
+  justify-content: space-around;
+}
+#card_spe {
+  width: 300px;
+}
+#card_del {
+  width: 1250px;
+}
 .card a {
   font-size: 20px;
-  color: aliceblue;
+  color: white;
+}
+.card-header {
+  background-color: hsl(353, 100%, 29.2%);
 }
 .card-body {
   margin: 10px 30px;
 }
-.card-header {
-  background-color: rgb(222, 127, 127);
+.card-body dt {
+  color: hsl(353, 100%, 29.2%);
 }
 
 /* 你可能會喜歡_小圖區 */
@@ -172,7 +204,9 @@ a {
   height: 2px;
   transition: all 0.4s;
 }
-.smProduct a:hover h4::after {width: 100%;}
+.smProduct a:hover h4::after {
+  width: 100%;
+}
 
 /* 滑到變圓角，可惜手機不能有 */
 .smProduct a:hover img {
@@ -180,7 +214,9 @@ a {
   border-radius: 20px;
   z-index: 2;
 }
-.smProduct a:hover span {color: hsl(36, 50.7%, 71.4%);}
+.smProduct a:hover span {
+  color: hsl(36, 50.7%, 71.4%);
+}
 /* 跑馬燈 */
 /* 宣告動畫marquee */
 @keyframes marquee {
@@ -243,17 +279,38 @@ a {
     height: 370px;
     width: 150px;
   }
-  .PandChartBtn {margin-top: auto;}
+  .PandChartBtn {
+    margin-top: auto;
+  }
+  /* 商品頁 */
+  #card-1 {
+    display: flex;
+    flex-direction: column;
+  }
+  #card_spe {
+    width: 100%;
+  }
+  #card_del {
+    width: 100%;
+  }
 }
 /* 中尺寸 */
 @media (min-width: 670px) and (max-width: 992px) {
   /* 分類頁的作者跟價格 */
   /* 書名超連結 */
-  .smProduct span {font-size: 23px;}
+  .smProduct span {
+    font-size: 23px;
+  }
   /* 價格 */
-  .PandChartBtn {align-items: end;}
-  .PandChartBtn h3 {font-size: 22px;}
-  .PandChartBtn button {width: 110px;}
+  .PandChartBtn {
+    align-items: end;
+  }
+  .PandChartBtn h3 {
+    font-size: 22px;
+  }
+  .PandChartBtn button {
+    width: 110px;
+  }
   /* 小圖區 */
   .col3 {
     margin: 10px auto;
@@ -272,7 +329,9 @@ a {
     width: 100%;
   }
   /* 分類頁的作者跟價格 */
-  .PandChartBtn {flex-direction: column;}
+  .PandChartBtn {
+    flex-direction: column;
+  }
   /* 價格 */
   .PandChartBtn h3 {
     font-size: 25px;
@@ -289,5 +348,18 @@ a {
     width: 170px;
     height: 330px;
   }
-  .smProduct span {font-size: 23px;}
+  .smProduct span {
+    font-size: 23px;
+  }
+  /* 商品頁 */
+  #card-1 {
+    display: flex;
+    flex-direction: column;
+  }
+  #card_spe {
+    width: 100%;
+  }
+  #card_del {
+    width: 100%;
+  }
 }
