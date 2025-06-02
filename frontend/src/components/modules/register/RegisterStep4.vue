@@ -171,7 +171,7 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    transform: translateY(0px);
+    transform: translateY(40px);
 
     margin-top: 30px;
     padding: 0 24px;
@@ -273,7 +273,7 @@ export default {
 
   /* 驗證碼區塊 */
   .captcha{
-    transform: translateY(0px) !important;
+    transform: translateY(50px) !important;
     margin-top: 20px !important;
   }
 }
@@ -316,7 +316,7 @@ export default {
 
   /* 驗證碼區塊 */
   .captcha{
-    transform: translateY(0px) !important;
+    transform: translateY(50px) !important;
     margin-top: 15px !important;
   }
 }

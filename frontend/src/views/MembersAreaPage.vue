@@ -1,14 +1,16 @@
 <template>
 	<div id="app" class="wrap">
-		<div class="back-img"></div> <!-- 背景層 -->
-		<AccessAlert
+		<!-- 背景層 -->
+		<div class="back-img"></div> 
+
+		<!-- <AccessAlert
   v-if="showAccessAlert"
   :title="access.title"
   :message="access.message"
   :button-text="access.button"
   :showButton="true"
   :closeOnOverlay="false"
-  @action="goToPublisherApply" /> 
+  @action="goToPublisherApply" />  -->
 
 		<!-- 頁首區 -->
 		<div class="row">
@@ -38,13 +40,13 @@
 <script>
 // 路徑要對應到 components 底下的元件位置
 import MembersArea from "@/components/modules/members/MembersArea.vue";
-import AccessAlert from "@/components/common/AccessAlert.vue";
+// import AccessAlert from "@/components/common/AccessAlert.vue";
 
 export default {
 	name: "MembersAreaPage",
 	components: {
 		MembersArea,
-		AccessAlert,
+		// AccessAlert,
 	},
 data() {
   return {

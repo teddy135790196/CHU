@@ -7,17 +7,7 @@
 }
 
 
-/* 內容區塊 */
-.content.members {
-	padding: 10px;
-	padding-top: 30px;
-	border-radius: 0;
-	/* 用width不知道為什麼消費紀錄不會到那寬度 */
-	/* 一下適用min-width、一下適用width，我兩個都設！ */
-	width: 820px;
-	min-width: 820px;
-	min-height: 100vh;
-}
+
 
 /****************************** 標準區 - 開始 ******************************/
 
@@ -26,154 +16,7 @@
 /****************************** 標準區 - 結束 ******************************/
 
 
-/* 上方－會員資訊 | 出版按鈕 */
-.userInformation {
-	align-items: center;
 
-	/* 會員頭像 */
-	.userAvatar img {
-		margin-right: 30px;
-		border: 2px solid var(--quote-text-color);
-		border-radius: 50%;
-
-		width: 100px;
-		height: 100px;
-		min-width: 72px;
-	}
-
-	/* 會員暱稱 */
-	.userNick {
-		display: flex;
-		align-items: center;
-		height: 100%;
-
-		/* 暱稱 */
-		h3 {
-			font-family: '王翰宗粗鋼體';
-			font-size: 60px;
-			/* font-weight: bold; */
-			/* margin: 0; */
-		}
-
-
-
-	}
-
-	/* 按鈕－出版專區 */
-	a {
-		display: block;
-		padding: 5px;
-		/* margin-left: auto; */
-		border-radius: 5px;
-		width: 120px;
-		background-color: var(--second-color);
-
-		/* transform: translate(-20px, -150px); */
-
-		color: var(--second-text-color);
-		text-align: center;
-		text-decoration: none;
-	}
-
-
-
-}
-
-/* 手風琴 - 個人資料 */
-.accordion {
-	/* transform: translate(-120px, 80px); */
-	/* margin-top: -40px; */
-	/* JS動態上移 */
-	margin-top: var(--dynamic-margin);
-
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	width: 100%;
-
-
-	.accordion-item {
-		margin-bottom: 30px;
-
-		background-color: transparent;
-		border: none;
-
-		/* 調整手風琴位置對齊暱稱 */
-		.accordion-button,
-		.accordion-body {
-			box-shadow: none;
-			padding-left: 3px;
-		}
-
-		/* 手風琴點擊區塊 */
-		.accordion-header .accordion-button {
-
-			padding: 0.5rem auto;
-			background-color: transparent;
-
-			font-family: '王翰宗顏楷體';
-
-			/* 改變 hr 顏色 */
-			&:not(.collapsed) {
-				border-bottom: 2px solid var(--quote-text-color);
-				/* 設定線條顏色 */
-			}
-		}
-
-		/* 手風琴內容區塊 */
-		.accordion-collapse {
-			font-family: '王翰宗中仿宋';
-			/* position: static; */
-		}
-	}
-
-
-
-
-
-}
-
-
-
-/* 下方－功能選單區塊 */
-.menu {
-	display: flex;
-	gap: 30px;
-	margin-bottom: 20px;
-
-	/* 選項區塊 */
-	.menu-item {
-		flex: 1;
-		padding: 10px 0;
-		/* 防止選取 */
-		user-select: none;
-		/* 游標變手指 */
-		cursor: pointer;
-
-		font-family: '王翰宗粗鋼體';
-		font-size: 24px;
-		text-align: center;
-		row-gap: 10px;
-
-		&:hover {
-			border-top: 2px solid var(--main-color);
-
-			font-size: 26px;
-			color: var(--main-color);
-		}
-	}
-
-	/* 當前選中 */
-	/* 同時有 menu-item 與 active 的類別才套用該樣式 */
-	.menu-item.active {
-		border-top: 2px solid var(--main-color);
-
-		font-family: '王翰宗中仿宋';
-		font-size: 28px;
-		font-weight: bold;
-		color: var(--main-color);
-	}
-}
 
 
 
@@ -194,8 +37,17 @@
    寫好的CSS貼在這區
 ======================================== */
 
-/* 預設的全局樣式 */
-
+/* 內容區塊 */
+.content.members {
+	padding: 10px;
+	padding-top: 30px;
+	border-radius: 0;
+	/* 用width不知道為什麼消費紀錄不會到那寬度 */
+	/* 一下適用min-width、一下適用width，我兩個都設！ */
+	width: 900px;
+	min-width: 900px;
+	min-height: 100vh;
+}
 
 
 
@@ -203,7 +55,8 @@
    xxl: ≥ 1400px (大桌機、4K 螢幕)
    container 寬度: 1320px
 ======================================== */
-@media (min-width: 1400px) {}
+@media (min-width: 1400px) {
+}
 
 
 
@@ -230,7 +83,15 @@
    md: 768px ~ 991px (橫向 iPad、小型平板)
    container 寬度: 720px
 ======================================== */
-@media (min-width: 768px) and (max-width: 991px) {}
+@media (min-width: 768px) and (max-width: 991px) {
+	/* 內容區塊 */
+	.content.members {
+		padding: 10px;
+		width: 720px;
+		min-width: 720px;
+		min-height: 720px;
+	}
+}
 
 
 
@@ -239,7 +100,15 @@
    sm: 577px ~ 767px (大型手機、直向平板)
    container 寬度: 540px
 ======================================== */
-@media (min-width: 577px) and (max-width: 767px) {}
+@media (min-width: 577px) and (max-width: 767px) {
+	/* 內容區塊 */
+	.content.members {
+		padding: 10px;
+		width: 520px;
+		min-width: 520px;
+		min-height: 650px;
+	}
+}
 
 
 
@@ -248,4 +117,13 @@
    xs: ≤ 576px (手機)
    container 寬度: 100% (fluid)
 ======================================== */
-@media (max-width: 576px) {}
+@media (max-width: 576px) {
+
+	/* 內容區塊 */
+	.content.members {
+		padding: 10px;
+		width: 100%;
+		min-width: 100%;
+		min-height: 600px;
+	}
+}

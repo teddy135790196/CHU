@@ -1,7 +1,7 @@
 <template>
 	<!-- 區塊：購買紀錄－始 -->
 	<div class="selectContent" id="purchase" style="display: none;">
-		<h5 class="mb-3">歷史訂單（僅展示效果，未實作。這段會刪掉）</h5>
+		<!-- <h5 class="mb-3">歷史訂單（僅展示效果，未實作。這段會刪掉）</h5> -->
 		<!-- 一筆訂單 -->
 		<div class="list-group mb-4">
 			<div class="list-group-item">

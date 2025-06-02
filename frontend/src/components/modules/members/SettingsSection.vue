@@ -82,7 +82,7 @@
 				<div class="d-flex align-items-center w-100">
 					<input type="text" value="0912345678" class="edit-input" style="display:none;">
 					<p class="display-text">0912345678</p>
-					<button class="display-text btn btn-sm btn-outline-secondary ms-2">寄送驗證信</button>
+					<button class="display-text btn btn-sm btn-outline-success ms-2">寄送驗證信</button>
 				</div>
 			</div>
 
@@ -90,55 +90,61 @@
 				<div class="label-badge">
 					<label>通訊地址</label>
 				</div>
-				<div class="d-flex align-items-center w-100">
-					<!-- <input type="text" value="320桃園市中壢區健行路229號" class="edit-input" style="display:none;"> -->
+				<div class="d-flex flex-column align-items-center w-100">
+					<div class="old row w-100">
+							<input 
+							type="text" 
+							:value="fullAddress" 
+							class="edit-input" 
+							style="display:none;" 
+							>
+							<p class="display-text">{{ fullAddress }}</p>
+					</div>
 					
-					<div id="address" class="edit-input" style="display:none;">
+					<!-- 分離式輸入(目前失敗) -->
+					<!-- <div id="address" class="edit-input row mt-4" style="display:none;">
 						<div class="row mt-2 g-2">
-							<!-- 縣市 -->
 							<div class="col-12 col-md-4 d-flex align-items-center">
-								<span for="county" class="mb-0" style="white-space: nowrap;">縣市：</span>
-								<select id="county" class="form-select flex-grow-1">
-									<option selected disabled>請選擇</option>
-								</select>
+								<span for="county" class="mb-0" style="white-space: nowrap;">縣市</span>
+								<input 
+								type="text" 
+								:value="contact.addressData.county" 
+								class="edit-input" 
+								placeholder="如：桃園市" 
+								>
+								<p id="county" class="display-text" hidden></p>
 							</div>
 
-							<!-- 鄉鎮市區 -->
 							<div class="col-12 col-md-4 d-flex align-items-center">
 								<span for="district" class="form-label">鄉鎮市區</span>
-								<select id="district" class="form-select" disabled>
-									<option selected disabled>請選擇</option>
-								</select>
+								<input type="text" id="district" class="form-control" placeholder="如：中壢區" v-model="contact.addressData.district">
 							</div>
 
-							<!-- 路街名稱 -->
 							<div class="col-12 col-md-4 d-flex align-items-center">
 								<span for="street" class="form-label">路街名稱</span>
-								<input type="text" id="street" class="form-control" placeholder="健行路">
+								<input type="text" id="street" class="form-control" placeholder="如：健行路" v-model="contact.addressData.street">
 							</div>
 
-							<!-- 巷弄 -->
 							<div class="col-12 col-md-4 d-flex align-items-center">
 								<span for="lane" class="form-label">巷弄</span>
-								<input type="text" id="lane" class="form-control" placeholder="如：12巷3弄">
+								<input type="text" id="lane" class="form-control" placeholder="如：12巷3弄" v-model="contact.addressData.lane">
 							</div>
 
-							<!-- 門牌號碼 -->
 							<div class="col-12 col-md-6 d-flex align-items-center">
 								<span for="number" class="form-label">門牌號碼</span>
-								<input type="text" id="number" class="form-control" placeholder="229號">
+								<input type="text" id="number" class="form-control" placeholder="如：229號" v-model="contact.addressData.number">
 							</div>
 
-							<!-- 郵遞區號 -->
 							<div class="col-12 col-md-2 d-flex align-items-center">
 								<span for="zip" class="form-label">郵遞區號</span>
-								<input type="text" id="zip" class="form-control" readonly>
+								<input type="text" id="zip" class="form-control" placeholder="如：320" v-model="contact.addressData.zip">
 							</div>
 						</div>
-					</div>
-					<p class="display-text">320桃園市中壢區健行路229號</p>
+					</div> -->
+					
 				</div>
 			</div>
+
 
 			<button id="toggleContactEditBtn" data-edit-text="修改聯繫方式"
 				class="btn btn-sm btn-outline-primary mt-2">修改聯繫方式</button>
@@ -180,17 +186,54 @@
 <script>
 export default {
 	name: "SettingsSection",
+	data() {
+		return {
+			// 個人資料管理
+			info: {
+				nickname: '長安不問',
+				gender: '男性',
+				birthday: '2000-01-01',
+				intro: '天地玄黃，宇宙洪荒...',
+			},
+			
+			// 聯繫方式
+			contact: {
+				email: 'user@example.com',
+				phone: '0912345678',
+				addressData: {
+					county: "桃園市",
+					district: "中壢區",
+					street: "健行路",
+					lane: "12巷3弄",
+					number: "229號",
+					zip: "320"
+				},
+			},
+
+		};
+	},
 	mounted() {
 		// 初始化編輯控制區塊
 		this.setupToggleEdit("infoSection", "toggleEditBtn", "overlay");
 		this.setupToggleEdit("contactSection", "toggleContactEditBtn", "overlay");
 		this.setupToggleEdit("accountSection", "toggleAccountEditBtn", "overlay");
 		this.setupToggleEdit("passwordSection", "togglePasswordEditBtn", "overlay");
+		// this.setupToggleEdit("address", "toggleContactEditBtn", "overlay");
 
 		// 初始化主題設定
 		this.setupThemeSelector();
 	},
+	computed: {
+		fullAddress() {
+			const { county, district, street, lane, number, zip } = this.contact.addressData;
+			// 先檢查每個欄位是否有填，避免空值產生多餘空格
+			return [zip, county, district, street, lane, number]
+			.filter(part => part && part.trim() !== '')
+			.join('');
+		}
+	},
 	methods: {
+		// 編輯項目
 		setupToggleEdit(sectionId, toggleBtnId, overlayId = null) {
 			const section = document.getElementById(sectionId);
 			const toggleBtn = document.getElementById(toggleBtnId);
@@ -207,6 +250,7 @@ export default {
 				inputs.forEach((input) => {
 					input.style.display = isEditing ? "block" : "none";
 					if (!isEditing) {
+						// 或許把這個換掉就可以在inp_model下抓多個輸入框
 						const p = input.nextElementSibling;
 						if (p) {
 							if (input.tagName === "SELECT") {
@@ -236,35 +280,45 @@ export default {
 			});
 		},
 
+		// 儲存主題
 		setupThemeSelector() {
-			const themeSelector = document.getElementById("themeSelector");
+    const themeSelector = document.getElementById("themeSelector");
+    if (!themeSelector) {
+        console.error("themeSelector not found");
+        return;
+    }
 
-			// 套用已儲存的主題
-			const savedTheme = localStorage.getItem("theme");
-			if (savedTheme) {
-				document.documentElement.setAttribute("data-theme", savedTheme);
-				themeSelector.value = savedTheme;
-			}
+    // 套用已儲存的主題
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        themeSelector.value = savedTheme;
+    }
 
-			// 使用者切換主題時儲存
-			themeSelector.addEventListener("change", function () {
-				const selected = this.value;
+    themeSelector.addEventListener("change", function () {
+        const selected = this.value;
+        if (selected === "default") {
+            document.documentElement.removeAttribute("data-theme");
+            localStorage.removeItem("theme");
+        } else {
+            document.documentElement.setAttribute("data-theme", selected);
+            localStorage.setItem("theme", selected);
+        }
+    });
+}
 
-				if (selected === "default") {
-					document.documentElement.removeAttribute("data-theme");
-					localStorage.removeItem("theme");
-				} else {
-					document.documentElement.setAttribute("data-theme", selected);
-					localStorage.setItem("theme", selected);
-				}
-			});
-		},
+
 	},
+	
 };
 </script>
 
 <style scoped>
-/* 資訊管理 */
+/* ========================================
+   基本全局樣式（適用於所有設備）
+   寫好的CSS貼在這區
+======================================== */
+
 #settings {
 
 	/* 留出左右空白 */
@@ -406,8 +460,21 @@ export default {
 		}
 	}
 
-	/* 地址排版設定 */
+	/* 地址排版設定－上方原始 */
+	.old{
+		input{
+			/* background-color: lightgray; */
+		}
+		p{
+			padding: 0;
+		}
+	}
+
+	/* 地址排版設定－分離式輸入 */
 	#address {
+		input{
+			border-radius: 0;
+		}
 
 		/* 郵遞區號 */
 		#zip {}
@@ -427,5 +494,72 @@ export default {
 		/* 門牌號碼 */
 		#number {}
 	}
+
+}
+
+
+
+
+/* ========================================
+   xxl: ≥ 1400px (大桌機、4K 螢幕)
+   container 寬度: 1320px
+======================================== */
+@media (min-width: 1400px) {
+   
+}
+
+
+
+
+/* ========================================
+   xl: 1200px ~ 1399px (一般桌機)
+   container 寬度: 1140px
+======================================== */
+@media (min-width: 1200px) and (max-width: 1399px) {
+   
+}
+
+
+
+
+/* ========================================
+   lg: 992px ~ 1199px (小型桌機、橫向大型平板)
+   container 寬度: 960px
+======================================== */
+@media (min-width: 992px) and (max-width: 1199px) {
+   
+}
+
+
+
+
+/* ========================================
+   md: 768px ~ 991px (橫向 iPad、小型平板)
+   container 寬度: 720px
+======================================== */
+@media (min-width: 768px) and (max-width: 991px) {
+   
+}
+
+
+
+
+/* ========================================
+   sm: 577px ~ 767px (大型手機、直向平板)
+   container 寬度: 540px
+======================================== */
+@media (min-width: 577px) and (max-width: 767px) {
+   
+}
+
+
+
+
+/* ========================================
+   xs: ≤ 576px (手機)
+   container 寬度: 100% (fluid)
+======================================== */
+@media (max-width: 576px) {
+   
 }
 </style>
