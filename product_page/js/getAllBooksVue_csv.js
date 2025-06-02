@@ -92,6 +92,6 @@ const allBooks = new Vue({
           img.classList.remove("lazy-load-image");
         });
       }
-    },
-  },
+    }
+  }
 });
