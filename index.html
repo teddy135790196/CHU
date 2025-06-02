@@ -4,144 +4,202 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
-    <!-- 同步讀取，但讀取完js檔才解析網頁 -->
-    <script defer src="script.js"></script>
-    <link rel="stylesheet" href="style.css" />
+
+    <link rel="stylesheet" href="css/indexStyle.css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/格子.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <!-- defer同步讀取，但讀取完js檔才解析網頁 -->
+    <script defer src="js/indexScript.js"></script>
+    <!-- <script defer src="js/getAllBooksVue_csv.js"></script> -->
     <title>棲遲書店</title>
   </head>
 
-  <body id="app">
-    <!-- 彈出視窗 -->
-    <div class="popup" v-show="showPopup">
-      <!-- popupBackground為了讓背景半透明，也為了能夠點擊空白處關閉視窗 -->
-      <div class="popupBackground" @click="showPopup = !showPopup"></div>
-      <!-- 可以嘗試用阻止冒泡方式改寫，就不用上面一行。不過這樣又遇到X在popupBody裡面的問題 -->
-      <div class="popupBody">
-        <div class="popupClose" @click="showPopup = !showPopup">X</div>
-        <h2 class="popupHeader">重要說明</h2>
-        <p class="popupMain">
-          本網頁一切內容皆為虛購，與現實的人、事、物皆無關連。
-          實際上沒有這間書店；網頁裡呈現的商品也只為展示，一切皆為虛構。
-        </p>
-        <div class="popupFooter">棲遲書店</div>
+  <!-- app不要綁body，會有警告
+  <body id="app"> -->
+  <body>
+    <div id="app">
+      <!-- 彈出視窗 -->
+      <div class="popup" v-show="showPopup">
+        <!-- popupBackground為了讓背景半透明，也為了能夠點擊空白處關閉視窗 -->
+        <div class="popupBackground" @click="showPopup = !showPopup"></div>
+        <!-- 可以嘗試用阻止冒泡方式改寫，就不用上面一行。不過這樣又遇到X在popupBody裡面的問題 -->
+        <div class="popupBody">
+          <div class="popupClose" @click="showPopup = !showPopup">X</div>
+          <h2 class="popupHeader">重要說明</h2>
+          <p class="popupMain">
+            本網頁一切內容皆為虛購，與現實的人、事、物皆無關連。
+            實際上沒有這間書店；網頁裡呈現的商品也只為展示，一切皆為虛構。
+          </p>
+          <div class="popupFooter">棲遲書店</div>
+        </div>
       </div>
-    </div>
 
-    <!-- 導航欄 -->
-    <header class="titleNav">
-      <div class="titleNavTire1">
-        <!-- 無作用，暫時不知道如何修改 -->
-        <div class="hamburger" @click="updateShowTitleNavClassification">≡</div>
-        <ul class="titleNavClassification" v-bind:class="classObj">
-          <!-- <div class="hamburger">≡</div>
-        <ul class="titleNavClassification showTitleNavClassification"> -->
-          <li class="titleNavBook">
-            <a href="">書籍</a>
-            <ul class="titleNavTireBook">
-              <a href=""><li>文學</li></a>
-              <a href=""><li>科學</li></a>
-              <a href=""><li>社會科學</li></a>
-              <a href=""><li>歷史與地理</li></a>
-              <a href=""><li>藝術與設計</li></a>
-              <a href=""><li>生活與休閒</li></a>
-              <a href=""><li>商業與管理</li></a>
-              <a href=""><li>宗教與哲學</li></a>
-            </ul>
+      <!-- 導航欄 -->
+      <header class="titleNav">
+        <ul class="titleNavIcon">
+          <li class="logo">
+            <h1>
+              <a href="index.html"><img src="icon/logo.png" alt="棲遲書店" /></a>
+            </h1>
+            <div class="logoUpArror">▲</div>
+            <div class="logoDialog">回到首頁</div>
           </li>
-          <a href=""><li>漫畫</li></a>
-          <a href=""><li>雜誌</li></a>
-          <a href=""><li>繪本</li></a>
-          <a href=""><li>其他</li></a>
+          <li class="search">
+            <input
+              type="text"
+              v-model="searchValue"
+              @keyup.enter="findBookByCondition(selectedField, searchValue)"
+              placeholder="右邊欄位可選" />
+            <select v-model="selectedField">
+              <option value="">全部欄位</option>
+              <option value="書名">書名</option>
+              <option value="作者">作者</option>
+              <option value="ISBN">ISBN</option>
+              <option value="分類">分類</option>
+              <option value="類型">類型</option>
+              <option value="系列名稱">系列名稱</option>
+            </select>
+            <span class="searchBtn" @click="findBookByCondition(selectedField, searchValue)">搜尋</span>
+          </li>
+          <li class="product">
+            <a href="#" class="emoji">📚</a>
+            <div class="productUpArror">▲</div>
+            <div class="productDialog">書籍一覽</div>
+          </li>
+          <li class="titleNavEmoji member">
+            <a href="#" class="emoji">🧑</a>
+            <div class="memberUpArror">▲</div>
+            <div class="memberDialog">會員資料</div>
+          </li>
+          <li class="titleNavEmoji shoppingCart">
+            <a href="#" class="emoji">🛒</a>
+            <div class="shoppingCartUpArror">▲</div>
+            <div class="shoppingCartDialog">去購物車</div>
+          </li>
         </ul>
-      </div>
+      </header>
 
-      <ul class="titleNavIcon">
-        <li class="logo">
-          <h1>
-            <a href="#"><img src="icon/logo.png" alt="棲遲書店" /></a>
-          </h1>
-        </li>
-        <li class="titleNavEmoji"><a href="#">🧑</a></li>
-        <li class="titleNavEmoji"><a href="#">🛒</a></li>
-      </ul>
-    </header>
+      <!-- 首頁主體 -->
+      <main>
+        <!-- :key="carouselIndex" 和 :key="broadcastIndex"：這是關鍵部分。透過將一個唯一的 key 綁定到 <img> 元素上，並且這個 key 會隨著 carouselIndex 或 broadcastIndex 的更新而改變，你告訴 Vue 這是一個不同的元素。當 key 改變時，Vue 會將舊元素視為被移除，新元素視為被插入，從而觸發 transition 動畫。 -->
+        <div class="carousel" @mouseenter="isChange(false)" @mouseleave="isChange(true)">
+          <!-- mode="out-in"：<transition> 組件上的這個屬性確保了離開的元素會先完成動畫，然後進入的元素才開始動畫。這可以防止元素在動畫過程中重疊。 -->
+          <transition v-bind:name="slide" mode="out-in">
+            <img
+              :key="carouselIndex"
+              v-bind:src="carouselUrl[carouselIndex]"
+              v-bind:alt="carouselAlt[carouselIndex]"
+              loading="lazy" />
+          </transition>
 
-    <!-- 首頁主體 -->
-    <main>
-      <div class="Carousel">
-        <img
-          src="https://lh3.googleusercontent.com/pw/AP1GczOD0O5aJr_3w2Hg0mEYeC7BO20PMazSANcR24Pk2ODmMWSA9e2cnwOKVNs1H7iqnpr5Ml2tlhU6I8MomNn4x_BNuznQ-q1o7HyfmZV8AzavB9MlPvwTnHzVUFFXEwK6P5Fl7QGzvwYops_dr2iHHrmc=w1024-h528-s-no-gm?authuser=0"
-          alt="紅樓夢推廣" />
-        <img
-          src="https://lh3.googleusercontent.com/pw/AP1GczOcgbypEEZMW5nKDjl178V3MvVKQk1Z3TtDrEL6iPzEf20rn5cPYXVQ2pvB1sIdTA5TDwYjWwzV_0IUZ-VnqPNSd2GbP28d49xK0HhcS3Y-iO33esHSCFdFpfYmsWvtZjYxUoU4jtM85Szr-zryq13Z=w1013-h754-s-no-gm?authuser=0"
-          alt="三國演義推廣" />
-        <img
-          src="https://lh3.googleusercontent.com/pw/AP1GczObW6R8ISPk64-E_yQU1WE8mxfR48Y-gXrXxdJLxNjdsRRjdgfI9mkVQxFzx7jEhegubH6z3W6CG_ONIpCvDQAyz0LK00sXG0vKkkn5J0KkqTDOR2kb81NaFDIUuY0EPTIlocZlxEvHTwYvz826Lb4M=w1334-h890-s-no-gm?authuser=0"
-          alt="AI淘汰人類推廣" />
-        <img
-          src="https://lh3.googleusercontent.com/pw/AP1GczNzDAevB84GaSI0bRBIPvp0R89Dp-Bx0hGAsy87c74E8x54EqjUFL8M_MvtQRk0MtK6AdC4PkbKyKuRmMsHkqFWA2zAVd_tZJO3Y0Jhbnr327wVNXGPtaJXccoruain-JRVH0ssC609JsdkeJK01qzX=w664-h666-s-no-gm?authuser=0"
-          alt="經典文學特展" />
-        <img
-          src="https://lh3.googleusercontent.com/pw/AP1GczO4U6XUxknnXgg-SvguLKJhuj6Pg6lwmucu-PI5cDSKc3N0gM7bE1BI-qOrP0QvA5JjymOiSVQ3wwScsToeJHf_kuwLHdKjIuFPfz1L1iV2Yhu_Wf0dhzPkre_568h6KOWM1zpHLRFMLScTCUjLvriG=w890-h890-s-no-gm?authuser=0"
-          alt="少年隊防詐騙" />
-        <!-- 輪播圖片下方中間半透明的圓球，選擇特定圖片 -->
-        <div class="CarouselIndex"></div>
-        <div class="CarouselIndex"></div>
-        <div class="CarouselIndex"></div>
-        <div class="CarouselIndex"></div>
-      </div>
+          <!-- 左右按鈕 -->
+          <div class="nextImg" @click="increaseCarouselIndex(1)">▶︎</div>
+          <div class="lastImg" @click="increaseCarouselIndex(-1)">◀︎</div>
 
-      <!-- 商品導航，功能重複，取消 -->
-      <!-- <div class="classification"></div> -->
-
-      <!-- 推薦商品 -->
-      <div class="recommend">
-        <div class="recommendCell" v-for="(book, index) in books" :key="book.ISBN">
-          <img v-bind:src="book.網址" v-bind:alt="book.書名" />
-          <h4 class="bookName">{{book.書名}}</h4>
-          <div class="author">{{book.作者}}</div>
-          <div class="price">${{book.價格}}</div>
-          <div class="shoppingCart"><span>🛒</span>加入購物車</div>
+          <!-- 輪播圖片下方中間半透明的圓球，選擇特定圖片 -->
+          <div class="changeCarouselIndex">
+            <div
+              class="setCarouselIndex"
+              v-bind:class="{ 'active-red': carouselIndex === 0 }"
+              @click="setCarouselIndex(0)"></div>
+            <div
+              class="setCarouselIndex"
+              v-bind:class="{ 'active-red': carouselIndex === 1 }"
+              @click="setCarouselIndex(1)"></div>
+            <div
+              class="setCarouselIndex"
+              v-bind:class="{ 'active-red': carouselIndex === 2 }"
+              @click="setCarouselIndex(2)"></div>
+            <div
+              class="setCarouselIndex"
+              v-bind:class="{ 'active-red': carouselIndex === 3 }"
+              @click="setCarouselIndex(3)"></div>
+            <div
+              class="setCarouselIndex"
+              v-bind:class="{ 'active-red': carouselIndex === 4 }"
+              @click="setCarouselIndex(4)"></div>
+          </div>
         </div>
-      </div>
 
-      <!-- 促銷訊息 -->
-      <div class="broadcast">
-        <img
-          src="https://lh3.googleusercontent.com/pw/AP1GczOaiGsYBM0zrSoiqgWZX-FsslrsHg6mNiB42OImZlQJzX91DbZLtNXQK0-YYctsdU1Kx1V095rf3N2jLDOZSUktk8jts-JnXxJJBtKihGY89UI-HnZ0EpT0Eojw2I-TbSfuMgW9GuXJVMbPNoXt-_s_=w647-h649-s-no-gm?authuser=0"
-          alt="浴佛節推廣活動" />
-        <img
-          src="https://lh3.googleusercontent.com/pw/AP1GczNrkAjLCL7S9Jgvc7QS1NiGjCGU_Aq89od3qMwCgFbOWS5G6PcyksFULhn2gwb_-n0dyqIbSSweu7F5KG_l4Ddp1bcOOH6c8YTIIhKLaItxzCbi0SYoVcEspB0MCDw1byYx3kEEI1bT4pUUg0lnGDxQ=w641-h642-s-no-gm?authuser=0"
-          alt="植樹節推廣活動" />
-      </div>
-    </main>
+        <div class="row container recommend">
+          <div class="col-md-12">
+            <div class="row">
+              <!-- 條列化商品 -->
+              <!-- 若裡面有資料 -->
+              <div class="row smProduct">
+                <!-- 單個商品圖版型 -->
+                <div class="col3" v-for="(book, index) in currentBooks" v-bind:key="book.ISBN">
+                  <a v-bind:href="book.url||'#'">
+                    <div class="container-fluid">
+                      <img v-bind:src="book.封面連結複製用" alt="book.書名" />
+                    </div>
+                    <!-- 若書名超過15則會... -->
+                    <div v-if="book.書名.length>15">
+                      <h4><span>{{book.書名.slice(0,15)}}...</span></h4>
+                    </div>
+                    <div v-else>
+                      <h4><span>{{book.書名}}</span></h4>
+                    </div>
+                  </a>
+                  <a href="#" class="authorColor">
+                    <!-- 若作者超過17就:用三元運算寫 -->
+                    {{ book.作者.length>17 ? book.作者.slice(0, 17)+'...' : book.作者 }}
+                  </a>
+                  <div class="PandChartBtn">
+                    <i
+                      ><h3><small>$</small>{{book.售價}}</h3></i
+                    ><button>加入購物車</button>
+                  </div>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+        </div>
 
-    <!-- 頁尾資訊 -->
-    <footer>
-      <div class="community">
-        <h3>社群連結</h3>
-        <div class="communityIcon">
-          <a href="#"><img src="icon/big-youtube-logo_81131.png" alt="youtube" /></a>
-          <a href="#"><img src="icon/camera_919613.png" alt="ig" /></a>
-          <a href="#"><img src="icon/facebook_3488299.png" alt="fb" /></a>
-          <a href="#"><img src="icon/line_3992580.png" alt="line" /></a>
+        <!-- 促銷訊息 -->
+        <div class="broadcast" @mouseenter="isChange(false)" @mouseleave="isChange(true)">
+          <transition name="slide" mode="out-in">
+            <img
+              :key="broadcastIndex"
+              :src="broadcastImagesUrl[broadcastIndex]"
+              :alt="broadcastImagesAlt[broadcastIndex]"
+              loading="lazy" />
+          </transition>
+
+          <div class="changeBroadcastIndex">
+            <div
+              class="setBroadcastIndex"
+              v-bind:class="{ 'active-red': broadcastIndex === 0 }"
+              @click="setBroadcastIndex(0)"></div>
+            <div
+              class="setBroadcastIndex"
+              v-bind:class="{ 'active-red': broadcastIndex === 1 }"
+              @click="setBroadcastIndex(1)"></div>
+          </div>
         </div>
-        <!-- <div class="communityIcon">
-          <img src="icon/camera_919613.png" alt="" />
+      </main>
+
+      <!-- 頁尾資訊 -->
+      <footer class="footer">
+        <div class="community">
+          <h3>社群連結</h3>
+          <div class="communityIcon">
+            <a href="#"><img src="icon/big-youtube-logo_81131.png" alt="youtube" /></a>
+            <a href="#"><img src="icon/camera_919613.png" alt="ig" /></a>
+            <a href="#"><img src="icon/facebook_3488299.png" alt="fb" /></a>
+            <a href="#"><img src="icon/line_3992580.png" alt="line" /></a>
+          </div>
         </div>
-        <div class="communityIcon">
-          <img src="icon/facebook_3488299.png" alt="" />
+        <div class="termsOfService">
+          <h3>服務條款</h3>
+          <a href="#">服務條款</a>
+          <a href="#">隱私權條款</a>
         </div>
-        <div class="communityIcon">
-          <img src="icon/line_3992580.png" alt="" />
-        </div> -->
-      </div>
-      <div class="termsOfService">
-        <h3>服務條款</h3>
-        <a href="#">服務條款</a>
-        <a href="#">隱私權條款</a>
-      </div>
-      <p class="copyright">Copyright © 2025 All rights reserved. Web design by xxx xxxxxx</p>
-    </footer>
+        <p class="copyright">Copyright © 2025 All rights reserved. Web design by xxx xxxxxx</p>
+      </footer>
+    </div>
   </body>
 </html>

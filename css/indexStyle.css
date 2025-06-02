@@ -1,0 +1,473 @@
+/* 是誰決定了抬頭導航的高度？ */
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: sans-serif;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
+/* 彈出視窗 */
+.popup {
+  position: fixed;
+  z-index: 20;
+}
+.popupBackground {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+}
+.popupBody {
+  background-color: white;
+  width: 80%;
+  position: fixed;
+  top: 40%;
+  left: 10%;
+  z-index: 11;
+}
+.popupClose {
+  position: absolute;
+  right: 0px;
+}
+.popupClose:hover,
+.popupBackground:hover {
+  cursor: pointer;
+}
+
+/* 抬頭導航 */
+.titleNav {
+  width: 80%;
+  height: 52px;
+  margin: 0 10%;
+  /* padding: 0% 10%; */
+  position: fixed;
+  z-index: 10;
+  background-color: hsla(0, 0%, 100%, 0.75);
+}
+.titleNavIcon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.titleNav a {
+  color: black;
+}
+.titleNav a:hover {
+  text-decoration: none;
+}
+.search {
+  display: none;
+  height: 28px;
+}
+.search select {
+  height: 28px;
+  color: hsl(36, 50.7%, 71.4%);
+}
+.searchBtn {
+  display: inline-block;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(353, 100%, 29.2%);
+  height: 28px;
+  line-height: 28px;
+  padding: 0 5px;
+  border-radius: 5px;
+}
+.searchBtn:hover {
+  color: hsl(0, 0%, 70%);
+  background-color: hsl(353, 100%, 50%);
+}
+.searchBtn:active {
+  color: hsl(353, 100%, 29.2%);
+  background-color: hsl(0, 0%, 100%);
+}
+
+@media (min-width: 576px) {
+  .search {
+    display: flex;
+    align-items: center;
+  }
+  .search input {
+    width: 7em;
+  }
+} /* end of @media (min-width: 576px) */
+
+.logo {
+  width: 20px;
+  position: relative;
+}
+.logo Img {
+  width: 100%;
+}
+.emoji {
+  font-size: 20px;
+}
+@media (min-width: 576px) {
+  .logo {
+    width: 30px;
+  }
+  .emoji {
+    font-size: 30px;
+  }
+}
+@media (min-width: 992px) {
+  .logo {
+    width: 40px;
+  }
+  .emoji {
+    font-size: 40px;
+  }
+}
+.logoDialog {
+  width: 4em;
+}
+.logoUpArror,
+.logoDialog {
+  display: none;
+  z-index: 10;
+}
+.logo:hover .logoUpArror {
+  display: block;
+  position: absolute;
+  top: 30px;
+  color: hsl(353, 100%, 29.2%);
+}
+.logo:hover .logoDialog {
+  display: block;
+  position: absolute;
+  top: 47px;
+  left: -25px;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(353, 100%, 29.2%);
+}
+.member,
+.shoppingCart,
+.product {
+  position: relative;
+}
+.memberDialog,
+.shoppingCartDialog,
+.productDialog {
+  width: 4em;
+}
+.memberUpArror,
+.memberDialog,
+.shoppingCartUpArror,
+.shoppingCartDialog,
+.productUpArror,
+.productDialog {
+  display: none;
+  z-index: 10;
+}
+.member:hover .memberUpArror,
+.shoppingCart:hover .shoppingCartUpArror,
+.product:hover .productUpArror {
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 4px;
+  color: hsl(353, 100%, 29.2%);
+}
+.member:hover .memberDialog,
+.shoppingCart:hover .shoppingCartDialog,
+.product:hover .productDialog {
+  display: block;
+  position: absolute;
+  top: 37px;
+  left: -23px;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(353, 100%, 29.2%);
+}
+@media (min-width: 576px) {
+  .logo:hover .logoUpArror {
+    top: 33px;
+    left: 7px;
+  }
+  .logo:hover .logoDialog {
+    top: 50px;
+    left: -20px;
+  }
+  .member:hover .memberUpArror,
+  .shoppingCart:hover .shoppingCartUpArror,
+  .product:hover .productUpArror {
+    top: 30px;
+    left: 9px;
+  }
+  .member:hover .memberDialog,
+  .shoppingCart:hover .shoppingCartDialog,
+  .product:hover .productDialog {
+    top: 47px;
+    left: -18px;
+  }
+}
+@media (min-width: 992px) {
+  .logo:hover .logoUpArror {
+    top: 38px;
+    left: 12px;
+  }
+  .logo:hover .logoDialog {
+    top: 55px;
+    left: -15px;
+  }
+  .member:hover .memberUpArror,
+  .shoppingCart:hover .shoppingCartUpArror,
+  .product:hover .productUpArror {
+    top: 45px;
+    left: 19px;
+  }
+  .member:hover .memberDialog,
+  .shoppingCart:hover .shoppingCartDialog,
+  .product:hover .productDialog {
+    top: 62px;
+    left: -8px;
+  }
+}
+
+main {
+  margin: 0 10vw;
+}
+
+/* 輪播 */
+.carousel {
+  width: 100%;
+  height: 50vw; /* 隨寬度調整，因為手機都是高度較長，而我的圖片是寬度較長 */
+  position: relative;
+  top: 70px;
+}
+/* 因為輪播圖的大小沒有統一，因此要設定盒子和圖片寬高，然後設定拉伸樣式，避免盒子大小變動導致頁面變動 */
+.carousel img {
+  width: 100%;
+  height: 100%;
+  /* 縮小圖片以符合容器大小 */
+  object-fit: contain;
+}
+
+/* 開始動畫與結束動畫都是指定逐禎動畫名稱 */
+.slideLeft-enter-active {
+  animation: slideLeft-in 0.1s;
+}
+.slideLeft-leave-active {
+  animation: slideLeft-out 0.1s;
+}
+/* 逐禎動畫可以使用百分比，如果只設置開始動畫與結束動畫，則可以使用from, to */
+@keyframes slideLeft-in {
+  0% {
+    transform: translateX(100vw);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes slideLeft-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100vw);
+  }
+}
+.slideRight-enter-active {
+  animation: slideRight-in 0.1s;
+}
+.slideRight-leave-active {
+  animation: slideRight-out 0.1s;
+}
+/* 逐禎動畫可以使用百分比，如果只設置開始動畫與結束動畫，則可以使用from, to */
+@keyframes slideRight-in {
+  0% {
+    transform: translateX(-100vw);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes slideRight-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100vw);
+  }
+}
+
+/* 輪播區左右按鈕 */
+.nextImg {
+  font-size: 1em;
+  position: absolute;
+  top: 50%;
+  right: 1%;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(353, 100%, 29.2%);
+  border-radius: 50%;
+}
+.nextImg:hover,
+.lastImg:hover {
+  color: hsl(0, 0%, 70%);
+  background-color: hsl(353, 100%, 50%);
+}
+.nextImg:active,
+.lastImg:active {
+  color: hsl(353, 100%, 29.2%);
+  background-color: hsl(0, 0%, 100%);
+}
+.lastImg {
+  font-size: 1em;
+  position: absolute;
+  top: 50%;
+  left: 1%;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(353, 100%, 29.2%);
+  border-radius: 50%;
+}
+@media (min-width: 576px) {
+  .lastImg,
+  .nextImg {
+    font-size: 2em;
+  }
+}
+@media (min-width: 992px) {
+  .lastImg,
+  .nextImg {
+    font-size: 3em;
+  }
+}
+
+/* 輪播區中間下方按鈕 */
+.changeCarouselIndex {
+  position: absolute;
+  bottom: 0;
+  left: 20vw;
+}
+.setCarouselIndex {
+  display: inline-block;
+  height: 5vw;
+  width: 5vw;
+  border-radius: 50%;
+  border: 1px solid hsl(353, 100%, 29.2%);
+}
+.setCarouselIndex:hover {
+  background-color: hsl(353, 100%, 50%);
+}
+.setCarouselIndex:active {
+  background-color: hsl(353, 0%, 100%);
+}
+.active-red {
+  background-color: hsl(353, 100%, 29.2%);
+}
+.setCarouselIndex + .setCarouselIndex {
+  margin-left: 1vw;
+}
+
+/* 推薦商品 */
+.recommend {
+  position: relative;
+  top: 50px;
+}
+
+/* 廣播 */
+.broadcast {
+  width: 100%;
+  height: 50vw;
+  position: relative;
+}
+.broadcast img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 廣播區中間下方按鈕 */
+.changeBroadcastIndex {
+  position: absolute;
+  bottom: 0;
+  left: 30vw;
+}
+.setBroadcastIndex {
+  display: inline-block;
+  height: 5vw;
+  width: 5vw;
+  border-radius: 50%;
+  border: 1px solid hsl(353, 100%, 29.2%);
+}
+.setBroadcastIndex:hover {
+  background-color: hsl(353, 100%, 50%);
+}
+.setBroadcastIndex:active {
+  background-color: hsl(353, 0%, 100%);
+}
+.setBroadcastIndex + .setBroadcastIndex {
+  margin-left: 1vw;
+}
+
+/* 頁尾 */
+/* 直接用footer標籤無法使用flex */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+}
+.community {
+  margin-top: 1em;
+  padding: 0 5vw;
+  flex-basis: 100%;
+}
+.community h3 {
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+.community a + a {
+  margin-left: 2vw;
+}
+.communityIcon {
+  text-align: center;
+}
+.communityIcon img {
+  width: 25px;
+}
+.termsOfService {
+  margin-top: 1em;
+  padding: 0 5vw;
+  flex-basis: 100%;
+}
+.termsOfService h3 {
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+.termsOfService {
+  text-align: center;
+}
+.termsOfService a + a {
+  margin-left: 2vw;
+}
+footer p {
+  padding: 0.5em 5vw;
+}
+@media (min-width: 576px) {
+  .community {
+    flex-basis: 50%;
+  }
+  .termsOfService {
+    flex-basis: 50%;
+  }
+}
+@media (min-width: 992px) {
+  .community {
+    flex-basis: 30%;
+  }
+  .termsOfService {
+    flex-basis: 30%;
+  }
+  footer p {
+    flex-basis: 30%;
+  }
+}
+
+/* 濾鏡效果，亮度設定為 0*/
+/* .titleNavEmoji {
+  filter: brightness(0);
+} */
