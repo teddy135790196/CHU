@@ -13,7 +13,7 @@
       </div>
       <div class="col d-flex flex-column align-items-start">
         <span class="name me-2">{{ message.labelText.birth }}：</span>
-      <span class="data">{{ form.birth }}</span>
+        <span class="data">{{ form.birth }}</span>
       </div>
       <div class="col d-flex flex-column align-items-start">
         <span class="name me-2">{{ message.labelText.email }}：</span>
@@ -27,30 +27,32 @@
     
 
     <div class="col">
-      <!-- <span class="name">驗證碼：</span> -->
-      <div  class="captcha">
-        <!-- <input type="text" v-model="captchaInput" placeholder="請輸入驗證碼" style="width: 120px; margin-right: 10px;"> -->
+      <div class="captcha">
         <BaseInput 
-        id="captcha" 
-        type="text" 
-        :label="message.labelText.captcha" 
-        :placeholder="message.labelText.captchaPlahold" 
-        :quote="message.labelText.captchaQuote"
-        error-message="" 
-        v-model="message.captch.input" />
-        <img :src="message.captch.image" style="" alt="captcha">
+          id="captcha" 
+          type="text" 
+          :label="message.labelText.captcha" 
+          :placeholder="message.labelText.captchaPlahold" 
+          :quote="message.labelText.captchaQuote"
+          error-message="" 
+          v-model="message.captch.input" />
+        <img 
+          :src="message.captch.image" 
+          alt="captcha"  
+          @click="reloadCaptcha"
+          draggable="false" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import BaseInput from '@/components/common/BaseInput.vue';
 
 export default {
   name: "RegisterStep4",
-  // 引入子元件
-	components: { BaseInput },
+  components: { BaseInput },
   props: {
     nowStep: Number,
     form: {
@@ -58,7 +60,6 @@ export default {
       required: true
     }
   },
-  // 本地資料庫
   data() {
     return {
       localForm: {
@@ -67,32 +68,30 @@ export default {
         birth: this.form.birth,
         email: this.form.email,
         phone: this.form.phone,
-      },  // 複製 prop 避免直接改
+      },
 
-      // 修改顯示訊息區
       message: {
-
         stepTitle: '【肆．確認您的資料並驗證】',
-
         labelText: {
           gender: '性別',
           birth: '生日',
           email: '電子郵件',
           phone: '電話',
           captcha: '驗證碼',
-          captchaPlahold: '請輸入驗證碼',
+          captchaPlahold: '請輸入右側驗證碼',
+          // captchaPlahold: '驗證碼從右到左 ⟸====',
           captchaQuote: '點擊圖片可更換',
           errformat: '驗證碼錯誤',
         },
-
-        // 驗證碼(未實作。等連結後端)
         captch:{
           input: '',
           image: '',
         },
-
       },
     };
+  },
+  created() {
+    this.refreshCaptcha();
   },
   computed: {
     genderText() {
@@ -105,16 +104,63 @@ export default {
     }
   },
   methods: {
-    validateForm() {
-      // 增加驗證碼判斷
+    async validateForm() {
+      try {
+        const res = await axios.post('http://localhost:3000/api/verify-captcha', {
+          captcha: this.message.captch.input
+        }, {
+          withCredentials: true
+        });
 
-      return true;
-    }
+        if (res.data.success) {
+          return true;
+        } else {
+          alert('❌ 驗證碼錯誤');
+          this.refreshCaptcha();
+          this.message.captch.input = '';
+          return false;
+        }
+      } catch (err) {
+        console.error('驗證失敗:', err);
+        return false;
+      }
+    },
+
+    refreshCaptcha() {
+      // 更新圖片連結並加時間戳避免快取
+      this.message.captch.image = `http://localhost:3000/api/captcha?t=${Date.now()}`;
+    },
+
+    reloadCaptcha() {
+      // 點擊圖片換圖
+      this.refreshCaptcha();
+    },
+    submitCaptcha() {
+      axios.post('http://localhost:3000/api/verify-captcha', {
+        captcha: this.message.captch.input
+      }, {
+        withCredentials: true  // 🔑 讓 session cookie 被帶上
+      })
+      .then(res => {
+        if (res.data.success) {
+          alert('✅ 驗證成功');
+          // 可以進一步做提交資料或跳下一步
+        } else {
+          alert('❌ 驗證碼錯誤');
+          this.refreshCaptcha(); // 換圖避免猜中
+          this.message.captch.input = ''; // 清空輸入
+        }
+      })
+      .catch(err => {
+        console.error('驗證錯誤:', err);
+      })
+    },
   }
 }
 </script>
 
-<style>
+
+<style scoped>
 
 /* ========================================
    基本全局樣式（適用於所有設備）
@@ -194,6 +240,12 @@ export default {
       cursor: pointer; 
       border: 1px solid #ccc;
       border-radius: 4px;
+      transform: translateY(6px);
+
+      /* 變手指 */
+      cursor:pointer;
+      /* 禁止圖片拖動 */
+      -webkit-user-drag: none; 
     }
   }
   

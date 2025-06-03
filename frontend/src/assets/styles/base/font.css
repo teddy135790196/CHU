@@ -11,10 +11,10 @@
 }
 
 /* 標楷體變體 */
-@font-face {
+/* @font-face {
   font-family: '王翰宗顏楷體';
   src: url('../../fonts/wangfonts/TrueType/wt064.ttf') format('truetype');
-}
+} */
 
 /* 近藝術字體，看不懂的就是藝術 */
 @font-face {

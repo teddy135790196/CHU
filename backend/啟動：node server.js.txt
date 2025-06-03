@@ -1,0 +1,12 @@
+npm ls --depth=0	# 列出全部套件
+
+npm install		# 安裝 package.json 中定義的所有依賴套件
+npm uninstall		# 移除指定的 npm 套件
+
+---主要依賴---
+
+cors			# 啟用 Cross-Origin Resource Sharing（跨來源資源分享），讓 API 可被不同網域存取
+dotenv			# 載入 .env 檔案中的環境變數到 process.env 中，方便設定機密資料或配置
+express			# Node.js 最常用的 Web 應用框架，用於建立 API 或 Web 伺服器
+express-session		# 在 Express 應用中管理用戶 session 狀態，如登入資訊儲存
+mysql2			# 連接並操作 MySQL 資料庫，提供 Promise 支援的驅動程式

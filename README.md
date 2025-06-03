@@ -16,6 +16,16 @@
 <hr>
 
 <details>
+<summary>0603｜註冊驗證碼實作</summary>
+
+- **新增**
+  - 註冊頁面的驗證碼圖片(需用cmd開後端)
+  - 註冊頁面的驗證功能，但還需搞懂(需用cmd開後端)
+- **更新**
+
+</details>
+
+<details>
 <summary>0602｜前端設計基本結束</summary>
 
 - **新增**

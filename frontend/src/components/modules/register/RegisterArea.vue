@@ -84,17 +84,23 @@ export default {
       else if (confirm('確定離開？')) this.$router.push('/login');
     },
     // @click 下一頁
-    nextStep() {
-      // 取得自己資料庫的 nowStep
+    async nextStep() {
       const stepRef = `step${this.nowStep}`;
-      if (this.$refs[stepRef].validateForm()) {
-        if (this.nowStep === 4) {
-          if (confirm('確認資料是否無誤？')) this.$router.push('/membersArea');
-        } else {
-          this.nowStep++;
+
+      if (this.$refs[stepRef].validateForm) {
+        const isValid = await this.$refs[stepRef].validateForm();
+
+        if (isValid) {
+          if (this.nowStep === 4) {
+            if (confirm('確認資料是否無誤？')) {
+              this.$router.push('/membersArea');
+            }
+          } else {
+            this.nowStep++;
+          }
         }
       }
-    },
+    }
   },
 
 };
