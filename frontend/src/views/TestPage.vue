@@ -26,13 +26,13 @@ products: []
 };
 },
 mounted() {
-axios.get('http://localhost:3000/products')
-.then(res => {
-this.products = res.data;
-})
-.catch(err => {
-console.error('API 抓取失敗:', err);
-});
+axios.get("https://cors-anywhere.herokuapp.com/https://bookstore-backend-production-f711.up.railway.app/books")
+  .then(res => {
+    console.log("書籍資料：", res.data);
+  })
+  .catch(err => {
+    console.error("API 錯誤：", err);
+  });
 }
 };
 </script>
