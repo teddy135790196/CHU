@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>書籍列表</title>
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			max-width: 900px;
+			margin: 20px auto;
+		}
+
+		th,
+		td {
+			border: 1px solid #ccc;
+			padding: 8px 12px;
+			text-align: left;
+			vertical-align: top;
+		}
+
+		th {
+			background: #f0f0f0;
+		}
+
+		img {
+			max-width: 120px;
+			height: auto;
+			display: block;
+		}
+
+		td:not(.desc) {
+			white-space: nowrap;
+			/* 除了簡介欄位，其他欄位都不換行 */
+		}
+
+		td.desc {
+			white-space: normal;
+			/* 簡介欄位可以換行 */
+		}
+	</style>
+</head>
+
+<body>
+
+	<table id="bookTable">
+		<thead>
+			<tr id="headerRow"></tr>
+		</thead>
+		<tbody id="bodyRows"></tbody>
+	</table>
+
+	<script>
+		async function fetchDataAndRenderTable() {
+			const apiURL = 'http://localhost:3000/books';
+
+			try {
+				const response = await fetch(apiURL);
+				if (!response.ok) throw new Error('網路錯誤: ' + response.status);
+				const data = await response.json();
+				console.log('抓到資料:', data);
+
+				if (!Array.isArray(data)) {
+					alert('資料格式錯誤，應該是陣列');
+					return;
+				}
+
+				const headerRow = document.getElementById('headerRow');
+				const bodyRows = document.getElementById('bodyRows');
+
+				// 清空舊內容
+				headerRow.innerHTML = '';
+				bodyRows.innerHTML = '';
+
+				// 蒐集所有欄位名稱
+				const allKeys = new Set();
+				data.forEach(item => {
+					Object.keys(item).forEach(k => allKeys.add(k));
+				});
+				const keys = Array.from(allKeys);
+
+				// 產生表頭
+				keys.forEach(key => {
+					const th = document.createElement('th');
+					th.textContent = key;
+					headerRow.appendChild(th);
+				});
+
+				// 產生資料列
+				data.forEach(item => {
+					const tr = document.createElement('tr');
+					keys.forEach(key => {
+						const td = document.createElement('td');
+						if (key === 'bookDescribe') {
+							td.classList.add('desc');
+						}
+
+						const val = item[key];
+
+						if (key.toLowerCase().includes('img') && val) {
+							const img = document.createElement('img');
+							img.src = val;
+							img.alt = item['bookName'] || '圖片';
+							td.appendChild(img);
+						} else {
+							td.textContent = val != null ? val : '';
+						}
+
+						tr.appendChild(td);
+					});
+					bodyRows.appendChild(tr);
+				});
+
+			} catch (error) {
+				alert('讀取資料失敗，請看 console');
+				console.error('讀取資料失敗:', error);
+			}
+		}
+
+		fetchDataAndRenderTable();
+	</script>
+
+</body>
+
+</html>

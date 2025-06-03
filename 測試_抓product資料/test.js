@@ -15,8 +15,10 @@ const db = mysql.createPool({
 });
 
 // 取得全部商品資料
+// app.get('/t_book', (req, res) => {
 app.get('/products', (req, res) => {
   db.query('SELECT * FROM products', (err, results) => {
+  // db.query('SELECT * FROM T_book', (err, results) => {
     if (err) return res.status(500).json({ error: '查詢失敗', details: err });
     res.json(results);
   });
