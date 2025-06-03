@@ -191,7 +191,7 @@
                 <div class="col-md-4" v-for="n in novels" v-bind:key="n.書名">
                   <a href="">
                     <img v-bind:src="n.imgUrl" alt="" />
-                    <h2>{{n.書名}}</h2>
+                    <h4>{{n.書名}}</h4>
                   </a>
                   <!-- {{ n.expanded ? n.簡介 : n.簡介.slice(0, 50) + (n.簡介.length > 50 ? '...' : '') }} -->
                   <div v-if="n.expanded">{{n.簡介}}</div>
@@ -207,9 +207,8 @@
               </div>
             </div>
           </div>
-          <hr />
           <!-- 推薦2 -->
-          <div class="MaybeLike">
+          <div class="MaybeLike ">
             <h4 class="txtMaybeLike"><i>你可能也喜歡...</i></h4>
 
             <!-- 推薦小圖 -->
@@ -221,7 +220,7 @@
               >
                 <a href="">
                   <img v-bind:src="n.imgUrl" alt="" />
-                  <h4>{{n.書名}}</h4>
+                  <h4><span>{{n.書名}}</span></h4>
                   <p class="authorColor">作者:{{n.作者}}</p>
 
                 </a>

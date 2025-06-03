@@ -82,6 +82,7 @@ a {
 /* 分類頁的價格 */
 .PandChartBtn h3 {
   font-weight: bold;
+  font-family: "標楷體";
   color: hsl(353, 100%, 29.2%);
   transition: all 1s;
 }
@@ -169,12 +170,17 @@ a {
 
 /* 你可能會喜歡_小圖區 */
 .MaybeLike {
-  background-color: rgba(165, 42, 42, 0.059);
+  padding: 10px 0;
 }
-.txtMaybeLike {
-  color: hsl(353, 100%, 29.2%);
-  margin: 12px 0;
+.page-header{
+  background-color: rgba(165, 42, 42, 0.77);
+  padding: 10px 0;}
+.txtMaybeLike{
+  color: white;
+  margin: 12px ;
 }
+.txtMaybeLike i{color: rgba(165, 42, 42, 0.77);
+border-bottom: 1px rgba(165, 42, 42, 0.77) solid;}
 
 /* 商品小圖 */
 .smProduct img {
@@ -195,6 +201,10 @@ a {
   display: inline-block;
   transition: all 0.55s;
 }
+.smProduct a:hover span {
+  color: hsl(353, 100%, 29.2%);
+}
+.smProduct h4 span{font-size: 20px;}
 /* 動態產生線 */
 .smProduct h4::after {
   background-color: hsl(353, 100%, 29.2%);
@@ -214,9 +224,7 @@ a {
   border-radius: 20px;
   z-index: 2;
 }
-.smProduct a:hover span {
-  color: hsl(36, 50.7%, 71.4%);
-}
+
 /* 跑馬燈 */
 /* 宣告動畫marquee */
 @keyframes marquee {
@@ -236,7 +244,8 @@ a {
   /* 寬度等於內容最大寬度，表示內容固有的最大的寬度或高度->text就算會溢出（overflow）也不會換行。 */
   width: max-content;
   display: flex;
-  font-weight: 100;
+  /* font-weight: 100; */
+  font-family: "標楷體";
   /* 線性持續10秒的動畫 */
   animation: marquee 10s linear infinite;
 }
