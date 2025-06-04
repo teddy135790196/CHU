@@ -271,7 +271,7 @@
 
 <script>
 export default {
-	name: "BookcaseSection",
+	name: "BookcaseArea",
 	mounted() {
 		this.setupScrollButtons();
 	},

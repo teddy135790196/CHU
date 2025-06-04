@@ -51,7 +51,7 @@ import axios from 'axios';
 import BaseInput from '@/components/common/BaseInput.vue';
 
 export default {
-  name: "RegisterStep4",
+  name: "ReviewArea",
   components: { BaseInput },
   props: {
     nowStep: Number,

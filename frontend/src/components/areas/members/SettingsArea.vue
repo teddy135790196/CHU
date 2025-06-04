@@ -185,7 +185,7 @@
 
 <script>
 export default {
-	name: "SettingsSection",
+	name: "SettingsArea",
 	data() {
 		return {
 			// 個人資料管理

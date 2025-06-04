@@ -71,9 +71,9 @@
           <div class="menu-item" data-section="settings">個人設定</div>
         </div>
 
-        <BookcaseSection></BookcaseSection>
-        <PurchaseSection></PurchaseSection>
-        <SettingsSection></SettingsSection>
+        <BookcaseArea />
+        <PurchaseArea />
+        <SettingsArea />
 
         <!-- 遮罩 -->
         <div class="overlay" id="overlay"></div>
@@ -83,16 +83,16 @@
 </template>
 
 <script>
-import BookcaseSection from '@/components/modules/members/BookcaseSection.vue';
-import PurchaseSection from '@/components/modules/members/PurchaseSection.vue';
-import SettingsSection from '@/components/modules/members/SettingsSection.vue';
+import BookcaseArea from '@/components/areas/members/BookcaseArea.vue';
+import PurchaseArea from '@/components/areas/members/PurchaseArea.vue';
+import SettingsArea from '@/components/areas/members/SettingsArea.vue';
 
 export default {
-  name: "MembersArea",
+  name: "MembersPage",
   components: {
-    BookcaseSection,
-    PurchaseSection,
-    SettingsSection,
+    BookcaseArea,
+    PurchaseArea,
+    SettingsArea,
   },
   data() {
     return {

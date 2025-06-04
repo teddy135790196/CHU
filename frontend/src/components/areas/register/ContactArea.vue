@@ -30,7 +30,7 @@ import BaseInput from '@/components/common/BaseInput.vue';
 
 export default {
   // 註冊名稱
-  name: "RegisterStep3",
+  name: "ContactArea",
   // 引入子元件
   components: {
     BaseInput,

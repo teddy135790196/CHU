@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'AdminHomePage',
+  name: 'AdminHomeView',
   methods: {
     logout() {
       localStorage.removeItem('isAdmin');

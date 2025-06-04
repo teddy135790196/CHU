@@ -91,6 +91,6 @@
 
 <script>
 export default {
-	name: "PurchaseSection",
+	name: "PurchaseArea",
 };
 </script>

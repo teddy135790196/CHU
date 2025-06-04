@@ -11,19 +11,22 @@
             :style="{ width: (progressWidth[nowStep - 1] || 0) + '%' }"></div>
           </div>
 
-          <!-- 註冊步驟子元件 -->
-          <RegisterStep1 v-show="nowStep === 1" :nowStep="nowStep"
+          <!-- Step1 -->
+          <AccountArea v-show="nowStep === 1" :nowStep="nowStep"
             :formData="{ username: form.username, password: form.password, repassword: form.repassword }"
             @updateForm="updatePartialForm" ref="step1" />
 
-          <RegisterStep2 v-show="nowStep === 2" :nowStep="nowStep"
+          <!-- Step2 -->
+          <InfoArea v-show="nowStep === 2" :nowStep="nowStep"
             :formData="{ nickname: form.nickname, gender: form.gender, birth: form.birth }"
             @updateForm="updatePartialForm" ref="step2" />
 
-          <RegisterStep3 v-show="nowStep === 3" :nowStep="nowStep" :formData="{ email: form.email, phone: form.phone }"
+          <!-- Step3 -->
+          <ContactArea v-show="nowStep === 3" :nowStep="nowStep" :formData="{ email: form.email, phone: form.phone }"
             @updateForm="updatePartialForm" ref="step3" />
 
-          <RegisterStep4 v-show="nowStep === 4" :nowStep="nowStep" :form="form" ref="step4" />
+          <!-- Step4 -->
+          <ReviewArea v-show="nowStep === 4" :nowStep="nowStep" :form="form" ref="step4" />
 
 
           <!-- 按鈕區 -->
@@ -47,14 +50,14 @@
 </template>
 
 <script>
-import RegisterStep1 from '@/components/modules/register/RegisterStep1.vue';
-import RegisterStep2 from '@/components/modules/register/RegisterStep2.vue';
-import RegisterStep3 from '@/components/modules/register/RegisterStep3.vue';
-import RegisterStep4 from '@/components/modules/register/RegisterStep4.vue';
+import AccountArea from '@/components/areas/register/AccountArea.vue';
+import InfoArea from '@/components/areas/register/InfoArea.vue';
+import ContactArea from '@/components/areas/register/ContactArea.vue';
+import ReviewArea from '@/components/areas/register/ReviewArea.vue';
 
 export default {
   // 註冊名稱
-  name: 'RegisterArea',
+  name: 'RegisterPage',
   // 該檔案資料庫
   data() {
     return {
@@ -65,10 +68,10 @@ export default {
   },
   // 開放權限
   components: {
-    RegisterStep1,
-    RegisterStep2,
-    RegisterStep3,
-    RegisterStep4,
+    AccountArea,
+    InfoArea,
+    ContactArea,
+    ReviewArea,
   },
   // 方法
   methods: {

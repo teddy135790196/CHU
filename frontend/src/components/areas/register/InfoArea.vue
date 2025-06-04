@@ -73,7 +73,7 @@ import BaseInput from '@/components/common/BaseInput.vue';
 
 export default {
 	// 註冊名稱
-	name: "RegisterStep2",
+	name: "InfoArea",
 	// 引入子元件
 	components: {
 		BaseInput

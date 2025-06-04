@@ -24,7 +24,7 @@
 			</div>
 		</div>
 
-		<MembersArea />
+		<MembersPage />
 
 		<!-- 頁尾區 -->
 		<div class="row">
@@ -39,13 +39,13 @@
 
 <script>
 // 路徑要對應到 components 底下的元件位置
-import MembersArea from "@/components/modules/members/MembersArea.vue";
+import MembersPage from "@/components/pages/MembersPage.vue";
 // import AccessAlert from "@/components/common/AccessAlert.vue";
 
 export default {
-	name: "MembersAreaPage",
+	name: "MembersView",
 	components: {
-		MembersArea,
+		MembersPage,
 		// AccessAlert,
 	},
 data() {
@@ -67,5 +67,5 @@ methods: {
 
 <style scoped>
 @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css");
-@import '@/assets/styles/pages/membersArea.css';
+@import '@/assets/styles/pages/membersPage.css';
 </style>

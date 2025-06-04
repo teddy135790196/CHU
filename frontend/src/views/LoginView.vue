@@ -6,28 +6,28 @@
     <div class="container-fluid">
       <div class="row page-login">
         <!-- 左側歡迎區 -->
-        <WelcomeArea />
+        <WelcomePage />
         <!-- 右側登入區 -->
-        <LoginArea />
+        <LoginPage />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import WelcomeArea from '@/components/modules/login/WelcomeArea.vue';
-import LoginArea from '@/components/modules/login/LoginArea.vue';
+import WelcomePage from '@/components/pages/WelcomePage.vue';
+import LoginPage from '@/components/pages/LoginPage.vue';
 
 export default {
-  name: "LoginPage",
+  name: "LoginView",
   components: {
-    WelcomeArea,
-    LoginArea,
+    WelcomePage,
+    LoginPage,
   },
 };
 </script>
 
 <style scoped>
 @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css");
-@import '@/assets/styles/pages/login.css';
+@import '@/assets/styles/pages/loginPage.css';
 </style>

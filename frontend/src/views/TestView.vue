@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: 'BookTable',
+  name: 'TestView',
   data() {
     return {
       books: [],

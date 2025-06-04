@@ -5,21 +5,21 @@
         <h1 :class="{ show: isShow }">{{ siteName }}</h1>
       </div>
 
-      <WelcomeInfo :isShow="isShow" />
-      <WelcomeQuote :isShow="isShow" />
+      <InfoArea :isShow="isShow" />
+      <QuoteArea :isShow="isShow" />
     </div>
   </div>
 </template>
 
 <script>
-import WelcomeInfo from '@/components/modules/login/WelcomeInfo.vue';
-import WelcomeQuote from '@/components/modules/login/WelcomeQuote.vue';
+import InfoArea from '@/components/areas/login/InfoArea.vue';
+import QuoteArea from '@/components/areas/login/QuoteArea.vue';
 
 export default {
-  name: "WelcomeArea",
+  name: "LoginWelcomePage",
   components: {
-    WelcomeInfo,
-    WelcomeQuote
+    InfoArea,
+    QuoteArea
   },
   data() {
     return {

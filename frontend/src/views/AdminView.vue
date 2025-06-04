@@ -20,7 +20,7 @@
 
 <script>
 export default {
-	name: 'AdminPage',
+	name: 'AdminView',
 	data() {
 		return {
 			username: '',

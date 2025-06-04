@@ -8,7 +8,7 @@
 
 <script>
 export default {
-	name: 'WelcomeInfo',
+	name: 'InfoArea',
 	props: {
 		isShow: Boolean
 	},

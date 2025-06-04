@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'WelcomeQuote',
+  name: 'QuoteArea',
   props: {
     isShow: Boolean
   },

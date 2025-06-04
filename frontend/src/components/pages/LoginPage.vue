@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "LoginArea",
+  name: "LoginPage",
 };
 </script>
 
