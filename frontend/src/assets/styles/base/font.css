@@ -1,27 +1,25 @@
-/* 不能套粗體，本身就夠粗 */
-/* @font-face {
-  font-family: '王翰宗粗鋼體';
-  src: url('../../fonts/wangfonts/TrueType/WCL-07.ttf') format('truetype');
-} */
-
 /* 最適合閱讀 */
 @font-face {
   font-family: '王翰宗中仿宋';
-  src: url('../../fonts/wangfonts/TrueType/wt024.ttf') format('truetype');
+  src: url('../../fonts/wangfonts/TrueType/wt024.woff2') format('woff2');
+
+  /* 建議保留，這樣當字型還沒載入時先顯示備用字體，等載入完成再換字型，提升首次畫面速度（FCP）。 */
+  font-display: swap;
 }
 
-/* 標楷體變體 */
-/* @font-face {
-  font-family: '王翰宗顏楷體';
-  src: url('../../fonts/wangfonts/TrueType/wt064.ttf') format('truetype');
-} */
-
-/* 近藝術字體，看不懂的就是藝術 */
+/* 近藝術字體(僅有：棲遲書屋) */
 @font-face {
   font-family: '王翰宗中行書';
   src: url('../../fonts/wangfonts/TrueType/wt071.woff2') format('woff2'),
        url('../../fonts/wangfonts/TrueType/wt071.woff') format('woff'),
        url('../../fonts/wangfonts/TrueType/wt071.ttf') format('truetype');
+
   /* 建議保留，這樣當字型還沒載入時先顯示備用字體，等載入完成再換字型，提升首次畫面速度（FCP）。 */
   font-display: swap;
 }
+
+
+
+/* font-family: '王翰宗中行書', '標楷體', serif; */
+/* font-family: '王翰宗中仿宋', '微軟正黑體', sans-serif; */
+/* font-family: '標楷體', serif; */

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import WelcomePage from '@/components/pages/WelcomePage.vue';
+import WelcomePage from '@/components/pages/LoginWelcomePage.vue';
 import LoginPage from '@/components/pages/LoginPage.vue';
 
 export default {

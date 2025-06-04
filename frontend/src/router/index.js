@@ -17,10 +17,10 @@ const router = new Router({
 			path: '*',	
 			redirect: '/login',
 		},
-		{	// 根目錄
+		{	// 根目錄(開啟位置)
 			path: '/',	
-			// name: 'Login',
-			// component: LoginView,
+			name: 'Login',
+			component: LoginView,
 		},
 		{
 			path: '/login',
