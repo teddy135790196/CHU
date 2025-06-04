@@ -9,8 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // 引入 db.js
-const database = require('./db');
-const { generateCaptcha } = require('./captcha'); // ✅
+// const database = require('./db');
+// const { generateCaptcha } = require('./captcha'); // ✅
 
 
 
@@ -20,83 +20,45 @@ const allowedOrigins = [
   'http://127.0.0.1:5500'
 ];
 
-// app.use(cors({
-//   origin: function(origin, callback) {
-//     if (!origin || allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   },
-//   credentials: true
-// }));
-app.use(cors(
-  {
-  origin: 'http://localhost:8080',   // 前端 Vue 的網址
-  credentials: true                  // ⚠️ 必須要開啟 cookie 傳遞功能
+app.use(cors({    // 測試多網址
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
   },
-));
-// app.use(cors());
+  credentials: true
+}));
+// app.use(cors(    // 正式上線版
+//   {
+//   origin: 'http://localhost:8080',   // 前端 Vue 的網址
+//   credentials: true                  // ⚠️ 必須要開啟 cookie 傳遞功能
+//   },
+// ));
+// app.use(cors()); // 全部允許(但不確定能不能讓前端傳資料)
 
+
+
+// 管理使用者的 Session（登入、驗證碼、購物車等暫存）
 app.use(session({
   secret: process.env.SESSION_SECRET || 'MySuperSecret123!@#',
   resave: false,
   saveUninitialized: true
 }));
 
+// 讓後端能接收 JSON 格式的請求（主要用於 POST/PUT）
 app.use(express.json());
 
 
 
-// 路由
-app.get('/', (req, res) => {
-  res.send('Hello from backend with MySQL!');
-});
+// 路由導入
+app.get('/', (req, res) => res.send('Hello from backend with MySQL!'));
 
-// 測試書籍
-app.get('/books', (req, res) => {
-  database.query('SELECT * FROM T_book', (err, results) => {
-    if (err) return res.status(500).json({ error: '查詢失敗', details: err });
-    res.json(results);
-  });
-});
+app.use('/', require('./routes/test'));
+app.use('/api/captcha', require('./routes/captcha'));
 
-// 取得全部商品資料
-app.get('/products', (req, res) => {
-  database.query('SELECT * FROM products', (err, results) => {
-    if (err) return res.status(500).json({ error: '查詢失敗', details: err });
-    res.json(results);
-  });
-});
 
-// 測試驗證碼：產生
-app.get('/api/captcha', (req, res) => {
-  const captcha = generateCaptcha();
-  req.session.captcha = captcha.text;
-  res.type('svg');
-  res.send(captcha.data);
-});
-
-// 測試驗證碼：比對
-app.post('/api/verify-captcha', (req, res) => {
-  const userCaptcha = req.body.captcha;
-  const sessionCaptcha = req.session.captcha;
-
-  // 將 sessionCaptcha 顛倒順序
-  // const reversedCaptcha = sessionCaptcha?.split('').reverse().join('');
-
-  const isValid = userCaptcha &&
-                  sessionCaptcha &&
-                  userCaptcha.trim().toLowerCase() === sessionCaptcha.toLowerCase();
-  // const isValid = userCaptcha &&
-  //                 reversedCaptcha &&
-  //                 userCaptcha.trim().toLowerCase() === reversedCaptcha.toLowerCase();
-
-  res.json({
-    success: isValid,
-    message: isValid ? '驗證成功' : '驗證碼錯誤'
-  });
-});
 
 // 啟動伺服器
 app.listen(PORT, () => {

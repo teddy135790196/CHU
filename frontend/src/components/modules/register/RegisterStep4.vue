@@ -106,7 +106,7 @@ export default {
   methods: {
     async validateForm() {
       try {
-        const res = await axios.post('http://localhost:3000/api/verify-captcha', {
+        const res = await axios.post('http://localhost:3000/api/captcha/verify', {
           captcha: this.message.captch.input
         }, {
           withCredentials: true

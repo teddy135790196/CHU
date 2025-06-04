@@ -16,6 +16,16 @@
 <hr>
 
 <details>
+<summary>0604｜測試雲端分離式部屬</summary>
+
+- **新增**
+  - 前端使用 Vercel 部屬，有人進入網頁時才會消耗額度，月初刷新
+  - 後端使用 Render 部屬，每月可開啟 750 小時與限量額度，月初刷新
+  - 資料庫使用 Railway 部屬，放上去後不用開啟也可以抓到資料
+
+</details>
+
+<details>
 <summary>0603｜註冊驗證碼實作</summary>
 
 - **新增**

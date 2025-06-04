@@ -25,5 +25,5 @@
 /* 近藝術字體，看不懂的就是藝術 */
 @font-face {
   font-family: '王翰宗中行書';
-  src: url('../fonts/wt071.ttf') format('truetype');
+  src: url('../fonts/subset-HanWangShinSuMedium.ttf') format('truetype');
 }
