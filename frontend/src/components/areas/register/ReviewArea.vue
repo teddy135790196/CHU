@@ -136,7 +136,7 @@ export default {
       this.refreshCaptcha();
     },
     submitCaptcha() {
-      axios.post('http://localhost:3000/api/verify-captcha', {
+      axios.post('http://localhost:3000/api/captcha/verify', {
         captcha: this.message.captch.input
       }, {
         withCredentials: true  // 🔑 讓 session cookie 被帶上
@@ -217,7 +217,7 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    transform: translateY(40px);
+    transform: translateY(0px);
 
     margin-top: 30px;
     padding: 0 24px;

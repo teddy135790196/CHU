@@ -130,7 +130,7 @@ export default {
 				quote: {
 					// 預設提示文字
 					// 驗證：無輸入
-					nickname: '請輸入您的暱稱',
+					nickname: '暱稱最多12字',
 					gender: '請選擇您的性別',
 					birth: '請選擇您的生日',
 					// 驗證：格式錯誤

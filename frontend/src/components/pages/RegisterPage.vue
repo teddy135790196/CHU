@@ -75,6 +75,16 @@ export default {
   },
   // 方法
   methods: {
+    // POST：註冊表單
+    async register() {
+      try {
+        const res = await this.$axios.post('/api/register', this.form);
+        console.log('註冊成功', res.data);
+      } catch (error) {
+        console.error('註冊失敗', error);
+      }
+    },
+    
     updatePartialForm(updatedFields) {
       this.form = {
         ...this.form,
@@ -96,6 +106,7 @@ export default {
         if (isValid) {
           if (this.nowStep === 4) {
             if (confirm('確認資料是否無誤？')) {
+              await this.register();  // 第 4 步才送出註冊
               this.$router.push('/membersArea');
             }
           } else {

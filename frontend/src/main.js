@@ -6,8 +6,16 @@ import '@/assets/styles/base/main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
+
+// 後端設置
+import axios from 'axios';           // ✅ 新增
+Vue.prototype.$axios = axios;       // ✅ 新增
+axios.defaults.baseURL = 'http://localhost:3000';  // ✅ 後端 API baseURL，自行依實際情況調整
+
+
 Vue.config.productionTip = false;
 
+// 權限驗證（後台）
 router.beforeEach((to, from, next) => {
   const isAdmin = localStorage.getItem('isAdmin');
 

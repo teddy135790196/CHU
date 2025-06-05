@@ -16,6 +16,16 @@
 <hr>
 
 <details>
+<summary>0605｜測試Azure雲端部屬與註冊資料傳到SQL</summary>
+
+- **新增**
+  - Azure雲端部屬，可抓取上面的SQL資料
+- **更新**
+  - 註冊功能的資料上傳SQL
+
+</details>
+
+<details>
 <summary>0604｜測試雲端分離式部屬與前端重構</summary>
 
 - **新增**
