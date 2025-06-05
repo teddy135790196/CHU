@@ -1,37 +1,34 @@
 src/
-├── connection/					【資料庫連線設定（config / pool）】
+├──📁connection/				【資料庫連線設定（config / pool）】
 │   ├── azureDBConfig.js				
 │   └── railwayDBConfig.js				
 │   
 │   
-├── controllers/				【Controller 控制層：處理請求邏輯，調用 Model 取得資料，回應前端】
+├──📁controllers/				【Controller 控制層：處理請求邏輯，調用 Model 取得資料，回應前端】
 │   └── registerController.js
 │   
 │   
-├── models/						【Model 資料層：負責資料存取，與資料庫互動(CRUD) 】
-│   ├── dao/						◎ DAO(後端 <=> 資料庫)：操作資料庫，編寫 SQL
-│   │   └ userDAO.js            	
+├──📁models/					【Model 資料層：負責資料存取，與資料庫互動(CRUD) 】
+│   ├──📁dao/						◎ DAO(後端 <=> 資料庫)：操作資料庫，編寫 SQL
+│   │   └── registerDAO.js            	
 │   │           	
-│   ├── dto/						◎ DTO(後端 <=> 前端)：定義前端送來的資料格式與驗證
-│   │   └ userDTO.js            	
+│   ├──📁dto/						◎ DTO(後端 <=> 前端)：定義前端送來的資料格式與驗證
+│   │   └── registerDTO.js            	
 │   │           	
-│   ├── entities/					◎ 對應資料庫的資料欄位，不一定需要
-│   │   └ userEntity.js         	
+│   ├──📁entities/					◎ 對應資料庫的資料欄位，不一定需要
+│   │   └── registerEntity.js         	
 │   │           	
-│   └── userModel.js				◎ 封裝業務邏輯：中介 DTO、DAO，讓 controller 調用
+│   └── registerModel.js			📄封裝業務邏輯：中介 DTO、DAO，讓 controller 調用
 │           
 │           
-├── routes/						【路由層：負責定義 API 路由規則，轉發請求到對應 Controller】
-│   ├── other/							❗❗待修
-│   │   └── captcha.js
-│   ├── post/	
-│   │   └── register.js
-│   │
-│   ├── azureRoute.js
-│   └── railwayRoute.js
+├──📁routes/					【路由層：負責定義 API 路由規則，轉發請求到對應 Controller】
+│   ├── captcha.js					🔗 GET、POST
+│   ├── dbAzureRoute.js				🔗 GET
+│   ├── dbRailwayRoute.js			🔗 GET
+│   └── registerRoute.js			🔗 POST
 │   
 │   
-└── services/					【邏輯層：功能性 API】
-	├── captchaService.js			◎ 📄產生驗證碼圖片與驗證碼文字
-	└── gmailService.js				◎ 📄寄mail
+└──📁services/					【邏輯層：功能性 API】
+	├── captchaService.js			📄產生驗證碼圖片與驗證碼文字
+	└── gmailService.js				📄寄mail
 

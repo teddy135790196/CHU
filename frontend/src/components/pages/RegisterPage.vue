@@ -39,9 +39,9 @@
             </button>
           </div>
           <!-- 測試用 -->
-          <button class="btn btn-light" v-show="nowStep <= 3" @click="nowStep++">
+          <!-- <button class="btn btn-light" v-show="nowStep <= 3" @click="nowStep++">
             {{ "跳過" }}
-          </button>
+          </button> -->
         </div>
 
       </div>
@@ -107,7 +107,7 @@ export default {
           if (this.nowStep === 4) {
             if (confirm('確認資料是否無誤？')) {
               await this.register();  // 第 4 步才送出註冊
-              this.$router.push('/membersArea');
+              this.$router.push('/members');
             }
           } else {
             this.nowStep++;

@@ -52,11 +52,11 @@ app.get('/', (req, res) => res.send('Hello from backend with MySQL!'));
 
 
 
-app.use('/azureDB', require('./src/routes/azureRoute'));
-app.use('/railwayDB', require('./src/routes/railwayRoute'));
+app.use('/azureDB', require('./src/routes/dbAzureRoute'));
+app.use('/railwayDB', require('./src/routes/dbRailwayRoute'));
 
-app.use('/api/captcha', require('./src/routes/other/captcha'));
-app.use('/api/register', require('./src/routes/post/register'));
+app.use('/api/captcha', require('./src/routes/captcha'));
+app.use('/api/register', require('./src/routes/registerRoute'));
 
 
 

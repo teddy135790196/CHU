@@ -75,7 +75,7 @@ export default {
 
 				// input => placeholder
 				inputPlahold: {
-					username: '範例：myemail@gmail.com',
+					username: '範例：myusername',
 					password: '範例：A123456789',
 					repassword: '範例：A123456789',
 				},

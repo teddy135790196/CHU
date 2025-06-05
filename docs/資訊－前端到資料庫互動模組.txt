@@ -1,0 +1,106 @@
+1. DAO（Data Access Object）
+功能：負責資料庫操作的封裝（CRUD：Create, Read, Update, Delete）
+
+用途：讓其他層（如 service 或 controller）不用直接寫 SQL 或 ORM 語法
+
+範例：
+// user.dao.ts
+export class UserDao {
+  findById(id: number) {
+    return db.query('SELECT * FROM users WHERE id = ?', [id]);
+  }
+}
+
+
+2. DTO（Data Transfer Object）
+功能：定義資料在系統中（尤其是 API 輸入輸出）傳遞的格式
+
+用途：確保資料結構一致、明確，有時也作為驗證依據
+
+範例（TypeScript）：
+export class CreateUserDto {
+  name: string;
+  email: string;
+  password: string;
+}
+
+
+3. Entity
+功能：資料庫中的表格實體對應（ORM）
+
+用途：定義資料結構，可自動對應資料表，例如在 TypeORM、Hibernate 中
+
+範例（TypeORM）：
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+}
+
+
+4. Connection
+功能：設定與資料庫的連線資訊（host、port、credentials）
+
+用途：初始化 ORM／資料庫模組的連線邏輯
+// db/connection.ts
+createConnection({
+  type: 'mysql',
+  host: 'localhost',
+  username: 'root',
+  ...
+});
+
+
+🔧 它們在專案中的分工關係（大概像這樣）：
+Controller ——> Service ——> DAO ——> Entity ——> 資料庫
+                  ↑             ↑
+               使用 DTO      使用 ORM
+
+
+範例：註冊資料流程（從 Vue 到 DB）
+Frontend (Vue) 
+│
+│  使用 axios.post('/api/register', form) 傳送註冊資料
+│
+└─→ Route (register.js) 
+	│
+	│  接收 POST 請求 → 呼叫對應的 controller 函式
+	↓
+	Controller (registerController.js) 
+	│
+	│  驗證/處理資料，呼叫 userModel.register(user)
+	↓
+	Model (userModel.js) 
+	│
+	│  - 呼叫 DTO 驗證格式 userDTO.validate()
+	│  - 呼叫 DAO 插入資料 userDAO.insertUser()
+	│
+	├── DTO (userDTO.js)        ← ✅ 檢查格式、安全處理（例：去空白、必填欄位）	⚠即使前端有做、後端最好也做一次
+	│
+	└── DAO (userDAO.js)        ← ✅ 負責執行 SQL 語句操作資料庫
+		│
+		└─→ Database (由 database.js 建立的連線池)	← 實際與 MySQL/SQLite 互動
+
+
+| 層級			| 職責                         			  | 是否呼叫下一層          |
+| ------------- | -------------------------------------- | ---------------------- |
+| `index.js`    | 初始化 app、載入 routes          		  | ✅ 呼叫 routes         |
+| `routes`      | 負責處理路由對應，呼叫 controller        | ✅ 呼叫 controllers    |
+| `controllers` | 處理業務邏輯，調用 model / services 	   | ✅ 呼叫 models        |
+| `models`      | 負責資料處理與商業邏輯，呼叫 DAO          | ✅ 呼叫 DAO           |
+| `DAO`         | 負責資料庫操作                    	   | ❌ 通常不反向依賴      |
+| `DTO`         | 僅是資料格式（input/output），不包含邏輯	| ❌ 只被傳遞，不主動呼叫 |
+
+
+🗂 資料夾結構實例（Node.js / NestJS / Java 都類似）：
+src/
+├── controller/        # 接 API 請求
+├── service/           # 商業邏輯
+├── dto/               # 接收資料格式驗證
+├── dao/               # 操作資料庫
+├── entity/            # 資料表結構
+├── connection/        # 資料庫連線設定
+└── app.ts             # Express 主程式
