@@ -1,11 +1,17 @@
 src/
 ├──📁connection/				【資料庫連線設定（config / pool）】
+│   ├── _index.js					⚙️ 自動選擇連接資料庫
 │   ├── azureDBConfig.js				
 │   └── railwayDBConfig.js				
 │   
 │   
 ├──📁controllers/				【Controller 控制層：處理請求邏輯，調用 Model 取得資料，回應前端】
 │   └── registerController.js
+│   
+│   
+├──📁middlewares/				【中介層：抽離 index.js 的 Express 設定】
+│   ├── cors.js
+│   └── session.js
 │   
 │   
 ├──📁models/					【Model 資料層：負責資料存取，與資料庫互動(CRUD) 】
@@ -22,9 +28,12 @@ src/
 │           
 │           
 ├──📁routes/					【路由層：負責定義 API 路由規則，轉發請求到對應 Controller】
+│   ├── 📁db/						◎ 設定資料庫路由
+│   │   ├── dbAzureRoute.js				🔗 GET
+│   │   └── dbRailwayRoute.js			🔗 GET
+│   │
+│   ├── _index.js					⚙️ 載入全部路由
 │   ├── captcha.js					🔗 GET、POST
-│   ├── dbAzureRoute.js				🔗 GET
-│   ├── dbRailwayRoute.js			🔗 GET
 │   └── registerRoute.js			🔗 POST
 │   
 │   
