@@ -1,4 +1,4 @@
-class UserEntity {
+class RegisterEntity {
   constructor({ id, username, password, repassword, nickname, gender, birth, email, phone }) {
     this.id = id;
     this.username = username;
@@ -12,4 +12,4 @@ class UserEntity {
   }
 }
 
-module.exports = UserEntity;
+module.exports = RegisterEntity;

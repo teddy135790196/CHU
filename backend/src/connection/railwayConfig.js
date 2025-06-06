@@ -1,4 +1,4 @@
-// connection/railwayDBConfig.js
+// connection/railwayConfig.js
 const mysql = require('mysql2'); // ✅ 用 callback 版本
 require('dotenv').config();      // 載入 .env 環境變數
 

@@ -1,12 +1,16 @@
 ## 專案結構
-- 📁 查看完整 [檔案結構－整體](./docs/檔案結構－整體.txt)
 - 📁 查看完整 [檔案結構－前端](./docs/檔案結構－前端.txt)
 - 📁 查看完整 [檔案結構－後端](./docs/檔案結構－後端.txt)
+- 📁 查看完整 [檔案結構－整體](./docs/檔案結構－整體.txt)
 
 
 ## 說明
-
 目前仍在製作中，檔案結構有可能發生變化，如果情況允許，建議額外建立一個測試專用的專案，每次使用直接將src砍掉
+
+
+## 外部連結
+![Notion 預覽](./docs/images/notion預覽.jpg)
+[打開 Notion 筆記](https://www.notion.so/1d5d07d9b596803dbaabc42779d44084)
 
 
 ## 更新紀錄
@@ -15,6 +19,17 @@
 <summary>👉 點擊這裡展開更新紀錄 👈</summary>
 
 <hr>
+
+<details>
+<summary>0606｜後端index.js插件功能拆分</summary>
+
+- **新增**
+  - 根據.env設定選擇當前資料庫
+- **更新**
+  - 將插件功能從後端index.js中拆出方便維護(cors、session、routes)
+  - 建立login基本架構(未實作)
+
+</details>
 
 <details>
 <summary>0605｜測試Azure雲端部屬與註冊資料傳到SQL</summary>

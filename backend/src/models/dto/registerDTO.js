@@ -1,7 +1,7 @@
-// model/dto/userDTO.js
+// src/models/dto/registerDTO.js
 
 // form: { username: '', password: '', repassword: '', nickname: '', gender: '', birth: '', email: '', phone: '' }
-class UserDTO {
+class RegisterDTO {
   constructor({ username, password, repassword, nickname, gender, birth, email, phone }) {
     this.username = username;
     this.password = password;
@@ -14,4 +14,4 @@ class UserDTO {
   }
 }
 
-module.exports = UserDTO;
+module.exports = RegisterDTO;

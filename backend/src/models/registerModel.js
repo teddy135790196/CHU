@@ -1,3 +1,5 @@
+// src/models/registerModel.js
+
 const RegisterDAO = require('./dao/registerDAO');
 const RegisterDTO = require('./dto/registerDTO');
 
@@ -8,16 +10,16 @@ const genderMap = {
   hidden: '隱藏',
 };
 
-function createUser(userDto, callback) {
+function createRegister(registerDto, callback) {
   // 轉換 gender
-  if (userDto.gender) {
-    userDto.gender = genderMap[userDto.gender.toLowerCase()] || null;
+  if (registerDto.gender) {
+    registerDto.gender = genderMap[registerDto.gender.toLowerCase()] || null;
   }
 
-  const user = new RegisterDTO(userDto);
-  RegisterDAO.insertUser(user, callback);
+  const user = new RegisterDTO(registerDto);
+  RegisterDAO.insertRegister(user, callback);
 }
 
 module.exports = {
-  createUser,
+  createRegister,
 };

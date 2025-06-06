@@ -1,7 +1,8 @@
-// const db = require('../../connection/azureConfig');
-const db = require('../../connection/railwayConfig');
+// src/models/dao/registerDAO.js
 
-function insertUser(user, callback) {
+const db = require('../../connection/_index');
+
+function insertRegister(user, callback) {
   const sql = `
     INSERT INTO users (username, password_hash, nickname, gender, birth_date, email, phone)
     VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -24,5 +25,5 @@ function insertUser(user, callback) {
 }
 
 module.exports = {
-  insertUser,
+  insertRegister,
 };

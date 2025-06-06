@@ -1,4 +1,5 @@
-// routes/captcha.js
+// src/routes/captcha.js
+
 const express = require('express');
 const router = express.Router();
 const { generateCaptcha } = require('../services/captchaService');
