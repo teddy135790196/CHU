@@ -1,18 +1,11 @@
 // src/models/loginModel.js
 
-const LoginDAO = require('./dao/loginDAO');
-const LoginDTO = require('./dto/loginDTO');
+const loginDAO = require('./dao/loginDAO');
 
-// function createRegister(registerDto, callback) {
-//   // 轉換 gender
-//   if (registerDto.gender) {
-//     registerDto.gender = genderMap[registerDto.gender.toLowerCase()] || null;
-//   }
+function findUserByUsername(loginDto, callback) {
+  loginDAO.findByUsername(loginDto.username, callback);
+}
 
-//   const user = new LoginDTO(registerDto);
-//   LoginDAO.insertRegister(user, callback);
-// }
-
-// module.exports = {
-//   createRegister,
-// };
+module.exports = {
+  findUserByUsername,
+};

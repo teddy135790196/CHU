@@ -9,7 +9,6 @@
 
 
 ## 外部連結
-![Notion 預覽](./docs/images/notion預覽.jpg)
 [打開 Notion 筆記](https://www.notion.so/1d5d07d9b596803dbaabc42779d44084)
 
 
@@ -19,6 +18,17 @@
 <summary>👉 點擊這裡展開更新紀錄 👈</summary>
 
 <hr>
+
+<details>
+<summary>0607｜註冊密碼加密與登入功能實作</summary>
+
+- **新增**
+  - 註冊密碼使用 bcrypt插件 進行 HASH加密
+- **更新**
+  - login功能委託GPT完成(尚未搞懂)
+  - railway的users資料表重構
+
+</details>
 
 <details>
 <summary>0606｜後端index.js插件功能拆分</summary>

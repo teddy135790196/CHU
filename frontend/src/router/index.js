@@ -19,7 +19,7 @@ const router = new Router({
 		},
 		{	// 根目錄(開啟位置)
 			path: '/',	
-			name: 'Login',
+			name: 'LoginAlt',
 			component: LoginView,
 		},
 		{

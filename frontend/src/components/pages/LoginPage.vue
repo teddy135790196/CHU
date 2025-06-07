@@ -51,6 +51,7 @@ export default {
 	},
 	methods: {
 		async login() {
+			console.log(this.form)
 			try {
 				const res = await this.$axios.post('/api/login', this.form);
 				console.log('登入成功', res.data);

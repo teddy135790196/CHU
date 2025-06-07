@@ -4,7 +4,7 @@ const db = require('../../connection/_index');
 
 function insertRegister(user, callback) {
   const sql = `
-    INSERT INTO users (username, password_hash, nickname, gender, birth_date, email, phone)
+    INSERT INTO users (username, password, nickname, gender, birth, email, phone)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 

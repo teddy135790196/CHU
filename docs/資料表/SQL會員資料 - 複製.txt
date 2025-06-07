@@ -1,0 +1,18 @@
+TRUNCATE TABLE users;
+
+INSERT INTO users (
+    id, username, password, nickname, gender, birth, email, phone,
+    surname, given_name, bio, nation, full_address,
+    city, district, street, lane, detail_address, postal_code
+) VALUES
+(1, 'mingwei1990', '$2b$10$YrcvMExpWkjLgE35qCgMJeszvBuGhsXEisDElhil0aIzcj6js8x8u', 'mingwei', '男', '1990-01-01', 'mingwei@example.com', '912345678',
+ '陳', '明偉', '熱愛科技與運動，喜歡研究新科技產品，尤其對人工智慧與區塊鏈特別感興趣。平時喜歡跑步與登山，追求身心健康的生活方式。', '台灣', '110台北市信義區忠孝東路五段123號5樓之3',
+ '台北市', '信義區', '忠孝東路五段', '', '123號5樓之3', '110'),
+
+(2, 'lijun1985', '$2b$10$AE2nMZn3dWb1uN1QUUZeNe.Uls0WXebSY02GZgshXsftssJXMRm9G', 'lijun', '女', '1985-06-15', 'lijun@example.com', '987654321',
+ '王', '麗君', '個性活潑開朗，喜歡閱讀小說與寫作。在工作之餘常參加公益活動，希望透過行動為社會帶來正面影響，熱愛旅行與攝影。', '台灣', '406台中市北屯區崇德路二段120巷8弄56號3樓',
+ '台中市', '北屯區', '崇德路二段', '120巷8弄', '56號3樓', '406'),
+
+(3, 'weixiang1992', '$2b$10$tSq6KCpIFpyT0YesgTnQiOUqIcbZDhzNjnS/iH47tYjR7e71jcbDC', 'weixiang', '隱藏', '1992-03-12', 'weixiang@example.com', '922333444',
+ '張', '偉翔', '我是一位軟體工程師，擁有多年網頁前端開發經驗，擅長使用 HTML、CSS、JavaScript 及 React 等框架，對設計與使用者體驗特別講究。工作之外，我熱愛運動，尤其喜歡籃球與跑步，認為規律運動能提升專注力與抗壓性。我也喜歡動手組裝電腦與嘗試新科技產品，常關注 AI、區塊鏈等新興趨勢。朋友形容我是個冷靜又可靠的人，做事有條理、不輕易妥協，面對挑戰總能沉著應對。未來希望能結合自己的技術與創意，開發對社會有幫助的產品，創造更多價值。', '台灣', '220新北市板橋區中山路一段5巷45號2樓',
+ '新北市', '板橋區', '中山路一段', '5巷', '45號2樓', '220');
