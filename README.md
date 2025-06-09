@@ -20,6 +20,24 @@
 <hr>
 
 <details>
+<summary>0609｜測試railway全端部屬</summary>
+
+- **新增**
+  - railway前後端連接GitHub部屬測試
+- **更新**
+  - 分離式部屬資料庫改為alwaysdata測試
+
+</details>
+
+<details>
+<summary>0608｜進度丟失</summary>
+
+- **新增**
+  - 忘記更新了什麼，找不到紀錄了
+
+</details>
+
+<details>
 <summary>0607｜註冊密碼加密與登入功能實作</summary>
 
 - **新增**
