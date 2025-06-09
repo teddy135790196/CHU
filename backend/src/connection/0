@@ -1,0 +1,6 @@
+
+; Alwaysdata
+ALWAYSDATA_DB_HOST=mysql-test-uchfullclass2025.alwaysdata.net
+ALWAYSDATA_DB_USER=417294
+ALWAYSDATA_DB_PASSWORD=kangxuanxiangtest
+ALWAYSDATA_DB_DATABASE=test-uchfullclass2025_0

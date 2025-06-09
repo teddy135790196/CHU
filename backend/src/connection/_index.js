@@ -12,6 +12,9 @@ switch (process.env.DB_TYPE) {
   case 'railway':
     db = require('./railwayConfig');
     break;
+  case 'alwaysdata':
+    db = require('./alwaysdataConfig');
+    break;
   default:
     throw new Error(`Unknown DB_TYPE: ${process.env.DB_TYPE}`);
 }
