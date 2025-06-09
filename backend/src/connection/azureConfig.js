@@ -1,4 +1,4 @@
-// connection/azureConfig.js
+// src/connection/azureConfig.js
 const mysql = require('mysql2');
 require('dotenv').config();
 

@@ -1,7 +1,7 @@
-// src/services/registerService.js
+// src/main/service/registerService.js
 
-const RegisterDTO = require('../models/dto/registerDTO');
-const RegisterModel = require('../models/registerModel');
+const RegisterDTO = require('../dto/registerDTO');
+const RegisterModel = require('../model/registerModel');
 // HASH插件
 const bcrypt = require('bcrypt');
 

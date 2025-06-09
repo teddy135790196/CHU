@@ -1,7 +1,7 @@
-// src/services/loginService.js
+// src/main/service/loginService.js
 
-const LoginDTO = require('../models/dto/loginDTO');
-const loginModel = require('../models/loginModel');
+const LoginDTO = require('../dto/loginDTO');
+const loginModel = require('../model/loginModel');
 // HASH插件
 const bcrypt = require('bcrypt');
 

@@ -12,10 +12,9 @@ const db = require('./src/connection/_index');
 
 
 // 引入拆出來的 middleware(每次請求時執行的函式)
-const corsMiddleware = require('./src/middlewares/cors');
-const sessionMiddleware = require('./src/middlewares/session');
-
+const corsMiddleware = require('./src/utils/cors');
 app.use(corsMiddleware);
+const sessionMiddleware = require('./src/utils/session');
 app.use(sessionMiddleware);
 
 

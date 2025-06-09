@@ -1,7 +1,7 @@
-// src/models/registerModel.js
+// src/main/model/registerModel.js
 
-const RegisterDAO = require('./dao/registerDAO');
-const RegisterDTO = require('./dto/registerDTO');
+const RegisterDAO = require('../dao/registerDAO');
+const RegisterDTO = require('../dto/registerDTO');
 
 // 轉換前端傳的性別成資料庫 ENUM('男', '女', '隱藏')
 const genderMap = {

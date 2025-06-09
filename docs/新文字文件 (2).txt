@@ -1,0 +1,107 @@
+﻿後端架構流程小結
+層級	功能說明	資料角色	比喻（方便理解）
+Vue (前端)	使用者填表，輸入前端格式資料	前端格式資料	「門外的信件」
+Route	入口，接收前端請求並導向 Controller	前端資料的入口	「郵局櫃檯，收取信件並分發」
+Controller (CON)	負責前端資料與後端內部資料的轉換（解包/封包）	前端資料 ↔ 後端資料	「翻譯官，拆信與包信」
+Service (SER)	後端核心邏輯與運算，依照業務需求處理資料	後端格式資料	「大腦，決定信件怎麼處理」
+Model (MOD)	後端資料與資料庫資料間轉換（封包/解包）	後端資料 ↔ 資料庫資料	「翻譯官，將信件轉成資料庫能讀的格式」
+DAO	實際執行 SQL，與資料庫交互	資料庫格式資料	「司機，把信送到資料庫」
+Database (DB)	儲存資料	資料庫資料	「信箱，存放信件」
+
+簡單流程概述
+Vue → Route → Controller：
+使用者輸入的前端格式資料透過 Route 送到 Controller，由 Controller 解包成後端可用格式。
+
+Controller → Service → Model → DAO → DB：
+後端邏輯（Service）根據需求處理資料，再由 Model 將資料封包成資料庫格式，透過 DAO 執行 SQL 存入資料庫。
+
+資料庫回應逆向流程：
+資料庫資料由 DAO 撈出，再由 Model 解包成後端格式，Service 可能做額外處理，Controller 封包成前端格式，最後經由 Route 回傳給 Vue。
+
+為什麼要分這些層？
+	維護性：不同層負責不同責任，修改不會牽一髮動全身。
+	清晰度：分層讓你更清楚資料流向及格式轉換點。
+	彈性：當資料結構或資料庫改變，只需調整對應層即可。
+
+
+
+
+
+
+Service 引入 DTO
+
+Route 引入 CONTROLLER 引入 Service 引入 MODEL 引入 DAO 引入 DATABASE
+
+
+
+Route (只設定路由)
+ → Controller (收 req.body → 建 DTO)
+   → Service (執行邏輯，傳遞 DTO)
+     → Model (如需轉格式可用 DTO)
+       → DAO (執行 SQL，接受乾淨資料)
+         → Database
+
+小結
+DTO 是給資料準備好的工具，只在處理資料的地方才需要。
+Route / DAO 不處理資料內容，所以不需要用 DTO。
+
+
+
+🔷 Vue（使用者填表） 
+→ Route（分配對應功能） 
+
+→ Controller（解包 req） 
+→ Service（處理邏輯） 
+→ Model（封包成 SQL 格式） 
+
+→ DAO（執行 SQL） 
+🔷 DB
+
+
+你的描述總結：
+層級	角色	職責說明
+Route	前端的門衛	接收前端請求，決定哪個 Controller 負責處理
+Controller (CON)	前端↔後端中介	負責前端請求資料的「解包」與回應的「封包」
+Service (SERV)	後端邏輯大腦	處理商業邏輯，決定怎麼操作資料和回傳結果
+Model (MOD)	後端↔資料庫中介	負責後端資料與資料庫格式的轉換（封包/解包）
+DAO	資料庫操作執行者	實際執行 SQL，和資料庫直接溝通
+
+
+更簡單的流程比喻：
+Route → Controller：把「門口的信件」拿進來拆信（解包）
+Controller → Service：交給後端腦袋決策
+Service → Model → DAO → DB：包裝成資料庫能懂的格式，再放進資料庫
+
+資料庫回傳 → DAO → Model → Service → Controller → Route → Vue：反方向回傳資料，Model 和 Controller 負責格式轉換、封包回前端。
+
+你說 CON 和 MOD 是兩個中介很對：
+
+Controller 是「前後端資料的中介」
+
+Model 是「後端與資料庫資料的中介」
+
+兩者職責明確分工，整個系統架構才會清晰易維護。
+
+
+
+
+
+資料類型對應比喻
+角色	資料屬性／比喻
+Vue	「前端格式資料」
+Route	「前端資料的入口（通道）」
+Controller (CON)	負責「前端資料↔後端內部資料」的轉換，依方向解包或封包
+Service (SER)	使用後端資料進行業務運算、邏輯處理
+Model (MOD)	負責「後端內部資料↔資料庫資料」的格式轉換（封包/解包）
+DAO	「資料庫格式資料」的執行者
+DB	真正的資料庫資料
+
+流程重點：
+CON：資料在前端格式與後端格式之間轉換（像前後端溝通的「翻譯官」）
+
+MOD：資料在後端與資料庫格式之間轉換（像後端與資料庫的「翻譯官」）
+
+SER：拿到後端格式資料，負責核心邏輯和運算（商業邏輯大腦）
+
+
+

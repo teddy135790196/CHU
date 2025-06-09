@@ -1,6 +1,6 @@
-// src/controllers/loginController.js
+// src/main/controller/loginController.js
 
-const loginService = require('../services/loginService');
+const loginService = require('../service/loginService');
 
 exports.loginUser = async (req, res) => {
   try {

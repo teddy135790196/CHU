@@ -1,4 +1,4 @@
-// src/models/dto/registerDTO.js
+// src/main/dto/registerDTO.js
 
 // form: { username: '', password: '', repassword: '', nickname: '', gender: '', birth: '', email: '', phone: '' }
 class RegisterDTO {

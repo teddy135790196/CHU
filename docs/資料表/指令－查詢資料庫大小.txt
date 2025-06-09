@@ -1,0 +1,17 @@
+SELECT 
+    '總計' AS '資料庫名稱',
+    ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS '大小(MB)'
+FROM information_schema.tables
+WHERE table_schema = '資料庫名稱'
+
+UNION ALL
+
+SELECT 
+    table_name AS '資料庫名稱',
+    ROUND((data_length + index_length) / 1024 / 1024, 2) AS '大小(MB)'
+FROM information_schema.tables
+WHERE table_schema = '資料庫名稱'
+
+ORDER BY
+    CASE WHEN 資料庫名稱 = '總計' THEN 0 ELSE 1 END,
+    `大小(MB)` DESC;

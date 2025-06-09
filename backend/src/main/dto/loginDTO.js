@@ -1,4 +1,4 @@
-// src/models/dto/loginDTO.js
+// src/main/dto/loginDTO.js
 
 class loginDTO {
 	constructor({ username, password }){

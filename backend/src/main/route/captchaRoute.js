@@ -1,8 +1,8 @@
-// src/routes/captcha.js
+// src/main/route/captcha.js
 
 const express = require('express');
 const router = express.Router();
-const { generateCaptcha } = require('../services/captchaService');
+const { generateCaptcha } = require('../service/captchaService');
 
 
 // 產生驗證碼(/api/captcha)

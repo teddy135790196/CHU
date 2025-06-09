@@ -1,6 +1,6 @@
-// src/controllers/registerController.js
+// src/main/controller/registerController.js
 
-const registerService = require('../services/registerService');
+const registerService = require('../service/registerService');
 
 exports.registerUser = async (req, res) => {
   try {

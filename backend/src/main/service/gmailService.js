@@ -1,3 +1,5 @@
+// src/main/service/gmailService.js
+
 // npm install nodemailer
 const nodemailer = require('nodemailer');
 

@@ -1,6 +1,6 @@
-// src/models/loginModel.js
+// src/main/model/loginModel.js
 
-const loginDAO = require('./dao/loginDAO');
+const loginDAO = require('../dao/loginDAO');
 
 function findUserByUsername(loginDto, callback) {
   loginDAO.findByUsername(loginDto.username, callback);
