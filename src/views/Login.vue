@@ -36,7 +36,7 @@
           <input type="password" v-model="password" placeholder="請輸入您所設定的密碼" @input="validatePassword" />
           <span class="quote" v-if="errors.password">{{ errors.password }}</span>
         </div>
-        <button type="button" @click="handleLogin" :disabled="!isFormValid">登入</button>
+        <button type="button" @click="handleLogin" :disabled="!isFormValid" :class="{'is-loading': isLoading}">登入</button>
         <div class="other mt-4">
           <a href="#">忘記密碼</a>
           ｜
@@ -82,7 +82,8 @@ export default {
       errors: {
         username: '',
         password: ''
-      }
+      },
+      isLoading: false
     }
   },
   computed: {
@@ -101,16 +102,27 @@ export default {
       return !this.errors.password;
     },
     async handleLogin() {
-      if (this.isFormValid) {
-        try {
-          const response = await authService.login(this.username, this.password);
-          if (response.success) {
-            this.$router.push('/cart');
-          }
-        } catch (error) {
-          console.error('登入失敗:', error);
-          alert('登入失敗，請檢查帳號密碼');
+      if (!this.isFormValid) {
+        return;
+      }
+
+      this.isLoading = true;
+      try {
+        const response = await authService.login(this.username, this.password);
+        if (response.success) {
+          // 設置登入狀態
+          localStorage.setItem("isLogin", "true");
+          localStorage.setItem("user", JSON.stringify(response.user));
+          
+          // 獲取重定向路徑
+          const redirectPath = this.$route.query.redirect || '/cart';
+          this.$router.push(redirectPath);
         }
+      } catch (error) {
+        console.error('登入失敗:', error);
+        alert(error.message || '登入失敗，請檢查帳號密碼');
+      } finally {
+        this.isLoading = false;
       }
     },
     // 取得隨機歡迎標題與訊息

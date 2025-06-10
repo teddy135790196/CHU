@@ -63,7 +63,18 @@ export default {
     return {
       nowStep: 1,
       progressWidth: [40, 70, 90, 100],
-      form: { username: '', password: '', repassword: '', nickname: '', gender: '', birth: '', email: '', phone: '' },
+      form: { 
+        username: '', 
+        password: '', 
+        repassword: '', 
+        nickname: '', 
+        gender: '', 
+        birth: '', 
+        email: '', 
+        phone: '' 
+      },
+      isLoading: false,
+      error: null
     };
   },
   // 開放權限
@@ -77,11 +88,25 @@ export default {
   methods: {
     // POST：註冊表單
     async register() {
+      this.isLoading = true;
+      this.error = null;
+      
       try {
         const res = await this.$axios.post('/api/register', this.form);
         console.log('註冊成功', res.data);
+        
+        // 設置登入狀態
+        localStorage.setItem("isLogin", "true");
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        
+        // 跳轉到會員頁面
+        this.$router.push('/members');
       } catch (error) {
         console.error('註冊失敗', error);
+        this.error = error.response?.data?.message || '註冊失敗，請稍後再試';
+        alert(this.error);
+      } finally {
+        this.isLoading = false;
       }
     },
     
@@ -107,7 +132,6 @@ export default {
           if (this.nowStep === 4) {
             if (confirm('確認資料是否無誤？')) {
               await this.register();  // 第 4 步才送出註冊
-              this.$router.push('/members');
             }
           } else {
             this.nowStep++;

@@ -5,18 +5,30 @@ const allowedOrigins = [
   'http://localhost:8080',
   'http://localhost:8081',
   'http://127.0.0.1:5500',
-  'https://chu-production.up.railway.app'
-];
+  'https://chu-production.up.railway.app',
+  // 添加您的生產環境域名
+  process.env.FRONTEND_URL
+].filter(Boolean); // 過濾掉 undefined 值
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // 允許沒有 origin 的請求（如移動應用或 curl 請求）
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.warn(`Blocked by CORS: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Content-Range', 'X-Content-Range'],
+  maxAge: 86400 // 預檢請求結果緩存 24 小時
 };
 
 // app.use(cors(    // 正式上線版
