@@ -1,18 +1,18 @@
 {
-    "build": {
-      "builder": "NIXPACKS",
-      "buildCommand": "npm install && npm run build",
-      "startCommand": "npm run preview",
-      "watchPaths": ["src", "public", "package.json"]
-    },
-    "deploy": {
-      "restartPolicyType": "ON_FAILURE",
-      "healthcheckPath": "/"
-    },
-    "ports": [
-      {
-        "port": 4173,
-        "protocol": "HTTP"
-      }
-    ]
-  }
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "npm install && npm run build",
+    "startCommand": "npx vite preview --port $PORT",
+    "watchPaths": ["src", "public", "package.json"]
+  },
+  "deploy": {
+    "restartPolicyType": "ON_FAILURE",
+    "healthcheckPath": "/"
+  },
+  "ports": [
+    {
+      "port": 4173,
+      "protocol": "HTTP"
+    }
+  ]
+}
