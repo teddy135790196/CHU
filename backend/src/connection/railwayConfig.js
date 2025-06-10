@@ -2,11 +2,11 @@ const mysql = require('mysql2');
 require('dotenv').config();
 
 const pool = mysql.createPool({
-  host: process.env.RAILWAY_DB_HOST,
-  port: process.env.RAILWAY_DB_PORT || 3306,
-  user: process.env.RAILWAY_DB_USER,
-  password: process.env.RAILWAY_DB_PASSWORD,
-  database: process.env.RAILWAY_DB_DATABASE
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT || 3306,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 // ✅ 僅在開發環境測試連線（避免部署中斷）
