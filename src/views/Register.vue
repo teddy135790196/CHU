@@ -137,6 +137,18 @@
                   >
                   <span class="error" v-if="errors.phone">{{ errors.phone }}</span>
                 </div>
+                <!-- 驗證碼 -->
+                <div class="inp_modle">
+                  <p>驗證碼</p>
+                  <div class="soild"></div>
+                  <input 
+                    type="text" 
+                    v-model="formData.captcha"
+                    placeholder="請輸入驗證碼"
+                    @input="validateCaptcha"
+                  >
+                  <span class="error" v-if="errors.captcha">{{ errors.captcha }}</span>
+                </div>
               </div>
 
               <!-- 步驟4：確認資料 -->
@@ -192,7 +204,8 @@ export default {
         gender: 'hidden',
         birthday: '',
         email: '',
-        phone: ''
+        phone: '',
+        captcha: ''
       },
       errors: {
         username: '',
@@ -201,7 +214,8 @@ export default {
         nickname: '',
         birthday: '',
         email: '',
-        phone: ''
+        phone: '',
+        captcha: ''
       }
     }
   },
@@ -218,7 +232,7 @@ export default {
         case 3:
           return this.validateStep3();
         case 4:
-          return true;
+          return this.validateCaptcha();
         default:
           return false;
       }
@@ -255,6 +269,10 @@ export default {
     validatePhone() {
       this.errors.phone = authService.validatePhone(this.formData.phone);
       return !this.errors.phone;
+    },
+    validateCaptcha() {
+      this.errors.captcha = authService.validateCaptcha(this.formData.captcha);
+      return !this.errors.captcha;
     },
     validateStep1() {
       return this.validateUsername() && 

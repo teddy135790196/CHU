@@ -7,22 +7,21 @@ export const authService = {
       // const response = await axios.post('/api/register', userData);
       
       // 模擬 API 調用，使用 userData 進行一些基本驗證
+      // 移除 1 秒的延遲，讓「完成」按鈕立即有反應
       return new Promise((resolve) => {
-        setTimeout(() => {
-          // 檢查必要的欄位
-          if (!userData.username || !userData.password || !userData.email) {
-            throw new Error('缺少必要的註冊資訊');
+        // 檢查必要的欄位 (此處可添加圖片驗證欄位)
+        if (!userData.username || !userData.password || !userData.email) {
+          throw new Error('缺少必要的註冊資訊');
+        }
+
+        resolve({
+          success: true,
+          message: '註冊成功',
+          data: {
+            username: userData.username,
+            email: userData.email
           }
-          
-          resolve({
-            success: true,
-            message: '註冊成功',
-            data: {
-              username: userData.username,
-              email: userData.email
-            }
-          });
-        }, 1000);
+        });
       });
     } catch (error) {
       throw new Error('註冊失敗：' + error.message);
@@ -99,6 +98,13 @@ export const authService = {
     if (!nickname) {
       return '請輸入暱稱';
     }
+    return '';
+  },
+
+  // 驗證圖片驗證碼 (永遠通過)
+  validateCaptcha(captcha) {
+    // 在此處不執行實際驗證，始終返回空字符串表示通過
+    console.log('圖片驗證碼輸入：', captcha);
     return '';
   }
 }; 
