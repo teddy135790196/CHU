@@ -1,4 +1,4 @@
-// src/main/dto/registerDTO.js
+// backend/src/main/dto/registerDTO.js
 
 // form: { username: '', password: '', repassword: '', nickname: '', gender: '', birth: '', email: '', phone: '' }
 class RegisterDTO {

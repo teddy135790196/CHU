@@ -1,4 +1,4 @@
-// src/main/dto/loginDTO.js
+// backend/src/main/dto/loginDTO.js
 
 class loginDTO {
 	constructor({ username, password }){

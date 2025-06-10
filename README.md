@@ -9,7 +9,9 @@
 
 
 ## 外部連結
-[打開 Notion 筆記](https://www.notion.so/1d5d07d9b596803dbaabc42779d44084)
+[我的 Notion 筆記](https://www.notion.so/1d5d07d9b596803dbaabc42779d44084)
+[柯博文老師直播影片](https://www.youtube.com/playlist?list=PLkvu6TsdkQFqvlhPJt8uYu9Lpg8yEzb6h)
+
 
 
 ## 更新紀錄
@@ -18,6 +20,16 @@
 <summary>👉 點擊這裡展開更新紀錄 👈</summary>
 
 <hr>
+
+<details>
+<summary>0610｜測試railway全端部屬</summary>
+
+- **新增**
+  - 
+- **更新**
+  - 註冊功能檢查邏輯更新
+
+</details>
 
 <details>
 <summary>0609｜測試railway全端部屬</summary>

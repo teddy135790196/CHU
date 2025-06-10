@@ -1,4 +1,4 @@
-// src/main/service/loginService.js
+// backend/src/main/service/loginService.js
 
 const LoginDTO = require('../dto/loginDTO');
 const loginModel = require('../model/loginModel');

@@ -3,25 +3,11 @@
   <div :class="['step', nowStep === 3 ? 'active-step' : '']">
     <h4>【參．想知道您的聯絡方式】</h4>
 
-    <BaseInput 
-      type="email" 
-      id="email" 
-      :label="message.inputLabel.email" 
-      :placeholder="message.inputPlahold.email" 
-      :quote="message.quote.email"
-      :error-message="formErrors.email" 
-      @blur="validateEmail" 
-      v-model="localForm.email" />
+    <BaseInput type="email" id="email" :label="message.inputLabel.email" :placeholder="message.inputPlahold.email"
+      :quote="message.quote.email" :error-message="formErrors.email" @blur="validateEmail" v-model="localForm.email" />
 
-    <BaseInput 
-      type="tel" 
-      id="phone" 
-      :label="message.inputLabel.phone" 
-      :placeholder="message.inputPlahold.phone" 
-      :quote="message.quote.email"
-      :error-message="formErrors.phone" 
-      @blur="validatePhone" 
-      v-model="localForm.phone" />
+    <BaseInput type="tel" id="phone" :label="message.inputLabel.phone" :placeholder="message.inputPlahold.phone"
+      :quote="message.quote.email" :error-message="formErrors.phone" @blur="validatePhone" v-model="localForm.phone" />
   </div>
 </template>
 
@@ -60,17 +46,17 @@ export default {
 
         stepTitle: '【參．想知道您的聯絡方式】',
 
-				// input => label
-				inputLabel: {
-					email: '電子郵件',
-					phone: '手機號碼',
-				},
+        // input => label
+        inputLabel: {
+          email: '電子郵件',
+          phone: '手機號碼',
+        },
 
-				// input => placeholder
-				inputPlahold: {
+        // input => placeholder
+        inputPlahold: {
           email: '範例：myemail@gmail.com',
           phone: '範例：0123456789',
-				},
+        },
 
         // 預設提示文字
         // 驗證：無輸入
@@ -81,10 +67,12 @@ export default {
           // 驗證：格式錯誤
           errformat: {
             email: '格式不符：請輸入有效的電子郵箱',
-            phone: '格式不符：輸入數字未達 10 位',
+            phoneRule: '格式不符：只可輸入數字',
+            phoneOver: '格式不符：輸入數字超過 10 位',
+            phoneShort: '格式不符：輸入數字未達 10 位',
           },
         },
-        
+
       },
 
     };
@@ -125,15 +113,23 @@ export default {
     // 驗證手機號碼（10 碼數字）
     validatePhone() {
       const phone = this.formData.phone;
-      const rule = /^\d{10}$/.test(phone);
+      const rule = /^\d+$/.test(phone);
 
       if (!phone || phone.trim() === '') {
         // 驗證：無內容
-        this.formErrors.phone = this.message.quote.email;
+        this.formErrors.phone = this.message.quote.phone;
         return false;
       } else if (!rule) {
         // 驗證：格式錯誤
-        this.formErrors.phone = this.message.quote.errformat.phone;
+        this.formErrors.phone = this.message.quote.errformat.phoneRule;
+        return false;
+      } else if (phone.length < 10) {
+        // 驗證：少於 10 碼
+        this.formErrors.phone = this.message.quote.errformat.phoneShort;
+        return false;
+      } else if (phone.length > 10) {
+        // 驗證：超過 10 碼
+        this.formErrors.phone = this.message.quote.errformat.phoneOver;
         return false;
       } else {
         // 驗證：通過！

@@ -1,0 +1,41 @@
+CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(45) NOT NULL,
+    password VARCHAR(64) NOT NULL,
+    nickname VARCHAR(12),
+    gender ENUM('男', '女', '隱藏'),
+    birth DATE,
+    email VARCHAR(100),
+    phone VARCHAR(20),
+    surname VARCHAR(50),
+    given_name VARCHAR(50),
+    summary VARCHAR(120),
+    country VARCHAR(50),
+    address VARCHAR(255),
+    city VARCHAR(50),
+    district VARCHAR(50),
+    street VARCHAR(100),
+    alley VARCHAR(50),
+    house_number VARCHAR(50),
+    postal_code VARCHAR(10)
+);
+
+
+INSERT INTO users (
+    username, password, nickname, gender, birth, email, phone, surname, given_name, summary,
+    country, address, city, district, street, alley, house_number, postal_code
+) VALUES
+('mingwei1990', '$2b$10$YrcvMExpWkjLgE35qCgMJeszvBuGhsXEisDElhil0aIzcj6js8x8u', 'mingwei', '男', '1990-01-01',
+ 'mingwei@example.com', '912345678', '陳', '明偉',
+ '熱愛科技與運動，喜歡研究新科技產品，尤其對人工智慧與區塊鏈特別感興趣。平時喜歡跑步與登山，追求身心健康的生活方式。',
+ '台灣', '110台北市信義區忠孝東路五段123號5樓之3', '台北市', '信義區', '忠孝東路五段', '', '123號5樓之3', '110'),
+
+('lijun1985', '$2b$10$AE2nMZn3dWb1uN1QUUZeNe.Uls0WXebSY02GZgshXsftssJXMRm9G', 'lijun', '女', '1985-06-15',
+ 'lijun@example.com', '987654321', '王', '麗君',
+ '個性活潑開朗，喜歡閱讀小說與寫作。在工作之餘常參加公益活動，希望透過行動為社會帶來正面影響，熱愛旅行與攝影。',
+ '台灣', '406台中市北屯區崇德路二段120巷8弄56號3樓', '台中市', '北屯區', '崇德路二段', '120巷8弄', '56號3樓', '406'),
+
+('weixiang1992', '$2b$10$tSq6KCpIFpyT0YesgTnQiOUqIcbZDhzNjnS/iH47tYjR7e71jcbDC', 'weixiang', '隱藏', '1992-03-12',
+ 'weixiang@example.com', '922333444', '張', '偉翔',
+ '我是一位軟體工程師，擁有多年網頁前端開發經驗，對設計與使用者體驗特別講究。工作之外，我熱愛運動，認為規律運動能提升專注力與抗壓性。我也喜歡動手組裝電腦與嘗試新科技產品，常關注 AI、區塊鏈等新興趨勢。',
+ '台灣', '220新北市板橋區中山路一段5巷45號2樓', '新北市', '板橋區', '中山路一段', '5巷', '45號2樓', '220');

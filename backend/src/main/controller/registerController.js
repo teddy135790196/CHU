@@ -1,4 +1,4 @@
-// src/main/controller/registerController.js
+// backend/src/main/controller/registerController.js
 
 const registerService = require('../service/registerService');
 

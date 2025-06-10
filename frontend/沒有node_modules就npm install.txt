@@ -1,0 +1,23 @@
+npm ls --depth=0	# 列出全部套件
+
+npm install		# 安裝 package.json 中定義的所有依賴套件
+npm uninstall		# 移除指定的 npm 套件
+
+---主要依賴---
+
+axios			# 發送 HTTP 請求
+bootstrap		# UI 樣式與元件庫
+core-js			# JavaScript polyfill
+vue			# Vue.js 核心框架 (v2)
+vue-router		# Vue 路由套件
+
+---開發依賴(工具不建議卸載)---
+
+@babel/core		# Babel 編譯核心
+@babel/eslint-parser	# 讓 ESLint 支援 Babel 語法
+@vue/cli-plugin-babel	# Vue CLI Babel 插件
+@vue/cli-plugin-eslint	# Vue CLI ESLint 插件
+@vue/cli-service	# Vue CLI 核心服務
+eslint			# 程式碼檢查工具
+eslint-plugin-vue	# Vue 專用 ESLint 規則
+vue-template-compiler	# Vue 模板編譯器（對應 vue 版本）

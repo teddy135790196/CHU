@@ -1,4 +1,4 @@
-// src/main/route/loginRoute.js
+// backend/src/main/route/loginRoute.js
 
 const express = require('express');
 const router = express.Router();

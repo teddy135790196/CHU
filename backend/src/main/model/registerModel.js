@@ -1,4 +1,4 @@
-// src/main/model/registerModel.js
+// backend/src/main/model/registerModel.js
 
 const RegisterDAO = require('../dao/registerDAO');
 const RegisterDTO = require('../dto/registerDTO');

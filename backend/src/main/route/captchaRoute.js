@@ -1,4 +1,4 @@
-// src/main/route/captcha.js
+// backend/src/main/route/captcha.js
 
 const express = require('express');
 const router = express.Router();

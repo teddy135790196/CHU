@@ -1,4 +1,4 @@
-// src/main/service/registerService.js
+// backend/src/main/service/registerService.js
 
 const RegisterDTO = require('../dto/registerDTO');
 const RegisterModel = require('../model/registerModel');

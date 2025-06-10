@@ -1,4 +1,4 @@
-// src/main/route/registerRoute.js
+// backend/src/main/route/registerRoute.js
 
 const express = require('express');
 const router = express.Router();

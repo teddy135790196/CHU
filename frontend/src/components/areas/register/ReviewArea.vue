@@ -106,7 +106,8 @@ export default {
   methods: {
     async validateForm() {
       try {
-        const res = await axios.post('http://localhost:3000/api/captcha/verify', {
+        // const res = await axios.post('http://localhost:3000/api/captcha/verify', {
+        const res = await axios.post('https://bookstore-backend-production-f711.up.railway.app/api/captcha/verify', {
           captcha: this.message.captch.input
         }, {
           withCredentials: true
@@ -128,7 +129,8 @@ export default {
 
     refreshCaptcha() {
       // 更新圖片連結並加時間戳避免快取
-      this.message.captch.image = `http://localhost:3000/api/captcha?t=${Date.now()}`;
+      // this.message.captch.image = `http://localhost:3000/api/captcha?t=${Date.now()}`;
+      this.message.captch.image = `https://bookstore-backend-production-f711.up.railway.app/api/captcha?t=${Date.now()}`;
     },
 
     reloadCaptcha() {
@@ -136,7 +138,8 @@ export default {
       this.refreshCaptcha();
     },
     submitCaptcha() {
-      axios.post('http://localhost:3000/api/captcha/verify', {
+      // axios.post('http://localhost:3000/api/captcha/verify', {
+      axios.post('https://bookstore-backend-production-f711.up.railway.app/api/captcha/verify', {
         captcha: this.message.captch.input
       }, {
         withCredentials: true  // 🔑 讓 session cookie 被帶上

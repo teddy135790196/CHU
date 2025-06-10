@@ -1,4 +1,4 @@
-// src/main/dao/loginDAO.js
+// backend/src/main/dao/loginDAO.js
 
 const db = require('../../connection/_index');
 

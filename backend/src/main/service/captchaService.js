@@ -1,4 +1,4 @@
-// src/main/service/captchaService.js
+// backend/src/main/service/captchaService.js
 
 // 不用 svg-captcha，自己寫
 // 隨機驗證碼

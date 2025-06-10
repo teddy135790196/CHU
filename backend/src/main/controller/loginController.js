@@ -1,4 +1,4 @@
-// src/main/controller/loginController.js
+// backend/src/main/controller/loginController.js
 
 const loginService = require('../service/loginService');
 
