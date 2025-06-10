@@ -5,16 +5,9 @@
     "watchPaths": ["src", "public", "package.json"]
   },
   "start": {
-    "cmd": "npx vite preview --port $PORT"
+    "cmd": "npx vite preview --host 0.0.0.0 --port $PORT"
   },
   "deploy": {
-    "restartPolicyType": "ON_FAILURE",
-    "healthcheckPath": "/"
-  },
-  "ports": [
-    {
-      "port": 4173,
-      "protocol": "HTTP"
-    }
-  ]
+    "restartPolicyType": "ON_FAILURE"
+  }
 }
