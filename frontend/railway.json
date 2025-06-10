@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 {
     "build": {
       "builder": "NIXPACKS",
@@ -17,7 +17,7 @@
       }
     ]
   }
-=======
+
 {
   "build": {
     "builder": "NIXPACKS",
@@ -30,4 +30,4 @@
     "restartPolicyType": "ON_FAILURE"
   }
 }
->>>>>>> 968ff87de62bbfb648c1ec70df40f03628a48b6a
+
