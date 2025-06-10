@@ -15,19 +15,9 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/products">
-              <i class="bi bi-grid me-1"></i>商品列表
-            </router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link" to="/cart">
               <i class="bi bi-cart me-1"></i>購物車
               <span v-if="cartCount > 0" class="badge bg-primary ms-1">{{ cartCount }}</span>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/checkout">
-              <i class="bi bi-credit-card me-1"></i>結帳
             </router-link>
           </li>
         </ul>
@@ -40,8 +30,13 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li>
-                <router-link class="dropdown-item" to="/members">
-                  <i class="bi bi-person me-1"></i>會員中心
+                <router-link class="dropdown-item" to="/cart">
+                  <i class="bi bi-cart me-1"></i>購物車
+                </router-link>
+              </li>
+              <li>
+                <router-link class="dropdown-item" to="/checkout-info">
+                  <i class="bi bi-credit-card me-1"></i>結帳
                 </router-link>
               </li>
               <li><hr class="dropdown-divider"></li>
