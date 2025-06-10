@@ -49,6 +49,7 @@
 <script>
 import axios from 'axios';
 import BaseInput from '@/components/common/BaseInput.vue';
+import { API_BASE_URL } from '@/config/api';
 
 export default {
   name: "ReviewArea",
@@ -106,7 +107,7 @@ export default {
   methods: {
     async validateForm() {
       try {
-        const res = await axios.post('http://localhost:3000/api/captcha/verify', {
+        const res = await axios.post(`${API_BASE_URL}/api/captcha/verify`, {
           captcha: this.message.captch.input
         }, {
           withCredentials: true
@@ -128,7 +129,7 @@ export default {
 
     refreshCaptcha() {
       // 更新圖片連結並加時間戳避免快取
-      this.message.captch.image = `http://localhost:3000/api/captcha?t=${Date.now()}`;
+      this.message.captch.image = `${API_BASE_URL}/api/captcha?t=${Date.now()}`;
     },
 
     reloadCaptcha() {
@@ -136,7 +137,7 @@ export default {
       this.refreshCaptcha();
     },
     submitCaptcha() {
-      axios.post('http://localhost:3000/api/captcha/verify', {
+      axios.post(`${API_BASE_URL}/api/captcha/verify`, {
         captcha: this.message.captch.input
       }, {
         withCredentials: true  // 🔑 讓 session cookie 被帶上

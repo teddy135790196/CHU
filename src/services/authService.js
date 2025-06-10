@@ -1,30 +1,19 @@
+import axios from 'axios';
+import { API_BASE_URL } from '@/config/api';
+
 // 註冊相關的服務
 export const authService = {
   // 註冊新用戶
   async register(userData) {
     try {
-      // 這裡可以添加實際的 API 調用
-      // const response = await axios.post('/api/register', userData);
-      
-      // 模擬 API 調用，使用 userData 進行一些基本驗證
-      // 移除 1 秒的延遲，讓「完成」按鈕立即有反應
-      return new Promise((resolve) => {
-        // 檢查必要的欄位 (此處可添加圖片驗證欄位)
-        if (!userData.username || !userData.password || !userData.email) {
-          throw new Error('缺少必要的註冊資訊');
-        }
-
-        resolve({
-          success: true,
-          message: '註冊成功',
-          data: {
-            username: userData.username,
-            email: userData.email
-          }
-        });
+      const response = await axios.post(`${API_BASE_URL}/api/register`, userData, {
+        withCredentials: true // 確保發送 cookie
       });
+      
+      return response.data;
     } catch (error) {
-      throw new Error('註冊失敗：' + error.message);
+      console.error('註冊服務器錯誤:', error.response ? error.response.data : error.message);
+      throw new Error('註冊失敗：' + (error.response ? error.response.data.message : error.message));
     }
   },
 
