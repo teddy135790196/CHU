@@ -30,7 +30,7 @@
         <div class="other mt-auto">
           <a href="#">忘記密碼</a>
           ｜
-					<a href="./register">加入會員</a>
+          <router-link to="/register">加入會員</router-link>
         </div>
       </form>
     </div>

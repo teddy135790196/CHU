@@ -24,8 +24,12 @@ const router = new Router({
     },
     { 
       path: "/register", 
-      component: Register,
-      meta: { guest: false }
+      name: "register",
+      component: () => import("@/views/Register.vue"),
+      meta: { 
+        requiresAuth: false,
+        guest: true
+      }
     },
     { 
       path: "/checkout-info", 
