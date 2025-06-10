@@ -1,0 +1,9 @@
+DTO（Data Transfer Object）
+
+用途： 描述「資料傳輸格式」，代表從前端或外部接收到的「原始資料」。
+DTO 是「資料的格式模板」，用來讓 controller 與 model 之間交換資料更安全、清晰、可測。
+DTO：「我這層需要什麼資料，就定義什麼欄位」，就相當於篩選欄位的功能
+
+通常用在：
+	Controller → Model → DAO 之間的資料傳遞
+	不一定完全符合資料庫結構（可能有 repassword、驗證碼等暫時性欄位）
