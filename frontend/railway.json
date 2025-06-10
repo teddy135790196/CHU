@@ -2,8 +2,10 @@
   "build": {
     "builder": "NIXPACKS",
     "buildCommand": "npm install && npm run build",
-    "startCommand": "npx vite preview --port $PORT",
     "watchPaths": ["src", "public", "package.json"]
+  },
+  "start": {
+    "cmd": "npx vite preview --port $PORT"
   },
   "deploy": {
     "restartPolicyType": "ON_FAILURE",
