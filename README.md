@@ -22,12 +22,11 @@
 <hr>
 
 <details>
-<summary>0610｜測試railway全端部屬</summary>
+<summary>0610｜railway雲端部屬除錯</summary>
 
-- **新增**
-  - 
 - **更新**
   - 註冊功能檢查邏輯更新
+  - railway的後端除錯完成，可順利用後端網址抓到雲端SQL資料
 
 </details>
 
