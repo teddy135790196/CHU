@@ -23,13 +23,17 @@ SELECT ISBN_id,name,description,price,award,author,imgUrl,series FROM products W
 END 
 `;
 // 小分類 小說、詩詞
+// LIMIT p_limit OFFSET p_offset; 從p_offset個開始偏移，取p_limit個
 const str_create2 = `
-create PROCEDURE 預存_小分類(IN str VARCHAR(100))
+create PROCEDURE 
+預存_小分類_分頁(IN str VARCHAR(15),IN p_limit INT,IN p_offset INT)
 BEGIN
-SELECT ISBN_id,name,description,price,award,author,imgUrl,series FROM products WHERE minor_category = str;
-select count(*) from products WHERE minor_category = str;
+SELECT ISBN_id,name,description,price,award,author,imgUrl,series FROM products WHERE minor_category = str
+LIMIT p_limit OFFSET p_offset;
+select count(*) as totalBook from products WHERE minor_category = str;
 END 
 `;
+
 //作者 精確地找
 const str_create3 = `
 CREATE PROCEDURE 預存_作者_精確(IN str VARCHAR(100))
@@ -37,18 +41,41 @@ BEGIN
 SELECT ISBN_id,name,description,price,award,author,imgUrl,series FROM products WHERE author = str;
 END 
 `;
-// ;
+
+// 人氣排名最高的12個
+const str_create4 = `
+create PROCEDURE 
+綜合人氣排名(IN p_limit INT,IN p_offset INT)
+BEGIN
+SELECT ISBN_id,name,description,price,award,author,imgUrl,series,hit FROM products 
+order by hit
+LIMIT p_limit OFFSET p_offset;
+select count(*) as totalBook from products;
+END 
+`;
+const str_create5 = `
+create PROCEDURE 
+綜合人氣排名(IN p_limit INT)
+BEGIN
+SELECT ISBN_id,name,description,price,award,author,imgUrl,series,hit FROM products 
+order by hit
+LIMIT p_limit ;
+END 
+`;
 const str_call1="CALL 預存_出版類型('書籍')"
 const str_call2="CALL 預存_小分類('小說')"
+const str_spans="CALL 預存_小分類_分頁('小說',10,1)"
 const str_call3="CALL 預存_作者_精確('石心寺')"
+const str_call4="CALL 綜合人氣排名(2)"
 
-const str_drop="DROP PROCEDURE IF EXISTS 預存_小分類;"
+const str_drop="DROP PROCEDURE IF EXISTS 人氣排名;"
 // SET 
     
-
-db.query(str_call2, (err, results) => {
+let sql_rand='UPDATE products SET hit = FLOOR(RAND() * 11);'
+//
+db.query(str_call4, (err, results) => {
   if (err) return console.error("SQL 錯誤:", err);
-//   console.log("新增成功2"); 
+  // console.log("新增成功2"); 
   console.log(results); 
 
 });
