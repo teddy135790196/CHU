@@ -10,7 +10,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 // 後端設置
 import axios from 'axios';           // ✅ 新增
 Vue.prototype.$axios = axios;       // ✅ 新增
-axios.defaults.baseURL = 'http://localhost:3000';  // ✅ 後端 API baseURL，自行依實際情況調整
+axios.defaults.baseURL = 'https://bookstore-backend-production-f711.up.railway.app';  // ✅ 後端 API baseURL，自行依實際情況調整
 
 
 Vue.config.productionTip = false;
