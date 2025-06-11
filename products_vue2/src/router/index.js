@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/home.vue'
-import Product_page from '../views/Product_page.vue'
+import book_detail from '../views/book_detail.vue'
 import sub_page from '../views/sub_page.vue'
 Vue.use(VueRouter)
 
@@ -12,25 +12,16 @@ const routes = [
     component: Home
   },
   // 你可以在這裡添加更多路由 
+
   {
-    path: '/sub',
-    component: sub_page,
-    props:true
-  }, 
-  {
-    path: '/sub/:sub',
+    path: '/sub/:sub?',
     component: sub_page,
     props:true
   },
-  // {
-  //   path: '/sub/:sub?',
-  //   component:()=> import('@/components/sub_block.vue'),
-  //   props:true
-  // },
   {
     path: '/info',
-    name: 'Product_page',
-    component: Product_page
+    name: 'book_detail',
+    component: book_detail
   }
 ]
 

@@ -12,7 +12,7 @@ import book_info from '@/components/book_info.vue'
 
 // 輸出到外面
 export default{
-    name:'Product_page',
+    name:'book_detail',
     // props:['ibsn'],
     components:{sub_nav,book_info},
     mounted(){document.title=this.ibsn}

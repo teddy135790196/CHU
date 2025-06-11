@@ -6,9 +6,9 @@
     
     <!-- 單個商品圖版型 -->
 
-    <div class="col3" v-for="n in books" v-bind:key="n.ISBN_id">
-      <a
-        ><!-- v-bind:href="n.url || '#'" -->
+    <div class="col3" v-for="n in books" v-bind:key="n.ISBN_id" >
+      <a @click="n.ISBN_id"
+        >
         <div class="container-fluid">
           <img class="lazy-img" v-lazy="n.imgUrl" :alt="n.name" />
         </div>
@@ -42,10 +42,11 @@ export default {
     return {
       data: null,
       books: [],
-      total: null,
+      total: null
     };
   },
   props: ["category"], //子元件，等待父傳資料
+  $emit:["isbn"],
   mounted(){this.fetchData();}, // 元件進來時也要抓一次資料
   watch: {
     // 當分類變了就重新查詢
