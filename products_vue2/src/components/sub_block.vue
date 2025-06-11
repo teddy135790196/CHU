@@ -89,3 +89,92 @@ export default {
   }
 };
 </script>
+<style scoped>
+/* 分類頁的作者跟價格 */
+.col3 {
+  /* border: 1px black solid; */
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 390px;
+  margin: 10px auto;
+  padding: 0 auto;
+}
+.authorColor {
+  color: hsl(36, 50.7%, 50%);
+  transition: all 0.55s;
+}
+.authorColor:hover {
+  color: hsl(38, 74%, 24%);
+}
+.PandChartBtn {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: end; /* 垂直置中 */
+}
+/* 分類頁的價格 */
+.PandChartBtn h3 {
+  font-weight: bold;
+  font-family: "標楷體";
+  color: hsl(353, 100%, 29.2%);
+  transition: all 1s;
+}
+/* 分類頁的加入購物車按鈕 */
+.PandChartBtn button {
+  color: white;
+  background-color: hsl(36, 50.7%, 71.4%);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+  transition: all 0.7s;
+}
+.PandChartBtn button:hover {
+  background-color: hsl(353, 100%, 29.2%);
+}
+/*  */
+
+/* 商品小圖 */
+.smProduct img {
+  /* width: 150px; */
+  width: 100%;
+  margin: 15px auto;
+  transition: all 0.5s;
+}
+.smProduct {
+  margin-bottom: 50px;
+  padding: 30px;
+}
+
+/* 書名超連結 */
+.smProduct span {
+  color: rgb(34, 34, 34);
+  padding-bottom: 10px;
+  display: inline-block;
+  transition: all 0.55s;
+}
+.smProduct a:hover span {
+  color: hsl(353, 100%, 29.2%);
+}
+.smProduct h4 span{font-size: 20px;}
+/* 動態產生線 */
+.smProduct h4::after {
+  background-color: hsl(353, 100%, 29.2%);
+  content: "";
+  display: block;
+  width: 30%;
+  height: 2px;
+  transition: all 0.4s;
+}
+.smProduct a:hover h4::after {
+  width: 100%;
+}
+
+/* 滑到變圓角，可惜手機不能有 */
+.smProduct a:hover img {
+  scale: 1.03;
+  border-radius: 20px;
+  z-index: 2;
+}
+
+</style>
