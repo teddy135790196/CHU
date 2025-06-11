@@ -22,6 +22,11 @@ const routes = [
     component: sub_page,
     props:true
   },
+  // {
+  //   path: '/sub/:sub?',
+  //   component:()=> import('@/components/sub_block.vue'),
+  //   props:true
+  // },
   {
     path: '/info',
     name: 'Product_page',

@@ -7,7 +7,7 @@
             <!-- 放輪播 -->
             <!-- 放跑馬燈 -->
              <!-- 放商品格子 -->
-        <subBlock :category="sub" />
+        <sub_block :category="sub" />
         </div>
         
     </div></div>
@@ -15,14 +15,14 @@
 <script>
 // import block from '@/components/book_block.vue'
 import sub_nav from '@/components/sub_nav.vue'
-import subBlock from '@/components/sub_block.vue'
+import sub_block from '@/components/sub_block.vue'
 
 
 // 輸出到外面
 export default{
     name:'sub_page',
     props:['sub'],
-    components:{sub_nav,subBlock},
+    components:{sub_nav,sub_block},
     mounted() {
   document.title =this.sub|| "分類"
 }
