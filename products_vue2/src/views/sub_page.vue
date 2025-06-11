@@ -1,32 +1,37 @@
 <template>
-    <div class="container">
+  <div class="container">
     <div class="row">
-        <!-- 分類導覽nav -->
-        <sub_nav class="col-sm-2"/>
-        <div class="col-sm-10">
-            <!-- 放輪播 -->
-            <!-- 放跑馬燈 -->
-             <!-- 放商品格子 -->
-        <sub_block :category="sub" />
-        </div>
-        
-    </div></div>
+      <!-- 分類導覽nav -->
+      <sub_nav class="col-sm-2" />
+      <div class="col-sm-10">
+        <!-- 放輪播 -->
+        <!-- 放跑馬燈 -->
+        <!-- 放商品格子 格子收到了category跟他回傳了select-isbn(我的這個isbn_id被使用者按下了!)-->
+        <sub_block :category="sub" @select_isbn="getIsbn" />
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 // import block from '@/components/book_block.vue'
-import sub_nav from '@/components/sub_nav.vue'
-import sub_block from '@/components/sub_block.vue'
-
+import sub_nav from "@/components/sub_nav.vue";
+import sub_block from "@/components/sub_block.vue";
 
 // 輸出到外面
-export default{
-    name:'sub_page',
-    props:['sub'],
-    components:{sub_nav,sub_block},
-    mounted() {
-  document.title =this.sub|| "分類"
-}
-}
+export default {
+  name: "sub_page",
+  props: ["sub"],
+  components: { sub_nav, sub_block },
+  mounted() {
+    document.title = this.sub || "分類";
+  },
+  methods: {
+    getIsbn(isbn) {
+      //取到這個isbn了我要跳轉到isbn頁! -->現在的路由要改成...
+      this.$router.push(`/books/${isbn}`);
+    },
+  },
+};
 </script>
 <style>
 /* 不論是nav、block都有用到的 */
@@ -44,7 +49,6 @@ a {
   margin: 0 auto;
   width: 1400px;
 }
-
 
 /* 跑馬燈 */
 /* 宣告動畫marquee */
@@ -86,8 +90,6 @@ a {
   animation-play-state: paused;
 }
 /* 跑馬燈結束 */
-
-
 
 /* 改尺寸 */
 /* 659~577 */

@@ -1,14 +1,10 @@
 <template>
   <div class="row smProduct" v-if="books.length > 0">
-  
-   <!-- <img v-lazy="'/images/_exist.jpg'" /> -->
-  
-    
     <!-- 單個商品圖版型 -->
 
-    <div class="col3" v-for="n in books" v-bind:key="n.ISBN_id" >
-      <a @click="n.ISBN_id"
-        >
+    <div class="col3" v-for="n in books" v-bind:key="n.ISBN_id">
+      <div @click="goToDetail(n.ISBN_id)">
+        <!-- 點擊就觸發 -->
         <div class="container-fluid">
           <img class="lazy-img" v-lazy="n.imgUrl" :alt="n.name" />
         </div>
@@ -23,7 +19,7 @@
             <span>{{ n.name }}</span>
           </h4>
         </div>
-      </a>
+      </div>
       <a href="#" class="authorColor">
         <!-- 若作者超過20就:用三元運算寫 -->
         {{ n.author.length > 17 ? n.author.slice(0, 17) + "..." : n.author }}</a
@@ -42,12 +38,13 @@ export default {
     return {
       data: null,
       books: [],
-      total: null
+      total: null,
     };
   },
   props: ["category"], //子元件，等待父傳資料
-  $emit:["isbn"],
-  mounted(){this.fetchData();}, // 元件進來時也要抓一次資料
+  mounted() {
+    this.fetchData();
+  }, // 元件進來時也要抓一次資料
   watch: {
     // 當分類變了就重新查詢
     category() {
@@ -56,7 +53,8 @@ export default {
     },
   },
   methods: {
-    // 抓網址內資料
+    //函數庫
+    // 抓網址內資料 的自訂函數
     async fetchData() {
       try {
         const baseUrl = "http://localhost:3000/books";
@@ -73,10 +71,12 @@ export default {
         this.data = await response.json();
         //取出一個個
         this.books = this.data.books || this.data; //如果是分類查詢，取 .books；否則取全體
-      //  確認total有沒有值，首頁沒有值->total=null
-      if(this.data.total!==undefined){
-        this.total = this.data.total;}
-      else{this.total=null;}
+        //  確認total有沒有值，首頁沒有值->total=null
+        if (this.data.total !== undefined) {
+          this.total = this.data.total;
+        } else {
+          this.total = null;
+        }
       } catch (error) {
         console.error("失敗內容:", error);
         this.books = [];
@@ -86,8 +86,13 @@ export default {
     // 將小數點無條件捨去的函數
     intPrice(price) {
       return Math.floor(price);
-    }
-  }
+    },
+    //抓到按下的this的ISBN_id
+    goToDetail(ISBN_id) {
+      // div回傳的資料
+      this.$emit("select_isbn", ISBN_id); //通知父元件
+    },
+  },
 };
 </script>
 <style scoped>
@@ -157,7 +162,9 @@ export default {
 .smProduct a:hover span {
   color: hsl(353, 100%, 29.2%);
 }
-.smProduct h4 span{font-size: 20px;}
+.smProduct h4 span {
+  font-size: 20px;
+}
 /* 動態產生線 */
 .smProduct h4::after {
   background-color: hsl(353, 100%, 29.2%);
@@ -177,5 +184,4 @@ export default {
   border-radius: 20px;
   z-index: 2;
 }
-
 </style>

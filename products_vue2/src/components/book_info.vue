@@ -37,80 +37,78 @@
           </p>
         </div>
       </div>
-   
     </div>
     <hr />
     <!-- 卡片 -->
-     <div id="card-1">
-                <!-- 1 -->
-                <div class="card" id="card_spe">
-                  <div class="card-header">
-                    <a
-                      class="card-link"
-                      data-toggle="collapse"
-                      data-parent="#card-1"
-                      href="#card-element-2"
-                      >商品規格▼</a
-                    >
-                  </div>
-                  <div id="card-element-2" class="collapse show">
-                    <div class="card-body">
-                      <p><span>ISBN：</span>999-000-984157-7</p>
-                      <p><span>頁數：</span>962</p>
-                      <p><span>語言：</span>中文</p>
-                    </div>
-                  </div>
-                </div>
+    <div id="card-1">
+      <!-- 1 -->
+      <div class="card" id="card_spe">
+        <div class="card-header">
+          <a
+            class="card-link"
+            data-toggle="collapse"
+            data-parent="#card-1"
+            href="#card-element-2"
+            >商品規格▼</a
+          >
+        </div>
+        <div id="card-element-2" class="collapse show">
+          <div class="card-body">
+            <p><span>ISBN：</span>999-000-984157-7</p>
+            <p><span>頁數：</span>962</p>
+            <p><span>語言：</span>中文</p>
+          </div>
+        </div>
+      </div>
 
-                <!-- 3 -->
-                <div class="card" id="card_del">
-                  <div class="card-header">
-                    <a
-                      class="collapsed card-link"
-                      data-toggle="collapse"
-                      data-parent="#card-1"
-                      href="#card-element-3"
-                    >
-                      運送與售後▼</a
-                    >
-                  </div>
-                  <div id="card-element-3" class="collapse">
-                    <div class="card-body">
-                      <dl>
-                        <dt>配送範圍</dt>
-                        <dd>
-                          -前僅提供台灣本島地區配送服務，外島及海外地區暫不開放配送，敬請見諒。
-                        </dd>
-                        <dt>出貨時間</dt>
-                        <dd>
-                          -訂單確認後一般於 1–3
-                          個工作天內出貨（不含例假日與國定假日）。<br>
-                          -如遇特殊促銷或物流旺季，出貨時間可能延長，還請耐心等候。
-                        </dd>
-                        <dt>配送方式與時間</dt>
-                        <dd>
-                          -我們採用合作物流夥伴配送，配送時間依各地區及物流狀況而異，通常於出貨後
-                          1–3 天送達。
-                        </dd>
-                        <dt>訂單查詢</dt>
-                        <dd>
-                          -出貨後將以電子郵件通知物流單號，您可透過該單號查詢配送進度。<br>-如未收到通知信，請先檢查垃圾郵件匣，或聯絡客服協助處理。
-                        </dd>
-                        <dt>退換貨說明</dt>
-                        <dd>
-                          -若收到商品有破損、缺頁、印刷錯誤等情況，請於收到商品
-                          7
-                          天內聯絡我們，提供照片及訂單資訊，我們將盡快為您處理退換貨。<br>-退換貨僅限商品本身有瑕疵，恕不接受因個人因素（如不喜歡內容）申請退貨。
-                        </dd>
-                        <dt>客服聯絡方式</dt>
-                        <dd>
-                          -如有任何問題，歡迎透過客服信箱或網站聯絡表單與我們聯繫，我們將儘速回覆您。
-                        </dd>
-                      </dl>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <!-- 3 -->
+      <div class="card" id="card_del">
+        <div class="card-header">
+          <a
+            class="collapsed card-link"
+            data-toggle="collapse"
+            data-parent="#card-1"
+            href="#card-element-3"
+          >
+            運送與售後▼</a
+          >
+        </div>
+        <div id="card-element-3" class="collapse">
+          <div class="card-body">
+            <dl>
+              <dt>配送範圍</dt>
+              <dd>
+                -前僅提供台灣本島地區配送服務，外島及海外地區暫不開放配送，敬請見諒。
+              </dd>
+              <dt>出貨時間</dt>
+              <dd>
+                -訂單確認後一般於 1–3
+                個工作天內出貨（不含例假日與國定假日）。<br />
+                -如遇特殊促銷或物流旺季，出貨時間可能延長，還請耐心等候。
+              </dd>
+              <dt>配送方式與時間</dt>
+              <dd>
+                -我們採用合作物流夥伴配送，配送時間依各地區及物流狀況而異，通常於出貨後
+                1–3 天送達。
+              </dd>
+              <dt>訂單查詢</dt>
+              <dd>
+                -出貨後將以電子郵件通知物流單號，您可透過該單號查詢配送進度。<br />-如未收到通知信，請先檢查垃圾郵件匣，或聯絡客服協助處理。
+              </dd>
+              <dt>退換貨說明</dt>
+              <dd>
+                -若收到商品有破損、缺頁、印刷錯誤等情況，請於收到商品 7
+                天內聯絡我們，提供照片及訂單資訊，我們將盡快為您處理退換貨。<br />-退換貨僅限商品本身有瑕疵，恕不接受因個人因素（如不喜歡內容）申請退貨。
+              </dd>
+              <dt>客服聯絡方式</dt>
+              <dd>
+                -如有任何問題，歡迎透過客服信箱或網站聯絡表單與我們聯繫，我們將儘速回覆您。
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -188,5 +186,20 @@ export default {};
 .card-body dt {
   color: hsl(353, 100%, 29.2%);
 }
+
+
+/* 你可能會喜歡_小圖區 */
+.MaybeLike {
+  padding: 10px 0;
+}
+.page-header{
+  background-color: rgba(165, 42, 42, 0.77);
+  padding: 10px 0;}
+.txtMaybeLike{
+  color: white;
+  margin: 12px ;
+}
+.txtMaybeLike i{color: rgba(165, 42, 42, 0.77);
+border-bottom: 1px rgba(165, 42, 42, 0.77) solid;}
 
 </style>

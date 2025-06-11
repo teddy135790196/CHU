@@ -47,7 +47,7 @@
           >
             <!-- <a @click="sub=bk.name" class="subA">{{ bk.name }}</a> -->
             <router-link
-              :to="`/sub/${encodeURIComponent(bk.name)}`"
+              :to="`/${encodeURIComponent(bk.name)}`"
               class="subA"
               >{{ bk.name }}</router-link
             >
@@ -61,7 +61,6 @@
 export default {
   data() {
     return {
-      // sub:'',
       // 出版選項
       pubType: [
         { name: "書籍" },
