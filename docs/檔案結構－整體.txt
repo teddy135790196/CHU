@@ -33,6 +33,8 @@ CHU
 │   ├── jsconfig.json
 │   ├── package-lock.json
 │   ├── package.json
+│   ├── static.json
 │   └── vue.config.js
 │   
+├── nixpacks.toml
 └── README.md

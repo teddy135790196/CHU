@@ -99,7 +99,7 @@ export default {
 					},
 					// 驗證：格式錯誤(英數)
 					errformat: {
-						// username: '暫留',
+						username: '該帳號已被使用',
 						password: '格式不符：密碼需含英文字母與數字',
 						repassword: '格式不符：確認密碼需含英文字母與數字',
 					},
@@ -115,23 +115,40 @@ export default {
 	watch: {
 		localForm: {    // localForm 物件數值變動
 			handler(newVal) {
-				console.log('localForm 變更了：', newVal);
+				// console.log('localForm 變更了：', newVal);
 				this.$emit('updateForm', newVal); // 只 emit 自己的欄位
 			},
 			deep: true // <- 必須加這個
 		}
 	},
 	methods: {
-		// 驗證帳號
-		validateUsername() {
+		// 驗證帳號（使用 async/await）
+		async validateUsername() {
 			if (!this.localForm.username || this.localForm.username.trim() === '') {
 				this.formErrors.username = this.message.quote.uninput.username;
 				return false;
-			} else {
-				this.formErrors.username = '';
-				return true;
+			}
+
+			try {
+				const res = await axios.get('/api/register/check/username', {
+					params: { username: this.localForm.username }
+				});
+
+				// 如果有重複
+				if (res.data.exists) {
+					this.formErrors.username = this.message.quote.errformat.username;
+					return false;
+				} else {
+					this.formErrors.username = '';
+					return true;
+				}
+			} catch (err) {
+				console.error('檢查帳號錯誤', err);
+				this.formErrors.username = '檢查失敗，請稍後再試';
+				return false;
 			}
 		},
+
 
 		// 驗證密碼
 		validatePassword() {

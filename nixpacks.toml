@@ -1,0 +1,16 @@
+[phases.setup]
+nixPkgs = ["nodejs"]
+
+[phases.build]
+cmd = "cd frontend && npm install && npm run build"
+
+[phases.start]
+cmd = "cd frontend && npx serve -s dist"
+
+[start]
+cmd = "cd frontend && npx serve -s dist"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200

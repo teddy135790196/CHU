@@ -9,9 +9,9 @@
 
 
 ## 外部連結
-[我的 Notion 筆記](https://www.notion.so/1d5d07d9b596803dbaabc42779d44084)
-[柯博文老師直播影片](https://www.youtube.com/playlist?list=PLkvu6TsdkQFqvlhPJt8uYu9Lpg8yEzb6h)
-
+[我的 Notion 筆記](https://www.notion.so/1d5d07d9b596803dbaabc42779d44084)<br>
+[柯博文老師直播影片](https://www.youtube.com/playlist?list=PLkvu6TsdkQFqvlhPJt8uYu9Lpg8yEzb6h)<br>
+[俞樺捷老師教學影片(不知網址)]()<br>
 
 
 ## 更新紀錄
@@ -20,6 +20,19 @@
 <summary>👉 點擊這裡展開更新紀錄 👈</summary>
 
 <hr>
+
+<details>
+<summary>0611｜註冊頁面檢查帳號與郵箱是否有重複</summary>
+
+- **新增**
+  - 註冊時檢查帳號與郵箱是否重複的後端API實作
+- **更新**
+  - railway雲端部屬 v0.3 完成，可從前端部屬丟data到雲端資料庫
+
+- **補充**
+  - 這次的後端就是用看GPT的內容純手打一次，確實有了一些心得，對後端的聯繫也有了一些感悟，準備將之前直接貼上的也手打一次
+
+</details>
 
 <details>
 <summary>0610｜railway雲端部屬除錯</summary>
@@ -79,6 +92,9 @@
   - 後端網站檔案重構(邏輯：index => routes => controllers => models => dao )
   - 註冊功能的資料順利上傳SQL
 
+- **補充**
+  - 感謝尤乙淳同學提供今天上課內容檔案
+
 </details>
 
 <details>
@@ -100,6 +116,9 @@
 - **新增**
   - 註冊頁面的驗證碼圖片(需用cmd開後端)
   - 註冊頁面的驗證功能，但還需搞懂(需用cmd開後端)
+
+- **補充**
+  - 測試HTML連接後端部屬沒問題，但VUE還未測試
 
 </details>
 
@@ -132,6 +151,9 @@
 - **更新**
   - 登入頁面響應式完成
 
+- **補充**
+  - WEB>membersArea.js的說明不會再丟了吧，今天完全沒問純手寫出來了！
+
 </details>
 
 <details>
@@ -150,6 +172,9 @@
   - CSS響應式標準模板(感謝尤乙淳同學提供的樣板)
 - **更新**
   - 開始將登入頁面的CSS完全重製，目前進度到設定版面寬度
+
+- **補充**
+  - 響應式用的好煩，不太受控。但有尤提供的區塊寫法後好寫多了
 
 </details>
 
@@ -204,6 +229,9 @@
   - 註冊頁面基本驗證功能完成
   - 註冊頁面基本響應式設計完成
 
+- **補充**
+  - v-model 傳資料一定要傳需要的值就好，不要整個物件都丟進去，深刻的教訓
+
 </details>
 
 <details>
@@ -233,6 +261,9 @@
   - 增加 檔案結構與待更新 備忘文件
 - **更新**
   - 將 登入與註冊 轉成VUE寫法(src資料夾)
+
+- **補充**
+  - 會員的個人簡介摺疊有夠難做
 
 </details>
 

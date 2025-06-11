@@ -3,7 +3,7 @@
 const loginDAO = require('../dao/loginDAO');
 
 function findUserByUsername(loginDto, callback) {
-  loginDAO.findByUsername(loginDto.username, callback);
+  loginDAO.selectLogin(loginDto.username, callback);
 }
 
 module.exports = {

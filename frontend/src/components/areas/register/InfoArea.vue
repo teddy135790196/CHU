@@ -128,7 +128,7 @@ export default {
 	watch: {
 		localForm: {    // localForm 物件數值變動
 			handler(newVal) {
-				console.log('localForm 變更了：', newVal);
+				// console.log('localForm 變更了：', newVal);
 				this.$emit('updateForm', newVal); // 只 emit 自己的欄位
 			},
 			deep: true // <- 必須加這個
