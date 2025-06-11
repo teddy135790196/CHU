@@ -107,3 +107,50 @@ export default {
 };
 
 </script>
+<style scoped>
+/* nav的css */
+/* 左側分類 */
+.cat:hover {
+  background-color: hsla(36, 51%, 50%, 0.3);
+  border-radius: 20px;
+}
+.cat {
+  padding: 10px;
+  margin: 3px 0;
+  transition: all 0.7s;
+}
+#bookSC li {
+  font-size: 20px;
+}
+#bookSC a {
+  font-size: 18px;
+}
+/* 改icon大小 */
+.fa-solid {
+  scale: 0.7;
+  color: hsl(36, 50.7%, 50%);
+}
+/* 細項的li整體往左移 */
+.subA {
+  display: block;
+  margin-left: 20px;
+  padding: 10px 0;
+  font-size: 20px;
+}
+.subA,
+.subA a {
+  color: hsl(353, 51%, 33%);
+  transition: all 0.55s;
+}
+.subA:hover,
+.subA a:hover {
+  color: hsl(36, 50.7%, 50%);
+}
+
+/* 子標籤隱藏 */
+#litShow {
+  display: none;
+}
+
+
+</style>

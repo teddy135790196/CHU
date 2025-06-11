@@ -21,3 +21,21 @@ export default{
 }
 }
 </script>
+<style>
+/* 不論是nav、block都有用到的 */
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a:hover,
+a {
+  text-decoration: none;
+}
+/* 設定寬度跟置中 */
+.container {
+  margin: 0 auto;
+  width: 1300px;
+}
+
+</style>

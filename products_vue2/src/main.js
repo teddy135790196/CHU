@@ -6,7 +6,6 @@ import router from './router'
 
 // 產品頁css匯入
 import '@/assets/css/bootstrap.min.css'
-import '@/assets/css/productCss.css'
 
 // 匯入延遲加載套件
 import VueLazyloadModule from 'vue-lazyload';
