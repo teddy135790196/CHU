@@ -3,7 +3,7 @@
     <!-- 單個商品圖版型 -->
 
     <div class="col3" v-for="n in books" v-bind:key="n.ISBN_id">
-      <div @click="goToDetail(n.ISBN_id)">
+      <div id="block" @click="goToDetail(n.ISBN_id)">
         <!-- 點擊就觸發 -->
         <div class="container-fluid">
           <img class="lazy-img" v-lazy="n.imgUrl" :alt="n.name" />
@@ -159,7 +159,7 @@ export default {
   display: inline-block;
   transition: all 0.55s;
 }
-.smProduct a:hover span {
+#block:hover span {
   color: hsl(353, 100%, 29.2%);
 }
 .smProduct h4 span {
@@ -174,12 +174,12 @@ export default {
   height: 2px;
   transition: all 0.4s;
 }
-.smProduct a:hover h4::after {
+#block:hover h4::after {
   width: 100%;
 }
 
 /* 滑到變圓角，可惜手機不能有 */
-.smProduct a:hover img {
+#block:hover img {
   scale: 1.03;
   border-radius: 20px;
   z-index: 2;
