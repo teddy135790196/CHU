@@ -113,7 +113,42 @@
 </template>
 <script>
 // import
-export default {};
+export default {
+data(){return{data:null,book:[]}},
+props:["id"],
+mounted(){this.fetchData();},
+methods:{
+async fetchData() {
+      try {
+        let url = "http://localhost:3000/one_book/";
+        if (this.id) {
+          url += `/${encodeURIComponent(this.id)}`;
+        }
+        const response = await fetch(url);
+        // 檢查是否為 HTTP 200～299
+        if (!response.ok) {
+          throw new Error(`HTTP 錯誤：${response.status}`);
+        }
+
+        this.data = await response.json();
+        //取出一個個
+        this.books = this.data.books ;
+        
+      } catch (error) {
+        console.error("失敗內容:", error);
+        this.books = [];
+        this.total = 0;
+      }
+    },
+    // 將小數點無條件捨去的函數
+    intPrice(price) {
+      return Math.floor(price);
+    }
+
+}
+
+
+};
 </script>
 <!-- css -->
 <style scoped>
