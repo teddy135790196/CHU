@@ -8,9 +8,17 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 
 // 後端設置
-import axios from 'axios';           // ✅ 新增
-Vue.prototype.$axios = axios;       // ✅ 新增
-axios.defaults.baseURL = 'https://chu-frontend-production.up.railway.app/';  // ✅ 後端 API baseURL，自行依實際情況調整
+import axios from 'axios';
+ 
+const BASE_URL = 'bookstore-backend-production-f711.up.railway.app/'; // ✅ 後端 API baseURL，自行依實際情況調整
+// const BASE_URL = 'http://localhost:3000'; // ✅ 後端 API baseURL，自行依實際情況調整
+
+
+// this.$axios.post
+axios.defaults.baseURL = BASE_URL;
+Vue.prototype.$axios = axios;
+// 把 baseURL 也綁到 Vue 原型方便全局取用
+Vue.prototype.$apiBaseUrl = BASE_URL;
 
 
 Vue.config.productionTip = false;

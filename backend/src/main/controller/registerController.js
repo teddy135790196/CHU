@@ -2,9 +2,9 @@
 
 const registerService = require('../service/registerService');
 
-exports.registerUser = async (req, res) => {
+exports.insertRegisterData = async (req, res) => {
   try {
-    const result = await registerService.registerUser(req.body);
+    const result = await registerService.insertRegisterData(req.body);  // req.body => 前端傳來的表單
     // 201 伺服器有建立新資源
     res.status(201).json({ message: '註冊成功', userId: result.id });
   } catch (err) {

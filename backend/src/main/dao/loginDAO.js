@@ -2,21 +2,30 @@
 
 const db = require('../../connection/_index');
 
-function selectLogin(username, callback) {
+function selectLoginUsername(loginForm, callback) {		// loginForm => 前端傳來的表單
 	const sql = `
 		SELECT * FROM users 
 		WHERE username = ? 
-		LIMIT 1
+		LIMIT 1 
 	`;
 
-	db.query(sql, [username], (err, results) => {
-		if (err) return callback(err, null);
-		if (results.length === 0) return callback(null, null);
-		callback(null, results[0]);
-	});
-}
+	const params = [
+		loginForm.username,
+	];
 
-module.exports = {
-	selectLogin,
+	db.query(sql, params, (err, result) => {
+		if(err) {
+			callback(err, null);
+			return;
+		}
+		if(result.length === 0) {
+			callback(null, null);
+			return;
+		}
+		callback(null, result[0]);
+	});
 };
 
+module.exports = {
+	selectLoginUsername,
+};

@@ -2,8 +2,8 @@
 
 const db = require('../../connection/_index');
 
-// 自訂函式名稱
-function insertRegister(user, callback) {
+function insertRegisterData(registerForm, callback) {	// registerForm => 前端傳來的表單
+
 	// 執行SQL語法(資料表名稱：users 擷取欄位)
 	const sql = `
 		INSERT INTO users (username, password, nickname, gender, birth, email, phone, registration_time)
@@ -11,29 +11,27 @@ function insertRegister(user, callback) {
 	`;
 
 	// 一個資料 對 一個 ?
+	// user.名稱 為前端form表單參數名稱(待驗證)
 	const params = [
-		user.username,
-		user.password,
-		user.nickname,
-		user.gender,
-		user.birth,
-		user.email,
-		user.phone,
+		registerForm.username,
+		registerForm.password,
+		registerForm.nickname,
+		registerForm.gender,
+		registerForm.birth,
+		registerForm.email,
+		registerForm.phone,
 	];
 
-	// 固定寫法
+	// 固定寫法(裡面的兩個callback功能未搞清)
 	db.query(sql, params, (err, result) => {
-		// 有錯誤，就立刻呼叫上層 callback，並中斷函式（用 return）
 		if (err) {
-			// callback將資料丟給呼叫該方法的對象
 			callback(err, null);
 			return;
 		}
-		// 結構原則：「錯誤為第一參數、資料為第二參數」
-		callback(null, { id: result.insertId });
+		callback(null, { id: result.insertID });
 	});
 }
 
 module.exports = {
-	insertRegister,
+	insertRegisterData,
 };

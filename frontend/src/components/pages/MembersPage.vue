@@ -1,83 +1,81 @@
 <template>
-  <div class="row">
-    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 d-flex justify-content-center">
-      <div class="content members d-flex flex-column">
+  <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 d-flex justify-content-center">
+    <div class="content members d-flex flex-column">
 
-        <!-- 個人資訊區 -->
-        <div class="userInformation">
-          <div class="row">
+      <!-- 個人資訊區 -->
+      <div class="userInformation">
+        <div class="row">
 
-            <!-- 頭像 -->
-            <div class="col-12 col-md-4 col-lg-3">
-              <div class="userAvatar d-flex justify-content-center">
-                <img :src="profileImg" @error="setDefaultImage" alt="用戶頭像">
-              </div>
-            </div>
-
-            <!-- 暱稱 -->
-            <div class="col-12 col-md-8 col-lg-9 d-flex justify-content-between align-items-start">
-              <div class="userNick">
-                <h3 class="mb-0">長安不問與小僧無名與東流</h3>
-              </div>
-              <!-- 出版按鈕 -->
-              <!-- <a class="bg-warning" href="./publisherArea.html">我要出版！</a> -->
-            </div>
-
-
-          </div>
-        </div>
-
-
-        <!-- 個人資料 - 手風琴 -->
-        <div class="accordion accordion-custom" id="userAccordion">
-          <div class="row">
-
-            <!-- 對齊用 -->
-            <!-- <div class="col-3"></div> -->
-            <!-- offset-3 會產生和 .col-3 一樣的空間，但語意是「向右偏移 3 欄」，這是更推薦的做法。 -->
-
-            <!-- 個人簡介 -->
-            <div class="col-12 col-md-8 offset-md-4 col-lg-9 offset-lg-3">
-              <div class="accordion-item">
-
-                <!-- 固定位置的手風琴標題 -->
-                <h2 class="accordion-header fixed-header" id="headingSummary">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseSummary" aria-expanded="false" aria-controls="collapseSummary">
-                    查看個人簡介
-                  </button>
-                </h2>
-
-                <!-- 展開內容區塊 -->
-                <div id="collapseSummary" class="accordion-collapse collapse" aria-labelledby="headingSummary"
-                  data-bs-parent="#userAccordion">
-                  <!-- 限制120字 -->
-                  <div class="accordion-body">
-                    天地玄黃，宇宙洪荒。日月盈昃，辰宿列張。寒來暑往，秋收冬藏。閏餘成歲，律召調陽。雲騰致雨，露結為霜。金生麗水，玉出崑岡。劍號巨闕，珠稱夜光。果珍李柰，菜重芥薑。海鹹河淡，鱗潛羽翔。龍師火帝，鳥官人皇。始制文字，乃服衣裳。推位讓國，有虞陶唐。
-                  </div>
-                </div>
-
-              </div>
+          <!-- 頭像 -->
+          <div class="col-12 col-md-4 col-lg-3">
+            <div class="userAvatar d-flex justify-content-center">
+              <img :src="profileImg" @error="setDefaultImage" alt="用戶頭像">
             </div>
           </div>
 
+          <!-- 暱稱 -->
+          <div class="col-12 col-md-8 col-lg-9 d-flex justify-content-between align-items-start">
+            <div class="userNick">
+              <h3 class="mb-0">長安不問與小僧無名與東流</h3>
+            </div>
+            <!-- 出版按鈕 -->
+            <!-- <a class="bg-warning" href="./publisherArea.html">我要出版！</a> -->
+          </div>
+
+
         </div>
-
-
-        <!-- 管理選單 -->
-        <div class="menu">
-          <div class="menu-item active" data-section="bookcase">收藏書櫃</div>
-          <div class="menu-item" data-section="purchase">消費紀錄</div>
-          <div class="menu-item" data-section="settings">個人設定</div>
-        </div>
-
-        <BookcaseArea />
-        <PurchaseArea />
-        <SettingsArea />
-
-        <!-- 遮罩 -->
-        <div class="overlay" id="overlay"></div>
       </div>
+
+
+      <!-- 個人資料 - 手風琴 -->
+      <div class="accordion accordion-custom" id="userAccordion">
+        <div class="row">
+
+          <!-- 對齊用 -->
+          <!-- <div class="col-3"></div> -->
+          <!-- offset-3 會產生和 .col-3 一樣的空間，但語意是「向右偏移 3 欄」，這是更推薦的做法。 -->
+
+          <!-- 個人簡介 -->
+          <div class="col-12 col-md-8 offset-md-4 col-lg-9 offset-lg-3">
+            <div class="accordion-item">
+
+              <!-- 固定位置的手風琴標題 -->
+              <h2 class="accordion-header fixed-header" id="headingSummary">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseSummary" aria-expanded="false" aria-controls="collapseSummary">
+                  查看個人簡介
+                </button>
+              </h2>
+
+              <!-- 展開內容區塊 -->
+              <div id="collapseSummary" class="accordion-collapse collapse" aria-labelledby="headingSummary"
+                data-bs-parent="#userAccordion">
+                <!-- 限制120字 -->
+                <div class="accordion-body">
+                  天地玄黃，宇宙洪荒。日月盈昃，辰宿列張。寒來暑往，秋收冬藏。閏餘成歲，律召調陽。雲騰致雨，露結為霜。金生麗水，玉出崑岡。劍號巨闕，珠稱夜光。果珍李柰，菜重芥薑。海鹹河淡，鱗潛羽翔。龍師火帝，鳥官人皇。始制文字，乃服衣裳。推位讓國，有虞陶唐。
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- 管理選單 -->
+      <div class="menu">
+        <div class="menu-item active" data-section="bookcase">收藏書櫃</div>
+        <div class="menu-item" data-section="purchase">消費紀錄</div>
+        <div class="menu-item" data-section="settings">個人設定</div>
+      </div>
+
+      <BookcaseArea />
+      <PurchaseArea />
+      <SettingsArea />
+
+      <!-- 遮罩 -->
+      <div class="overlay" id="overlay"></div>
     </div>
   </div>
 </template>
@@ -276,7 +274,7 @@ export default {
 			padding-bottom: 0.5rem auto;
 			background-color: transparent;
 
-			font-family: '王翰宗顏楷體';
+			font-family: '標楷體';
       font-size: 24px;
 
 			/* 改變 hr 顏色 */

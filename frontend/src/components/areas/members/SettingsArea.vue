@@ -354,7 +354,7 @@ export default {
 			width: 118px;
 			height: 40px;
 			font-size: 22px;
-			font-family: "王翰宗顏楷體";
+			font-family: "標楷體";
 			color: var(--second-color);
 			line-height: 40px;
 		}

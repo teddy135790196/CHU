@@ -1,7 +1,7 @@
 <template>
 	<!-- Step 1 -->
 	<div :class="['step', { 'active-step': nowStep === 1 }]">
-		<h4>{{message.stepTitle}}</h4>
+		<h4>{{ message.stepTitle }}</h4>
 
 		<!-- <p>目前步驟：{{ nowStep }}</p>
 		<p>目前步驟：{{ localForm.username }}</p>
@@ -22,13 +22,16 @@
       </span>
     </div> -->
 
-		<BaseInput id="username" type="text" :label="message.inputLabel.username" :placeholder="message.inputPlahold.username" :quote="message.quote.username"
+		<BaseInput id="username" type="text" :label="message.baseInput.label.username"
+			:placeholder="message.baseInput.plahold.username" :quote="message.baseInput.quote.username"
 			:errorMessage="formErrors.username" @blur="validateUsername" v-model="localForm.username" />
 
-		<BaseInput id="password" type="password" :label="message.inputLabel.password" :placeholder="message.inputPlahold.password" :quote="message.quote.password"
-		:error-message="formErrors.password" @blur="validatePassword" v-model="localForm.password" />
+		<BaseInput id="password" type="password" :label="message.baseInput.label.password"
+			:placeholder="message.baseInput.plahold.password" :quote="message.baseInput.quote.password"
+			:error-message="formErrors.password" @blur="validatePassword" v-model="localForm.password" />
 
-		<BaseInput id="repassword" type="password" :label="message.inputLabel.repassword" :placeholder="message.inputPlahold.repassword" :quote="message.quote.repassword"
+		<BaseInput id="repassword" type="password" :label="message.baseInput.label.repassword"
+			:placeholder="message.baseInput.plahold.repassword" :quote="message.baseInput.quote.repassword"
 			:error-message="formErrors.repassword" @blur="validateRepassword" v-model="localForm.repassword" />
 	</div>
 </template>
@@ -66,48 +69,55 @@ export default {
 			message: {
 				stepTitle: '【壹．設定您的帳號與密碼】',
 
-				// input => label
-				inputLabel: {
-					username: '帳號',
-					password: '密碼',
-					repassword: '確認密碼',
+				baseInput: {
+					label: {
+						username: '帳號',
+						password: '密碼',
+						repassword: '確認密碼',
+					},
+					plahold: {
+						username: '範例：myusername',
+						password: '範例：A123456789',
+						repassword: '範例：A123456789',
+					},
+					quote: {
+						// 預設提示文字
+						username: '請輸入您的帳號',
+						password: '請輸入8位以上英數混合密碼',
+						repassword: '請輸入8位以上英數混合密碼',
+					},
+					quoteErr: {
+						// 驗證：無輸入
+						uninput: {
+							username: '格式不符：帳號不得為空',
+							password: '格式不符：密碼不得為空',
+							repassword: '格式不符：確認密碼不得為空',
+						},
+						// 驗證：格式錯誤(長度太短)
+						length_short: {
+							username: '格式不符：帳號長度至少 6 字元',
+							password: '格式不符：密碼長度至少 8 碼',
+							repassword: '格式不符：確認密碼長度至少 8 碼',
+						},
+						// 驗證：格式錯誤(長度太長)
+						length_long: {
+							username: '格式不符：帳號長度不能超過 30 字元',
+							password: '格式不符：密碼長度不能超過 36 碼',
+							repassword: '格式不符：確認密碼長度不能超過 36 碼',
+						},
+						// 驗證：格式錯誤(英數)
+						format: {
+							username: '格式不符：帳號只能包含英文字母、數字或底線',
+							password: '格式不符：密碼需含英文字母與數字',
+							repassword: '格式不符：確認密碼需含英文字母與數字',
+						},
+						// 密碼不一致
+						notmatch: '輸入錯誤：與設定密碼不一致',
+						// 帳號重複
+						reUsername: '該帳號已被使用',
+					}
 				},
 
-				// input => placeholder
-				inputPlahold: {
-					username: '範例：myusername',
-					password: '範例：A123456789',
-					repassword: '範例：A123456789',
-				},
-
-				quote: {
-					// 預設提示文字
-					username: '請輸入您的帳號',
-					password: '請輸入8位以上英數混合密碼',
-					repassword: '請輸入8位以上英數混合密碼',
-					// 驗證：無輸入
-					uninput: {
-						username: '格式不符：帳號不得為空',
-						password: '格式不符：密碼不得為空',
-						repassword: '格式不符：確認密碼不得為空',
-					},
-					// 驗證：格式錯誤(長度)
-					errformatlen: {
-						// username: '暫留',
-						password: '格式不符：密碼需至少 8 碼',
-						repassword: '格式不符：確認密碼需至少 8 碼',
-					},
-					// 驗證：格式錯誤(英數)
-					errformat: {
-						username: '該帳號已被使用',
-						password: '格式不符：密碼需含英文字母與數字',
-						repassword: '格式不符：確認密碼需含英文字母與數字',
-					},
-					// 密碼不一致
-					notmatch: '輸入錯誤：與設定密碼不一致',
-				},
-				
-				
 			},
 		};
 	},
@@ -124,21 +134,41 @@ export default {
 	methods: {
 		// 驗證帳號（使用 async/await）
 		async validateUsername() {
-			if (!this.localForm.username || this.localForm.username.trim() === '') {
-				this.formErrors.username = this.message.quote.uninput.username;
+			const username = this.localForm.username;
+			const rule = /^[A-Za-z0-9_]+$/.test(username);	// 只能包含英文字母、數字或底線
+			if (!username || username.trim() === '') {
+				// 驗證：無輸入
+				this.formErrors.username = this.message.baseInput.quoteErr.uninput.username;
+				return false;
+			} else if (username.length < 6) {
+				// 驗證：格式錯誤(長度太短)
+				this.formErrors.username = this.message.baseInput.quoteErr.length_short.username;
+				return false;
+			} else if (username.length > 30) {
+				// 驗證：格式錯誤(長度太長)
+				this.formErrors.username = this.message.baseInput.quoteErr.length_long.username;
+				return false;
+			} else if (!rule) {
+				// 驗證：格式錯誤(英數)
+				this.formErrors.username = this.message.baseInput.quoteErr.format.username;
 				return false;
 			}
 
+			
+			// 通過前面同步驗證，再去呼叫後端查重（async）
 			try {
-				const res = await axios.get('/api/register/check/username', {
+				// 查詢資料庫看帳號是否重複
+				const res = await this.$axios.get('/api/register/check/username', {
 					params: { username: this.localForm.username }
 				});
 
 				// 如果有重複
 				if (res.data.exists) {
-					this.formErrors.username = this.message.quote.errformat.username;
+					// 驗證：帳號重複
+					this.formErrors.username = this.message.baseInput.quoteErr.reUsername;
 					return false;
 				} else {
+					// 驗證：通過！
 					this.formErrors.username = '';
 					return true;
 				}
@@ -157,15 +187,19 @@ export default {
 
 			if (!password || password.trim() === '') {
 				// 驗證：無輸入
-				this.formErrors.password = this.message.quote.uninput.password;
+				this.formErrors.password = this.message.baseInput.quoteErr.uninput.password;
 				return false;
 			} else if (password.length < 8) {
-				// 驗證：格式錯誤(長度)
-				this.formErrors.password = this.message.quote.errformatlen.password;
+				// 驗證：格式錯誤(長度太短)
+				this.formErrors.password = this.message.baseInput.quoteErr.length_short.password;
+				return false;
+			} else if (password.length > 36) {
+				// 驗證：格式錯誤(長度太長)
+				this.formErrors.password = this.message.baseInput.quoteErr.length_long.password;
 				return false;
 			} else if (!rule) {
 				// 驗證：格式錯誤(英數)
-				this.formErrors.password = this.message.quote.errformat.password;
+				this.formErrors.password = this.message.baseInput.quoteErr.format.password;
 				return false;
 			} else {
 				// 驗證：通過！
@@ -182,19 +216,23 @@ export default {
 
 			if (!repassword || repassword.trim() === '') {
 				// 驗證：無輸入
-				this.formErrors.repassword = this.message.quote.uninput.repassword;
+				this.formErrors.repassword = this.message.baseInput.quoteErr.uninput.repassword;
 				return false;
 			} else if (repassword.length < 8) {
-				// 驗證：格式錯誤(長度)
-				this.formErrors.repassword = this.message.quote.errformatlen.repassword;
+				// 驗證：格式錯誤(長度太短)
+				this.formErrors.repassword = this.message.baseInput.quoteErr.length_short.repassword;
+				return false;
+			} else if (repassword.length > 36) {
+				// 驗證：格式錯誤(長度太長)
+				this.formErrors.repassword = this.message.baseInput.quoteErr.length_long.repassword;
 				return false;
 			} else if (!rule) {
 				// 驗證：格式錯誤(英數)
-				this.formErrors.repassword = this.message.quote.errformat.repassword;
+				this.formErrors.repassword = this.message.baseInput.quoteErr.format.repassword;
 				return false;
 			} else if (repassword !== password) {
 				// 驗證：密碼不一致
-				this.formErrors.repassword = this.message.quote.notmatch;
+				this.formErrors.repassword = this.message.baseInput.quoteErr.notmatch;
 				return false;
 			} else {
 				// 驗證：通過！

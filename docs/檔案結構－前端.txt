@@ -45,6 +45,7 @@ src/
 │   │   └── HeaderArea.vue
 │   │
 │   └──📁page/							◎ 頁面元件
+│       ├── ForgotPasswordPage.vue
 │       ├── LoginPage.vue
 │       ├── LoginWelcomePage.vue
 │       ├── MembersPage.vue
@@ -56,9 +57,10 @@ src/
 │			
 │			
 ├──📁views/							【展示視窗】
-│   ├── LoginView.vue
 │   ├── AdminHomeView.vue
 │   ├── AdminView.vue
+│   ├── ForgotPasswordView.vue
+│   ├── LoginView.vue
 │   ├── MembersView.vue
 │   └── RegisterView.vue
 │

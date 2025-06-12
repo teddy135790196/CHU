@@ -22,6 +22,17 @@
 <hr>
 
 <details>
+<summary>0612｜優化後端API</summary>
+
+- **新增**
+  - 註冊時檢查帳號與郵箱是否重複的後端API實作
+- **更新**
+  - 優化後端API，將 login、register 純手打一次
+  - 將前端連結後端網址全部用 main.js 變更
+
+</details>
+
+<details>
 <summary>0611｜註冊頁面檢查帳號與郵箱是否有重複</summary>
 
 - **新增**
