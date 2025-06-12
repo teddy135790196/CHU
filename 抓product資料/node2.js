@@ -17,8 +17,20 @@ const db = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
 });
-
-// 取得全部商品資料
+// 取得搜尋欄位商品資料
+app.get("/search/con=:con&kw=:keyWord",(req,res)=>{
+  const Bcon=req.params.con; //針對條件:我要作者:autohr、書名:name、系列:series、isbn:ISBN_id
+  const BkeyWord=req.params.keyWord; //針對關鍵字
+  const str_spans = "CALL 搜尋書(?,?)";
+  
+  db.query(str_spans,[BkeyWord,Bcon],(err,results)=>{
+    if (err) return res.status(500).json({ error: "查詢失敗", details: err });
+     res.json({
+      books: results[0] 
+    });
+  });
+});
+// 取得首頁12本人氣書資料
 app.get("/books",(req,res)=>{
   const Blimit = 12; //每頁12本書
   const str_spans = "CALL 綜合人氣排名(?)";
