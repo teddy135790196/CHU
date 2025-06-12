@@ -9,19 +9,31 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 // 後端設置
 import axios from 'axios';
- 
-const BASE_URL = 'bookstore-backend-production-f711.up.railway.app/'; // ✅ 後端 API baseURL，自行依實際情況調整
-// const BASE_URL = 'http://localhost:3000'; // ✅ 後端 API baseURL，自行依實際情況調整
 
-
+// const BASE_URL = process.env.BACKEND_URL;
+const BASE_URL = 'http://localhost:3000';
 // this.$axios.post
 axios.defaults.baseURL = BASE_URL;
+
 Vue.prototype.$axios = axios;
 // 把 baseURL 也綁到 Vue 原型方便全局取用
 Vue.prototype.$apiBaseUrl = BASE_URL;
 
-
+// 設定 Vue 的生產提示為 false，避免在生產環境中顯示提示訊息
+// 這樣可以減少不必要的控制台輸出
 Vue.config.productionTip = false;
+
+
+// 設定 axios 請求攔截器，將 token 加入到請求頭中
+// 這樣可以在每次發送請求時自動攜帶 token
+axios.interceptors.request.use(config => {
+	const token = localStorage.getItem('token');
+	if (token) {
+		config.headers.Authorization = `Bearer ${token}`;
+	}
+	return config;
+});
+
 
 // 權限驗證（後台）
 router.beforeEach((to, from, next) => {

@@ -5,7 +5,7 @@
 		<ul class="titleNavIcon">
 			<li class="logo">
 				<h1>
-					<router-link to="/"><img src="icon/logo.png" alt="棲遲書店" /></router-link>
+					<router-link to="/"><img src="@/assets/images/icon.png" alt="棲遲書店" /></router-link>
 				</h1>
 				<div class="logoUpArror">▲</div>
 				<div class="logoDialog">回到首頁</div>

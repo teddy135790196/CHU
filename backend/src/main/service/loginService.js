@@ -32,7 +32,7 @@ function selectLoginUsername(loginForm) {
 
 			// 登入成功回傳部分資料
 			resolve({
-				id: result.id,
+				id: result.user_id,
 				username: result.username,
 				message: '登入成功',
 			})

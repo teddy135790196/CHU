@@ -27,7 +27,7 @@
 			<div class="inp_modle">
 				<label>暱稱</label>
 				<input type="text" value="長安不問" class="edit-input" style="display:none;">
-				<p class="display-text">長安不問</p>
+				<p class="display-text">{{info.nickname}}</p>
 			</div>
 			<div class="inp_modle">
 				<label class="form-label">性別</label>
@@ -36,19 +36,22 @@
 					<option>女性</option>
 					<option>隱藏</option>
 				</select>
-				<p class="display-text">男性</p>
+				<p class="display-text">{{info.gender}}</p>
 			</div>
 			<div class="inp_modle">
 				<label class="form-label">生日</label>
-				<input type="date" value="2000-01-01" class="edit-input" style="display:none;">
-				<p class="display-text">2000-01-01</p>
+				<input type="date" v-model="info.birthday" class="edit-input" style="display:none;">
+				<p class="display-text">{{info.birthday}}</p>
 			</div>
 			<div class="inp_modle">
 				<label class="form-label">個人簡介</label>
-				<textarea class="edit-input"
-					style="display:none; resize: none;">天地玄黃，宇宙洪荒。日月盈昃，辰宿列張。寒來暑往，秋收冬藏。閏餘成歲，律召調陽。雲騰致雨，露結為霜。金生麗水，玉出崑岡。劍號巨闕，珠稱夜光。果珍李柰，菜重芥薑。海鹹河淡，鱗潛羽翔。龍師火帝，鳥官人皇。始制文字，乃服衣裳。推位讓國，有虞陶唐。弔民伐罪，周發殷湯。坐朝問道，垂拱平章。愛育黎首，臣伏戎羌。遐邇一體，率賓歸王。鳴鳳在樹，白駒食場。化被草木，賴及萬方。蓋此身髮，四大五常。恭惟鞠養，豈敢毀傷。女慕貞絜，男效才良。知過必改，得能莫忘。罔談彼短，靡恃己長。信使可覆，器欲難量。墨悲絲淬，詩讚羔羊。</textarea>
+				<textarea
+					v-model="info.introduction"
+					class="edit-input"
+					style="display:none; resize: none;">
+					</textarea>
 				<p class="display-text  text-truncate">
-					或者直接在上面改。天地玄黃，宇宙洪荒。日月盈昃，辰宿列張。寒來暑往，秋收冬藏。閏餘成歲，律召調陽。雲騰致雨，露結為霜。金生麗水，玉出崑岡。劍號巨闕，珠稱夜光。果珍李柰，菜重芥薑。海鹹河淡，鱗潛羽翔。龍師火帝，鳥官人皇。始制文字，乃服衣裳。推位讓國，有虞陶唐。弔民伐罪，周發殷湯。坐朝問道，垂拱平章。愛育黎首，臣伏戎羌。遐邇一體，率賓歸王。鳴鳳在樹，白駒食場。化被草木，賴及萬方。蓋此身髮，四大五常。恭惟鞠養，豈敢毀傷。女慕貞絜，男效才良。知過必改，得能莫忘。罔談彼短，靡恃己長。信使可覆，器欲難量。墨悲絲淬，詩讚羔羊。
+					{{info.introduction}}
 				</p>
 			</div>
 
@@ -67,8 +70,8 @@
 					<span class="badge bg-success">已驗證</span>
 				</div>
 				<div class="d-flex align-items-center w-100">
-					<input type="email" value="user@example.com" class="edit-input" style="display:none;">
-					<p class="display-text">user@example.com</p>
+					<input type="email" v-model="info.email" class="edit-input" style="display:none;">
+					<p class="display-text">{{info.email}}</p>
 					<!-- <button
 											class="display-text btn btn-sm btn-outline-secondary ms-2">寄送驗證信</button> -->
 				</div>
@@ -80,8 +83,8 @@
 					<span class="badge bg-warning text-dark">未驗證</span>
 				</div>
 				<div class="d-flex align-items-center w-100">
-					<input type="text" value="0912345678" class="edit-input" style="display:none;">
-					<p class="display-text">0912345678</p>
+					<input type="text" v-model="info.phone" class="edit-input" style="display:none;">
+					<p class="display-text">{{info.phone}}</p>
 					<button class="display-text btn btn-sm btn-outline-success ms-2">寄送驗證信</button>
 				</div>
 			</div>
@@ -92,15 +95,10 @@
 				</div>
 				<div class="d-flex flex-column align-items-center w-100">
 					<div class="old row w-100">
-							<input 
-							type="text" 
-							:value="fullAddress" 
-							class="edit-input" 
-							style="display:none;" 
-							>
-							<p class="display-text">{{ fullAddress }}</p>
+						<input type="text" :value="info.address" class="edit-input" style="display:none;">
+						<p class="display-text">{{ info.address }}</p>
 					</div>
-					
+
 					<!-- 分離式輸入(目前失敗) -->
 					<!-- <div id="address" class="edit-input row mt-4" style="display:none;">
 						<div class="row mt-2 g-2">
@@ -141,7 +139,7 @@
 							</div>
 						</div>
 					</div> -->
-					
+
 				</div>
 			</div>
 
@@ -193,13 +191,15 @@ export default {
 				nickname: '長安不問',
 				gender: '男性',
 				birthday: '2000-01-01',
-				intro: '天地玄黃，宇宙洪荒...',
-			},
-			
-			// 聯繫方式
-			contact: {
+				introduction: '天地玄黃，宇宙洪荒。日月盈昃，辰宿列張。寒來暑往，秋收冬藏。閏餘成歲，律召調陽。雲騰致雨，露結為霜。金生麗水，玉出崑岡。劍號巨闕，珠稱夜光。果珍李柰，菜重芥薑。海鹹河淡，鱗潛羽翔。龍師火帝，鳥官人皇。始制文字，乃服衣裳。推位讓國，有虞陶唐。弔民伐罪，周發殷湯。坐朝問道，垂拱平章。愛育黎首，臣伏戎羌。遐邇一體，率賓歸王。鳴鳳在樹，白駒食場。化被草木，賴及萬方。蓋此身髮，四大五常。恭惟鞠養，豈敢毀傷。女慕貞絜，男效才良。知過必改，得能莫忘。罔談彼短，靡恃己長。信使可覆，器欲難量。墨悲絲淬，詩讚羔羊。',
 				email: 'user@example.com',
 				phone: '0912345678',
+				address: '320桃園市中壢區健行路12巷3弄229號',
+			},
+
+			// 聯繫方式
+			contact: {
+				
 				addressData: {
 					county: "桃園市",
 					district: "中壢區",
@@ -210,15 +210,34 @@ export default {
 				},
 			},
 
+			// 會員資料
+			user: null,
+
 		};
 	},
-	mounted() {
+	async mounted() {
+		// 會員資料抓取
+		const user_id = localStorage.getItem('user_id');
+		if (!user_id) {
+			alert('尚未登入，請重新登入');
+			this.$router.push('/login');
+			return;
+		}
+
+		try {
+			const res = await this.$axios.get(`/api/users/${user_id}`);
+			this.user = res.data;
+		} catch (err) {
+			console.error('取得會員資料失敗', err);
+			alert('資料載入錯誤');
+		}
+
+
 		// 初始化編輯控制區塊
 		this.setupToggleEdit("infoSection", "toggleEditBtn", "overlay");
 		this.setupToggleEdit("contactSection", "toggleContactEditBtn", "overlay");
 		this.setupToggleEdit("accountSection", "toggleAccountEditBtn", "overlay");
 		this.setupToggleEdit("passwordSection", "togglePasswordEditBtn", "overlay");
-		// this.setupToggleEdit("address", "toggleContactEditBtn", "overlay");
 
 		// 初始化主題設定
 		this.setupThemeSelector();
@@ -228,8 +247,8 @@ export default {
 			const { county, district, street, lane, number, zip } = this.contact.addressData;
 			// 先檢查每個欄位是否有填，避免空值產生多餘空格
 			return [zip, county, district, street, lane, number]
-			.filter(part => part && part.trim() !== '')
-			.join('');
+				.filter(part => part && part.trim() !== '')
+				.join('');
 		}
 	},
 	methods: {
@@ -282,34 +301,34 @@ export default {
 
 		// 儲存主題
 		setupThemeSelector() {
-    const themeSelector = document.getElementById("themeSelector");
-    if (!themeSelector) {
-        console.error("themeSelector not found");
-        return;
-    }
+			const themeSelector = document.getElementById("themeSelector");
+			if (!themeSelector) {
+				console.error("themeSelector not found");
+				return;
+			}
 
-    // 套用已儲存的主題
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-        document.documentElement.setAttribute("data-theme", savedTheme);
-        themeSelector.value = savedTheme;
-    }
+			// 套用已儲存的主題
+			const savedTheme = localStorage.getItem("theme");
+			if (savedTheme) {
+				document.documentElement.setAttribute("data-theme", savedTheme);
+				themeSelector.value = savedTheme;
+			}
 
-    themeSelector.addEventListener("change", function () {
-        const selected = this.value;
-        if (selected === "default") {
-            document.documentElement.removeAttribute("data-theme");
-            localStorage.removeItem("theme");
-        } else {
-            document.documentElement.setAttribute("data-theme", selected);
-            localStorage.setItem("theme", selected);
-        }
-    });
-}
+			themeSelector.addEventListener("change", function () {
+				const selected = this.value;
+				if (selected === "default") {
+					document.documentElement.removeAttribute("data-theme");
+					localStorage.removeItem("theme");
+				} else {
+					document.documentElement.setAttribute("data-theme", selected);
+					localStorage.setItem("theme", selected);
+				}
+			});
+		}
 
 
 	},
-	
+
 };
 </script>
 
@@ -461,18 +480,19 @@ export default {
 	}
 
 	/* 地址排版設定－上方原始 */
-	.old{
-		input{
+	.old {
+		input {
 			/* background-color: lightgray; */
 		}
-		p{
+
+		p {
 			padding: 0;
 		}
 	}
 
 	/* 地址排版設定－分離式輸入 */
 	#address {
-		input{
+		input {
 			border-radius: 0;
 		}
 
@@ -504,9 +524,7 @@ export default {
    xxl: ≥ 1400px (大桌機、4K 螢幕)
    container 寬度: 1320px
 ======================================== */
-@media (min-width: 1400px) {
-   
-}
+@media (min-width: 1400px) {}
 
 
 
@@ -515,9 +533,7 @@ export default {
    xl: 1200px ~ 1399px (一般桌機)
    container 寬度: 1140px
 ======================================== */
-@media (min-width: 1200px) and (max-width: 1399px) {
-   
-}
+@media (min-width: 1200px) and (max-width: 1399px) {}
 
 
 
@@ -526,9 +542,7 @@ export default {
    lg: 992px ~ 1199px (小型桌機、橫向大型平板)
    container 寬度: 960px
 ======================================== */
-@media (min-width: 992px) and (max-width: 1199px) {
-   
-}
+@media (min-width: 992px) and (max-width: 1199px) {}
 
 
 
@@ -537,9 +551,7 @@ export default {
    md: 768px ~ 991px (橫向 iPad、小型平板)
    container 寬度: 720px
 ======================================== */
-@media (min-width: 768px) and (max-width: 991px) {
-   
-}
+@media (min-width: 768px) and (max-width: 991px) {}
 
 
 
@@ -548,9 +560,7 @@ export default {
    sm: 577px ~ 767px (大型手機、直向平板)
    container 寬度: 540px
 ======================================== */
-@media (min-width: 577px) and (max-width: 767px) {
-   
-}
+@media (min-width: 577px) and (max-width: 767px) {}
 
 
 
@@ -559,7 +569,5 @@ export default {
    xs: ≤ 576px (手機)
    container 寬度: 100% (fluid)
 ======================================== */
-@media (max-width: 576px) {
-   
-}
+@media (max-width: 576px) {}
 </style>

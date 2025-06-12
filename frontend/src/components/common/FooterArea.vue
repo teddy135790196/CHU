@@ -5,10 +5,10 @@
     <div class="community">
       <h3>社群連結</h3>
       <div class="communityIcon">
-        <a href="#"><img src="icon/big-youtube-logo_81131.png" alt="youtube" /></a>
-        <a href="#"><img src="icon/camera_919613.png" alt="ig" /></a>
-        <a href="#"><img src="icon/facebook_3488299.png" alt="fb" /></a>
-        <a href="#"><img src="icon/line_3992580.png" alt="line" /></a>
+        <a href="#"><img src="icon/youtube.png" alt="youtube" /></a>
+        <a href="#"><img src="icon/instagram.png" alt="instagram" /></a>
+        <a href="#"><img src="icon/facebook.png" alt="fb" /></a>
+        <a href="#"><img src="icon/line.png" alt="line" /></a>
       </div>
     </div>
     <div class="termsOfService">
