@@ -33,7 +33,14 @@ LIMIT p_limit OFFSET p_offset;
 select count(*) as totalBook from products WHERE minor_category = str;
 END 
 `;
-
+// 抓isbn_id
+// LIMIT p_limit OFFSET p_offset; 從p_offset個開始偏移，取p_limit個
+const str_create25 = `
+create PROCEDURE 該isbn的所有資料(IN str VARCHAR(31))
+BEGIN
+SELECT * FROM products WHERE ISBN_id = str;
+END 
+`;
 //作者 精確地找
 const str_create3 = `
 CREATE PROCEDURE 預存_作者_精確(IN str VARCHAR(100))
@@ -67,13 +74,14 @@ const str_call2="CALL 預存_小分類('小說')"
 const str_spans="CALL 預存_小分類_分頁('小說',10,1)"
 const str_call3="CALL 預存_作者_精確('石心寺')"
 const str_call4="CALL 綜合人氣排名(2)"
+const str_call5="CALL 該isbn的所有資料('999-000-984157-7')"
 
-const str_drop="DROP PROCEDURE IF EXISTS 人氣排名;"
+const str_drop="DROP PROCEDURE IF EXISTS 該isbn的所有資料;"
 // SET 
     
 let sql_rand='UPDATE products SET hit = FLOOR(RAND() * 11);'
 //
-db.query(str_call4, (err, results) => {
+db.query(str_call5, (err, results) => {
   if (err) return console.error("SQL 錯誤:", err);
   // console.log("新增成功2"); 
   console.log(results); 
