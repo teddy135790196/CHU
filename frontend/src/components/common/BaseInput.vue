@@ -44,7 +44,7 @@ export default {
 	margin-bottom: 24px;
 
 	p {
-		font-family: '王翰宗顏楷體';
+		font-family: '標楷體';
 		font-size: 24px;
 		color: var(--main-color);
 		margin-bottom: 0;
@@ -96,8 +96,16 @@ export default {
 
 	.quote.error {
 		color: var(--error);
-		/* font-weight: bold; */
+		animation: shake 0.3s ease-in-out;
 	}
+
+	@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
 
 }
 

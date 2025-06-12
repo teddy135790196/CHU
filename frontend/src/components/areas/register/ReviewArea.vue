@@ -47,7 +47,6 @@
 </template>
 
 <script>
-// import axios from 'axios';
 import BaseInput from '@/components/common/BaseInput.vue';
 
 export default {
@@ -96,8 +95,8 @@ export default {
   computed: {
     genderText() {
       switch (this.form.gender) {
-        case 'male': return '男';
-        case 'female': return '女';
+        case 'male': return '男性';
+        case 'female': return '女性';
         case 'hidden': return '隱藏';
         default: return '未選擇';
       }
@@ -105,59 +104,60 @@ export default {
   },
   methods: {
     async validateForm() {
-      return true;
-      // try {
-      //   // const res = await axios.post('http://localhost:3000/api/captcha/verify', {
-      //   const res = await axios.post('https://bookstore-backend-production-f711.up.railway.app/api/captcha/verify', {
-      //     captcha: this.message.captch.input
-      //   }, {
-      //     withCredentials: true
-      //   });
+      // return true;
+      try {
+        // const res = await axios.post('http://localhost:3000/api/captcha/verify', {
+        const res = await this.$axios.post('/api/captcha/verify', {
+          captcha: this.message.captch.input
+        }, {
+          withCredentials: true
+        });
 
-      //   if (res.data.success) {
-      //     return true;
-      //   } else {
-      //     alert('❌ 驗證碼錯誤');
-      //     this.refreshCaptcha();
-      //     this.message.captch.input = '';
-      //     return false;
-      //   }
-      // } catch (err) {
-      //   console.error('驗證失敗:', err);
-      //   return false;
-      // }
+        if (res.data.success) {
+          return true;
+        } else {
+          alert('❌ 驗證碼錯誤');
+          this.refreshCaptcha();
+          this.message.captch.input = '';
+          return false;
+        }
+      } catch (err) {
+        console.error('驗證失敗:', err);
+        return false;
+      }
     },
 
     refreshCaptcha() {
       // 更新圖片連結並加時間戳避免快取
-      // this.message.captch.image = `http://localhost:3000/api/captcha?t=${Date.now()}`;
-      this.message.captch.image = `https://bookstore-backend-production-f711.up.railway.app/api/captcha?t=${Date.now()}`;
+      // this.$apiBaseUrl 在 main.js 中
+      this.message.captch.image = `${this.$apiBaseUrl}/api/captcha?t=${Date.now()}`;
     },
 
     reloadCaptcha() {
       // 點擊圖片換圖
       this.refreshCaptcha();
     },
+    
     submitCaptcha() {
       // axios.post('http://localhost:3000/api/captcha/verify', {
-      // axios.post('https://bookstore-backend-production-f711.up.railway.app/api/captcha/verify', {
-      //   captcha: this.message.captch.input
-      // }, {
-      //   withCredentials: true  // 🔑 讓 session cookie 被帶上
-      // })
-      // .then(res => {
-      //   if (res.data.success) {
-      //     alert('✅ 驗證成功');
-      //     // 可以進一步做提交資料或跳下一步
-      //   } else {
-      //     alert('❌ 驗證碼錯誤');
-      //     this.refreshCaptcha(); // 換圖避免猜中
-      //     this.message.captch.input = ''; // 清空輸入
-      //   }
-      // })
-      // .catch(err => {
-      //   console.error('驗證錯誤:', err);
-      // })
+      this.$axios.post('/api/captcha/verify', {
+        captcha: this.message.captch.input
+      }, {
+        withCredentials: true  // 🔑 讓 session cookie 被帶上
+      })
+      .then(res => {
+        if (res.data.success) {
+          alert('✅ 驗證成功');
+          // 可以進一步做提交資料或跳下一步
+        } else {
+          alert('❌ 驗證碼錯誤');
+          this.refreshCaptcha(); // 換圖避免猜中
+          this.message.captch.input = ''; // 清空輸入
+        }
+      })
+      .catch(err => {
+        console.error('驗證錯誤:', err);
+      })
     },
   }
 }

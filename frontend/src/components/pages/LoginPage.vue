@@ -28,7 +28,7 @@
         </div>
         <button type="submit" class="button">登入</button>
         <div class="other mt-auto">
-          <a href="#">忘記密碼</a>
+          <a href="./forgot-password">忘記密碼</a>
           ｜
 					<a href="./register">加入會員</a>
         </div>
