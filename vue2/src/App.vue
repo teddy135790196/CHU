@@ -1,15 +1,10 @@
 <template>
-  <!-- <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view />
-  </div> -->
   <div id="app">
     <MyPopup></MyPopup>
     <TitleNav></TitleNav>
-    <MyIndex></MyIndex>
+    <!-- 所有組件都要下移52px，因為抬頭導航不佔位 -->
+    <div style="height: 52px"></div>
+    <router-view />
     <MyFooter></MyFooter>
   </div>
 </template>
@@ -18,7 +13,6 @@
 import MyPopup from "./components/MyPopup.vue";
 import TitleNav from "./components/TitleNav.vue";
 import MyFooter from "./components/MyFooter.vue";
-import MyIndex from "./components/MyIndex.vue";
 
 export default {
   name: "App",
@@ -26,7 +20,24 @@ export default {
     MyPopup,
     TitleNav,
     MyFooter,
-    MyIndex,
+  },
+
+  data() {
+    return {
+      globalSelectedField: "",
+      globalSearchValue: "",
+    };
+  },
+  provide() {
+    return {
+      selectedField: () => this.globalSelectedField, // 提供一個響應式屬性
+      searchValue: () => this.globalSearchValue,
+      updateSearch: (field, value) => {
+        // 提供一個更新方法
+        this.globalSelectedField = field;
+        this.globalSearchValue = value;
+      },
+    };
   },
 };
 </script>

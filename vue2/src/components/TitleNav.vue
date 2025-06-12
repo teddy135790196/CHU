@@ -1,22 +1,22 @@
+<!-- prettier-ignore -->
 <template>
   <!-- 導航欄 -->
   <header class="titleNav">
     <ul class="titleNavIcon">
       <li class="logo">
         <h1>
-          <a href="index.html"><img src="icon/logo.png" alt="棲遲書店" /></a>
+          <router-link to="/"><img src="icon/logo.png" alt="棲遲書店" /></router-link>
         </h1>
         <div class="logoUpArror">▲</div>
         <div class="logoDialog">回到首頁</div>
       </li>
       <li class="search">
-        <!-- prettier-ignore -->
         <input
           type="text"
-          v-model="searchValue"
-          @keyup.enter="findBookByCondition(selectedField, searchValue)"
+          v-model="internalSearchValue"
+          @keyup.enter="findBookByCondition(internalSearchValue, internalSelectedField)"
           placeholder="右邊欄位可選"/>
-        <select v-model="selectedField">
+        <select v-model="internalSelectedField">
           <option value="">全部欄位</option>
           <option value="書名">書名</option>
           <option value="作者">作者</option>
@@ -25,21 +25,20 @@
           <option value="類型">類型</option>
           <option value="系列名稱">系列名稱</option>
         </select>
-        <!-- prettier-ignore -->
-        <span class="searchBtn" @click="findBookByCondition(selectedField, searchValue)">搜尋</span>
+        <span class="searchBtn" @click="findBookByCondition(internalSearchValue, internalSelectedField)">搜尋</span>
       </li>
       <li class="product">
-        <a href="#" class="emoji">📚</a>
+        <router-link to="/MyProduct" class="emoji">📚</router-link>
         <div class="productUpArror">▲</div>
         <div class="productDialog">書籍一覽</div>
       </li>
       <li class="titleNavEmoji member">
-        <a href="#" class="emoji">🧑</a>
+        <router-link to="MyUser" class="emoji">🧑</router-link>
         <div class="memberUpArror">▲</div>
         <div class="memberDialog">會員資料</div>
       </li>
       <li class="titleNavEmoji shoppingCart">
-        <a href="#" class="emoji">🛒</a>
+        <router-link to="ShoppingCart" class="emoji">🛒</router-link>
         <div class="shoppingCartUpArror">▲</div>
         <div class="shoppingCartDialog">去購物車</div>
       </li>
@@ -52,9 +51,33 @@
 export default {
   name: "TitleNav.vue",
 
+  inject: ['selectedField', 'searchValue', 'updateSearch'], // 注入提供的屬性
   data() {
-    return {searchValue: "", selectedField: ""};
+    return {
+      internalSelectedField: this.selectedField(), // 初始化內部數據
+      internalSearchValue: this.searchValue(),
+    };
   },
+  watch: {
+    selectedField: { // 監聽注入的屬性變化並更新內部數據
+      handler(newVal) {
+        this.internalSelectedField = newVal;
+      },
+      deep: true // 如果注入的是響應式對象，可能需要 deep
+    },
+    searchValue: {
+      handler(newVal) {
+        this.internalSearchValue = newVal;
+      },
+      deep: true
+    }
+  },
+  methods: {
+    findBookByCondition() {
+      this.updateSearch(this.internalSelectedField, this.internalSearchValue); // 呼叫父組件的更新方法
+      console.log('搜尋條件:', this.selectedField(), this.searchValue());
+    }
+  }
 };
 </script>
 
