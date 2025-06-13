@@ -22,6 +22,18 @@
 <hr>
 
 <details>
+<summary>0613｜會員設定區塊抓資料庫資料顯示</summary>
+
+- **新增**
+  - 會員設定根據帳號渲染對應的資料(上方資訊與帳號密碼未實作)
+  - 訂單API實作(未檢查並放到前端)
+
+- **補充**
+  - 會員設定用的快煩死了，就先這樣了
+
+</details>
+
+<details>
 <summary>0612｜優化後端API</summary>
 
 - **新增**
@@ -30,16 +42,6 @@
   - 優化後端API，將 login、register 純手打一次
   - 將前端連結後端網址全部用 main.js 變更
   - 會員頁面寫死的內容改為變數
-
-</details>
-
-<details>
-<summary>0613｜</summary>
-
-- **新增**
-  - 
-- **更新**
-  - 
 
 </details>
 

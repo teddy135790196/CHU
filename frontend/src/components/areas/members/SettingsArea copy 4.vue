@@ -1,11 +1,16 @@
 <template>
-	<div class="selectContent" id="settings">
+	<div class="selectContent" id="settings" style="display: block;">
 		<!-- 🌈 個人化設定 -->
 		<section class="mb-4">
 			<h5>個人化設定</h5>
 			<div class="soild"></div>
+			<!-- <div class="form-check form-switch">
+									<input class="form-check-input" type="checkbox" id="darkModeToggle">
+									<label class="form-check-label" for="darkModeToggle">深色模式</label>
+								</div> -->
 			<div class="inp_modle mt-2">
 				<label class="form-label">主題風格</label>
+				<!-- BS5樣式 -->
 				<select id="themeSelector" class="form-select">
 					<option value="default" selected>經典金虹</option>
 					<option value="ocean">海青嵐（測試主題）</option>
@@ -45,7 +50,9 @@
 				<label class="form-label">個人簡介</label>
 				<textarea v-model="user.summary" class="edit-input" style="resize: none"
 					v-show="isEditingInfo"></textarea>
-				<p class="display-text text-truncate" v-show="!isEditingInfo">{{ userSummary }}</p>
+				<p class="display-text text-truncate" v-show="!isEditingInfo">
+					{{ userSummary }}
+				</p>
 			</div>
 
 			<button class="btn btn-sm" :class="isEditingInfo ? 'btn-primary' : 'btn-outline-primary'"
@@ -114,7 +121,8 @@
 				<div class="d-flex align-items-center w-100">
 					<input type="email" value="myusername" class="edit-input" style="display:none;">
 					<p class="display-text">myusername</p>
-					<button id="toggleAccountEditBtn" class="btn btn-sm btn-outline-primary ms-2">修改帳號</button>
+					<button id="toggleAccountEditBtn" class="btn btn-sm btn-outline-primary ms-2"
+						data-edit-text="修改帳號">修改帳號</button>
 				</div>
 			</div>
 
@@ -123,13 +131,14 @@
 				<div class="d-flex align-items-center w-100">
 					<input type="email" value="a***************a" class="edit-input" style="display:none;">
 					<p class="display-text">a***************a</p>
-					<button id="togglePasswordEditBtn" class="btn btn-sm btn-outline-primary ms-2">修改密碼</button>
+					<button id="togglePasswordEditBtn" class="btn btn-sm btn-outline-primary ms-2"
+						data-edit-text="修改密碼">修改密碼</button>
 				</div>
 			</div>
 
 			<div class="d-flex justify-content-end mt-5">
 				<button class="btn btn-outline-dark">帳號登出</button>
-				<button class="btn btn-danger">刪除帳號</button>
+				<button class="btn btn-danger">刪除帳號</button>要有浮窗輸入DELETE才能刪除
 			</div>
 		</section>
 	</div>
@@ -142,15 +151,7 @@ export default {
 	name: "SettingsArea",
 	data() {
 		return {
-			user: {
-				nickname: "",
-				gender: "",
-				birth: "",
-				summary: "",
-				email: "",
-				phone: "",
-				address: "",
-			},
+			user: null,
 			isEditingInfo: false,
 			isEditingContact: false,
 		};
@@ -163,7 +164,11 @@ export default {
 					: "";
 			},
 			set(value) {
-				this.user.birth = value ? dayjs(value).toISOString() : "";
+				if (value) {
+					this.user.birth = dayjs(value).toISOString();
+				} else {
+					this.user.birth = "";
+				}
 			},
 		},
 		userSummary() {
@@ -209,7 +214,6 @@ export default {
 	},
 };
 </script>
-
 
 
 <style scoped>
