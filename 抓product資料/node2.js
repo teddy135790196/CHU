@@ -18,6 +18,7 @@ const db = mysql.createPool({
   database: process.env.DB_NAME,
 });
 // 取得搜尋欄位商品資料
+// 網址: http://localhost:3000/search/con=:author&kw=:心
 app.get("/search/con=:con&kw=:keyWord",(req,res)=>{
   const Bcon=req.params.con; //針對條件:我要作者:autohr、書名:name、系列:series、isbn:ISBN_id
   const BkeyWord=req.params.keyWord; //針對關鍵字
@@ -31,6 +32,7 @@ app.get("/search/con=:con&kw=:keyWord",(req,res)=>{
   });
 });
 // 取得首頁12本人氣書資料
+// 網址: http://localhost:3000/books
 app.get("/books",(req,res)=>{
   const Blimit = 12; //每頁12本書
   const str_spans = "CALL 綜合人氣排名(?)";
@@ -42,7 +44,8 @@ app.get("/books",(req,res)=>{
     });
   });
 });
-// app.get('/t_book', (req, res) => {
+// 分類 取得哪類就放到網址/books/分類 下
+// 網址: http://localhost:3000/books/小說
 app.get("/books/:sub", (req, res) => {
   const Bsub = req.params.sub ; //針對:sub
   const Bpage = parseInt(req.query.page) || 1; //&page=1
@@ -59,7 +62,20 @@ app.get("/books/:sub", (req, res) => {
 });
 
 });
+// 拿到isbn後就可以取得該書的所有資料
+// 網址: http://localhost:3000/book=999-000-984157-7
+app.get("/book=:id", (req, res) => {
+  const Bid = req.params.id ; //針對:sub
+  const str_spans = "CALL 該isbn的所有資料(?)";
+  // CALL 該isbn的所有資料('999-000-984157-7')
+  db.query(str_spans, [Bid], (err, results) => {
+    if (err) return res.status(500).json({ error: "查詢失敗", details: err });
+    res.json({
+      book: results[0]
+    });
+});
 
+});
 app.listen(port, () => {
   console.log(`✅ Server running on port ${port}`);
 });
