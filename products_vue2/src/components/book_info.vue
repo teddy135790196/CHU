@@ -10,7 +10,9 @@
       </div>
       <!-- 再從6裡切作者資訊跟價格 -->
       <div class="col-md-6" >
-        <h1 class="bookTitle">{{ n.name }} <span v-if="n.hito>5"><i class="fa-solid fa-fire"></i></span></h1>
+        <h1 class="bookTitle">{{ n.name }} <span v-if="n.hit>5">
+        <abbr title="多人查看"> <i class="fa-solid fa-fire"></i></abbr>
+        </span></h1>
         <hr />
         <div class="row prodFlex">
           <div>
@@ -154,6 +156,7 @@ export default {
   padding: 0;
   list-style: none;
 }
+
 a:hover,
 a {
   text-decoration: none;
@@ -202,10 +205,13 @@ span{color: hsl(36, 50.7%, 50%);}
   font-size: 20px;
 }
 /* +商品頁的內文描述+卡片裡的dt小標 */
-.prodFlex a,.card-body dt {
+.prodFlex a,.card-body dt{
   color: hsl(353, 100%, 29.2%);
 }
+/* .fa-fire {
+  color: hsla(36, 51%, 50%, 0.654);
 
+} */
 .describe{
   margin-top: 30px;
 }
