@@ -29,10 +29,11 @@ export default {
       searchScope: "",
     };
   },
+
   computed: {
     searchScopeDisplay() {
       const scopeMap = {
-        all: "全部欄位",
+        // all: "全部欄位",
         name: "書名",
         author: "作者",
         ISBN_id: "ISBN",
@@ -42,6 +43,7 @@ export default {
       return scopeMap[this.searchScope] || this.searchScope;
     },
   },
+
   watch: {
     // 監聽路由參數變化，以便在使用者直接修改網址時更新內容
     "$route.query": {

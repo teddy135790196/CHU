@@ -19,7 +19,7 @@
           @keyup.enter="performSearch"
           placeholder="右邊欄位可選"/>
         <select v-model="searchScope">
-          <option value="all" >全部欄位</option>
+          <!-- <option value="all" >全部欄位</option> -->
           <option value="name">書名</option>
           <option value="author">作者</option>
           <option value="ISBN_id">ISBN</option>
@@ -53,36 +53,14 @@
 export default {
   name: "TitleNav.vue",
 
-  // inject: ['selectedField', 'searchValue', 'updateSearch'], // 注入提供的屬性
   data() {
     return {
-      // internalSelectedField: this.selectedField(), // 初始化內部數據
-      // internalSearchValue: this.searchValue(),
-
       searchText: '',
-      searchScope: 'all'
+      searchScope: 'name'
     };
   },
-  // watch: {
-  //   selectedField: { // 監聽注入的屬性變化並更新內部數據
-  //     handler(newVal) {
-  //       this.internalSelectedField = newVal;
-  //     },
-  //     deep: true // 如果注入的是響應式對象，可能需要 deep
-  //   },
-  //   searchValue: {
-  //     handler(newVal) {
-  //       this.internalSearchValue = newVal;
-  //     },
-  //     deep: true
-  //   }
-  // },
-  methods: {
-    // findBookByCondition() {
-    //   this.updateSearch(this.internalSelectedField, this.internalSearchValue); // 呼叫父組件的更新方法
-    //   console.log('搜尋條件:', this.selectedField(), this.searchValue());
-    // }
 
+  methods: {
     performSearch() {
       if(this.searchText === "") {
         return;

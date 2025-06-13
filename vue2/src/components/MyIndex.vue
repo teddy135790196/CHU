@@ -52,8 +52,7 @@
                 <div class="col3" v-for="(book, index) in currentBooks" v-bind:key="book.ISBN_id">
                   <!-- 無效資料，消除警告用 -->
                   <span :value="index"></span>
-                  <a>
-                  <span @click="performSearch(book.ISBN_id, 'ISBN_id')">
+                  <a @click="performSearch(book.ISBN_id, 'ISBN_id')">
                     <div class="container-fluid">
                       <img v-bind:src="book.imgUrl" alt="book.name" />
                     </div>
@@ -64,13 +63,10 @@
                     <div v-else>
                       <h4><span>{{book.name}}</span></h4>
                     </div>
-                  </span>
                   </a>
-                  <a >
-                  <span @click="performSearch(book.author, 'author')">
+                  <a  @click="performSearch(book.author, 'author')">
                     <!-- 若作者超過17就:用三元運算寫 -->
                     {{ book.author.length>17 ? book.author.slice(0, 17)+'...' : book.author }}
-                  </span>
                   </a>
                   <div class="PandChartBtn">
                     <i
@@ -158,7 +154,7 @@ export default {
           //修改這兩行
           const jsonData = await response.json();
           const data = jsonData.books;
-          console.log("抓到資料:", data);
+          // console.log("抓到資料:", data);
 
           this.currentBooks = data;
 
@@ -174,7 +170,6 @@ export default {
       },
 
       performSearch(searchText, searchScope) {
-
       // 透過路由傳遞搜尋內容和範圍
       this.$router.push({
         name: 'MyProduct', // 商品頁面的路由名稱
