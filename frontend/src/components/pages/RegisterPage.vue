@@ -1,51 +1,48 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col vh-100 d-flex align-items-center justify-content-center">
-        <div class="content register d-flex flex-column">
-          <!-- 進度條 -->
-          <div class="progress mb-1">
-            <div 
-            class="progress-bar" 
-            :class="{finish: nowStep === 4}"
-            :style="{ width: (progressWidth[nowStep - 1] || 0) + '%' }"></div>
-          </div>
-
-          <!-- Step1 -->
-          <AccountArea v-show="nowStep === 1" :nowStep="nowStep"
-            :formData="{ username: form.username, password: form.password, repassword: form.repassword }"
-            @updateForm="updatePartialForm" ref="step1" />
-
-          <!-- Step2 -->
-          <InfoArea v-show="nowStep === 2" :nowStep="nowStep"
-            :formData="{ nickname: form.nickname, gender: form.gender, birth: form.birth }"
-            @updateForm="updatePartialForm" ref="step2" />
-
-          <!-- Step3 -->
-          <ContactArea v-show="nowStep === 3" :nowStep="nowStep" :formData="{ email: form.email, phone: form.phone }"
-            @updateForm="updatePartialForm" ref="step3" />
-
-          <!-- Step4 -->
-          <ReviewArea v-show="nowStep === 4" :nowStep="nowStep" :form="form" ref="step4" />
-
-
-          <!-- 按鈕區 -->
-          <div class="btn-group mt-auto">
-            <button class="btn btn-primary" @click="prevStep">
-              {{ nowStep === 1 ? "離開" : "上一頁" }}
-            </button>
-            <button class="btn btn-success" @click="nextStep">
-              {{ nowStep === 4 ? "完成" : "下一步" }}
-            </button>
-          </div>
-          <!-- 測試用 -->
-          <!-- <button class="btn btn-light" v-show="nowStep <= 3" @click="nowStep++">
-            {{ "跳過" }}
-          </button> -->
-        </div>
-
+  
+  <div class="col vh-100 d-flex align-items-center justify-content-center">
+    <div class="content register d-flex flex-column">
+      <!-- 進度條 -->
+      <div class="progress mb-1">
+        <div 
+        class="progress-bar" 
+        :class="{finish: nowStep === 4}"
+        :style="{ width: (progressWidth[nowStep - 1] || 0) + '%' }"></div>
       </div>
+
+      <!-- Step1 -->
+      <AccountArea v-show="nowStep === 1" :nowStep="nowStep"
+        :formData="{ username: form.username, password: form.password, repassword: form.repassword }"
+        @updateForm="updatePartialForm" ref="step1" />
+
+      <!-- Step2 -->
+      <InfoArea v-show="nowStep === 2" :nowStep="nowStep"
+        :formData="{ nickname: form.nickname, gender: form.gender, birth: form.birth }"
+        @updateForm="updatePartialForm" ref="step2" />
+
+      <!-- Step3 -->
+      <ContactArea v-show="nowStep === 3" :nowStep="nowStep" :formData="{ email: form.email, phone: form.phone }"
+        @updateForm="updatePartialForm" ref="step3" />
+
+      <!-- Step4 -->
+      <ReviewArea v-show="nowStep === 4" :nowStep="nowStep" :form="form" ref="step4" />
+
+
+      <!-- 按鈕區 -->
+      <div class="btn-group mt-auto">
+        <button class="btn btn-primary" @click="prevStep">
+          {{ nowStep === 1 ? "離開" : "上一頁" }}
+        </button>
+        <button class="btn btn-success" @click="nextStep">
+          {{ nowStep === 4 ? "完成" : "下一步" }}
+        </button>
+      </div>
+      <!-- 測試用 -->
+      <!-- <button class="btn btn-light" v-show="nowStep <= 3" @click="nowStep++">
+        {{ "跳過" }}
+      </button> -->
     </div>
+
   </div>
 </template>
 
@@ -63,18 +60,7 @@ export default {
     return {
       nowStep: 1,
       progressWidth: [40, 70, 90, 100],
-      form: { 
-        username: '', 
-        password: '', 
-        repassword: '', 
-        nickname: '', 
-        gender: '', 
-        birth: '', 
-        email: '', 
-        phone: '' 
-      },
-      isLoading: false,
-      error: null
+      form: { username: '', password: '', repassword: '', nickname: '', gender: '', birth: '', email: '', phone: '' },
     };
   },
   // 開放權限
@@ -88,25 +74,11 @@ export default {
   methods: {
     // POST：註冊表單
     async register() {
-      this.isLoading = true;
-      this.error = null;
-      
       try {
         const res = await this.$axios.post('/api/register', this.form);
         console.log('註冊成功', res.data);
-        
-        // 設置登入狀態
-        localStorage.setItem("isLogin", "true");
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        
-        // 跳轉到會員頁面
-        this.$router.push('/members');
       } catch (error) {
         console.error('註冊失敗', error);
-        this.error = error.response?.data?.message || '註冊失敗，請稍後再試';
-        alert(this.error);
-      } finally {
-        this.isLoading = false;
       }
     },
     
@@ -132,6 +104,7 @@ export default {
           if (this.nowStep === 4) {
             if (confirm('確認資料是否無誤？')) {
               await this.register();  // 第 4 步才送出註冊
+              this.$router.push('/members');
             }
           } else {
             this.nowStep++;

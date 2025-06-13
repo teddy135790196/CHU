@@ -151,7 +151,7 @@ export default {
 
 /* 名言引用 */
 .quotations {
-  font-family: '王翰宗顏楷體';
+  font-family: '標楷體';
   margin: 0 auto;
 
   /* 引用區塊樣式 */

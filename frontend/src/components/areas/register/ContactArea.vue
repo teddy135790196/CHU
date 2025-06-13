@@ -3,25 +3,13 @@
   <div :class="['step', nowStep === 3 ? 'active-step' : '']">
     <h4>【參．想知道您的聯絡方式】</h4>
 
-    <BaseInput 
-      type="email" 
-      id="email" 
-      :label="message.inputLabel.email" 
-      :placeholder="message.inputPlahold.email" 
-      :quote="message.quote.email"
-      :error-message="formErrors.email" 
-      @blur="validateEmail" 
-      v-model="localForm.email" />
+    <BaseInput type="email" id="email" :label="message.baseInput.label.email"
+      :placeholder="message.baseInput.plahold.email" :quote="message.baseInput.quote.email"
+      :error-message="formErrors.email" @blur="validateEmail" v-model="localForm.email" />
 
-    <BaseInput 
-      type="tel" 
-      id="phone" 
-      :label="message.inputLabel.phone" 
-      :placeholder="message.inputPlahold.phone" 
-      :quote="message.quote.email"
-      :error-message="formErrors.phone" 
-      @blur="validatePhone" 
-      v-model="localForm.phone" />
+    <BaseInput type="tel" id="phone" :label="message.baseInput.label.phone"
+      :placeholder="message.baseInput.plahold.phone" :quote="message.baseInput.quote.phone"
+      :error-message="formErrors.phone" @blur="validatePhone" v-model="localForm.phone" />
   </div>
 </template>
 
@@ -54,46 +42,55 @@ export default {
         email: '',
         phone: '',
       },
-
       // 修改顯示訊息區
       message: {
-
         stepTitle: '【參．想知道您的聯絡方式】',
 
-				// input => label
-				inputLabel: {
-					email: '電子郵件',
-					phone: '手機號碼',
-				},
-
-				// input => placeholder
-				inputPlahold: {
-          email: '範例：myemail@gmail.com',
-          phone: '範例：0123456789',
-				},
-
-        // 預設提示文字
-        // 驗證：無輸入
-        quote: {
-          email: '請輸入您的電子郵箱',
-          phone: '請輸入您的手機號碼',
-
-          // 驗證：格式錯誤
-          errformat: {
-            email: '格式不符：請輸入有效的電子郵箱',
-            phone: '格式不符：輸入數字未達 10 位',
+        baseInput: {
+          label: {
+            email: '電子郵件',
+            phone: '手機號碼',
           },
-        },
-        
+          plahold: {
+            email: '範例：myemail@gmail.com',
+            phone: '範例：0123456789',
+          },
+          quote: {
+            // 預設提示文字
+            email: '請輸入您的電子郵箱',
+            phone: '請輸入您的手機號碼',
+          },
+          quoteErr: {
+            // 驗證：無輸入
+            uninput: {
+              email: '格式不符：電子郵箱不得為空',
+              phone: '格式不符：手機號碼不得為空',
+            },
+            // 驗證：格式錯誤(長度太短)
+            length_short: {
+              // email: '暫留',
+              phone: '格式不符：輸入數字未達 10 位',
+            },
+            // 驗證：格式錯誤(長度太長)
+            length_long: {
+              // email: '暫留',
+              phone: '格式不符：輸入數字超過 10 位',
+            },
+            // 驗證：格式錯誤(英數)
+            format: {
+              email: '格式不符：請輸入有效的電子郵箱',
+              phone: '格式不符：只可輸入數字',
+            },
+          },
+        }
       },
-
-    };
+    }
   },
   // 監測
   watch: {
     localForm: {    // localForm 物件數值變動
       handler(newVal) {
-        console.log('localForm 變更了：', newVal);
+        // console.log('localForm 變更了：', newVal);
         this.$emit('updateForm', newVal); // 只 emit 自己的欄位
       },
       deep: true // <- 必須加這個
@@ -108,11 +105,11 @@ export default {
 
       if (!email || email.trim() === '') {
         // 驗證：無輸入
-        this.formErrors.email = this.message.quote.email;
+        this.formErrors.email = this.message.baseInput.quoteErr.uninput.email;
         return false;
       } else if (!rule) {
         // 驗證：格式錯誤
-        this.formErrors.email = this.message.quote.errformat.email;
+        this.formErrors.email = this.message.baseInput.quoteErr.format.email;
         return false;
       } else {
         // 驗證：通過！
@@ -120,20 +117,36 @@ export default {
         return true;
       }
 
+
+      // 通過前面同步驗證，再去呼叫後端查重（async）
+      // try {
+        
+      // } catch (err) {
+        
+      // }
+
     },
 
     // 驗證手機號碼（10 碼數字）
     validatePhone() {
       const phone = this.formData.phone;
-      const rule = /^\d{10}$/.test(phone);
+      const rule = /^\d+$/.test(phone);
 
       if (!phone || phone.trim() === '') {
         // 驗證：無內容
-        this.formErrors.phone = this.message.quote.email;
+        this.formErrors.phone = this.message.baseInput.quoteErr.uninput.phone;
         return false;
       } else if (!rule) {
         // 驗證：格式錯誤
-        this.formErrors.phone = this.message.quote.errformat.phone;
+        this.formErrors.phone = this.message.baseInput.quoteErr.format.phone;
+        return false;
+      } else if (phone.length < 10) {
+        // 驗證：少於 10 碼
+        this.formErrors.phone = this.message.baseInput.quoteErr.length_short.phone;
+        return false;
+      } else if (phone.length > 10) {
+        // 驗證：超過 10 碼
+        this.formErrors.phone = this.message.baseInput.quoteErr.length_long.phone;
         return false;
       } else {
         // 驗證：通過！
@@ -150,6 +163,6 @@ export default {
 
       return ispass_1 && ispass_2;
     }
-  }
+  },
 };
 </script>

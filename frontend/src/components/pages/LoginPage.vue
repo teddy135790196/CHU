@@ -1,40 +1,30 @@
 <template>
-  <div class="col-sm-12 col-md-6 d-flex align-items-center justify-content-center">
-    <div class="content page-login content-right d-flex flex-column">
-      <form class="flex-grow-1" @submit.prevent="login">
-        <div class="login-box">
-          <div class="inp_modle">
-            <p>帳號</p>
-            <div class="soild"></div>
-            <input
-              type="text"
-              placeholder="請輸入您的帳號或電子郵箱"
-              v-model="form.username"
-              required
-            />
-          </div>
-        </div>
-        <div class="login-box">
-          <div class="inp_modle">
-            <p>密碼</p>
-            <div class="soild"></div>
-            <input
-              type="password"
-              placeholder="請輸入您所設定的密碼"
-              v-model="form.password"
-              required
-            />
-          </div>
-        </div>
-        <button type="submit" class="button">登入</button>
-        <div class="other mt-auto">
-          <a href="#">忘記密碼</a>
-          ｜
-          <router-link to="/register">加入會員</router-link>
-        </div>
-      </form>
-    </div>
-  </div>
+	<div class="col-sm-12 col-md-6 d-flex align-items-center justify-content-center">
+		<div class="content page-login content-right d-flex flex-column">
+			<form class="flex-grow-1" @submit.prevent="login">
+				<div class="login-box">
+					<div class="inp_modle">
+						<p>帳號</p>
+						<div class="soild"></div>
+						<input type="text" placeholder="請輸入您的帳號或電子郵箱" v-model="form.username" required />
+					</div>
+				</div>
+				<div class="login-box">
+					<div class="inp_modle">
+						<p>密碼</p>
+						<div class="soild"></div>
+						<input type="password" placeholder="請輸入您所設定的密碼" v-model="form.password" required />
+					</div>
+				</div>
+				<button type="submit" class="button">登入</button>
+				<div class="other mt-auto">
+					<a href="./forgot-password">忘記密碼</a>
+					｜
+					<a href="./register">加入會員</a>
+				</div>
+			</form>
+		</div>
+	</div>
 </template>
 
 
@@ -56,7 +46,26 @@ export default {
 				const res = await this.$axios.post('/api/login', this.form);
 				console.log('登入成功', res.data);
 
-				this.$router.push('/members');
+				// 後端controller回傳的資料格式為 { success: true, data: '<id>' }
+				const { success, data } = res.data;
+
+
+				// success 是「有成功的訊號嗎？」
+				// data 是「有資料嗎？」
+				// data.id 是「資料裡有使用者 ID 嗎？」
+				if (success && data && data.id) {
+					const user_id = data.id;
+					// 儲存到 localStorage 或狀態管理
+					localStorage.setItem('user_id', user_id);
+
+					// 導去會員頁
+					this.$router.push('/members');
+					this.form.username = '';
+					this.form.password = '';
+				} else {
+					throw new Error('登入失敗，請稍後再試');
+				}
+
 			} catch (error) {
 				alert('帳號或密碼錯誤！');
 				console.error('登入失敗', error);

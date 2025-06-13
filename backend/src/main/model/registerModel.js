@@ -1,25 +1,25 @@
-// src/main/model/registerModel.js
+// backend/src/main/model/registerModel.js
 
-const RegisterDAO = require('../dao/registerDAO');
-const RegisterDTO = require('../dto/registerDTO');
+const registerDAO = require('../dao/registerDAO');
+const registerDTO = require('../dto/registerDTO');
 
-// 轉換前端傳的性別成資料庫 ENUM('男', '女', '隱藏')
+// 轉換前端傳的性別成資料庫 ENUM('男性', '女性', '隱藏')
 const genderMap = {
-  male: '男',
-  female: '女',
+  male: '男性',
+  female: '女性',
   hidden: '隱藏',
 };
 
-function createRegister(registerDto, callback) {
+function insertRegisterData(registerForm, callback) {		// registerForm => 前端傳來的表單
   // 轉換 gender
-  if (registerDto.gender) {
-    registerDto.gender = genderMap[registerDto.gender.toLowerCase()] || null;
+  if(registerForm.gender) {
+    registerForm.gender = genderMap[registerForm.gender.toLowerCase()] || null;
   }
 
-  const user = new RegisterDTO(registerDto);
-  RegisterDAO.insertRegister(user, callback);
-}
+  const dto = new registerDTO(registerForm);
+  registerDAO.insertRegisterData(dto, callback);
+};
 
 module.exports = {
-  createRegister,
+  insertRegisterData,
 };

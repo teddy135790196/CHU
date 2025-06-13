@@ -1,11 +1,11 @@
-// src/main/model/loginModel.js
+// backend/src/main/model/loginModel.js
 
 const loginDAO = require('../dao/loginDAO');
 
-function findUserByUsername(loginDto, callback) {
-  loginDAO.findByUsername(loginDto.username, callback);
-}
+function selectLoginUsername(loginForm, callback) {	  // loginForm => 前端傳來的表單
+  loginDAO.selectLoginUsername(loginForm, callback);
+};
 
 module.exports = {
-  findUserByUsername,
+  selectLoginUsername,
 };

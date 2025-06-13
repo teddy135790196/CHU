@@ -1,10 +1,11 @@
-// src/main/dto/loginDTO.js
+// backend/src/main/dto/loginDTO.js
 
-class loginDTO {
-	constructor({ username, password }){
+// form: { username: '', password: '', },
+class LoginDTO {
+	constructor({ username, password }) {
 		this.username = username;
 		this.password = password;
 	}
 }
 
-module.exports = loginDTO;
+module.exports = LoginDTO;

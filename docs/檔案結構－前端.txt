@@ -31,20 +31,21 @@ src/
 │   │   │   ├── PurchaseArea.vue
 │   │   │   └── SettingsArea.vue
 │   │   │
-│   │   ├──📁register/					└─	◇ 註冊區元件
-│   │   │   ├── AccountArea.vue
-│   │   │   ├── ContactArea.vue
-│   │   │   ├── InfoArea.vue
-│   │   │   └── ReviewArea.vue
-│   │   │
-│   │   ├── FooterArea.vue
-│   │   └── HeaderArea.vue
+│   │   └──📁register/					└─	◇ 註冊區元件
+│   │       ├── AccountArea.vue
+│   │       ├── ContactArea.vue
+│   │       ├── InfoArea.vue
+│   │       └── ReviewArea.vue
+│   │    
 │   │
 │   ├──📁common/						◎ 通用元件
 │   │   ├── AccessAlert.vue
-│   │   └── BuseInput.vue
+│   │   ├── BuseInput.vue
+│   │   ├── FooterArea.vue
+│   │   └── HeaderArea.vue
 │   │
 │   └──📁page/							◎ 頁面元件
+│       ├── ForgotPasswordPage.vue
 │       ├── LoginPage.vue
 │       ├── LoginWelcomePage.vue
 │       ├── MembersPage.vue
@@ -56,9 +57,10 @@ src/
 │			
 │			
 ├──📁views/							【展示視窗】
-│   ├── LoginView.vue
 │   ├── AdminHomeView.vue
 │   ├── AdminView.vue
+│   ├── ForgotPasswordView.vue
+│   ├── LoginView.vue
 │   ├── MembersView.vue
 │   └── RegisterView.vue
 │

@@ -1,22 +1,31 @@
-// src/main/dao/loginDAO.js
+// backend/src/main/dao/loginDAO.js
 
 const db = require('../../connection/_index');
 
-function findByUsername(username, callback) {
-  const sql = `
-  SELECT * FROM users 
-  WHERE username = ? 
-  LIMIT 1
-  `;
+function selectLoginUsername(loginForm, callback) {		// loginForm => 前端傳來的表單
+	const sql = `
+		SELECT * FROM users 
+		WHERE username = ? 
+		LIMIT 1 
+	`;
 
-  db.query(sql, [username], (err, results) => {
-    if (err) return callback(err, null);
-    if (results.length === 0) return callback(null, null);
-    callback(null, results[0]);
-  });
-}
+	const params = [
+		loginForm.username,
+	];
 
-module.exports = {
-  findByUsername,
+	db.query(sql, params, (err, result) => {
+		if(err) {
+			callback(err, null);
+			return;
+		}
+		if(result.length === 0) {
+			callback(null, null);
+			return;
+		}
+		callback(null, result[0]);
+	});
 };
 
+module.exports = {
+	selectLoginUsername,
+};
