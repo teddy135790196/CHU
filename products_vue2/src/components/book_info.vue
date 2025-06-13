@@ -108,7 +108,15 @@
 export default {
   data() { return { data: null, book: [] } },
   props: ["isbn"],
-  mounted() { this.fetchData(); },
+  mounted() { if(this.isbn){this.fetchData();} },//有值才開始
+  // 先監聽看有沒有數值
+  watch: {
+  isbn(newVal) {
+    if (newVal) {
+      this.fetchData();
+    }
+  }
+},
   methods: {
     async fetchData() {
       try {

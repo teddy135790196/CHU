@@ -13,11 +13,11 @@ import book_info from "@/components/book_info.vue";
 // 輸出到外面
 export default {
   name: "book_detail",
-  props:['ibsn'],
+  props:['isbn'],
   components: { sub_nav,book_info },
   
   mounted() {
-    document.title = this.ibsn;
+    document.title = this.isbn;
   },
 };
 </script>
