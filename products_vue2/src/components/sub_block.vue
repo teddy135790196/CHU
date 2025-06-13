@@ -57,8 +57,8 @@ export default {
     // 抓網址內資料 的自訂函數
     async fetchData() {
       try {
-        const baseUrl = "http://localhost:3000/books";
-        let url = baseUrl;
+        const baseUrl = "http://localhost:3000";
+        let url = baseUrl+"/books";
         if (this.category) {
           url += `/${encodeURIComponent(this.category)}?page=${this.page}`;
         }

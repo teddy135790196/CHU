@@ -13,18 +13,17 @@ const routes = [
     props: true,
   },
   // 你可以在這裡添加更多路由
-
+{
+    path: "/books/:isbn",
+    component: book_detail,
+    props: true,
+  },
   {
     path: "/:sub",
     component: sub_page,
     props: true,
   },
-  {
-    path: "/books/:isbn`",
-    name: "book_detail",
-    component: book_detail,
-    props: true,
-  },
+  
 ];
 
 const router = new VueRouter({
