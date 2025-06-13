@@ -47,8 +47,8 @@
           <div class="card-body">
             <p><span>ISBN：</span>{{n.ISBN_id}}</p>
             <p><span>頁數：</span>{{ n.page }}</p>
-            <p><span>出版類型</span>{{n.pub_type}}</p>
-            <p><span>分類</span>{{n.major_category}}</p>
+            <p><span>出版類型：</span>{{n.pub_type}}</p>
+            <p><span>分類：</span>{{n.major_category}}</p>
             <p><span>分類細項：</span>{{ n.minor_category }}</p>
             <p><span>語言：</span>{{ n.original_language }}</p>
           </div>
@@ -202,11 +202,13 @@ span{color: hsl(36, 50.7%, 50%);}
   font-size: 20px;
 }
 /* +商品頁的內文描述+卡片裡的dt小標 */
-.prodFlex a,.describe i,.card-body dt {
+.prodFlex a,.card-body dt {
   color: hsl(353, 100%, 29.2%);
 }
 
-
+.describe{
+  margin-top: 30px;
+}
  
 
 /* 商品頁的商品規格 */
@@ -216,7 +218,7 @@ span{color: hsl(36, 50.7%, 50%);}
 }
 
 #card_spe {
-  width: 300px;
+  width: 700px;
 }
 
 #card_del {
