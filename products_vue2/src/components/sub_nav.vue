@@ -113,6 +113,7 @@ export default {
 </script>
 <style scoped>
 /* nav的css */
+*{list-style: none;}
 /* 左側分類 */
 .cat:hover {
   background-color: hsla(36, 51%, 50%, 0.3);
@@ -137,7 +138,7 @@ export default {
 /* 細項的li整體往左移 */
 .subA {
   display: block;
-  margin-left: 20px;
+  margin-left: 10px;
   padding: 10px 0;
   font-size: 20px;
 }

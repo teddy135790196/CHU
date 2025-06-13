@@ -1,19 +1,16 @@
 <template>
   <div>
-    <h1>{{ isbn }}</h1>
     <div v-for="n in book" :key="n.ISBN_id">
-    <h1>標題2</h1>
     <div class="row">
       <!-- 商品圖 -->
       <div class="col-md-6">
         <div class="prodP">
-          <!-- <img
-            src=""alt="" /> -->
+          <img :src="n.imgUrl" alt="n.name" />
         </div>
       </div>
       <!-- 再從6裡切作者資訊跟價格 -->
       <div class="col-md-6" >
-        <h1 class="bookTitle">{{ n.name }}</h1>
+        <h1 class="bookTitle">{{ n.name }} <span v-if="n.hito>5"><i class="fa-solid fa-fire"></i></span></h1>
         <hr />
         <div class="row prodFlex">
           <div>
@@ -21,7 +18,7 @@
               <li>作者/ <a href="#">{{ n.author }}</a></li>
               <li>系列/ <a href="#">{{ n.series }}</a></li>
               <li>出版社/ <a href="">{{n.publisher}}</a></li>
-              <li>出版日期/ {{n.created_at}}</li>
+              <li>出版日期/ {{n.created_at.slice(0,10)}}</li>
 
               <li>庫存狀態/
                 <span v-if="n.stock>0" class="Stock">有貨</span>
@@ -108,7 +105,9 @@
 export default {
   data() { return { data: null, book: [] } },
   props: ["isbn"],
-  mounted() { if(this.isbn){this.fetchData();} },//有值才開始
+  mounted() { 
+    if(this.isbn){this.fetchData();}
+   },//有值才開始
   // 先監聽看有沒有數值
   watch: {
   isbn(newVal) {
@@ -121,8 +120,8 @@ export default {
     async fetchData() {
       try {
         const baseUrl = "http://localhost:3000";
-        let url = baseUrl + "/book=";
-        url += `${encodeURIComponent(this.isbn)}`;
+        let url = baseUrl + "/book";
+        url += `/${encodeURIComponent(this.isbn)}`;
         const response = await fetch(url);
         // 檢查是否為 HTTP 200～299
         if (!response.ok) {
@@ -150,8 +149,17 @@ export default {
 </script>
 <!-- css -->
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a:hover,
+a {
+  text-decoration: none;
+}
 /* 商品頁 */
-
+span{color: hsl(36, 50.7%, 50%);}
 /* 產品頁面 */
 .prodP {
   margin: 0 auto;
@@ -193,15 +201,13 @@ export default {
 .prodFlex {
   font-size: 20px;
 }
-
-.prodFlex a {
+/* +商品頁的內文描述+卡片裡的dt小標 */
+.prodFlex a,.describe i,.card-body dt {
   color: hsl(353, 100%, 29.2%);
 }
 
-/* 商品頁的內文描述 */
-.describe i {
-  color: hsl(353, 100%, 29.2%);
-}
+
+ 
 
 /* 商品頁的商品規格 */
 #card-1 {
@@ -230,9 +236,6 @@ export default {
   margin: 10px 30px;
 }
 
-.card-body dt {
-  color: hsl(353, 100%, 29.2%);
-}
 
 
 /* 你可能會喜歡_小圖區 */
@@ -254,4 +257,5 @@ export default {
   color: rgba(165, 42, 42, 0.77);
   border-bottom: 1px rgba(165, 42, 42, 0.77) solid;
 }
+
 </style>

@@ -14,7 +14,7 @@ const routes = [
   },
   // 你可以在這裡添加更多路由
 {
-    path: "/books/:isbn",
+    path: "/book/:isbn",
     component: book_detail,
     props: true,
   },

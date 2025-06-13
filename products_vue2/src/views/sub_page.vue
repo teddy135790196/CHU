@@ -28,12 +28,12 @@ export default {
   methods: {
     getIsbn(isbn) {
       //取到這個isbn了我要跳轉到isbn頁! -->現在的路由要改成...
-      this.$router.push(`/books/${isbn}`);
+      this.$router.push(`/book/${encodeURIComponent(isbn)}`);
     },
   },
 };
 </script>
-<style>
+<style scoped>
 /* 不論是nav、block都有用到的 */
 * {
   margin: 0;

@@ -63,8 +63,8 @@ app.get("/books/:sub", (req, res) => {
 
 });
 // 拿到isbn後就可以取得該書的所有資料
-// 網址: http://localhost:3000/book=999-000-984157-7
-app.get("/book=:id", (req, res) => {
+// 網址: http://localhost:3000/book/999-000-984157-7
+app.get("/book/:id", (req, res) => {
   const Bid = req.params.id ; //針對:sub
   const str_spans = "CALL 該isbn的所有資料(?)";
   // CALL 該isbn的所有資料('999-000-984157-7')
