@@ -49,28 +49,32 @@
               <!-- 若裡面有資料 -->
               <div class="row smProduct">
                 <!-- 單個商品圖版型 -->
-                <div class="col3" v-for="(book, index) in currentBooks" v-bind:key="book.ISBN">
+                <div class="col3" v-for="(book, index) in currentBooks" v-bind:key="book.ISBN_id">
                   <!-- 無效資料，消除警告用 -->
                   <span :value="index"></span>
-                  <a v-bind:href="book.url||'#'">
+                  <a>
+                  <span @click="performSearch(book.ISBN_id, 'ISBN_id')">
                     <div class="container-fluid">
-                      <img v-bind:src="book.封面連結複製用" alt="book.書名" />
+                      <img v-bind:src="book.imgUrl" alt="book.name" />
                     </div>
-                    <!-- 若書名超過15則會... -->
-                    <div v-if="book.書名.length>15">
-                      <h4><span>{{book.書名.slice(0,15)}}...</span></h4>
+                    <!-- 若name超過15則會... -->
+                    <div v-if="book.name.length>15">
+                      <h4><span>{{book.name.slice(0,15)}}...</span></h4>
                     </div>
                     <div v-else>
-                      <h4><span>{{book.書名}}</span></h4>
+                      <h4><span>{{book.name}}</span></h4>
                     </div>
+                  </span>
                   </a>
-                  <a href="#" class="authorColor">
+                  <a >
+                  <span @click="performSearch(book.author, 'author')">
                     <!-- 若作者超過17就:用三元運算寫 -->
-                    {{ book.作者.length>17 ? book.作者.slice(0, 17)+'...' : book.作者 }}
+                    {{ book.author.length>17 ? book.author.slice(0, 17)+'...' : book.author }}
+                  </span>
                   </a>
                   <div class="PandChartBtn">
                     <i
-                      ><h3><small>$</small>{{book.售價}}</h3></i
+                      ><h3><small>$</small>{{book.price}}</h3></i
                     ><button>加入購物車</button>
                   </div>
                 </div>
@@ -104,7 +108,7 @@
       </main>
 </template>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script> -->
 <!-- prettier-ignore -->
 <script>
 export default {
@@ -112,21 +116,7 @@ export default {
 
   data() {
     return {
-      //推薦書籍編號
-      isbns: [
-        "999-000-519277-8",
-        "999-000-888953-2",
-        "999-000-603288-4",
-        "999-000-660896-1",
-        "999-000-057849-7",
-        "999-000-670585-1",
-        "999-000-981099-0",
-        "999-000-409906-0",
-        "999-000-298283-5",
-        "999-000-568782-2",
-        " 999-000-678901-2",
-        "999-000-012345-6",
-      ],
+
       originBooks: null, //所有書籍
       currentBooks: [], //現在顯示書籍
       currentIndex: -1, //書籍詳細內容需要的id
@@ -152,51 +142,47 @@ export default {
   },
 
   mounted() {
-    //先取得CSV資料庫資料，等取值完後再把現在顯示資料等於過去
-    this.fetchData().then(() => {
-      for (let i = 0; i < this.originBooks.length; i++) {
-        for (let isbn of this.isbns) {
-          if (this.originBooks[i]["ISBN"].includes(isbn)) {
-            this.currentBooks.push(this.originBooks[i]);
-          }
-        }
-      }
-    });
+    this.fetchRecommendBooks();
 
+    //是否啟用圖片輪播
     this.isChange(true);
-
   },
 
   methods: {
-    async fetchData() {
-      const response = await fetch("bookTable.csv");
-      const responseData = await response.text();
-      this.originBooks = Papa.parse(responseData, {
-        header: true, // 設定為 true 以轉換為物件格式
-        skipEmptyLines: true, // 跳過空行
-      }).data;
-    },
+    async  fetchRecommendBooks() {
+        const apiURL = "http://localhost:3000/books";
 
-    //依照欄位名稱和值找出書籍，欄位名稱和值都不寫那就顯示全書目，沒有欄位名稱就搜尋全書目
-    findBookByCondition(fields, queryValue) {
-      let queryBooks = [];
-      for (let i = 0; i < this.originBooks.length; i++) {
-        if (fields === "" && queryValue === "") {
-          queryBooks.push(this.originBooks[i]);
-        } else if (fields === "") {
-          //無欄位名，搜尋所有欄位
-          //匿名函式，some歷遍物件，查看所有值是否符合自訂條件
-          if (Object.values(this.originBooks[i]).some(value => value.includes(queryValue))) {
-            queryBooks.push(this.originBooks[i]);
+        try {
+          const response = await fetch(apiURL);
+          if (!response.ok) throw new Error("網路錯誤: " + response.status);
+          //修改這兩行
+          const jsonData = await response.json();
+          const data = jsonData.books;
+          console.log("抓到資料:", data);
+
+          this.currentBooks = data;
+
+          if (!Array.isArray(data)) {
+            alert("資料格式錯誤，應該是陣列");
+            return;
           }
-          //有欄位名，搜尋該欄位
-        } else if (this.originBooks[i][fields].includes(queryValue)) {
-          queryBooks.push(this.originBooks[i]);
-        }
-      }
 
-      this.currentBooks = queryBooks;
-      this.currentIndex = -1; //重設currentIndex
+        } catch (error) {
+          alert("讀取資料失敗，請看 console");
+          console.error("讀取資料失敗:", error);
+        }
+      },
+
+      performSearch(searchText, searchScope) {
+
+      // 透過路由傳遞搜尋內容和範圍
+      this.$router.push({
+        name: 'MyProduct', // 商品頁面的路由名稱
+        query: {
+          q: searchText,
+          scope: searchScope
+        }
+      });
     },
 
     isChange(changeOrNot) {
@@ -433,6 +419,10 @@ export default {
 /* 我的程式碼 */
 main {
   margin: 0 10vw;
+}
+
+a {
+  cursor: pointer;
 }
 
 /* 輪播 */

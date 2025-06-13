@@ -9,6 +9,7 @@
   </div>
 </template>
 
+<!-- prettier-ignore -->
 <script>
 import MyPopup from "./components/MyPopup.vue";
 import TitleNav from "./components/TitleNav.vue";
@@ -22,23 +23,33 @@ export default {
     MyFooter,
   },
 
-  data() {
-    return {
-      globalSelectedField: "",
-      globalSearchValue: "",
-    };
-  },
-  provide() {
-    return {
-      selectedField: () => this.globalSelectedField, // 提供一個響應式屬性
-      searchValue: () => this.globalSearchValue,
-      updateSearch: (field, value) => {
-        // 提供一個更新方法
-        this.globalSelectedField = field;
-        this.globalSearchValue = value;
-      },
-    };
-  },
+  // data() {
+  //   return {
+  //     globalSelectedField: "",
+  //     globalSearchValue: "",
+  //     globalISBN_id: "",
+  //     globalAuthor: "",
+  //   };
+  // },
+  // provide() {
+  //   return {
+  //     selectedField: () => this.globalSelectedField, // 提供一個響應式屬性
+  //     searchValue: () => this.globalSearchValue,
+  //     updateSearch: (field, value) => {
+  //       // 提供一個更新方法
+  //       this.globalSelectedField = field;
+  //       this.globalSearchValue = value;
+  //     },
+  //     ISBN_id: () => this.globalISBN_id,
+  //     updateISBN_id: id => {
+  //       this.globalISBN_id = id;
+  //     },
+  //     author: () => this.globalAuthor,
+  //     updateAuthor: author => {
+  //       this.globalISBN_id = author;
+  //     },
+  //   };
+  // },
 };
 </script>
 

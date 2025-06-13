@@ -1,3 +1,5 @@
+<!-- vue2中，導航頁組件作為組件插入到App.vue，導航頁組件中有搜尋輸入框和選擇搜尋範圍的選單，按下搜尋後會把搜尋內容和範圍傳送到商品頁面，並使用路由，在網址列顯示搜尋內容和欄位 -->
+
 <!-- prettier-ignore -->
 <template>
   <!-- 導航欄 -->
@@ -13,19 +15,19 @@
       <li class="search">
         <input
           type="text"
-          v-model="internalSearchValue"
-          @keyup.enter="findBookByCondition(internalSearchValue, internalSelectedField)"
+          v-model="searchText"
+          @keyup.enter="performSearch"
           placeholder="右邊欄位可選"/>
-        <select v-model="internalSelectedField">
-          <option value="">全部欄位</option>
-          <option value="書名">書名</option>
-          <option value="作者">作者</option>
-          <option value="ISBN">ISBN</option>
-          <option value="分類">分類</option>
-          <option value="類型">類型</option>
-          <option value="系列名稱">系列名稱</option>
+        <select v-model="searchScope">
+          <option value="all" >全部欄位</option>
+          <option value="name">書名</option>
+          <option value="author">作者</option>
+          <option value="ISBN_id">ISBN</option>
+          <!-- <option value="分類">分類</option>
+          <option value="類型">類型</option> -->
+          <option value="series">系列名稱</option>
         </select>
-        <span class="searchBtn" @click="findBookByCondition(internalSearchValue, internalSelectedField)">搜尋</span>
+        <span class="searchBtn" @click="performSearch">搜尋</span>
       </li>
       <li class="product">
         <router-link to="/MyProduct" class="emoji">📚</router-link>
@@ -51,32 +53,54 @@
 export default {
   name: "TitleNav.vue",
 
-  inject: ['selectedField', 'searchValue', 'updateSearch'], // 注入提供的屬性
+  // inject: ['selectedField', 'searchValue', 'updateSearch'], // 注入提供的屬性
   data() {
     return {
-      internalSelectedField: this.selectedField(), // 初始化內部數據
-      internalSearchValue: this.searchValue(),
+      // internalSelectedField: this.selectedField(), // 初始化內部數據
+      // internalSearchValue: this.searchValue(),
+
+      searchText: '',
+      searchScope: 'all'
     };
   },
-  watch: {
-    selectedField: { // 監聽注入的屬性變化並更新內部數據
-      handler(newVal) {
-        this.internalSelectedField = newVal;
-      },
-      deep: true // 如果注入的是響應式對象，可能需要 deep
-    },
-    searchValue: {
-      handler(newVal) {
-        this.internalSearchValue = newVal;
-      },
-      deep: true
-    }
-  },
+  // watch: {
+  //   selectedField: { // 監聽注入的屬性變化並更新內部數據
+  //     handler(newVal) {
+  //       this.internalSelectedField = newVal;
+  //     },
+  //     deep: true // 如果注入的是響應式對象，可能需要 deep
+  //   },
+  //   searchValue: {
+  //     handler(newVal) {
+  //       this.internalSearchValue = newVal;
+  //     },
+  //     deep: true
+  //   }
+  // },
   methods: {
-    findBookByCondition() {
-      this.updateSearch(this.internalSelectedField, this.internalSearchValue); // 呼叫父組件的更新方法
-      console.log('搜尋條件:', this.selectedField(), this.searchValue());
-    }
+    // findBookByCondition() {
+    //   this.updateSearch(this.internalSelectedField, this.internalSearchValue); // 呼叫父組件的更新方法
+    //   console.log('搜尋條件:', this.selectedField(), this.searchValue());
+    // }
+
+    performSearch() {
+      if(this.searchText === "") {
+        return;
+      }
+
+      // 透過路由傳遞搜尋內容和範圍
+      this.$router.push({
+        name: 'MyProduct', // 商品頁面的路由名稱
+        query: {
+          q: this.searchText,
+          scope: this.searchScope
+        }
+      });
+
+      //重置搜尋框
+      this.searchText = "";
+      this.searchScope = "all";
+    },
   }
 };
 </script>
