@@ -1,96 +1,67 @@
 <template>
-	<!-- 區塊：購買紀錄－始 -->
-	<div class="selectContent" id="purchase" style="display: none;">
-		<!-- <h5 class="mb-3">歷史訂單（僅展示效果，未實作。這段會刪掉）</h5> -->
-		<!-- 一筆訂單 -->
-		<div class="list-group mb-4">
-			<div class="list-group-item">
-				<div class="d-flex justify-content-between align-items-center">
-					<div>
-						<strong>訂單編號：</strong>#202405251234569<br>
-						<small>下單日期：2024-05-25</small>
-					</div>
-					<div>
-						<span class="badge bg-info">已下單</span>
-						<button class="btn btn-sm btn-outline-primary">查看明細</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 一筆訂單 -->
-		<div class="list-group mb-4">
-			<div class="list-group-item">
-				<div class="d-flex justify-content-between align-items-center">
-					<div>
-						<strong>訂單編號：</strong>#202405211234569<br>
-						<small>出貨日期：2024-05-25</small>
-					</div>
-					<div>
-						<span class="badge bg-warning">運送中</span>
-						<button class="btn btn-sm btn-outline-primary">查看明細</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 一筆訂單 -->
-		<div class="list-group mb-4">
-			<div class="list-group-item">
-				<div class="d-flex justify-content-between align-items-center">
-					<div>
-						<strong>訂單編號：</strong>#202405141234569<br>
-						<small>下單日期：2024-05-14</small><br>
-						<small>出貨日期：2024-05-19</small><br>
-						<small>結算日期：2024-05-24</small>
-					</div>
-					<div>
-						<span class="badge bg-success">已完成</span>
-						<button class="btn btn-sm btn-primary">查看明細</button>
-					</div>
-				</div>
-			</div>
-			<!-- 明細 -->
-			<div class="list-group-item">
-				<div class="d-flex justify-content-between align-items-center">
-					<div>
-						<p>春水遊鯉</p>
-						<p>冬日翠峰</p>
-						<p>秋山煙嵐</p>
-						<p>夏木幽亭</p>
-					</div>
-					<div>
-						<p>售價：399</p>
-						<p>售價：399</p>
-						<p>售價：399</p>
-						<p>售價：399</p>
-					</div>
-					<div>
-						<p>1本</p>
-						<p>1本</p>
-						<p>1本</p>
-						<p>1本</p>
-					</div>
-					<div>
-						<p>小計：399</p>
-						<p>小計：798</p>
-						<p>小計：1197</p>
-						<p>小計：1596</p>
-					</div>
-				</div>
-				<hr>
-				<div class="d-flex justify-content-end align-items-center">
-					<div>
-						<p>折扣：-0</p>
-						<p>總計：1596</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 更多訂單 -->
-	</div>
-</template>
+  <div class="list-group mb-4">
+    <!-- 主資料 -->
+    <div class="list-group-item">
+      <div class="d-flex justify-content-between align-items-start flex-wrap">
+        <div>
+          <strong>訂單編號：</strong>#{{ order.id }}<br />
+          <small>下單日期：{{ order.date }}</small><br v-if="order.shipDate" />
+          <small v-if="order.shipDate">出貨日期：{{ order.shipDate }}</small><br v-if="order.settleDate" />
+          <small v-if="order.settleDate">結算日期：{{ order.settleDate }}</small>
+        </div>
+        <div class="text-end mt-2 mt-md-0">
+          <!-- 這裡改成 v-bind:class -->
+          <span :class="['badge', 'bg-' + statusColor]">{{ order.statusText }}</span><br />
+          <button
+            class="btn btn-sm btn-outline-primary mt-2"
+            data-bs-toggle="collapse"
+            :data-bs-target="'#collapse' + order.id"
+            aria-expanded="false"
+            :aria-controls="'collapse' + order.id"
+          >
+            {{ isCollapsed ? '收起明細' : '查看明細' }}
+          </button>
+        </div>
+      </div>
+    </div>
 
-<script>
-export default {
-	name: "PurchaseArea",
-};
-</script>
+    <!-- 明細摺疊 -->
+    <div
+      :id="'collapse' + order.id"
+      class="collapse list-group-item"
+      @show="isCollapsed = true"
+      @hide="isCollapsed = false"
+    >
+      <div class="d-flex justify-content-between align-items-start flex-wrap">
+        <!-- 書名 -->
+        <div>
+          <p v-for="(item, index) in order.items" :key="'title-' + index">{{ item.title }}</p>
+        </div>
+
+        <!-- 售價 -->
+        <div>
+          <p v-for="(item, index) in order.items" :key="'price-' + index">售價：{{ item.price }}</p>
+        </div>
+
+        <!-- 數量 -->
+        <div>
+          <p v-for="(item, index) in order.items" :key="'qty-' + index">{{ item.qty }}本</p>
+        </div>
+
+        <!-- 小計 -->
+        <div>
+          <p v-for="(item, index) in order.items" :key="'subtotal-' + index">小計：{{ item.price * item.qty }}</p>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="d-flex justify-content-end">
+        <div class="text-end">
+          <p>折扣：-{{ order.discount || 0 }}</p>
+          <p>總計：{{ order.total }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

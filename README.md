@@ -11,7 +11,7 @@
 ## 外部連結
 [我的 Notion 筆記](https://www.notion.so/1d5d07d9b596803dbaabc42779d44084)<br>
 [柯博文老師直播影片](https://www.youtube.com/playlist?list=PLkvu6TsdkQFqvlhPJt8uYu9Lpg8yEzb6h)<br>
-[俞樺捷老師教學影片(不知網址)]()<br>
+[俞樺捷老師教學影片](https://www.youtube.com/playlist?list=PLuE5-ADiU3JKsMI5ecbCViOAyx0L3tWXH)<br>
 
 
 ## 更新紀錄
@@ -30,6 +30,16 @@
   - 優化後端API，將 login、register 純手打一次
   - 將前端連結後端網址全部用 main.js 變更
   - 會員頁面寫死的內容改為變數
+
+</details>
+
+<details>
+<summary>0613｜</summary>
+
+- **新增**
+  - 
+- **更新**
+  - 
 
 </details>
 

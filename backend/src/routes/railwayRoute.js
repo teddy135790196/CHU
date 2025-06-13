@@ -11,9 +11,9 @@ router.get('/test', (req, res) => {
   });
 });
 
-// http://localhost:3000/api/railwayDB/books
-router.get('/books', (req, res) => {
-  database.query('SELECT * FROM T_book', (err, results) => {
+// http://localhost:3000/api/railwayDB/orders
+router.get('/orders', (req, res) => {
+  database.query('SELECT * FROM orders', (err, results) => {
     if (err) return res.status(500).json({ error: '查詢失敗', details: err });
     res.json(results);
   });

@@ -3,29 +3,34 @@
 		<!-- 背景層 -->
 		<!-- <div class="back-img"></div>  -->
 
+		<!-- 頁首區 -->
 		<div class="container-fluid">
-			<!-- 頁首區 -->
 			<div class="row">
 				<HeaderArea />
 			</div>
+		</div>
 
-			<!-- 回登入頁按鈕 -->
-			<div class="row">
+		<!-- 回登入頁按鈕 -->
+		<div class="container">
+			<div class="row mt-5">
 				<div class="col-12 text-center">
 					<a href="/login" class="btn btn-primary mt-3">回登入頁</a>
 				</div>
 			</div>
+
 			<!-- 忘記密碼區 -->
 			<div class="row">
 				<ForgotPasswordPage />
 			</div>
+		</div>
 
-			<!-- 頁尾區 -->
+		<!-- 頁尾區 -->
+		<div class="container-fluid">
 			<div class="row">
 				<FooterArea />
 			</div>
-
 		</div>
+
 	</div>
 </template>
 

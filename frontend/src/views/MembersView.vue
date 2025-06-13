@@ -13,17 +13,23 @@
   @action="goToPublisherApply" />  -->
 
 		<!-- 頁首區 -->
-		<div class="row">
-			<HeaderArea />
+		<div class="container-fluid">
+			<div class="row">
+				<HeaderArea />
+			</div>
 		</div>
 
-		<div class="row">
-			<MembersPage />
+		<div class="container">
+			<div class="row">
+				<MembersPage />
+			</div>
 		</div>
 
 		<!-- 頁尾區 -->
-		<div class="row">
-			<FooterArea />
+		<div class="container-fluid">
+			<div class="row">
+				<FooterArea />
+			</div>
 		</div>
 	</div>
 </template>

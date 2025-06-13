@@ -4,16 +4,21 @@
 		<!-- <div class="back-img"></div>  -->
 
 		<!-- 頁首區 -->
-		<div class="row">
-			<HeaderArea />
+		<div class="container-fluid">
+			<div class="row">
+				<HeaderArea />
+			</div>
 		</div>
 
 		<IndexPage />
 
 		<!-- 頁尾區 -->
-		<div class="row">
-			<FooterArea />
+		<div class="container-fluid">
+			<div class="row">
+				<FooterArea />
+			</div>
 		</div>
+
 	</div>
 </template>
 
