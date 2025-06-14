@@ -1,0 +1,40 @@
+OK_Public//
+OK_App.vue(沒有需要更改)
+後端node2.js重複部分刪減後丟到main資料夾，再問尤要不要拆分成各流程(router、controller、service)
+
+
+
+
+
+assets/css 有BS檔與空白的商品CSS(BS看用main直接引入插件)
+
+components//
+book_info.vue		對應商品頁面
+sub_block.vue		商品總覽(商品卡在這邊，可以拆成common元件，首頁、該頁、會員頁都用的到)
+sub_nav.vue		左側導覽(瀏覽器標題應該也在這)
+
+
+views//
+book_detail.vue		呼叫對應商品頁面-book_info
+home.vue		無用
+sub_page.vue		呼叫商品總覽-sub_block
+
+
+
+index.js
+路由直接丟過去就好
+
+
+
+main.js
+全域CSS匯入改用BS插件
+只有設定延遲加載，想要和我的axios一起拉出去到middlewares成為插件設定檔(參考後端)
+
+
+
+----
+
+
+
+商品卡可以將樣式複製到首頁的商品卡，或者說將商品卡轉成一個元件
+瀏覽器的標題與圖標替換(原來圖標是可以這樣換)
