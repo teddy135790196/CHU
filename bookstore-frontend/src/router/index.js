@@ -10,7 +10,7 @@ import OrderQuery from "@/views/OrderQuery.vue";
 Vue.use(Router);
 
 const router = new Router({
-  mode: "history",
+  mode: "hash",
   routes: [
     { path: "/", redirect: "/cart" },
     { path: "/cart", component: ShoppingCart },
