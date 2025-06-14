@@ -1,0 +1,16 @@
+{
+  "name": "railway-import",
+  "version": "1.0.0",
+  "main": "import_T_書本表.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "csv-parser": "^3.2.0",
+    "mysql2": "^3.14.1"
+  }
+}

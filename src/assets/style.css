@@ -1,0 +1,382 @@
+/* 全局樣式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Microsoft JhengHei", "微軟正黑體", Arial, sans-serif;
+    background: #fff url('~@/assets/images/banners/ink-bg.png') no-repeat center top fixed;
+    background-size: cover;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 導航欄樣式 */
+.navbar {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid #c41e3a;
+}
+
+.logo h1 {
+    color: #c41e3a;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+    font-size: 1.1rem;
+}
+
+.nav-item:hover {
+    color: #c41e3a;
+}
+
+/* 彈窗樣式 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.modal-content h2 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.modal-buttons button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.modal-buttons button:last-child {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* 主要內容區域 */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* 標題樣式 */
+.section-title {
+    text-align: center;
+    color: #c41e3a;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #c41e3a;
+}
+
+/* 商品列表樣式 */
+.item_header {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #eee;
+}
+
+.item_header .price,
+.item_header .count,
+.item_header .amount {
+    text-align: right;
+    padding-right: 2rem;
+}
+
+.item_body {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+.item_body .price,
+.item_body .count,
+.item_body .amount {
+    text-align: right;
+    padding-right: 2rem;
+}
+
+.item_detail {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.item_detail img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+/* 結算區域樣式 */
+.checkout-section {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+.checkout-summary {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.checkout-button {
+    width: 100%;
+    padding: 0.6rem 1.5rem;
+    background-color: #c41e3a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.checkout-button:hover {
+    background-color: #a01830;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 3rem;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-top: 2rem;
+}
+
+/* 按鈕樣式 */
+button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.primary-button {
+    background-color: #c41e3a;
+    color: #fff;
+}
+
+.primary-button:hover {
+    background-color: #a01830;
+}
+
+.secondary-button {
+    background-color: #fff;
+    color: #c41e3a;
+    border: 2px solid #c41e3a;
+}
+
+.secondary-button:hover {
+    background-color: #c41e3a;
+    color: #fff;
+}
+
+/* 表單樣式 */
+input, select, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #c41e3a;
+    box-shadow: 0 0 0 2px rgba(196, 30, 58, 0.2);
+}
+
+/* 購物車樣式 */
+.cart-section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+.cart-total {
+    text-align: right;
+    font-size: 1.2rem;
+    color: #c41e3a;
+    font-weight: bold;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .item_header {
+        grid-template-columns: 2fr 1fr 1fr;
+    }
+    
+    .container {
+        padding: 0 0.5rem;
+    }
+}
+
+/* 動畫效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.item_header{
+    display: flex;
+    width: 1000px;
+    margin: 0 auto;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 3px;
+    padding-left: 10px;
+}
+.item_header div{
+    width: 200px;
+    color: #888;
+    line-height: 30px;
+}
+.item_header .item_detail{
+    width: 50%;
+}
+.item_body{
+    margin-top: 20px;
+    height: 100px;
+    align-items: center;    
+}
+.item_detail img{
+    width: 80px;
+    height: 80px;
+    border-radius: 3px;
+    /* margin-top: 10px; */
+    float: left;
+}
+.item_detail .name{
+    margin-left: 100px;
+    margin-top: 20px;
+}
+
+.clear-cart-btn {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.clear-cart-btn:hover {
+    background-color: #c82333;
+}
+
+/* 已移除 .register-bg 的背景圖片設定，請改用 public/index.html inline style 設定全站背景 */ 
