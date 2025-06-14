@@ -1,37 +1,68 @@
 const express = require("express");
-const cors = require("cors"); // ✅ 引入 cors 模組
-const app = express();
+const cors = require("cors");
 const db = require("./db");
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ 使用 CORS 中介層（正式做法）
-app.use(cors({
-  origin: "*", // 部署時建議替換為：'https://chu-frontend-production.up.railway.app'
+// ✅ 明確允許前端網域
+const corsOptions = {
+  origin: "https://chu-frontend-production.up.railway.app",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
-// ✅ 處理 JSON 請求
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
-// ✅ 根路由測試
+// 測試
 app.get("/", (req, res) => {
-  res.send("✅ Node.js API 正常運行中");
+  res.send("✅ API 運作中");
 });
 
-// ✅ 書籍 API 測試
-app.get("/books", (req, res) => {
-  db.query("SELECT * FROM products", (err, results) => {
+// ✅ 訂單 API
+app.post("/api/orders", (req, res) => {
+  const {
+    order_id,
+    user_id,
+    ISBN_id,
+    delivery_id,
+    user_name,
+    user_tel,
+    user_email,
+    user_address,
+    payment_method,
+    message,
+    delivery_method,
+    carrier,
+    estimated_weight,
+    shipping_fee,
+    total_amount,
+    status
+  } = req.body;
+
+  const sql = `INSERT INTO orders (
+    order_id, user_id, ISBN_id, delivery_id, user_name,
+    user_tel, user_email, user_address, payment_method, message,
+    delivery_method, carrier, estimated_weight, shipping_fee,
+    total_amount, status
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+  const values = [
+    order_id, user_id, ISBN_id, delivery_id, user_name,
+    user_tel, user_email, user_address, payment_method, message,
+    delivery_method, carrier, estimated_weight, shipping_fee,
+    total_amount, status || 'pending'
+  ];
+
+  db.query(sql, values, (err, result) => {
     if (err) {
-      console.error("❌ 查詢錯誤：", err);
-      return res.status(500).send("資料庫錯誤");
+      console.error("❌ 訂單建立失敗：", err);
+      return res.status(500).json({ message: "建立失敗" });
     }
-    res.json(results);
+    res.status(201).json({ message: "✅ 訂單建立成功", order_id });
   });
 });
 
-// ✅ 啟動伺服器
 app.listen(PORT, () => {
-  console.log(`✅ Server is running on port ${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
-
