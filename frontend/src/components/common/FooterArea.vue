@@ -16,7 +16,7 @@
       <a href="#">服務條款</a>
       <a href="#">隱私權條款</a>
     </div>
-    <p class="copyright">版權所有 © 2025 棲遲書屋 Web design by 卓俊良、彭雲錕、康亘翔、尤乙淳</p>
+    <p class="copyright">Copyright &copy; 2025 All rights reserved. Web design by 卓俊良、彭雲錕、康亘翔、尤乙淳</p>
   </footer>
 </template>
 

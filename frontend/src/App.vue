@@ -1,16 +1,21 @@
 <template>
   <div id="app">
-    <HeaderArea />
+    <PopupArea />
+
     <!-- 所有組件都要下移52px，因為抬頭導航不佔位 -->
+    <HeaderArea />
     <div style="height: 52px"></div>
 
+
     <router-view />
+
 
     <FooterArea />
   </div>
 </template>
 
 <script>
+import PopupArea from './components/common/PopupArea.vue';
 import HeaderArea from './components/common/HeaderArea.vue';
 import FooterArea from './components/common/FooterArea.vue';
 
@@ -23,6 +28,7 @@ export default {
     };
   },
   components: {
+    PopupArea,
     HeaderArea,
     FooterArea
   },

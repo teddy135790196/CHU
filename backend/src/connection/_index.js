@@ -5,23 +5,11 @@ require('dotenv').config();
 
 let db;
 
-switch (process.env.DB_TYPE) {
-  case 'azure':
-    db = require('./azureConnection');
-    break;
-  case 'railway':
-    db = require('./railwayConnection');
-    break;
-  case 'alwaysdata':
-    db = require('./alwaysdataConnection');
-    break;
-  default:
-    throw new Error(`找不到 ${process.env.DB_TYPE} 資料庫`);
-}
+db = require('./railwayConnection');
 
 // 顯示選擇的資料庫
 setTimeout(() => {
-  console.log(`【目前選用資料庫】 ${process.env.DB_TYPE}`);
+  console.log(`【目前選用資料庫】 railway`);
 }, 2000);
 
 module.exports = db;

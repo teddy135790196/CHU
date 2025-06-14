@@ -1,3 +1,5 @@
+<!-- vue2中，導航頁組件作為組件插入到App.vue，導航頁組件中有搜尋輸入框和選擇搜尋範圍的選單，按下搜尋後會把搜尋內容和範圍傳送到商品頁面，並使用路由，在網址列顯示搜尋內容和欄位 -->
+
 <!-- prettier-ignore -->
 <template>
 	<!-- 導航欄 -->
@@ -5,39 +7,36 @@
 		<ul class="titleNavIcon">
 			<li class="logo">
 				<h1>
-					<router-link to="/"><img src="@/assets/images/icon.png" alt="棲遲書店" /></router-link>
+					<router-link to="/"><img src="icon/logo.png" alt="棲遲書店" /></router-link>
 				</h1>
 				<div class="logoUpArror">▲</div>
 				<div class="logoDialog">回到首頁</div>
 			</li>
 			<li class="search">
-				<input type="text" v-model="internalSearchValue"
-					@keyup.enter="findBookByCondition(internalSearchValue, internalSelectedField)"
-					placeholder="右邊欄位可選" />
-				<select v-model="internalSelectedField">
-					<option value="">全部欄位</option>
-					<option value="書名">書名</option>
-					<option value="作者">作者</option>
-					<option value="ISBN">ISBN</option>
-					<option value="分類">分類</option>
-					<option value="類型">類型</option>
-					<option value="系列名稱">系列名稱</option>
+				<input type="text" v-model="searchText" @keyup.enter="performSearch" placeholder="右邊欄位可選" />
+				<select v-model="searchScope">
+					<!-- <option value="all" >全部欄位</option> -->
+					<option value="name">書名</option>
+					<option value="author">作者</option>
+					<option value="ISBN_id">ISBN</option>
+					<!-- <option value="分類">分類</option>
+          <option value="類型">類型</option> -->
+					<option value="series">系列名稱</option>
 				</select>
-				<span class="searchBtn"
-					@click="findBookByCondition(internalSearchValue, internalSelectedField)">搜尋</span>
+				<span class="searchBtn" @click="performSearch">搜尋</span>
 			</li>
 			<li class="product">
-				<router-link to="/" class="emoji">📚</router-link>
+				<router-link to="/products" class="emoji">📚</router-link>
 				<div class="productUpArror">▲</div>
 				<div class="productDialog">書籍一覽</div>
 			</li>
 			<li class="titleNavEmoji member">
-				<router-link to="/members" class="emoji">🧑</router-link>
+				<router-link to="/members" class="emojiIcon"><img src="icon/user.png" alt=""></router-link>
 				<div class="memberUpArror">▲</div>
 				<div class="memberDialog">會員資料</div>
 			</li>
 			<li class="titleNavEmoji shoppingCart">
-				<router-link to="/" class="emoji">🛒</router-link>
+				<router-link to="/shoppingCart" class="emoji">🛒</router-link>
 				<div class="shoppingCartUpArror">▲</div>
 				<div class="shoppingCartDialog">去購物車</div>
 			</li>
@@ -50,32 +49,32 @@
 export default {
 	name: "HeaderArea",
 
-	inject: ['selectedField', 'searchValue', 'updateSearch'], // 注入提供的屬性
 	data() {
 		return {
-			internalSelectedField: this.selectedField(), // 初始化內部數據
-			internalSearchValue: this.searchValue(),
+			searchText: '',
+			searchScope: 'name'
 		};
 	},
-	watch: {
-		selectedField: { // 監聽注入的屬性變化並更新內部數據
-			handler(newVal) {
-				this.internalSelectedField = newVal;
-			},
-			deep: true // 如果注入的是響應式對象，可能需要 deep
-		},
-		searchValue: {
-			handler(newVal) {
-				this.internalSearchValue = newVal;
-			},
-			deep: true
-		}
-	},
+
 	methods: {
-		findBookByCondition() {
-			this.updateSearch(this.internalSelectedField, this.internalSearchValue); // 呼叫父組件的更新方法
-			console.log('搜尋條件:', this.selectedField(), this.searchValue());
-		}
+		performSearch() {
+			if (this.searchText === "") {
+				return;
+			}
+
+			// 透過路由傳遞搜尋內容和範圍
+			this.$router.push({
+				name: 'MyProduct', // 商品頁面的路由名稱
+				query: {
+					q: this.searchText,
+					scope: this.searchScope
+				}
+			});
+
+			//重置搜尋框
+			this.searchText = "";
+			this.searchScope = "name";
+		},
 	}
 };
 </script>
@@ -210,6 +209,10 @@ export default {
 	width: 100%;
 }
 
+.emojiIcon img {
+	width: 20px;
+}
+
 .emoji {
 	font-size: 20px;
 }
@@ -222,6 +225,10 @@ export default {
 	.emoji {
 		font-size: 30px;
 	}
+
+	.emojiIcon img {
+		width: 33px;
+	}
 }
 
 @media (min-width: 992px) {
@@ -231,6 +238,10 @@ export default {
 
 	.emoji {
 		font-size: 40px;
+	}
+
+	.emojiIcon img {
+		width: 44.8px;
 	}
 }
 
@@ -282,7 +293,14 @@ export default {
 	z-index: 10;
 }
 
-.member:hover .memberUpArror,
+.member:hover .memberUpArror {
+	display: block;
+	position: absolute;
+	top: 17px;
+	left: 2px;
+	color: hsl(353, 100%, 29.2%);
+}
+
 .shoppingCart:hover .shoppingCartUpArror,
 .product:hover .productUpArror {
 	display: block;
@@ -292,7 +310,15 @@ export default {
 	color: hsl(353, 100%, 29.2%);
 }
 
-.member:hover .memberDialog,
+.member:hover .memberDialog {
+	display: block;
+	position: absolute;
+	top: 34px;
+	left: -23px;
+	color: hsl(0, 0%, 100%);
+	background-color: hsl(353, 100%, 29.2%);
+}
+
 .shoppingCart:hover .shoppingCartDialog,
 .product:hover .productDialog {
 	display: block;
@@ -314,14 +340,22 @@ export default {
 		left: -20px;
 	}
 
-	.member:hover .memberUpArror,
+	.member:hover .memberUpArror {
+		top: 25px;
+		left: 9px;
+	}
+
 	.shoppingCart:hover .shoppingCartUpArror,
 	.product:hover .productUpArror {
 		top: 30px;
 		left: 9px;
 	}
 
-	.member:hover .memberDialog,
+	.member:hover .memberDialog {
+		top: 42px;
+		left: -18px;
+	}
+
 	.shoppingCart:hover .shoppingCartDialog,
 	.product:hover .productDialog {
 		top: 47px;
@@ -340,18 +374,26 @@ export default {
 		left: -15px;
 	}
 
-	.member:hover .memberUpArror,
+	.member:hover .memberUpArror {
+		top: 35px;
+		left: 15px;
+	}
+
 	.shoppingCart:hover .shoppingCartUpArror,
 	.product:hover .productUpArror {
 		top: 45px;
 		left: 19px;
 	}
 
-	.member:hover .memberDialog,
 	.shoppingCart:hover .shoppingCartDialog,
 	.product:hover .productDialog {
 		top: 62px;
 		left: -8px;
+	}
+
+	.member:hover .memberDialog {
+		top: 52px;
+		left: -12px;
 	}
 }
 </style>

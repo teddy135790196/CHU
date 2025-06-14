@@ -7,8 +7,6 @@ const router = express.Router();
 router.get('/', (req, res) => res.send('Hello from backend with MySQL!'));
 
 // 資料庫路由(/api)
-router.use('/alwaysdataDB', require('./alwaysdataRoute'));
-router.use('/azureDB', require('./azureRoute'));
 router.use('/railwayDB', require('./railwayRoute'));
 
 // 各功能路由(/api)

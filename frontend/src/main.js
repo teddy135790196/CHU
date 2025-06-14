@@ -11,6 +11,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import axios from 'axios';
 
 // const BASE_URL = process.env.BACKEND_URL;
+// const BASE_URL = 'https://bookstore-backend-production-f711.up.railway.app';
 const BASE_URL = 'http://localhost:3000';
 // this.$axios.post
 axios.defaults.baseURL = BASE_URL;
