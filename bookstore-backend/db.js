@@ -14,16 +14,13 @@ if (!MYSQLHOST || !MYSQLUSER || !MYSQLPASSWORD || !MYSQLDATABASE) {
   process.exit(1); // 強制退出應用，避免繼續執行錯誤程式
 }
 
-// ✅ 建立資料庫連線
+// ✅ 建立資料庫連線（不需加 ssl）
 const db = mysql.createConnection({
   host: MYSQLHOST,
   user: MYSQLUSER,
   password: MYSQLPASSWORD,
   database: MYSQLDATABASE,
   port: MYSQLPORT || 3306, // 預設 3306，避免環境沒設 PORT 時錯誤
-  ssl: {
-    rejectUnauthorized: false, // ✅ 修改這一行，允許自簽憑證
-  },
 });
 
 // ✅ 啟動連線
