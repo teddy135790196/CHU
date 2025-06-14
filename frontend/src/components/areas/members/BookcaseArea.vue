@@ -303,6 +303,11 @@ export default {
 </script>
 
 <style scoped>
+
+#bookcase {
+  padding: 20px;
+}
+
 .section-divider {
 	display: flex;
 	align-items: center;
@@ -314,7 +319,7 @@ export default {
 	line-height: 28px;
 	margin: 0;
 	color: var(--second-color);
-	font-family: "王翰宗中行書";
+	font-family: "王翰宗中仿宋";
 
 	button{
 		font-size: 30px;

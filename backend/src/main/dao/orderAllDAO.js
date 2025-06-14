@@ -5,27 +5,19 @@ const db = require('../../connection/_index');
 function selectAllOrders(callback) {
   const sql = `
     SELECT 
-      o.id,
-      o.date,
-      o.ship_date AS shipDate,
-      o.settle_date AS settleDate,
-      o.status,
-      CASE 
-        WHEN o.status = 0 THEN '已下單'
-        WHEN o.status = 1 THEN '處理中'
-        WHEN o.status = 2 THEN '已完成'
-        WHEN o.status = 3 THEN '已取消'
-        ELSE '未知狀態'
-      END AS statusText,
-      o.discount,
-      o.total,
-      d.book_id,
-      d.title,
-      d.price,
-      d.qty
-    FROM orders o
-    JOIN order_query d ON o.id = d.order_id
-    ORDER BY o.date DESC, o.id ASC;
+  o.order_id AS id,
+  o.created_at,
+  o.status,
+  o.total_amount AS total,
+  d.ISBN_id,
+  p.name AS title,  -- 替代原本 b.title
+  d.price_at_order_time AS price,
+  d.quantity AS qty,
+  d.subtotal
+FROM orders o
+JOIN orders_query d ON o.order_id = d.order_id
+JOIN products p ON d.ISBN_id = p.ISBN_id
+ORDER BY o.created_at DESC, o.order_id ASC;
   `;
 
   db.query(sql, (err, rows) => {

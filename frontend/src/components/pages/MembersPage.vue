@@ -5,7 +5,6 @@
       <!-- 個人資訊區 -->
       <div class="userInformation">
         <div class="row">
-
           <!-- 頭像 -->
           <div class="col-12 col-md-4 col-lg-3">
             <div class="userAvatar d-flex justify-content-center">
@@ -16,52 +15,34 @@
           <!-- 暱稱 -->
           <div class="col-12 col-md-8 col-lg-9 d-flex justify-content-between align-items-start">
             <div class="userNick">
-              <h3 class="mb-0">長安不問與小僧無名與東流</h3>
+              <h3 class="mb-0">{{ nickname }}</h3>
             </div>
-            <!-- 出版按鈕 -->
             <!-- <a class="bg-warning" href="./publisherArea.html">我要出版！</a> -->
           </div>
-
-
         </div>
       </div>
-
 
       <!-- 個人資料 - 手風琴 -->
       <div class="accordion accordion-custom" id="userAccordion">
         <div class="row">
-
-          <!-- 對齊用 -->
-          <!-- <div class="col-3"></div> -->
-          <!-- offset-3 會產生和 .col-3 一樣的空間，但語意是「向右偏移 3 欄」，這是更推薦的做法。 -->
-
-          <!-- 個人簡介 -->
           <div class="col-12 col-md-8 offset-md-4 col-lg-9 offset-lg-3">
             <div class="accordion-item">
-
-              <!-- 固定位置的手風琴標題 -->
               <h2 class="accordion-header fixed-header" id="headingSummary">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseSummary" aria-expanded="false" aria-controls="collapseSummary">
                   查看個人簡介
                 </button>
               </h2>
-
-              <!-- 展開內容區塊 -->
               <div id="collapseSummary" class="accordion-collapse collapse" aria-labelledby="headingSummary"
                 data-bs-parent="#userAccordion">
-                <!-- 限制120字 -->
                 <div class="accordion-body">
-                  天地玄黃，宇宙洪荒。日月盈昃，辰宿列張。寒來暑往，秋收冬藏。閏餘成歲，律召調陽。雲騰致雨，露結為霜。金生麗水，玉出崑岡。劍號巨闕，珠稱夜光。果珍李柰，菜重芥薑。海鹹河淡，鱗潛羽翔。龍師火帝，鳥官人皇。始制文字，乃服衣裳。推位讓國，有虞陶唐。
+                  {{ summary }}
                 </div>
               </div>
-
             </div>
           </div>
         </div>
-
       </div>
-
 
       <!-- 管理選單 -->
       <div class="menu">
@@ -81,6 +62,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import BookcaseArea from '@/components/areas/members/BookcaseArea.vue';
 import PurchaseArea from '@/components/areas/members/PurchaseArea.vue';
 import SettingsArea from '@/components/areas/members/SettingsArea.vue';
@@ -95,58 +77,32 @@ export default {
   data() {
     return {
       profileImg: 'profile.jpg',
-      // 控制選單狀態
       activeSection: 'wishlist',
-
-      // 控制各區塊的編輯狀態
-      // editingSections: {
-      //   infoSection: false,
-      //   contactSection: false,
-      //   accountSection: false,
-      //   passwordSection: false
-      // },
-
-      // 存儲動態 margin
-      // dynamicMargin: 0
+      nickname: '',    // 使用者暱稱
+      summary: '',     // 個人簡介
     };
   },
-  // beforeUnmount() {
-    // window.removeEventListener('resize', this.updateAccordionMargin);
-  // },
   mounted() {
+    // 登入檢查（畫面還沒載入前就處理）
+    const userId = localStorage.getItem('user_id');
+    // const token = localStorage.getItem('token');
+
+    if (!userId /*|| !token*/) {
+      alert('請先登入會員才能查看此頁面！');
+      this.$router.push('/login');
+    }
+
     this.initializeMenu();
     this.bindMenuEvents();
-
-    // window.addEventListener('resize', this.updateAccordionMargin);
-
-    // this.updateAccordionMargin();
+    this.fetchUserData();
   },
   methods: {
-    // setActiveSection(section) {
-    //   this.activeSection = section;
-    // },
-
-    // 圖片丟失使用預設圖片
+    // 設定預設頭像
     setDefaultImage(event) {
       event.target.src = require('@/assets/images/userAvatar_default.jpg');
     },
 
-    // 視窗變動時重新計算個人簡介位置
-    // updateAccordionMargin() {
-    //   this.$nextTick(() => {
-    //     const rowElement = this.$el.querySelector('.userInformation .row');
-    //     const accordion = this.$el.querySelector('.accordion-custom');
-    //     if (!rowElement || !accordion) return;
-    //     const rowHeight = rowElement.offsetHeight;
-    //     this.dynamicMargin = window.innerWidth >= 768 ? Math.max(-rowHeight / 3, -40) : 0;
-    //     accordion.style.setProperty('--dynamic-margin', `${this.dynamicMargin}px`);
-    //   });
-    // },
-    // toggleEdit(sectionKey) {
-    //   this.editingSections[sectionKey] = !this.editingSections[sectionKey];
-    // },
-
-    // ✅ 選單初始化
+    // 初始化選單顯示
     initializeMenu() {
       this.$nextTick(() => {
         const menuItems = this.$el.querySelectorAll('.menu-item');
@@ -158,7 +114,7 @@ export default {
       });
     },
 
-    // ✅ 綁定選單點擊事件
+    // 綁定選單點擊事件
     bindMenuEvents() {
       this.$nextTick(() => {
         const menuItems = this.$el.querySelectorAll('.menu-item');
@@ -176,15 +132,34 @@ export default {
           });
         });
       });
+    },
+
+    // 從後端取得會員暱稱與簡介
+    async fetchUserData() {
+      try {
+        const user_id = localStorage.getItem('user_id'); // ← 若有登入資訊，改成從 localStorage 或 Vuex 拿
+
+        if (!user_id) {
+          console.log("尚未登入，user_id 為 null，略過資料請求。");
+          return;
+        }
+
+        const res = await axios.get(`http://localhost:3000/api/memberSetting/${user_id}`);
+        this.nickname = res.data.data.nickname || '（未命名）';
+        this.summary = res.data.data.summary || '（尚未填寫個人簡介）';
+      } catch (error) {
+        console.error('取得會員資料失敗：', error);
+        this.nickname = '（載入錯誤）';
+        this.summary = '（無法載入個人簡介）';
+      }
     }
   }
 };
-
 </script>
 
 
-<style scoped>
 
+<style scoped>
 /* ========================================
    基本全局樣式（適用於所有設備）
    寫好的CSS貼在這區
@@ -194,51 +169,51 @@ export default {
 
 /* 上方－會員資訊 | 出版按鈕 */
 .userInformation {
-	align-items: center;
+  align-items: center;
 
-	/* 會員頭像 */
-	.userAvatar img {
-		/* margin-right: 30px; */
-		border: 2px solid var(--quote-text-color);
-		border-radius: 50%;
+  /* 會員頭像 */
+  .userAvatar img {
+    /* margin-right: 30px; */
+    border: 2px solid var(--quote-text-color);
+    border-radius: 50%;
 
-		min-width: 160px;
-		width: 160px;
-		height: 160px;
-	}
+    min-width: 160px;
+    width: 160px;
+    height: 160px;
+  }
 
-	/* 會員暱稱 */
-	.userNick {
-		display: flex;
-		align-items: center;
-		height: 100%;
+  /* 會員暱稱 */
+  .userNick {
+    display: flex;
+    align-items: center;
+    height: 100%;
 
-		/* 暱稱 */
-		h3 {
+    /* 暱稱 */
+    h3 {
       margin-left: -10px;
-			font-family: '王翰宗粗鋼體';
-			font-size: 52px;
-		}
+      font-family: '標楷體';
+      font-size: 52px;
+    }
 
 
 
-	}
+  }
 
-	/* 按鈕－出版專區 */
-	a {
-		display: block;
-		padding: 5px;
-		/* margin-left: auto; */
-		border-radius: 5px;
-		width: 120px;
-		background-color: var(--second-color);
+  /* 按鈕－出版專區 */
+  a {
+    display: block;
+    padding: 5px;
+    /* margin-left: auto; */
+    border-radius: 5px;
+    width: 120px;
+    background-color: var(--second-color);
 
-		/* transform: translate(-20px, -150px); */
+    /* transform: translate(-20px, -150px); */
 
-		color: var(--second-text-color);
-		text-align: center;
-		text-decoration: none;
-	}
+    color: var(--second-text-color);
+    text-align: center;
+    text-decoration: none;
+  }
 
 
 
@@ -246,50 +221,50 @@ export default {
 
 /* 手風琴 - 個人資料 */
 .accordion {
-	margin-top: -40px !important;
+  margin-top: -40px !important;
 
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
 
   /* 整個手風琴區塊 */
-	.accordion-item {
-		margin-bottom: 30px;
+  .accordion-item {
+    margin-bottom: 30px;
 
-		background-color: transparent;
-		border: none;
+    background-color: transparent;
+    border: none;
 
-		/* 調整手風琴位置對齊暱稱 */
-		.accordion-button,
-		.accordion-body {
-			box-shadow: none;
-			padding-left: 3px;
-		}
+    /* 調整手風琴位置對齊暱稱 */
+    .accordion-button,
+    .accordion-body {
+      box-shadow: none;
+      padding-left: 3px;
+    }
 
-		/* 手風琴點擊區塊 */
-		.accordion-header .accordion-button {
+    /* 手風琴點擊區塊 */
+    .accordion-header .accordion-button {
 
       /* padding-top: 0; */
-			padding-bottom: 0.5rem auto;
-			background-color: transparent;
+      padding-bottom: 0.5rem auto;
+      background-color: transparent;
 
-			font-family: '標楷體';
+      font-family: '標楷體';
       font-size: 24px;
 
-			/* 改變 hr 顏色 */
-			&:not(.collapsed) {
-				border-bottom: 2px solid var(--quote-text-color);
-				/* 設定線條顏色 */
-			}
-		}
+      /* 改變 hr 顏色 */
+      &:not(.collapsed) {
+        border-bottom: 2px solid var(--quote-text-color);
+        /* 設定線條顏色 */
+      }
+    }
 
-		/* 手風琴內容區塊 */
-		.accordion-collapse {
-			font-family: '王翰宗中仿宋';
-			/* position: static; */
-		}
-	}
+    /* 手風琴內容區塊 */
+    .accordion-collapse {
+      font-family: '王翰宗中仿宋';
+      /* position: static; */
+    }
+  }
 
 }
 
@@ -313,42 +288,42 @@ export default {
 
 /* 下方－功能選單區塊 */
 .menu {
-	display: flex;
-	gap: 30px;
-	margin-bottom: 20px;
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
 
-	/* 選項區塊 */
-	.menu-item {
-		flex: 1;
-		padding: 10px 0;
-		/* 防止選取 */
-		user-select: none;
-		/* 游標變手指 */
-		cursor: pointer;
+  /* 選項區塊 */
+  .menu-item {
+    flex: 1;
+    padding: 10px 0;
+    /* 防止選取 */
+    user-select: none;
+    /* 游標變手指 */
+    cursor: pointer;
 
-		font-family: '王翰宗粗鋼體';
-		font-size: 24px;
-		text-align: center;
-		row-gap: 10px;
+    font-family: '王翰宗中仿宋';
+    font-size: 24px;
+    text-align: center;
+    row-gap: 10px;
 
-		&:hover {
-			border-top: 2px solid var(--main-color);
+    &:hover {
+      border-top: 2px solid var(--main-color);
 
-			font-size: 26px;
-			color: var(--main-color);
-		}
-	}
+      font-size: 26px;
+      color: var(--main-color);
+    }
+  }
 
-	/* 當前選中 */
-	/* 同時有 menu-item 與 active 的類別才套用該樣式 */
-	.menu-item.active {
-		border-top: 2px solid var(--main-color);
+  /* 當前選中 */
+  /* 同時有 menu-item 與 active 的類別才套用該樣式 */
+  .menu-item.active {
+    border-top: 2px solid var(--main-color);
 
-		font-family: '王翰宗中仿宋';
-		font-size: 26px;
-		font-weight: bold;
-		color: var(--main-color);
-	}
+    font-family: '王翰宗中仿宋';
+    font-size: 26px;
+    font-weight: bold;
+    color: var(--main-color);
+  }
 }
 
 .menu-item.active {
@@ -363,9 +338,7 @@ export default {
    xxl: ≥ 1400px (大桌機、4K 螢幕)
    container 寬度: 1320px
 ======================================== */
-@media (min-width: 1400px) {
-
-}
+@media (min-width: 1400px) {}
 
 
 
@@ -374,9 +347,7 @@ export default {
    xl: 1200px ~ 1399px (一般桌機)
    container 寬度: 1140px
 ======================================== */
-@media (min-width: 1200px) and (max-width: 1399px) {
-
-}
+@media (min-width: 1200px) and (max-width: 1399px) {}
 
 
 
@@ -386,30 +357,30 @@ export default {
    container 寬度: 960px
 ======================================== */
 @media (min-width: 992px) and (max-width: 1199px) {
-/* 上方－會員資訊 | 出版按鈕 */
-.userInformation {
-  padding-left: 24px;
 
-	/* 圖片 */
+  /* 上方－會員資訊 | 出版按鈕 */
+  .userInformation {
+    padding-left: 24px;
+
+    /* 圖片 */
     .userAvatar {
-        margin-left: 0px;
-        width: 140px;
-        height: 140px;
-      img {
-        
+      margin-left: 0px;
+      width: 140px;
+      height: 140px;
+
+      img {}
+    }
+
+    /* 會員暱稱 */
+    .userNick {
+
+      /* 暱稱 */
+      h3 {
+        margin-left: -30px;
+        font-size: 50px;
       }
     }
-
-  /* 會員暱稱 */
-  .userNick {
-    
-    /* 暱稱 */
-    h3 {
-      margin-left: -30px;
-      font-size: 50px;
-    }
   }
-}
 
   /* 手風琴 - 個人資料 */
   .accordion {
@@ -427,23 +398,23 @@ export default {
    container 寬度: 720px
 ======================================== */
 @media (min-width: 768px) and (max-width: 991px) {
-   /* 上方－會員資訊 | 出版按鈕 */
+
+  /* 上方－會員資訊 | 出版按鈕 */
   .userInformation {
 
     /* 圖片 */
     .userAvatar {
-        margin-left: 20px;
-        min-width: 140px;
-        width: 140px;
-        height: 140px;
-      img {
-        
-      }
+      margin-left: 20px;
+      min-width: 140px;
+      width: 140px;
+      height: 140px;
+
+      img {}
     }
 
     /* 會員暱稱 */
     .userNick {
-      
+
       /* 暱稱 */
       h3 {
         margin-left: -60px;
@@ -452,8 +423,7 @@ export default {
     }
 
     /* 按鈕－出版專區 */
-    a {
-    }
+    a {}
 
   }
 
@@ -463,9 +433,9 @@ export default {
     margin-left: -60px;
 
     /* 手風琴點擊區塊 */
-		.accordion-header .accordion-button {
+    .accordion-header .accordion-button {
       font-size: 22px !important;
-		}
+    }
   }
 }
 
@@ -477,64 +447,64 @@ export default {
    container 寬度: 540px
 ======================================== */
 @media (min-width: 577px) and (max-width: 767px) {
-   /* 上方－會員資訊 | 出版按鈕 */
-.userInformation {
 
-  /* 圖片 */
-	.userAvatar img {
+  /* 上方－會員資訊 | 出版按鈕 */
+  .userInformation {
+
+    /* 圖片 */
+    .userAvatar img {
       margin-right: 0px;
       /* width: 140px; */
       /* height: 140px; */
     }
 
-	/* 會員暱稱 */
-	.userNick {
-    /* 置中對齊用 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* 會員暱稱 */
+    .userNick {
+      /* 置中對齊用 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-    margin-top: 12px;
-    width: 100%;
+      margin-top: 12px;
+      width: 100%;
 
-		/* 暱稱 */
-		h3 {
-			font-size: 40px;
-		}
-	}
-
-
-	/* 按鈕－出版專區 */
-	a {
-	}
+      /* 暱稱 */
+      h3 {
+        font-size: 40px;
+      }
+    }
 
 
+    /* 按鈕－出版專區 */
+    a {}
 
-}
 
-/* 手風琴 - 個人資料 */
-.accordion {
 
-  /* 整個手風琴區塊 */
-	.accordion-item {
-		margin-top: 60px;
-		margin-bottom: 20px;
+  }
 
-		/* 手風琴點擊區塊 */
-		.accordion-header .accordion-button {
+  /* 手風琴 - 個人資料 */
+  .accordion {
 
-			padding: 0.5rem 35%;
-      font-size: 20px;
-		}
+    /* 整個手風琴區塊 */
+    .accordion-item {
+      margin-top: 60px;
+      margin-bottom: 20px;
 
-    /* 手風琴內容區塊 */
-		.accordion-body {
-      padding-left: 30px;
-      padding-right: 30px;
-		}
-	}
+      /* 手風琴點擊區塊 */
+      .accordion-header .accordion-button {
 
-}
+        padding: 0.5rem 35%;
+        font-size: 20px;
+      }
+
+      /* 手風琴內容區塊 */
+      .accordion-body {
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+    }
+
+  }
 }
 
 
@@ -545,86 +515,87 @@ export default {
    container 寬度: 100% (fluid)
 ======================================== */
 @media (max-width: 576px) {
-   /* 上方－會員資訊 | 出版按鈕 */
-.userInformation {
 
-  /* 圖片 */
-	.userAvatar img {
-		margin-right: 0px;
-		/* width: 140px;
+  /* 上方－會員資訊 | 出版按鈕 */
+  .userInformation {
+
+    /* 圖片 */
+    .userAvatar img {
+      margin-right: 0px;
+      /* width: 140px;
 		height: 140px; */
-	}
+    }
 
-	/* 會員暱稱 */
-	.userNick {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* 會員暱稱 */
+    .userNick {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-    width: 100%;
-    margin-top: 10px;
+      width: 100%;
+      margin-top: 10px;
 
-		/* 暱稱 */
-		h3 {
-			font-size: 38px;
-		}
-	}
+      /* 暱稱 */
+      h3 {
+        font-size: 38px;
+      }
+    }
 
-	/* 按鈕－出版專區 */
-	a {
-	}
-}
+    /* 按鈕－出版專區 */
+    a {}
+  }
 
-/* 手風琴 - 個人資料 */
-.accordion {
+  /* 手風琴 - 個人資料 */
+  .accordion {
 
-  /* 整個手風琴區塊 */
-	.accordion-item {
-		margin-top: 50px;
-		margin-bottom: 18px;
+    /* 整個手風琴區塊 */
+    .accordion-item {
+      margin-top: 50px;
+      margin-bottom: 18px;
 
-		/* 手風琴點擊區塊 */
-		.accordion-header .accordion-button {
-			padding: 0.5rem 34%;
+      /* 手風琴點擊區塊 */
+      .accordion-header .accordion-button {
+        padding: 0.5rem 34%;
+        font-size: 20px;
+      }
+
+      /* 手風琴內容區塊 */
+      .accordion-body {
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+    }
+
+  }
+
+  /* 下方－功能選單區塊 */
+  .menu {
+
+    /* 選項區塊 */
+    .menu-item {
+      font-family: '王翰宗中仿宋';
+      font-size: 18px;
+      text-align: center;
+      row-gap: 10px;
+
+      &:hover {
+        border-top: 2px solid var(--main-color);
+
+        font-size: 20px;
+        color: var(--main-color);
+      }
+    }
+
+    /* 當前選中 */
+    /* 同時有 menu-item 與 active 的類別才套用該樣式 */
+    .menu-item.active {
+      border-top: 2px solid var(--main-color);
+
+      font-family: '王翰宗中仿宋';
       font-size: 20px;
-		}
-
-    /* 手風琴內容區塊 */
-		.accordion-body {
-      padding-left: 30px;
-      padding-right: 30px;
-		}
-	}
-
-}
-
-/* 下方－功能選單區塊 */
-.menu {
-	/* 選項區塊 */
-	.menu-item {
-		font-family: '王翰宗粗鋼體';
-		font-size: 18px;
-		text-align: center;
-		row-gap: 10px;
-
-		&:hover {
-			border-top: 2px solid var(--main-color);
-
-			font-size: 20px;
-			color: var(--main-color);
-		}
-	}
-
-	/* 當前選中 */
-	/* 同時有 menu-item 與 active 的類別才套用該樣式 */
-	.menu-item.active {
-		border-top: 2px solid var(--main-color);
-
-		font-family: '王翰宗中仿宋';
-		font-size: 20px;
-		font-weight: bold;
-		color: var(--main-color);
-	}
-}
+      font-weight: bold;
+      color: var(--main-color);
+    }
+  }
 }
 </style>

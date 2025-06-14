@@ -27,7 +27,7 @@
 /* 內容區塊 */
 .content.members {
 	/* padding: 10px; */
-	/* padding-top: 30px; */
+	padding-top: 30px;
 	border-radius: 0;
 	/* 用width不知道為什麼消費紀錄不會到那寬度 */
 	/* 一下適用min-width、一下適用width，我兩個都設！ */

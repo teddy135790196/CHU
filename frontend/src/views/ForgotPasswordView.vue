@@ -4,11 +4,11 @@
 		<!-- <div class="back-img"></div>  -->
 
 		<!-- 頁首區 -->
-		<div class="container-fluid">
+		<!-- <div class="container-fluid">
 			<div class="row">
 				<HeaderArea />
 			</div>
-		</div>
+		</div> -->
 
 		<!-- 回登入頁按鈕 -->
 		<div class="container">
@@ -25,19 +25,19 @@
 		</div>
 
 		<!-- 頁尾區 -->
-		<div class="container-fluid">
+		<!-- <div class="container-fluid">
 			<div class="row">
 				<FooterArea />
 			</div>
-		</div>
+		</div> -->
 
 	</div>
 </template>
 
 <script>
 import ForgotPasswordPage from '@/components/pages/ForgotPasswordPage.vue';
-import HeaderArea from '@/components/common/HeaderArea.vue';
-import FooterArea from '@/components/common/FooterArea.vue';
+// import HeaderArea from '@/components/common/HeaderArea.vue';
+// import FooterArea from '@/components/common/FooterArea.vue';
 
 
 
@@ -45,8 +45,8 @@ export default {
 	name: "ForgotPasswordView",
 	components: {
 		ForgotPasswordPage,
-		HeaderArea,
-		FooterArea,
+		// HeaderArea,
+		// FooterArea,
 	},
 };
 </script>

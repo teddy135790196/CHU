@@ -13,11 +13,11 @@
   @action="goToPublisherApply" />  -->
 
 		<!-- 頁首區 -->
-		<div class="container-fluid">
+		<!-- <div class="container-fluid">
 			<div class="row">
 				<HeaderArea />
 			</div>
-		</div>
+		</div> -->
 
 		<div class="container">
 			<div class="row">
@@ -26,27 +26,27 @@
 		</div>
 
 		<!-- 頁尾區 -->
-		<div class="container-fluid">
+		<!-- <div class="container-fluid">
 			<div class="row">
 				<FooterArea />
 			</div>
-		</div>
+		</div> -->
 	</div>
 </template>
 
 <script>
 // 路徑要對應到 components 底下的元件位置
 import MembersPage from "@/components/pages/MembersPage.vue";
-import HeaderArea from "@/components/common/HeaderArea.vue";
-import FooterArea from "@/components/common/FooterArea.vue";
+// import HeaderArea from "@/components/common/HeaderArea.vue";
+// import FooterArea from "@/components/common/FooterArea.vue";
 // import AccessAlert from "@/components/common/AccessAlert.vue";
 
 export default {
 	name: "MembersView",
 	components: {
 		MembersPage,
-		HeaderArea,
-		FooterArea,
+		// HeaderArea,
+		// FooterArea,
 		// AccessAlert,
 	},
 	data() {

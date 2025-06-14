@@ -5,22 +5,17 @@ const { OrderDTO, OrderDetailDTO } = require('../dto/orderAllDTO');
 
 function getAllOrders() {
   return new Promise((resolve, reject) => {
-    orderModel.selectAllOrders(async (err, rows) => {
+    orderModel.selectAllOrders((err, rows) => {
       if (err) return reject(err);
 
-      // 建立 Map 群組化訂單（因為明細會多筆）
       const orderMap = new Map();
 
       rows.forEach(row => {
         if (!orderMap.has(row.id)) {
           orderMap.set(row.id, {
             id: row.id,
-            date: row.date,
-            shipDate: row.shipDate,
-            settleDate: row.settleDate,
-            status: row.status,
-            statusText: row.statusText,
-            discount: row.discount,
+            created_at: row.created_at,
+            statusText: getStatusText(row.status),
             total: row.total,
             details: []
           });
@@ -36,11 +31,21 @@ function getAllOrders() {
         orderMap.get(row.id).details.push(detail);
       });
 
-      // 回傳 DTO 陣列
       const orderList = Array.from(orderMap.values()).map(order => new OrderDTO(order));
       resolve(orderList);
     });
   });
+}
+
+// 狀態轉文字
+function getStatusText(status) {
+  switch (status) {
+    case 0: return '已下單';
+    case 1: return '處理中';
+    case 2: return '已完成';
+    case 3: return '已取消';
+    default: return '未知狀態';
+  }
 }
 
 module.exports = {

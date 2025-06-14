@@ -6,8 +6,8 @@ function insertRegisterData(registerForm, callback) {	// registerForm => 前端�
 
 	// 執行SQL語法(資料表名稱：users 擷取欄位)
 	const sql = `
-		INSERT INTO users (username, password, nickname, gender, birth, email, phone, registration_time)
-		VALUES (?, ?, ?, ?, ?, ?, ?, CONVERT_TZ(NOW(), @@session.time_zone, '+08:00'))
+		INSERT INTO users (username, password, nickname, gender, birth, email, phone, summary, registration_time)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, CONVERT_TZ(NOW(), @@session.time_zone, '+08:00'))
 	`;
 
 	// 一個資料 對 一個 ?
@@ -20,6 +20,7 @@ function insertRegisterData(registerForm, callback) {	// registerForm => 前端�
 		registerForm.birth,
 		registerForm.email,
 		registerForm.phone,
+		registerForm.summary,
 	];
 
 	// 固定寫法(裡面的兩個callback功能未搞清)

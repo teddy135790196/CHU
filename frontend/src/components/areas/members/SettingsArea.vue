@@ -44,7 +44,7 @@
 			<div class="inp_modle">
 				<label class="form-label">個人簡介</label>
 				<textarea v-model="user.summary" class="edit-input" style="resize: none"
-					v-show="isEditingInfo"></textarea>
+					:placeholder="message.plahold.summary" v-show="isEditingInfo"></textarea>
 				<p class="display-text text-truncate" v-show="!isEditingInfo">{{ userSummary }}</p>
 			</div>
 
@@ -91,7 +91,8 @@
 				</div>
 				<div class="d-flex flex-column align-items-center w-100">
 					<div class="old row w-100">
-						<input type="text" v-model="user.address" class="edit-input" v-show="isEditingContact" />
+						<input type="text" v-model="user.address" class="edit-input"
+							:placeholder="message.plahold.address" v-show="isEditingContact" />
 						<p class="display-text" v-show="!isEditingContact">{{ userAddress }}</p>
 					</div>
 				</div>
@@ -128,8 +129,8 @@
 			</div>
 
 			<div class="d-flex justify-content-end mt-5">
-				<button class="btn btn-outline-dark">帳號登出</button>
-				<button class="btn btn-danger">刪除帳號</button>
+				<button class="btn btn-outline-dark w-100" @click="logout">帳號登出</button>
+				<!-- <button class="btn btn-danger">刪除帳號</button> -->
 			</div>
 		</section>
 	</div>
@@ -146,10 +147,16 @@ export default {
 				nickname: "",
 				gender: "",
 				birth: "",
-				summary: "",
 				email: "",
 				phone: "",
+				summary: "",
 				address: "",
+			},
+			message: {
+				plahold: {
+					summary: "未設定個人簡介",
+					address: "未設定通訊地址",
+				},
 			},
 			isEditingInfo: false,
 			isEditingContact: false,
@@ -168,17 +175,17 @@ export default {
 		},
 		userSummary() {
 			if (!this.user || !this.user.summary) {
-				return "字裡行間，自有清歡。願以此生，與君共賞。";
+				return this.message.plahold.summary;
 			}
 			return this.user.summary.trim() === ""
-				? "字裡行間，自有清歡。願以此生，與君共賞。"
+				? this.message.plahold.summary
 				: this.user.summary;
 		},
 		userAddress() {
 			if (!this.user || !this.user.address) {
-				return "未設定地址";
+				return this.message.plahold.address;
 			}
-			return this.user.address.trim() === "" ? "未設定地址" : this.user.address;
+			return this.user.address.trim() === "" ? this.message.plahold.address : this.user.address;
 		},
 	},
 	methods: {
@@ -188,25 +195,34 @@ export default {
 		toggleContactEdit() {
 			this.isEditingContact = !this.isEditingContact;
 		},
-		async fetchUserData() {
-			const user_id = localStorage.getItem("user_id");
-			if (!user_id) {
-				alert("尚未登入，請重新登入");
-				this.$router.push("/login");
-				return;
-			}
-			try {
-				const res = await this.$axios.get(`/api/memberSetting/${user_id}`);
-				this.user = res.data.data || {};
-			} catch (err) {
-				console.error("取得會員資料失敗", err);
-				alert("資料載入錯誤");
+		// 登出按鈕
+		logout() {
+			if (confirm('確定要登出嗎？')) {
+				localStorage.removeItem('token')      // 清除 token
+				localStorage.removeItem('user_id')      // 清除 user_id
+				this.$router.push('/login')           // 導向登入頁（路由請依你實際命名）
 			}
 		},
+		// async fetchUserData() {
+		// 	const user_id = localStorage.getItem("user_id");
+
+		// 	if (!user_id) {
+		// 		console.log("尚未登入，user_id 為 null，略過資料請求。");
+		// 		return;
+		// 	}
+
+		// 	try {
+		// 		const res = await this.$axios.get(`/api/memberSetting/${user_id}`);
+		// 		this.user = res.data.data || {};
+		// 	} catch (err) {
+		// 		console.error("取得會員資料失敗", err);
+		// 		// alert("資料載入錯誤");
+		// 	}
+		// },
 	},
-	mounted() {
-		this.fetchUserData();
-	},
+	// mounted() {
+	// 	this.fetchUserData();
+	// },
 };
 </script>
 
@@ -241,7 +257,7 @@ export default {
 	h5 {
 		margin: 0;
 		font-size: 28px;
-		font-family: "王翰宗粗鋼體";
+		font-family: "標楷體";
 		color: var(--main-color);
 	}
 

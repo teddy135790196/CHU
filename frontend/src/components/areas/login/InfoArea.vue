@@ -38,7 +38,7 @@ export default {
 <style scoped>
 /* 歡迎標語 */
 .welcome {
-	font-family: '王翰宗粗鋼體';
+	font-family: '標楷體';
 	margin-top: 50px;
 	user-select: none;
 
@@ -126,7 +126,7 @@ export default {
 
 	/* 歡迎標語 */
 	.welcome {
-		margin-top: 40px;
+		margin-top: 60px;
 
 		/* 主題 */
 		h2 {

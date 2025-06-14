@@ -5,28 +5,24 @@
 
 // 訂單 DTO，（主檔 + 明細陣列）
 class OrderDTO {
-	constructor({ id, date, shipDate, settleDate, status, discount, total, statusText, details = [] }) {
-		this.id = id;                 // 訂單 ID
-		this.date = date;             // 下單日期
-		this.shipDate = shipDate;     // 出貨日期
-		this.settleDate = settleDate; // 結算日期
-		this.status = status;         // 狀態代碼（例：0,1,2）
-		this.statusText = statusText; // 狀態對應文字（例："已完成"）
-		this.discount = discount;     // 折扣金額
-		this.total = total;           // 訂單總金額
-		this.details = details;       // 陣列，包含 OrderDetailDTO
+	constructor({ id, created_at, status, total, statusText, details = [] }) {
+		this.id = id;
+		this.created_at = created_at;
+		this.status = statusText; // 前端使用的是 statusText，而不是數字代碼
+		this.total = total;
+		this.details = details;
 	}
 }
 
 
 // 單筆訂單明細 DTO
 class OrderDetailDTO{
-	constructor({id, name, price, qty}){
-		this.id = id;       // 書籍 ID
-		this.name = name;   // 書名
-		this.price = price; // 售價
-		this.qty = qty;     // 數量
-		this.subtotal = price * qty; // 小計
+	constructor({ id, name, price, qty }) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.qty = qty;
+		this.subtotal = price * qty;
 	}
 }
 

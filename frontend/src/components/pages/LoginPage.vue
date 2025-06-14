@@ -105,7 +105,7 @@ export default {
 	border-radius: 4px;
 	background-color: var(--main-color);
 
-	font-family: '王翰宗粗鋼體';
+	font-family: '標楷體';
 	font-size: 20px;
 	color: var(--main-text-color);
 	text-align: center;

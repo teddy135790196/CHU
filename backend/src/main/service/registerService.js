@@ -28,6 +28,7 @@ async function insertRegisterData(registerForm) {		// registerForm => 前端傳�
 		birth: registerForm.birth,
 		email: registerForm.email,
 		phone: registerForm.phone,
+		summary: registerForm.summary,
 	});
 
 	// 4. 呼叫 model 層建立帳號（model 內呼叫 dao）

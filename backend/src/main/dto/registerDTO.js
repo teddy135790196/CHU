@@ -2,7 +2,7 @@
 
 // form: { username: '', password: '', repassword: '', nickname: '', gender: '', birth: '', email: '', phone: '', },
 class RegisterDTO {
-  constructor({ username, password, repassword, nickname, gender, birth, email, phone}) {
+  constructor({ username, password, repassword, nickname, gender, birth, email, phone, summary}) {
     this.username = username;
     this.password = password;
     this.repassword = repassword;
@@ -11,6 +11,7 @@ class RegisterDTO {
     this.birth = birth;
     this.email = email;
     this.phone = phone;
+    this.summary = summary;
   }
 }
 

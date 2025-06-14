@@ -60,7 +60,7 @@ export default {
     return {
       nowStep: 1,
       progressWidth: [40, 70, 90, 100],
-      form: { username: '', password: '', repassword: '', nickname: '', gender: '', birth: '', email: '', phone: '' },
+      form: { username: '', password: '', repassword: '', nickname: '', gender: '', birth: '', email: '', phone: '', summary: '字裡行間，自有清歡。願以此生，與君共賞。' },
     };
   },
   // 開放權限
@@ -76,6 +76,7 @@ export default {
     async register() {
       try {
         const res = await this.$axios.post('/api/register', this.form);
+        alert('註冊成功！即將跳轉至登入頁！');
         console.log('註冊成功', res.data);
       } catch (error) {
         console.error('註冊失敗', error);
@@ -104,7 +105,7 @@ export default {
           if (this.nowStep === 4) {
             if (confirm('確認資料是否無誤？')) {
               await this.register();  // 第 4 步才送出註冊
-              this.$router.push('/members');
+              this.$router.push('/login'); // 註冊成功後導向登入頁
             }
           } else {
             this.nowStep++;

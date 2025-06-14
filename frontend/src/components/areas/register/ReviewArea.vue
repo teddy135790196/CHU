@@ -176,7 +176,7 @@ export default {
   /* 暱稱 */
   h5 {
     font-size: 36px;
-    font-family: "王翰宗粗鋼體";
+    font-family: "標楷體";
     color: var(--main-color);
     text-align: center;
     margin-bottom: 0;
