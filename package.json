@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
+    "start": "npx serve -s dist"
   },
   "dependencies": {
     "@vee-validate/i18n": "^4.15.0",
