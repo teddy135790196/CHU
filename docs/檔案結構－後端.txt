@@ -42,13 +42,15 @@ src/
 │   │   ├── registerRoute.js			🔗 POST
 │   │   └── userSettingRoute.js			🔗 POST
 │   │
-│   └──📁service/					◎ service 邏輯層：主要的API功能位置
-│   	├── captchaService.js			📄產生驗證碼圖片與驗證碼文字
-│   	├── loginService.js				
-│   	├── membersSettingService.js				
-│   	├── orderAllServiceService.js				
-│   	├── registerCheckService.js				
-│   	└── registerService.js			
+│   ├──📁service/					◎ service 邏輯層：主要的API功能位置
+│   │	├── captchaService.js			📄產生驗證碼圖片與驗證碼文字
+│   │	├── loginService.js				
+│   │	├── membersSettingService.js				
+│   │	├── orderAllServiceService.js				
+│   │	├── registerCheckService.js				
+│   │	└── registerService.js			
+│   │		
+│   └ node2.js			                尤：後端
 │             	
 │             	
 ├──📁middlewares/				【抽離 index.js 的 Express 設定檔案】

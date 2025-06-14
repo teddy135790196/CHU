@@ -20,6 +20,23 @@ Vue.prototype.$axios = axios;
 // 把 baseURL 也綁到 Vue 原型方便全局取用
 Vue.prototype.$apiBaseUrl = BASE_URL;
 
+
+
+// 匯入延遲加載套件
+import VueLazyloadModule from "vue-lazyload";
+// const VueLazyload=require('lazyload');
+const VueLazyload = VueLazyloadModule.default || VueLazyloadModule;
+// ✅ 延遲加載先啟用（在 new Vue 之前！
+Vue.use(VueLazyload, {
+  // loading:'/images/loadGo.svg'//匯入加載預設圖
+  loading: "/images/load.jpg", //匯入加載預設圖
+  error: "/images/load_fail.jpg", //匯入錯誤預設圖;
+});
+console.log("是物件或函式嗎", typeof VueLazyload);
+console.log("測試印出vue-lazyload directive:", Vue.options.directives.lazy);
+
+
+
 // 設定 Vue 的生產提示為 false，避免在生產環境中顯示提示訊息
 // 這樣可以減少不必要的控制台輸出
 Vue.config.productionTip = false;

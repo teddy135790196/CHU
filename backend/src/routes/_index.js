@@ -18,5 +18,7 @@ router.use('/orders-all', require('../main/route/orderAllRoute'));
 router.use('/register/check', require('../main/route/registerCheckRoute'));
 router.use('/register', require('../main/route/registerRoute'));
 
+router.use('/products', require('../main/node2'));
+
 
 module.exports = router;

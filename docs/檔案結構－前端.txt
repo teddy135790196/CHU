@@ -43,9 +43,11 @@ src/
 │   │   ├── BuseInput.vue
 │   │   ├── FooterArea.vue					卓：MyFooter
 │   │   ├── HeaderArea.vue					卓：TitleNav
-│   │   └── PopupArea.vue					卓：MyPopup
+│   │   ├── PopupArea.vue					卓：MyPopup
+│   │   └── sub_nav.vue						尤：sub_nav
 │   │
 │   └──📁page/							◎ 頁面元件
+│       ├── book_info.vue					尤：book_info
 │       ├── ForgotPasswordPage.vue
 │       ├── IndexPage.vue					卓：MyIndex
 │       ├── LoginPage.vue
@@ -53,7 +55,8 @@ src/
 │       ├── MembersPage.vue
 │       ├── ProductsPage.vue				卓：MyProduct
 │       ├── RegisterPage.vue
-│       └── ShoppingCartPage.vue			卓：ShoppingCart
+│       ├── ShoppingCartPage.vue			卓：ShoppingCart
+│       └── sub_block.vue					尤：sub_block
 │    
 │
 ├──📁router/						【路由配置】
@@ -61,13 +64,15 @@ src/
 │			
 │			
 ├──📁views/							【展示視窗】
+│   ├── book_detail.vue					引入尤：book_info
 │   ├── ForgotPasswordView.vue
 │   ├── IndexView.vue					引入卓：IndexPage
 │   ├── LoginView.vue
 │   ├── MembersView.vue
 │   ├── ProductsView.vue				引入卓：ProductsPage
 │   ├── RegisterView.vue
-│   └── ShoppingCartView.vue			引入卓：ShoppingCartPage
+│   ├── ShoppingCartView.vue			引入卓：ShoppingCartPage
+│   └── sub_page.vue					引入尤：sub_block
 │
 │
 ├── App.vue				# 根元件	✅ 加入卓的頁首頁尾，加在這裡每一頁都會有上下部分
