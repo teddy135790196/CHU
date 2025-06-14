@@ -22,8 +22,7 @@ const db = mysql.createConnection({
   database: MYSQLDATABASE,
   port: MYSQLPORT || 3306, // 預設 3306，避免環境沒設 PORT 時錯誤
   ssl: {
-    // Azure Database for MySQL 預設需要加密連線
-    rejectUnauthorized: true,
+    rejectUnauthorized: false, // ✅ 修改這一行，允許自簽憑證
   },
 });
 
@@ -38,3 +37,4 @@ db.connect((err) => {
 });
 
 module.exports = db;
+
