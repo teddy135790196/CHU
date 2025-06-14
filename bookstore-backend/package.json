@@ -1,9 +1,9 @@
 {
   "name": "bookstore-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "bookstore-backend/index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node bookstore-backend/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,6 +12,8 @@
   "description": "",
   "dependencies": {
     "express": "^5.1.0",
-    "mysql2": "^3.14.1"
+    "mysql2": "^3.14.1",
+    "cors": "^2.8.5"
   }
 }
+
