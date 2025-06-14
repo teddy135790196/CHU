@@ -1,28 +1,25 @@
 const express = require("express");
+const cors = require("cors"); // ✅ 引入 cors 模組
 const app = express();
 const db = require("./db");
 const PORT = process.env.PORT || 3000;
 
-// 解析 JSON 請求
+// ✅ 使用 CORS 中介層（正式做法）
+app.use(cors({
+  origin: "*", // 部署時建議替換為：'https://chu-frontend-production.up.railway.app'
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+// ✅ 處理 JSON 請求
 app.use(express.json());
 
-// ✅ 處理 CORS 問題（部署時很重要）
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*"); // 若有前端網址請改成特定網域
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200); // 處理預檢請求
-  }
-  next();
-});
-
-// ✅ 根路由測試用
+// ✅ 根路由測試
 app.get("/", (req, res) => {
   res.send("✅ Node.js API 正常運行中");
 });
 
-// ✅ 書籍 API
+// ✅ 書籍 API 測試
 app.get("/books", (req, res) => {
   db.query("SELECT * FROM products", (err, results) => {
     if (err) {
@@ -37,3 +34,4 @@ app.get("/books", (req, res) => {
 app.listen(PORT, () => {
   console.log(`✅ Server is running on port ${PORT}`);
 });
+
