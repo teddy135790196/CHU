@@ -12,7 +12,6 @@
 				<div class="logoUpArror">▲</div>
 				<div class="logoDialog">回到首頁</div>
 			</li>
-
 			<li class="search">
 				<input type="text" v-model="searchText" @keyup.enter="performSearch" placeholder="右邊欄位可選" />
 				<select v-model="searchScope">
@@ -26,7 +25,6 @@
 				</select>
 				<span class="searchBtn" @click="performSearch">搜尋</span>
 			</li>
-
 			<li class="product">
 				<router-link to="/products" class="emoji">📚</router-link>
 				<div class="productUpArror">▲</div>
@@ -38,9 +36,12 @@
 				<div class="memberDialog">會員資料</div>
 			</li>
 			<li class="titleNavEmoji shoppingCart">
-				<router-link to="/shoppingCart" class="emoji">🛒</router-link>
-				<div class="shoppingCartUpArror">▲</div>
-				<div class="shoppingCartDialog">去購物車</div>
+				<router-link to="/shoppingCart">
+					<div class="emoji">🛒</div>	
+					<div class="shoppingCartNumber" v-if="shoppingCartArr.length">{{ shoppingCartArr.length }}</div>
+					<div class="shoppingCartUpArror">▲</div>
+					<div class="shoppingCartDialog">去購物車</div>	
+				</router-link>			
 			</li>
 		</ul>
 	</header>
@@ -54,12 +55,12 @@ export default {
 	data() {
 		return {
 			searchText: '',
-			searchScope: 'name'
+			searchScope: 'name',
+			shoppingCartArr: [1],	//購物車商品數量
 		};
 	},
 
 	methods: {
-		// /search/con=:con&kw=:keyWord
 		performSearch() {
 			if (this.searchText === "") {
 				return;
@@ -85,205 +86,218 @@ export default {
 <style scoped>
 /* 抬頭導航 */
 .titleNav {
-	width: 80%;
-	height: 52px;
-	margin: 0 10%;
-	/* padding: 0% 10%; */
-	position: fixed;
-	z-index: 10;
-	background-color: hsla(0, 0%, 100%, 0.75);
+  width: 80%;
+  height: 52px;
+  margin: 0 10%;
+  /* padding: 0% 10%; */
+  position: fixed;
+  z-index: 10;
+  background-color: hsla(0, 0%, 100%, 0.75);
+}
+li {
+  list-style: none;
+}
+* {
+  text-decoration: none;
 }
 
 .titleNavIcon {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-
-	li {
-		list-style: none;
-
-		* {
-			text-decoration: none;
-		}
-	}
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .titleNav a {
-	color: black;
+  color: black;
 }
 
 .titleNav a:hover {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 .search {
-	display: none;
-	height: 28px;
+  display: none;
+  height: 28px;
 }
 
 .search select {
-	height: 28px;
-	color: hsl(36, 50.7%, 71.4%);
+  height: 28px;
+  color: hsl(36, 50.7%, 71.4%);
 }
 
 .searchBtn {
-	display: inline-block;
-	color: hsl(0, 0%, 100%);
-	background-color: hsl(353, 100%, 29.2%);
-	height: 28px;
-	line-height: 28px;
-	padding: 0 5px;
-	border-radius: 5px;
+  display: inline-block;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(353, 100%, 29.2%);
+  height: 28px;
+  line-height: 28px;
+  padding: 0 5px;
+  border-radius: 5px;
 }
 
 .searchBtn:hover {
-	color: hsl(0, 0%, 70%);
-	background-color: hsl(353, 100%, 50%);
+  color: hsl(0, 0%, 70%);
+  background-color: hsl(353, 100%, 50%);
 }
 
 .searchBtn:active {
-	color: hsl(353, 100%, 29.2%);
-	background-color: hsl(0, 0%, 100%);
+  color: hsl(353, 100%, 29.2%);
+  background-color: hsl(0, 0%, 100%);
 }
 
 @media (min-width: 576px) {
-	.search {
-		display: flex;
-		align-items: center;
-		height: 33px;
-	}
+  .search {
+    display: flex;
+    align-items: center;
+    height: 33px;
+  }
 
-	.search input {
-		width: 7em;
-		height: 33px;
-		font-size: 20px;
-		line-height: 33px;
-	}
+  .search input {
+    width: 7em;
+    height: 33px;
+    font-size: 20px;
+    line-height: 33px;
+  }
 
-	.search select {
-		height: 33px;
-		font-size: 20px;
-		line-height: 33px;
-	}
+  .search select {
+    height: 33px;
+    font-size: 20px;
+    line-height: 33px;
+  }
 
-	.search span {
-		height: 33px;
-		font-size: 20px;
-		line-height: 33px;
-	}
+  .search span {
+    height: 33px;
+    font-size: 20px;
+    line-height: 33px;
+  }
 }
 
 /* end of @media (min-width: 576px) */
 
 @media (min-width: 992px) {
-	.search {
-		display: flex;
-		align-items: center;
-		height: 44.8px;
-	}
+  .search {
+    display: flex;
+    align-items: center;
+    height: 44.8px;
+  }
 
-	.search input {
-		height: 44.8px;
-		font-size: 22px;
-		line-height: 44.8px;
-	}
+  .search input {
+    height: 44.8px;
+    font-size: 22px;
+    line-height: 44.8px;
+  }
 
-	.search select {
-		height: 44.8px;
-		font-size: 22px;
-		line-height: 44.8px;
-	}
+  .search select {
+    height: 44.8px;
+    font-size: 22px;
+    line-height: 44.8px;
+  }
 
-	.search span {
-		height: 44.8px;
-		font-size: 22px;
-		line-height: 44.8px;
-	}
+  .search span {
+    height: 44.8px;
+    font-size: 22px;
+    line-height: 44.8px;
+  }
 }
 
 /* end of @media (min-width: 576px) */
 
 .logo {
-	width: 20px;
-	position: relative;
+  width: 20px;
+  position: relative;
 }
 
 .logo Img {
-	width: 100%;
+  width: 100%;
 }
 
 .emojiIcon img {
-	width: 20px;
+  width: 20px;
 }
 
 .emoji {
-	font-size: 20px;
+  font-size: 20px;
 }
 
 @media (min-width: 576px) {
-	.logo {
-		width: 33px;
-	}
+  .logo {
+    width: 33px;
+  }
 
-	.emoji {
-		font-size: 30px;
-	}
+  .emoji {
+    font-size: 30px;
+  }
 
-	.emojiIcon img {
-		width: 33px;
-	}
+  .emojiIcon img {
+    width: 33px;
+  }
 }
 
 @media (min-width: 992px) {
-	.logo {
-		width: 44.8px;
-	}
+  .logo {
+    width: 44.8px;
+  }
 
-	.emoji {
-		font-size: 40px;
-	}
+  .emoji {
+    font-size: 40px;
+  }
 
-	.emojiIcon img {
-		width: 44.8px;
-	}
+  .emojiIcon img {
+    width: 44.8px;
+  }
+}
+
+.shoppingCartNumber {
+  position: absolute;
+  z-index: 10;
+  height: 15px;
+  width: 15px;
+  top: 5px;
+  right: 5px;
+  color: hsl(36, 50.7%, 71.4%);
+  background-color: hsl(353, 100%, 50%);
+  border-radius: 50%;
+  font-size: 15px;
+  line-height: 15px;
+  text-align: center;
 }
 
 .logoDialog {
-	width: 4em;
+  width: 4em;
 }
 
 .logoUpArror,
 .logoDialog {
-	display: none;
-	z-index: 10;
+  display: none;
+  z-index: 10;
 }
 
 .logo:hover .logoUpArror {
-	display: block;
-	position: absolute;
-	top: 30px;
-	color: hsl(353, 100%, 29.2%);
+  display: block;
+  position: absolute;
+  top: 30px;
+  color: hsl(353, 100%, 29.2%);
 }
 
 .logo:hover .logoDialog {
-	display: block;
-	position: absolute;
-	top: 47px;
-	left: -25px;
-	color: hsl(0, 0%, 100%);
-	background-color: hsl(353, 100%, 29.2%);
+  display: block;
+  position: absolute;
+  top: 47px;
+  left: -25px;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(353, 100%, 29.2%);
 }
 
 .member,
 .shoppingCart,
 .product {
-	position: relative;
+  position: relative;
 }
 
 .memberDialog,
 .shoppingCartDialog,
 .productDialog {
-	width: 4em;
+  width: 4em;
 }
 
 .memberUpArror,
@@ -292,111 +306,129 @@ export default {
 .shoppingCartDialog,
 .productUpArror,
 .productDialog {
-	display: none;
-	z-index: 10;
+  display: none;
+  z-index: 10;
 }
 
 .member:hover .memberUpArror {
-	display: block;
-	position: absolute;
-	top: 17px;
-	left: 2px;
-	color: hsl(353, 100%, 29.2%);
+  display: block;
+  position: absolute;
+  top: 17px;
+  left: 2px;
+  color: hsl(353, 100%, 29.2%);
 }
 
 .shoppingCart:hover .shoppingCartUpArror,
 .product:hover .productUpArror {
-	display: block;
-	position: absolute;
-	top: 20px;
-	left: 4px;
-	color: hsl(353, 100%, 29.2%);
+  display: block;
+  position: absolute;
+  top: 20px;
+  left: 4px;
+  color: hsl(353, 100%, 29.2%);
 }
 
 .member:hover .memberDialog {
-	display: block;
-	position: absolute;
-	top: 34px;
-	left: -23px;
-	color: hsl(0, 0%, 100%);
-	background-color: hsl(353, 100%, 29.2%);
+  display: block;
+  position: absolute;
+  top: 34px;
+  left: -23px;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(353, 100%, 29.2%);
 }
 
 .shoppingCart:hover .shoppingCartDialog,
 .product:hover .productDialog {
-	display: block;
-	position: absolute;
-	top: 37px;
-	left: -23px;
-	color: hsl(0, 0%, 100%);
-	background-color: hsl(353, 100%, 29.2%);
+  display: block;
+  position: absolute;
+  top: 37px;
+  left: -23px;
+  color: hsl(0, 0%, 100%);
+  background-color: hsl(353, 100%, 29.2%);
 }
 
 @media (min-width: 576px) {
-	.logo:hover .logoUpArror {
-		top: 33px;
-		left: 7px;
-	}
+  .shoppingCartNumber {
+    height: 20px;
+    width: 20px;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    line-height: 20px;
+  }
 
-	.logo:hover .logoDialog {
-		top: 50px;
-		left: -20px;
-	}
+  .logo:hover .logoUpArror {
+    top: 33px;
+    left: 7px;
+  }
 
-	.member:hover .memberUpArror {
-		top: 25px;
-		left: 9px;
-	}
+  .logo:hover .logoDialog {
+    top: 50px;
+    left: -20px;
+  }
 
-	.shoppingCart:hover .shoppingCartUpArror,
-	.product:hover .productUpArror {
-		top: 30px;
-		left: 9px;
-	}
+  .member:hover .memberUpArror {
+    top: 25px;
+    left: 9px;
+  }
 
-	.member:hover .memberDialog {
-		top: 42px;
-		left: -18px;
-	}
+  .shoppingCart:hover .shoppingCartUpArror,
+  .product:hover .productUpArror {
+    top: 30px;
+    left: 9px;
+  }
 
-	.shoppingCart:hover .shoppingCartDialog,
-	.product:hover .productDialog {
-		top: 47px;
-		left: -18px;
-	}
+  .member:hover .memberDialog {
+    top: 42px;
+    left: -18px;
+  }
+
+  .shoppingCart:hover .shoppingCartDialog,
+  .product:hover .productDialog {
+    top: 47px;
+    left: -18px;
+  }
 }
 
 @media (min-width: 992px) {
-	.logo:hover .logoUpArror {
-		top: 38px;
-		left: 12px;
-	}
+  .shoppingCartNumber {
+    height: 25px;
+    width: 25px;
+    top: 10px;
+    right: 10px;
+    font-size: 25px;
+    line-height: 25px;
+  }
 
-	.logo:hover .logoDialog {
-		top: 55px;
-		left: -15px;
-	}
+  .logo:hover .logoUpArror {
+    top: 38px;
+    left: 12px;
+  }
 
-	.member:hover .memberUpArror {
-		top: 35px;
-		left: 15px;
-	}
+  .logo:hover .logoDialog {
+    top: 55px;
+    left: -15px;
+  }
 
-	.shoppingCart:hover .shoppingCartUpArror,
-	.product:hover .productUpArror {
-		top: 45px;
-		left: 19px;
-	}
+  .member:hover .memberUpArror {
+    top: 35px;
+    left: 15px;
+  }
 
-	.shoppingCart:hover .shoppingCartDialog,
-	.product:hover .productDialog {
-		top: 62px;
-		left: -8px;
-	}
+  .shoppingCart:hover .shoppingCartUpArror,
+  .product:hover .productUpArror {
+    top: 45px;
+    left: 19px;
+  }
 
-	.member:hover .memberDialog {
-		top: 52px;
-		left: -12px;
-	}
+  .shoppingCart:hover .shoppingCartDialog,
+  .product:hover .productDialog {
+    top: 62px;
+    left: -8px;
+  }
+
+  .member:hover .memberDialog {
+    top: 52px;
+    left: -12px;
+  }
 }
 </style>
