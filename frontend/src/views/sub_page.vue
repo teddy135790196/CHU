@@ -7,7 +7,7 @@
         <!-- 放輪播 -->
         <!-- 放跑馬燈 -->
         <!-- 放商品格子 格子收到了category跟他回傳了select-isbn(我的這個isbn_id被使用者按下了!)-->
-        <sub_block :category="sub" @select_isbn="getIsbn" />
+        <sub_block :category="sub" @select_isbn="getIsbn" @buy_isbn="buyIsbn" />
       </div>
     </div>
   </div>
@@ -31,6 +31,10 @@ export default {
       console.log('選擇的ISBN:', isbn); // 這裡是接在前端路由後
       this.$router.push(`/book/${encodeURIComponent(isbn)}`);
     },
+    buyIsbn(isbn){
+      // 取到這個IBSN了我要放到購物車
+      console.log('選擇要買的ISBN:', isbn); 
+    }
   },
 };
 </script>

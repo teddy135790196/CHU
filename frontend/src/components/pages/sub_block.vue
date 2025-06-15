@@ -27,7 +27,7 @@
       <div class="PandChartBtn">
         <i>
           <h3><small>$</small>{{ intPrice(n.price) }}</h3> </i
-        ><button>加入購物車</button>
+        ><button @click="putInCart(n.ISBN_id)">加入購物車</button>
       </div>
     </div>
   </div>
@@ -96,6 +96,11 @@ export default {
       // div回傳的資料
       this.$emit("select_isbn", ISBN_id); //通知父元件
     },
+    putInCart(ISBN_id){
+    // 加入購物車回傳的資料
+      this.$emit("buy_isbn", ISBN_id); //通知父元件
+      
+    }
   },
 };
 </script>
