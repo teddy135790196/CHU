@@ -1,18 +1,52 @@
+# CHU-kang900320 書店專案
+
+## Minor Project 分支說明
+
+本分支為小組成員進行分工所設立。以下說明各資料夾來源與檔案功能，組員可自行進入更新
+
 ## 專案結構
 - 📁 查看完整 [檔案結構－前端](./docs/檔案結構－前端.txt)
 - 📁 查看完整 [檔案結構－後端](./docs/檔案結構－後端.txt)
 - 📁 查看完整 [檔案結構－整體](./docs/檔案結構－整體.txt)
 
+## 技術棧
+- **前端**: Vue.js 2, Bootstrap 5, Axios
+- **後端**: Node.js, Express.js
+- **資料庫**: MySQL (Railway)
+- **部署**: Railway (後端), Vercel (前端)
+
+## 功能特色
+- 📚 完整的書籍管理系統
+- 🛒 購物車功能 (localStorage 持久化)
+- 👤 會員註冊/登入系統
+- 🔐 密碼加密 (bcrypt)
+- 📧 忘記密碼功能
+- 🎨 響應式設計
+- 🔍 書籍搜尋功能
 
 ## 說明
 目前仍在製作中，檔案結構有可能發生變化，如果情況允許，建議額外建立一個測試專用的專案，每次使用直接將src砍掉
-
 
 ## 外部連結
 [我的 Notion 筆記](https://www.notion.so/1d5d07d9b596803dbaabc42779d44084)<br>
 [柯博文老師直播影片](https://www.youtube.com/playlist?list=PLkvu6TsdkQFqvlhPJt8uYu9Lpg8yEzb6h)<br>
 [俞樺捷老師教學影片](https://www.youtube.com/playlist?list=PLuE5-ADiU3JKsMI5ecbCViOAyx0L3tWXH)<br>
 
+## 安裝與執行
+
+### 後端啟動
+```bash
+cd backend
+npm install
+npm start
+```
+
+### 前端啟動
+```bash
+cd frontend
+npm install
+npm run serve
+```
 
 ## 更新紀錄
 
@@ -20,6 +54,24 @@
 <summary>👉 點擊這裡展開更新紀錄 👈</summary>
 
 <hr>
+
+<details>
+<summary>最新｜完整購物車系統整合</summary>
+
+- **新增**
+  - 完整的購物車功能 (加入、修改數量、刪除)
+  - 結帳流程 (訂單資訊填寫、確認、成功頁面)
+  - 訂單管理系統 (後端 API 完整實現)
+  - 會員忘記密碼功能
+  - 首頁和書籍一覽頁面的加入購物車功能
+
+- **修復**
+  - 解決 PowerShell 兼容性問題
+  - 修復資料庫連接和交易處理
+  - 解決端口衝突問題
+  - 修復圖片顯示問題
+
+</details>
 
 <details>
 <summary>0613｜會員設定區塊抓資料庫資料顯示</summary>
@@ -196,108 +248,6 @@
   - CSS響應式標準模板(感謝尤乙淳同學提供的樣板)
 - **更新**
   - 開始將登入頁面的CSS完全重製，目前進度到設定版面寬度
-
-- **補充**
-  - 響應式用的好煩，不太受控。但有尤提供的區塊寫法後好寫多了
-
-</details>
-
-<details>
-<summary>0525｜會員專區HTML設計完成</summary>
-
-- **新增**
-  - 完整書籍資料EXCEL表格
-- **更新**
-  - 會員頁面完整設計完成，但只實裝個人設定分區
-
-</details>
-
-<details>
-<summary>0524｜會員介面設定功能初期設計</summary>
-
-- **新增**
-  - 完整書籍資料EXCEL表格
-- **更新**
-  - 會員頁面設定區HTML設計
-
-</details>
-
-<details>
-<summary>0523｜檔案結構重構與建立會員VUE</summary>
-
-- **新增**
-  - Vue會員頁面簡易建立完成
-  - 會員頁面功能HTML功能規劃
-  - 通用浮窗元件
-- **更新**
-  - 檔案結構整體重構
-  - 登入區引用新增22條名言作者
-
-</details>
-
-<details>
-<summary>0522｜註冊頁面驗證條件完善與響應式精修</summary>
-
-- **更新**
-  - 註冊頁面響應式設計細微調整並美化
-  - 驗證條件細條規則與提示詞
-  - 註冊步驟元件所有文字整理至 data.message 集中管理
-
-</details>
-
-<details>
-<summary>0521｜註冊頁面完成元件化、驗證條件與響應式</summary>
-
-- **更新**
-  - 註冊頁面完成元件化
-  - 註冊頁面基本驗證功能完成
-  - 註冊頁面基本響應式設計完成
-
-- **補充**
-  - v-model 傳資料一定要傳需要的值就好，不要整個物件都丟進去，深刻的教訓
-
-</details>
-
-<details>
-<summary>0520｜註冊頁面Step1完成元件化與驗證條件</summary>
-
-- **更新**
-  - 註冊頁面的 Step1 完成元件化
-  - Step1 的帳號、密碼、重複密碼的驗證功能完成
-
-</details>
-
-<details>
-<summary>0519｜更新字體與 VUE 註冊頁面元件化 (未完成)</summary>
-
-- **新增**
-  - src新增王翰宗開源系列字體(根目錄有設捷徑)
-- **更新**
-  - 註冊頁面嘗試元件化，但尚未完成
-
-</details>
-
-<details>
-<summary>0518｜會員專區 WEB 與 登入註冊 VUE</summary>
-
-- **新增**
-  - 會員專區初步功能完成
-  - 增加 檔案結構與待更新 備忘文件
-- **更新**
-  - 將 登入與註冊 轉成VUE寫法(src資料夾)
-
-- **補充**
-  - 會員的個人簡介摺疊有夠難做
-
-</details>
-
-<details>
-#<summary>0517｜註冊與登入頁面 - WEB 初版</summary>
-
-- **新增**
-  - 登入頁面大致效果展示
-  - 註冊頁面簡易流程展示(未完成)
-  - 使用 Themes.css 來統一管理主題顏色
 
 </details>
 
