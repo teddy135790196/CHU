@@ -32,6 +32,9 @@ export default {
     HeaderArea,
     FooterArea
   },
+  mounted() {
+    document.title = '棲遲書屋';
+  },
   provide() {
     return {
       selectedField: () => this.globalSelectedField, // 提供一個響應式屬性

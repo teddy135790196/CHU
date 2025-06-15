@@ -12,6 +12,7 @@
 				<div class="logoUpArror">▲</div>
 				<div class="logoDialog">回到首頁</div>
 			</li>
+
 			<li class="search">
 				<input type="text" v-model="searchText" @keyup.enter="performSearch" placeholder="右邊欄位可選" />
 				<select v-model="searchScope">
@@ -25,6 +26,7 @@
 				</select>
 				<span class="searchBtn" @click="performSearch">搜尋</span>
 			</li>
+
 			<li class="product">
 				<router-link to="/products" class="emoji">📚</router-link>
 				<div class="productUpArror">▲</div>
@@ -57,6 +59,7 @@ export default {
 	},
 
 	methods: {
+		// /search/con=:con&kw=:keyWord
 		performSearch() {
 			if (this.searchText === "") {
 				return;

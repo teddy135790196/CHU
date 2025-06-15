@@ -29,7 +29,43 @@
       </div>
     </div>
 
-    <sub_block @select_isbn="getIsbn" />
+    <div class="row container recommend">
+      <div class="col-md-12">
+        <div class="row">
+          <!-- 條列化商品 -->
+          <!-- 若裡面有資料 -->
+          <div class="row smProduct">
+            <!-- 單個商品圖版型 -->
+            <div class="col3" v-for="(book, index) in currentBooks" v-bind:key="book.ISBN_id">
+              <!-- 無效資料，消除警告用 -->
+              <span :value="index"></span>
+              <a @click="performSearch(book.ISBN_id, 'ISBN_id')">
+                <div class="container-fluid">
+                  <img v-bind:src="book.imgUrl" alt="book.name" />
+                </div>
+                <!-- 若name超過15則會... -->
+                <div v-if="book.name.length > 13">
+                  <h4><span>{{ book.name.slice(0, 13) }}...</span></h4>
+                </div>
+                <div v-else>
+                  <h4><span>{{ book.name }}</span></h4>
+                </div>
+              </a>
+              <a @click="performSearch(book.author, 'author')">
+                <!-- 若作者超過17就:用三元運算寫 -->
+                {{ book.author.length > 17 ? book.author.slice(0, 17) + '...' : book.author }}
+              </a>
+              <div class="PandChartBtn">
+                <i>
+                  <h3><small>$</small>{{ Math.floor(book.price) }}</h3>
+                </i><button>加入購物車</button>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
 
     <!-- 促銷訊息 -->
     <div class="broadcast" @mouseenter="isChange(false)" @mouseleave="isChange(true)">
@@ -51,8 +87,6 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script> -->
 <!-- prettier-ignore -->
 <script>
-import sub_block from "@/components/pages/sub_block.vue";
-
 export default {
   name: "TitleNav.vue",
 
@@ -81,7 +115,6 @@ export default {
       broadcastImagesAlt: ["浴佛節推廣活動", "植樹節推廣活動"],
     };
   },
-  components: { sub_block },
 
   mounted() {
     this.fetchRecommendBooks();
@@ -107,12 +140,6 @@ export default {
         alert("讀取資料失敗，請看 console");
         console.error("讀取資料失敗:", error);
       }
-    },
-
-    getIsbn(isbn) {
-      //取到這個isbn了我要跳轉到isbn頁! -->現在的路由要改成...
-      console.log('選擇的ISBN:', isbn); // 這裡是接在前端路由後
-      this.$router.push(`/book/${encodeURIComponent(isbn)}`);
     },
 
     // 這裡丟前端網址

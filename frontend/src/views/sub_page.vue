@@ -22,9 +22,9 @@ export default {
   name: "sub_page",
   props: ["sub"],
   components: { sub_nav, sub_block },
-  mounted() {
-    document.title = this.sub || "分類";
-  },
+  // mounted() {
+  //   document.title = this.sub || "分類";
+  // },
   methods: {
     getIsbn(isbn) {
       //取到這個isbn了我要跳轉到isbn頁! -->現在的路由要改成...
