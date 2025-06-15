@@ -29,6 +29,7 @@
           </div>
           <div>
             <h2 class="price">${{ n.price }}</h2>
+            <button class="price" @click="putInCart(n.ISBN_id)">加入購物車</button>
           </div>
         </div>
         <hr />
@@ -37,6 +38,7 @@
         </div>
       </div>
     </div>
+    
     <hr />
     <!-- 卡片 -->
     <div id="card-1">
@@ -145,6 +147,10 @@ export default {
     // 將小數點無條件捨去的函數
     intPrice(price) {
       return Math.floor(price);
+    }, putInCart(ISBN_id){
+    // 加入購物車回傳的資料
+      this.$emit("buy_isbn", ISBN_id); //通知父元件
+      
     }
 
   }

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <sub_nav class="col-sm-2" />
-      <book_info :isbn="isbn" class="col-sm-10" />
+      <book_info :isbn="isbn" @buy_isbn="buyIsbn" class="col-sm-10" />
     </div>
   </div>
 </template>
@@ -16,9 +16,15 @@ export default {
   props:['isbn'],
   components: { sub_nav,book_info },
   
-  mounted() {
-    document.title = this.isbn;
-  },
+  // mounted() {
+  //   document.title = this.isbn;
+  methods:{
+    
+    buyIsbn(isbn){
+      // 取到這個IBSN了我要放到購物車
+      console.log('選擇要買的ISBN:', isbn); 
+    }
+  }
 };
 </script>
 
