@@ -1,0 +1,127 @@
+順序是 DTO => DAO => Model => Service => Controller => route => /routes/_index.js
+
+範例：
+// backend/src/main/dto/loginDTO.js
+
+// form: { username: '', password: '', },
+class LoginDTO {
+	constructor({ username, password }) {
+		this.username = username;
+		this.password = password;
+	}
+}
+
+module.exports = LoginDTO;
+
+
+// backend/src/main/dao/loginDAO.js
+
+const db = require('../../connection/_index');
+
+function selectLoginUsername(loginForm, callback) {		// loginForm => 前端傳來的表單
+	const sql = `
+		SELECT * FROM users 
+		WHERE username = ? 
+		LIMIT 1 
+	`;
+
+	const params = [
+		loginForm.username,
+	];
+
+	db.query(sql, params, (err, result) => {
+		if(err) {
+			callback(err, null);
+			return;
+		}
+		callback(null, result[0]);
+	});
+};
+
+module.exports = {
+	selectLoginUsername,
+};
+
+
+// backend/src/main/model/loginModel.js
+
+const loginDAO = require('../dao/loginDAO');
+
+function selectLoginUsername(loginForm, callback) {	  // loginForm => 前端傳來的表單
+  loginDAO.selectLoginUsername(loginForm, callback);
+};
+
+module.exports = {
+  selectLoginUsername,
+};
+
+
+// backend/src/main/service/loginService.js
+
+const LoginDTO = require('../dto/loginDTO');
+const loginModel = require('../model/loginModel');
+// HASH插件
+const bcrypt = require('bcrypt');
+
+function selectLoginUsername(loginForm) {
+	return new Promise((resolve, reject) => {
+		// 宣告 DTO
+		const dto = new LoginDTO({
+			username: loginForm.username,
+			password: loginForm.password,
+		});
+
+		loginModel.selectLoginUsername(dto, async (err, result) => {
+			if (err) {
+				reject(err);
+				return;
+			}
+
+			// 登入成功回傳部分資料
+			resolve({
+				id: result.user_id,
+				username: result.username,
+				message: '登入成功',
+			})
+		});
+	});
+};
+
+module.exports = {
+	selectLoginUsername,
+};
+
+
+// backend/src/main/controller/loginController.js
+
+const loginService = require('../service/loginService');
+
+exports.selectLoginUsername = async (req, res) => {
+  try{
+    const result = await loginService.selectLoginUsername(req.body);
+    // 200 請求成功。常用於查詢、登入、更新資料
+    res.status(200).json({ success: true, data: result });
+  }catch (err) {
+    console.error('查詢登入帳號錯誤:', err);
+    // 400 用戶端的請求格式錯誤，伺服器拒絕處理
+    res.status(400).json({ success: false, message: err.message });
+  }
+};
+
+
+// backend/src/main/route/loginRoute.js
+
+const express = require('express');
+const router = express.Router();
+const loginController = require('../controller/loginController');
+
+// 處理 POST 請求 (/api/login)
+router.post('/', loginController.selectLoginUsername);
+
+module.exports = router;
+
+
+
+
+
+給我參照這種風格寫
