@@ -1,0 +1,20 @@
+{
+  "name": "chu-kang900320-bookstore",
+  "version": "1.0.0",
+  "description": "Full-stack bookstore application with Vue.js frontend and Node.js backend",
+  "scripts": {
+    "start": "npm run start:backend",
+    "start:backend": "powershell -Command \"cd backend; npm start\"",
+    "start:frontend": "powershell -Command \"cd frontend; npm run serve\"",
+    "build:frontend": "powershell -Command \"cd frontend; npm run build\"",
+    "dev": "npm run start:backend",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "build": "npm run build:frontend"
+  },
+  "keywords": ["bookstore", "vue", "nodejs", "mysql"],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 

@@ -1,0 +1,79 @@
+src/
+├──📁assets/						【靜態資源 (圖片、CSS 等)】
+│   ├──📁fonts/							◎ 字型資料夾
+│   │   └── wangfonts.../
+│   │
+│   ├──📁images/						◎ 圖片資料夾
+│   │   ├── test_back.png
+│   │   └── userAvatar_default.jpg
+│   │
+│   └──📁styles/						◎ 樣式檔案
+│       ├──📁base/						└─	◇ 都可導入
+│       │   ├── font.css
+│       │   ├── general.css
+│       │   ├── main.css
+│       │   └── themes.css
+│       │
+│       └──📁pages/						└─	◇ page專用
+│           ├── loginPage.css
+│           ├── membersAreaPage.css
+│           └── registerPage.css
+│
+│
+├──📁components/					【全局元件】
+│   ├──📁areas/							◎ 區塊元件
+│   │   ├──📁login/						└─	◇ 登入區元件
+│   │   │   ├── InfoArea.vue
+│   │   │   └── QuoteArea.vue
+│   │   │
+│   │   ├──📁members/					└─	◇ 會員區元件
+│   │   │   ├── BookcaseArea.vue
+│   │   │   ├── PurchaseArea.vue
+│   │   │   └── SettingsArea.vue
+│   │   │
+│   │   └──📁register/					└─	◇ 註冊區元件
+│   │       ├── AccountArea.vue
+│   │       ├── ContactArea.vue
+│   │       ├── InfoArea.vue
+│   │       └── ReviewArea.vue
+│   │    
+│   │
+│   ├──📁common/						◎ 通用元件
+│   │   ├── AccessAlert.vue
+│   │   ├── BuseInput.vue
+│   │   ├── FooterArea.vue					卓：MyFooter
+│   │   ├── HeaderArea.vue					卓：TitleNav
+│   │   ├── PopupArea.vue					卓：MyPopup
+│   │   └── sub_nav.vue						尤：sub_nav
+│   │
+│   └──📁page/							◎ 頁面元件
+│       ├── book_info.vue					尤：book_info
+│       ├── ForgotPasswordPage.vue
+│       ├── IndexPage.vue					卓：MyIndex
+│       ├── LoginPage.vue
+│       ├── LoginWelcomePage.vue
+│       ├── MembersPage.vue
+│       ├── ProductsPage.vue				卓：MyProduct
+│       ├── RegisterPage.vue
+│       ├── ShoppingCartPage.vue			卓：ShoppingCart
+│       └── sub_block.vue					尤：sub_block
+│    
+│
+├──📁router/						【路由配置】
+│   └── index.js			
+│			
+│			
+├──📁views/							【展示視窗】
+│   ├── book_detail.vue					引入尤：book_info
+│   ├── ForgotPasswordView.vue
+│   ├── IndexView.vue					引入卓：IndexPage
+│   ├── LoginView.vue
+│   ├── MembersView.vue
+│   ├── ProductsView.vue				引入卓：ProductsPage
+│   ├── RegisterView.vue
+│   ├── ShoppingCartView.vue			引入卓：ShoppingCartPage
+│   └── sub_page.vue					引入尤：sub_block
+│
+│
+├── App.vue				# 根元件	✅ 加入卓的頁首頁尾，加在這裡每一頁都會有上下部分
+└── main.js				# 入口文件
