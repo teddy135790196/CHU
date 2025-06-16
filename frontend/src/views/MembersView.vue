@@ -1,16 +1,16 @@
 <template>
 	<div id="app" class="wrap">
 		<!-- 背景層 -->
-		<div class="back-img"></div>
+		<!-- <div class="back-img"></div> -->
 
-		<!-- <AccessAlert
+		<AccessAlert
   v-if="showAccessAlert"
   :title="access.title"
   :message="access.message"
   :button-text="access.button"
   :showButton="true"
   :closeOnOverlay="false"
-  @action="goToPublisherApply" />  -->
+  @action="goToPublisherApply" /> 
 
 		<!-- 頁首區 -->
 		<!-- <div class="container-fluid">
@@ -19,7 +19,7 @@
 			</div>
 		</div> -->
 
-		<div class="container">
+		<div class="container mt-5 mb-5">
 			<div class="row">
 				<MembersPage />
 			</div>
@@ -39,7 +39,7 @@
 import MembersPage from "@/components/pages/MembersPage.vue";
 // import HeaderArea from "@/components/common/HeaderArea.vue";
 // import FooterArea from "@/components/common/FooterArea.vue";
-// import AccessAlert from "@/components/common/AccessAlert.vue";
+import AccessAlert from "@/components/common/AccessAlert.vue";
 
 export default {
 	name: "MembersView",
@@ -47,7 +47,7 @@ export default {
 		MembersPage,
 		// HeaderArea,
 		// FooterArea,
-		// AccessAlert,
+		AccessAlert,
 	},
 	data() {
 		return {

@@ -12,12 +12,6 @@
 
 		<!-- 回登入頁按鈕 -->
 		<div class="container">
-			<div class="row mt-5">
-				<div class="col-12 text-center">
-					<router-link to="/login" class="btn btn-primary mt-3">回登入頁</router-link>
-				</div>
-			</div>
-
 			<!-- 忘記密碼區 -->
 			<div class="row">
 				<ForgotPasswordPage />

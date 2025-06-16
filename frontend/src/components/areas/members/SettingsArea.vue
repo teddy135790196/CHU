@@ -203,26 +203,26 @@ export default {
 				this.$router.push('/login')           // 導向登入頁（路由請依你實際命名）
 			}
 		},
-		// async fetchUserData() {
-		// 	const user_id = localStorage.getItem("user_id");
+		async fetchUserData() {
+			const user_id = localStorage.getItem("user_id");
 
-		// 	if (!user_id) {
-		// 		console.log("尚未登入，user_id 為 null，略過資料請求。");
-		// 		return;
-		// 	}
+			if (!user_id) {
+				console.log("尚未登入，user_id 為 null，略過資料請求。");
+				return;
+			}
 
-		// 	try {
-		// 		const res = await this.$axios.get(`/api/memberSetting/${user_id}`);
-		// 		this.user = res.data.data || {};
-		// 	} catch (err) {
-		// 		console.error("取得會員資料失敗", err);
-		// 		// alert("資料載入錯誤");
-		// 	}
-		// },
+			try {
+				const res = await this.$axios.get(`/api/memberSetting/${user_id}`);
+				this.user = res.data.data || {};
+			} catch (err) {
+				console.error("取得會員資料失敗", err);
+				// alert("資料載入錯誤");
+			}
+		},
 	},
-	// mounted() {
-	// 	this.fetchUserData();
-	// },
+	mounted() {
+		this.fetchUserData();
+	},
 };
 </script>
 

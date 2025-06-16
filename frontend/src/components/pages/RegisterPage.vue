@@ -1,48 +1,45 @@
 <template>
-  
-  <div class="col vh-100 d-flex align-items-center justify-content-center">
-    <div class="content register d-flex flex-column">
-      <!-- 進度條 -->
-      <div class="progress mb-1">
-        <div 
-        class="progress-bar" 
-        :class="{finish: nowStep === 4}"
-        :style="{ width: (progressWidth[nowStep - 1] || 0) + '%' }"></div>
-      </div>
 
-      <!-- Step1 -->
-      <AccountArea v-show="nowStep === 1" :nowStep="nowStep"
-        :formData="{ username: form.username, password: form.password, repassword: form.repassword }"
-        @updateForm="updatePartialForm" ref="step1" />
+  <div class="col d-flex align-items-center justify-content-center">
+      <div class="content register d-flex flex-column">
+        <!-- 進度條 -->
+        <div class="progress mb-1">
+          <div class="progress-bar" :class="{ finish: nowStep === 4 }"
+            :style="{ width: (progressWidth[nowStep - 1] || 0) + '%' }"></div>
+        </div>
 
-      <!-- Step2 -->
-      <InfoArea v-show="nowStep === 2" :nowStep="nowStep"
-        :formData="{ nickname: form.nickname, gender: form.gender, birth: form.birth }"
-        @updateForm="updatePartialForm" ref="step2" />
+        <!-- Step1 -->
+        <AccountArea v-show="nowStep === 1" :nowStep="nowStep"
+          :formData="{ username: form.username, password: form.password, repassword: form.repassword }"
+          @updateForm="updatePartialForm" ref="step1" />
 
-      <!-- Step3 -->
-      <ContactArea v-show="nowStep === 3" :nowStep="nowStep" :formData="{ email: form.email, phone: form.phone }"
-        @updateForm="updatePartialForm" ref="step3" />
+        <!-- Step2 -->
+        <InfoArea v-show="nowStep === 2" :nowStep="nowStep"
+          :formData="{ nickname: form.nickname, gender: form.gender, birth: form.birth }"
+          @updateForm="updatePartialForm" ref="step2" />
 
-      <!-- Step4 -->
-      <ReviewArea v-show="nowStep === 4" :nowStep="nowStep" :form="form" ref="step4" />
+        <!-- Step3 -->
+        <ContactArea v-show="nowStep === 3" :nowStep="nowStep" :formData="{ email: form.email, phone: form.phone }"
+          @updateForm="updatePartialForm" ref="step3" />
+
+        <!-- Step4 -->
+        <ReviewArea v-show="nowStep === 4" :nowStep="nowStep" :form="form" ref="step4" />
 
 
-      <!-- 按鈕區 -->
-      <div class="btn-group mt-auto">
-        <button class="btn btn-primary" @click="prevStep">
-          {{ nowStep === 1 ? "離開" : "上一頁" }}
-        </button>
-        <button class="btn btn-success" @click="nextStep">
-          {{ nowStep === 4 ? "完成" : "下一步" }}
-        </button>
-      </div>
-      <!-- 測試用 -->
-      <!-- <button class="btn btn-light" v-show="nowStep <= 3" @click="nowStep++">
+        <!-- 按鈕區 -->
+        <div class="btn-group mt-auto">
+          <button class="btn btn-primary" @click="prevStep">
+            {{ nowStep === 1 ? "離開" : "上一頁" }}
+          </button>
+          <button class="btn btn-success" @click="nextStep">
+            {{ nowStep === 4 ? "完成" : "下一步" }}
+          </button>
+        </div>
+        <!-- 測試用 -->
+        <!-- <button class="btn btn-light" v-show="nowStep <= 3" @click="nowStep++">
         {{ "跳過" }}
       </button> -->
     </div>
-
   </div>
 </template>
 
@@ -82,7 +79,7 @@ export default {
         console.error('註冊失敗', error);
       }
     },
-    
+
     updatePartialForm(updatedFields) {
       this.form = {
         ...this.form,
@@ -150,7 +147,7 @@ export default {
     border-radius: 0;
 
     min-width: 520px;
-min-height: 650px;
+    min-height: 650px;
   }
 
 }
