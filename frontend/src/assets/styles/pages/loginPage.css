@@ -5,7 +5,7 @@
 
 /* 讓父元素有高度才能垂直置中 */
 .row.page-login {
-	height: 100vh;
+	height: 800px;
 }
 
 /* 登入區 && 圓角內容區塊 */
@@ -14,7 +14,7 @@
 	/* min-width: 480px; */
 	min-height: 660px;
 	text-align: center;
-}
+}	
 
 /* 圓角區塊設定 */
 .content-left,
@@ -39,6 +39,7 @@
 	.content.page-login {
 		min-width: 660px;
 		min-height: 800px;
+		height: 800px;
 	}
 
 	/* BOX內邊距 */
@@ -123,6 +124,7 @@
    container 寬度: 100% (fluid)
 ======================================== */
 @media (max-width: 576px) {
+
 	.content.page-login {
 		border-radius: 0;
 		background-color: transparent;
