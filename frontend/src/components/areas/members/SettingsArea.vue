@@ -68,6 +68,11 @@
 				<div class="d-flex align-items-center w-100">
 					<input type="email" v-model="user.email" class="edit-input" v-show="isEditingContact" />
 					<p class="display-text" v-show="!isEditingContact">{{ user.email }}</p>
+					<button v-show="!isEditingContact" class="display-text btn btn-sm btn-outline-success ms-2"
+						@click="sendVerificationEmail">
+						寄送驗證信
+					</button>
+
 				</div>
 			</div>
 
@@ -79,9 +84,6 @@
 				<div class="d-flex align-items-center w-100">
 					<input type="text" v-model="user.phone" class="edit-input" v-show="isEditingContact" />
 					<p class="display-text" v-show="!isEditingContact">{{ user.phone }}</p>
-					<button v-show="!isEditingContact" class="display-text btn btn-sm btn-outline-success ms-2">
-						寄送驗證信
-					</button>
 				</div>
 			</div>
 
@@ -245,6 +247,24 @@ export default {
 				this.$router.push('/login')           // 導向登入頁（路由請依你實際命名）
 			}
 		},
+
+		// 寄驗證信
+		async sendVerificationEmail() {
+			try {
+				const toEmail = this.user.email;
+
+				await this.$axios.post(`/api/verify-gmail`, {
+					toEmail,
+				});
+
+				alert('驗證信已寄出，請檢查您的信箱');
+			} catch (error) {
+				console.error('寄送驗證信失敗', error);
+				alert('寄送驗證信失敗，請稍後再試');
+			}
+		},
+
+
 		async fetchUserData() {
 			const user_id = localStorage.getItem("user_id");
 
