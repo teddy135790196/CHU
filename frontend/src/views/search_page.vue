@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <search_block :isbn="isbn" @buy_isbn="buyIsbn" class="col-sm-12" />
+      <search_block @select_isbn="getIsbn" @buy_isbn="buyIsbn" class="col-sm-12" />
     </div>
   </div>
 </template>
