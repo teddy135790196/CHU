@@ -12,18 +12,13 @@ import book_info from "@/components/pages/book_info.vue";
 
 // 輸出到外面
 export default {
-  name: "book_detail",
+  name: "author_page",
   props:['isbn'],
   components: { sub_nav,book_info },
   
-  // mounted() {
-  //   document.title = this.isbn;
-  methods:{
+ methods:{
     
-    buyIsbn(isbn){
-      // 取到這個IBSN了我要放到購物車
-      console.log('選擇要買的ISBN:', isbn); 
-    }
+    
   }
 };
 </script>

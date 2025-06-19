@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="/images/loadGo.svg" width="150px" />
+    <!-- <img src="/images/loadGo.svg" width="150px" /> -->
     <div id="pubBC">
       <h4 v-on:click="showPub" class="cat">
         出版類型

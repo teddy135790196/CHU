@@ -16,6 +16,7 @@ function getAllOrders() {
             id: row.id,
             created_at: row.created_at,
             statusText: getStatusText(row.status),
+            shipping_fee: row.shipping_fee,
             total: row.total,
             details: []
           });

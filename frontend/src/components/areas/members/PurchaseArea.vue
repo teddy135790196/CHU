@@ -30,6 +30,9 @@
           </div>
           <hr />
           <div class="text-end">
+            <strong>運費：{{ order.shipping_fee }}</strong>
+          </div>
+          <div class="text-end">
             <strong>總計：{{ order.total }}</strong>
           </div>
         </div>
@@ -44,8 +47,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   name: 'PurchaseArea',
   data() {
@@ -59,8 +60,8 @@ export default {
   },
   methods: {
     fetchOrders() {
-      axios
-        .get('http://localhost:3000/api/orders-all')
+      this.$axios
+        .get('/api/orders-all')
         .then((res) => {
           // 從 res.data.data 取訂單清單
           this.orders = res.data.data || [];

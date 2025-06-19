@@ -13,7 +13,7 @@
         <h1 class="bookTitle">{{ n.name }} <span v-if="n.hit>5">
         <abbr title="多人查看"> <i class="fa-solid fa-fire"></i></abbr>
         </span></h1>
-        <hr />
+        
         <div class="row prodFlex">
           <div>
             <ul>
@@ -30,9 +30,9 @@
           <div>
             <h2 class="price">${{ n.price }}</h2>
             <button class="price" @click="putInCart(n.ISBN_id)">加入購物車</button>
+            <button class="price" @click="putInCart(n.ISBN_id)">加入收藏</button>
           </div>
         </div>
-        <hr />
         <!-- 內文說明 -->
         <div class="describe"><p>{{n.description}}</p>
         </div>
@@ -209,6 +209,7 @@ a {
 span{color: hsl(36, 50.7%, 50%);}
 /* 產品頁面 */
 .prodP {
+padding: 0 30px;
   margin: 0 auto;
 }
 
@@ -217,6 +218,7 @@ span{color: hsl(36, 50.7%, 50%);}
 }
 
 .prodFlex {
+  margin-top: 20px;
   display: flex;
   justify-content: space-around;
 }

@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import BookcaseArea from '@/components/areas/members/BookcaseArea.vue';
 import PurchaseArea from '@/components/areas/members/PurchaseArea.vue';
 import SettingsArea from '@/components/areas/members/SettingsArea.vue';
@@ -137,14 +136,15 @@ export default {
     // 從後端取得會員暱稱與簡介
     async fetchUserData() {
       try {
-        const user_id = localStorage.getItem('user_id'); // ← 若有登入資訊，改成從 localStorage 或 Vuex 拿
+        const user_id = localStorage.getItem('user_id');
 
         if (!user_id) {
           console.log("尚未登入，user_id 為 null，略過資料請求。");
           return;
         }
 
-        const res = await axios.get(`http://localhost:3000/api/memberSetting/${user_id}`);
+        const res = await this.$axios.get(`/api/memberSetting/${user_id}`);
+
         this.nickname = res.data.data.nickname || '（未命名）';
         this.summary = res.data.data.summary || '（尚未填寫個人簡介）';
       } catch (error) {
@@ -153,6 +153,7 @@ export default {
         this.summary = '（無法載入個人簡介）';
       }
     }
+
   }
 };
 </script>
