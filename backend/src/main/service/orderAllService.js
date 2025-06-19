@@ -23,7 +23,7 @@ function getAllOrders() {
         }
 
         const detail = new OrderDetailDTO({
-          id: row.book_id,
+          ISBN_id: row.ISBN_id,
           name: row.title,
           price: row.price,
           qty: row.qty

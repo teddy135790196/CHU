@@ -4,7 +4,7 @@
 
     <!-- 所有組件都要下移52px，因為抬頭導航不佔位 -->
     <HeaderArea />
-    <div style="height: 52px"></div>
+    <div class="space"></div>
 
 
     <router-view />
@@ -51,4 +51,50 @@ export default {
 
 <style>
 @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css");
+/* ========================================
+   基本全局樣式（適用於所有設備）
+   寫好的CSS貼在這區
+======================================== */
+
+.space {
+  height: 100px
+}
+
+
+
+/* ========================================
+   md: 768px ~ 991px (橫向 iPad、小型平板)
+   container 寬度: 720px
+======================================== */
+@media (min-width: 768px) and (max-width: 991px) {
+  .space {
+    height: 90px
+  }
+}
+
+
+
+
+/* ========================================
+   sm: 577px ~ 767px (大型手機、直向平板)
+   container 寬度: 540px
+======================================== */
+@media (min-width: 577px) and (max-width: 767px) {
+  .space {
+    height: 80px
+  }
+}
+
+
+
+
+/* ========================================
+   xs: ≤ 576px (手機)
+   container 寬度: 100% (fluid)
+======================================== */
+@media (max-width: 576px) {
+  .space {
+    height: 60px
+  }
+}
 </style>

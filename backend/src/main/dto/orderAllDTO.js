@@ -18,8 +18,8 @@ class OrderDTO {
 
 // 單筆訂單明細 DTO
 class OrderDetailDTO{
-	constructor({ id, name, price, qty }) {
-		this.id = id;
+	constructor({ ISBN_id, name, price, qty }) {
+		this.ISBN_id = ISBN_id;
 		this.name = name;
 		this.price = price;
 		this.qty = qty;

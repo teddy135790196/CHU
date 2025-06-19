@@ -22,19 +22,26 @@
 
         <!-- 摺疊明細 -->
         <div :id="'collapse' + order.id" class="collapse mt-4">
-          <div class="d-flex justify-content-between flex-wrap" v-for="(item, index) in order.details" :key="index">
-            <div>{{ item.name }}</div>
-            <div>售價：{{ item.price }}</div>
-            <div>{{ item.qty }}本</div>
-            <div>小計：{{ item.subtotal }}</div>
+          <div class="row" v-for="(item, index) in order.details" :key="index">
+            <div class="col-5 book-link">
+              <router-link :to="`/book/${item.ISBN_id}`">{{ item.name }}</router-link>
+            </div>
+            <div class="col-3 text-center">售價：{{ item.price }}</div>
+            <div class="col-2 text-center">{{ item.qty }}本</div>
+            <div class="col-2 text-end">小計：{{ item.subtotal }}</div>
           </div>
           <hr />
           <div class="text-end">
-            <strong>運費：{{ order.shipping_fee }}</strong>
+            <div>
+              運費：
+              <span class="fixed-width-number">{{ Math.floor(order.shipping_fee) }}</span>
+            </div>
+            <div>
+              總計：
+              <span class="fixed-width-number">{{ Math.floor(order.total) }}</span>
+            </div>
           </div>
-          <div class="text-end">
-            <strong>總計：{{ order.total }}</strong>
-          </div>
+
         </div>
       </div>
     </div>
@@ -111,6 +118,33 @@ export default {
     }
 
   }
+
+
+  /* 訂單書本連結 */
+  .book-link {
+    a {
+      color: var(--main-color);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+
+      &:hover {
+        font-weight: bold;
+        color: var(--main-colorlight);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* 訂單總結排版 */
+  .fixed-width-number {
+    display: inline-block;
+    /* 預留5個字元的寬度 */
+    width: 5ch;
+    text-align: right;
+  }
+
+
 
 }
 </style>
