@@ -78,7 +78,12 @@ const router = new Router({
 			path: "/book/:isbn",
 			component: book_detail,
 			props: true,
-		},
+		},// http://localhost:8080/search?q=ds&scope=name
+		{
+			path: '/search',
+			name: 'search', // 
+			component: search_page
+			},
 		{
 			path: "/:sub", //:sub 為動態路由參數
 			component: sub_page,
@@ -93,12 +98,7 @@ const router = new Router({
 			name: 'TestView',
 			component: TestView,
 		},
-		// http://localhost:8080/search?q=ds&scope=name
-		{
-			path: '/search',
-			name: 'search', // 
-			component: search_page,
-			}
+		
 	],
 });
 

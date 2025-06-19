@@ -1,25 +1,31 @@
 <template>
-  <div class="row smProduct" >
+  <div class="row smProduct">
     <h2>共{{ books.length }}本書符合資料</h2>
     <!-- 單個商品圖版型 -->
 
-    <div class="col3" v-for="n in books" v-bind:key="n.ISBN_id">
-      <div id="block" @click="goToDetail(n.ISBN_id)">
+    <div v-for="n in books" v-bind:key="n.ISBN_id">
+      <div id="block" class="col_d" @click="goToDetail(n.ISBN_id)">
         <!-- 點擊就觸發 -->
-        <div class="container-fluid">
+        <div class="block_img">
           <img class="lazy-img" v-lazy="n.imgUrl" :alt="n.name" />
         </div>
+        <div class="context">
+          <h4>
+            <span>{{ n.name }}</span>
+          </h4>
+          <a href="#" class="authorColor">
+            {{ n.author }}</a>
+          <p>{{ n.description.slice(0, 80) }}...</p>
+          <div class="PandChartBtn">
+            <i>
+              <h3><small>$</small>{{ intPrice(n.price) }}</h3>
+            </i>
+            <div><i @click="putInCart(n.ISBN_id)" class="fa-solid fa-heart"></i>
+              <button @click="putInCart(n.ISBN_id)">加入購物車</button>
+            </div>
+          </div>
 
-        <h4>
-          <span>{{ n.name }}</span>
-        </h4>
-      </div>
-      <a href="#" class="authorColor">
-        {{ n.author }}</a>
-      <div class="PandChartBtn">
-        <i>
-          <h3><small>$</small>{{ intPrice(n.price) }}</h3>
-        </i><button @click="putInCart(n.ISBN_id)">加入購物車</button>
+        </div>
       </div>
     </div>
   </div>
@@ -36,8 +42,8 @@ export default {
   mounted() {
     this.fetchData();
   }, // 元件進來時也要抓一次資料
-  
-     watch: {
+  /**/
+  watch: {
     '$route.query.q': 'fetchData',
     '$route.query.scope': 'fetchData',
   },
@@ -46,13 +52,13 @@ export default {
     // 抓網址內資料 的自訂函數
     async fetchData() {
       try {
-        const q=this.$route.query.q;
-        const scope=this.$route.query.scope;
+        const q = this.$route.query.q;
+        const scope = this.$route.query.scope;
         // 有宣告就一定要用到變數，若是空值也要return不然vue不執行
-        if (!q || !scope) { 
-        console.log('沒有搜尋條件');
-        return;
-      }
+        if (!q || !scope) {
+          console.log('沒有搜尋條件');
+          return;
+        }
         // http://localhost:3000/api/products/search/con=author&kw=關鍵字
         let url = "/api/products/search/";
         url += `con=${encodeURIComponent(scope)}&kw=${encodeURIComponent(q)}`;
@@ -133,6 +139,19 @@ export default {
   padding: 0 auto;
 }
 
+.col_d {
+  display: flex;
+}
+
+.context {
+  padding: 20px;
+  width: 60%;
+}
+
+.block_img {
+  width: 300px;
+}
+
 .authorColor {
   color: hsl(36, 50.7%, 50%);
   transition: all 0.55s;
@@ -172,13 +191,24 @@ export default {
   background-color: hsl(353, 100%, 29.2%);
 }
 
-/*  */
+/* 加入收藏 */
+.fa-heart {
+  margin: 0 40px;
+  padding: 10px;
+  color: indianred;
+  border: 1px solid hsl(353, 100%, 29.2%);
+  border-radius: 50%;
+}
+
+.fa-heart:hover {
+  color: hsl(353, 100%, 29.2%);
+}
 
 /* 商品小圖 */
 .smProduct img {
   /* width: 150px; */
   width: 100%;
-  margin: 15px auto;
+  padding: 40px;
   transition: all 0.5s;
 }
 
@@ -197,6 +227,11 @@ export default {
 
 #block:hover span {
   color: hsl(353, 100%, 29.2%);
+}
+
+#block:hover {
+  background-color:
+    hsla(36, 51%, 71%, 0.45);
 }
 
 .smProduct h4 span {
@@ -220,7 +255,6 @@ export default {
 /* 滑到變圓角，可惜手機不能有 */
 #block:hover img {
   scale: 1.03;
-  border-radius: 20px;
-  z-index: 2;
+  border-radius: 60px;
 }
 </style>
