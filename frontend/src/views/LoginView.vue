@@ -3,7 +3,7 @@
     <!-- 背景層 -->
     <!-- <div class="back-img"></div>  -->
 
-    <div class="container-fluid mt-5 mb-5">
+    <div class="container-fluid">
       <div class="row page-login">
         <!-- 左側歡迎區 -->
         <WelcomePage />

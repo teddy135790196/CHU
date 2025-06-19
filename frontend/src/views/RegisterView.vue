@@ -3,7 +3,7 @@
     <!-- 背景層 -->
     <!-- <div class="back-img"></div>  -->
 
-    <div class="container mt-5 mb-5">
+    <div class="container">
       <div class="row">
         <RegisterPage />
       </div>
