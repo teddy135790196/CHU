@@ -33,14 +33,14 @@ export default {
       total: null,
     };
   },
- props:{"q","scope"},//子元件，等待父傳資料
+ props: ['q', 'scope'],//子元件，等待父傳資料
   mounted() {
     this.fetchData();
   }, // 元件進來時也要抓一次資料
   watch: {
-    '$route.query.q'(newVal) {
+    '$route.query.q'() {
     this.fetchData();},
-    '$route.query.scope'(newVal) {
+    '$route.query.scope'() {
     this.fetchData();}},
   methods: {
     //函數庫
