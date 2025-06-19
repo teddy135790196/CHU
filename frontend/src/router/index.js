@@ -96,10 +96,9 @@ const router = new Router({
 		// http://localhost:8080/search?q=ds&scope=name
 		{
 			path: '/search',
+			name: 'search', // 
 			component: search_page,
-			// 使用 props 傳遞查詢參數
-			props: route => ({ q: route.query.q, scope: route.query.scope })
-		}
+			}
 	],
 });
 

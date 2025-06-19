@@ -1,5 +1,5 @@
 <template>
-  <div class="row smProduct" v-if="books.length > 0">
+  <div class="row smProduct" >
     <h2>共{{ books.length }}本書符合資料</h2>
     <!-- 單個商品圖版型 -->
 
@@ -29,27 +29,34 @@ export default {
   data() {
     return {
       data: null,
-      books: [],
-      total: null,
+      books: []
     };
   },
- props: ['q', 'scope'],//子元件，等待父傳資料
+
   mounted() {
     this.fetchData();
   }, // 元件進來時也要抓一次資料
-  watch: {
-    '$route.query.q'() {
-    this.fetchData();},
-    '$route.query.scope'() {
-    this.fetchData();}},
+  
+     watch: {
+    '$route.query.q': 'fetchData',
+    '$route.query.scope': 'fetchData',
+  },
   methods: {
     //函數庫
     // 抓網址內資料 的自訂函數
     async fetchData() {
       try {
-        // http://localhost:3000/api/products/search/con=:author&kw=:心
+        const q=this.$route.query.q;
+        const scope=this.$route.query.scope;
+        // 有宣告就一定要用到變數，若是空值也要return不然vue不執行
+        if (!q || !scope) { 
+        console.log('沒有搜尋條件');
+        return;
+      }
+        // http://localhost:3000/api/products/search/con=author&kw=關鍵字
         let url = "/api/products/search/";
-        url += `con=${encodeURIComponent(this.q)}&kw=${this.scope}`;
+        url += `con=${encodeURIComponent(scope)}&kw=${encodeURIComponent(q)}`;
+        console.log("抓取的網址:", url);
         const response = await this.$axios.get(url);
         this.data = response.data;
         this.books = this.data.books;
@@ -59,7 +66,6 @@ export default {
       } catch (error) {
         console.error("失敗內容:", error);
         this.books = [];
-        this.total = 0;
       }
     },
     // 將小數點無條件捨去的函數
