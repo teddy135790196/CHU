@@ -89,7 +89,8 @@ const router = new Router({
 			component: sub_page,
 			props: true,
 		}, {
-			path: "/author/:author",
+			path: "/author/:name",
+			name: 'author', 
 			component: author_page,
 			props: true,
 		},

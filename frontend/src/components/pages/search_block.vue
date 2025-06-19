@@ -13,7 +13,7 @@
           <h4>
             <span>{{ n.name }}</span>
           </h4>
-          <a href="#" class="authorColor">
+          <a class="authorColor" @="goToAuthor(n.author)">
             {{ n.author }}</a>
           <p>{{ n.description.slice(0, 80) }}...</p>
           <div class="PandChartBtn">
