@@ -81,6 +81,7 @@ export default {
               email: '格式不符：請輸入有效的電子郵箱',
               phone: '格式不符：只可輸入數字',
             },
+            reEmail: '該信箱已被使用',
           },
         }
       },
@@ -99,7 +100,7 @@ export default {
   // 方法
   methods: {
     // 驗證 email 格式
-    validateEmail() {
+    async validateEmail() {
       const email = this.formData.email;
       const rule = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
 
@@ -111,19 +112,31 @@ export default {
         // 驗證：格式錯誤
         this.formErrors.email = this.message.baseInput.quoteErr.format.email;
         return false;
-      } else {
-        // 驗證：通過！
-        this.formErrors.email = '';
-        return true;
       }
 
 
       // 通過前面同步驗證，再去呼叫後端查重（async）
-      // try {
-        
-      // } catch (err) {
-        
-      // }
+      try {
+				// 查詢資料庫看郵箱是否重複
+				const res = await this.$axios.get('/api/register/check/email', {
+					params: { email: this.localForm.email }
+				});
+
+				// 如果有重複
+				if (res.data.exists) {
+					// 驗證：郵箱重複
+					this.formErrors.email = this.message.baseInput.quoteErr.reEmail;
+					return false;
+				} else {
+					// 驗證：通過！
+					this.formErrors.email = '';
+					return true;
+				}
+			} catch (err) {
+				console.error('檢查郵箱錯誤', err);
+				this.formErrors.email = '檢查失敗，請稍後再試';
+				return false;
+			}
 
     },
 

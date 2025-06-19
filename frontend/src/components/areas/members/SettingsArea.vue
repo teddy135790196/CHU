@@ -189,12 +189,53 @@ export default {
 		},
 	},
 	methods: {
-		toggleInfoEdit() {
+		// 切換「個人資訊」的編輯狀態
+		async toggleInfoEdit() {
+			if (this.isEditingInfo) {
+				const user_id = localStorage.getItem('user_id');
+
+				const payload = {
+					nickname: this.user.nickname,
+					gender: this.user.gender,
+					birth: this.user.birth,
+					summary: this.user.summary
+				};
+
+				console.log("送出的資料內容：", payload); // ✅ 看看是否有空值、undefined、null 等
+
+				try {
+					await this.$axios.put(`/api/memberSetting/${user_id}/info`, payload);
+					alert('個人資訊已更新');
+				} catch (error) {
+					console.error('更新個人資訊失敗', error);
+					console.log('錯誤回應：', error.response?.data); // ✅ 抓後端訊息
+					alert('更新失敗');
+				}
+			}
+
 			this.isEditingInfo = !this.isEditingInfo;
 		},
-		toggleContactEdit() {
+
+		// 切換「聯絡方式」的編輯狀態
+		async toggleContactEdit() {
+			if (this.isEditingContact) {
+				// 按下「完成修改」時執行更新
+				try {
+					const user_id = localStorage.getItem('user_id');
+					await this.$axios.put(`/api/memberSetting/${user_id}/contact`, {
+						email: this.user.email,
+						phone: this.user.phone,
+						address: this.user.address
+					});
+					alert('聯絡方式已更新');
+				} catch (error) {
+					console.error('更新聯絡方式失敗', error);
+					alert('更新失敗');
+				}
+			}
 			this.isEditingContact = !this.isEditingContact;
 		},
+
 		// 登出按鈕
 		logout() {
 			if (confirm('確定要登出嗎？')) {

@@ -19,6 +19,14 @@ router.get('/orders', (req, res) => {
   });
 });
 
+// http://localhost:3000/api/railwayDB/orders_query
+router.get('/orders_query', (req, res) => {
+  database.query('SELECT * FROM orders_query', (err, results) => {
+    if (err) return res.status(500).json({ error: '查詢失敗', details: err });
+    res.json(results);
+  });
+});
+
 // http://localhost:3000/api/railwayDB/products
 router.get('/products', (req, res) => {
   database.query('SELECT * FROM products', (err, results) => {
