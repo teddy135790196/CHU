@@ -20,10 +20,14 @@
           </h4>
         </div>
       </div>
+      <!-- 點下就導入到name為author的路由，參數為n.author -->
+       <router-link class="authorColor" :to="{name:'author',params:{name:n.author}}">
+           {{ n.author.length > 17 ? n.author.slice(0, 17) + "..." : n.author }}</router-link>
+            <!--  
       <a href="#" class="authorColor">
-        <!-- 若作者超過20就:用三元運算寫 -->
+        若作者超過20就:用三元運算寫 
         {{ n.author.length > 17 ? n.author.slice(0, 17) + "..." : n.author }}</a
-      >
+      >-->
       <div class="PandChartBtn">
         <i>
           <h3><small>$</small>{{ intPrice(n.price) }}</h3> </i
