@@ -125,6 +125,8 @@ export default {
     },
     saveCartToStorage() {
       localStorage.setItem('cartItems', JSON.stringify(this.itemList));
+      // 觸發 storage 事件來通知其他組件更新購物車數量
+      window.dispatchEvent(new Event('storage'));
     },
     loadCartFromStorage() {
       const savedCart = localStorage.getItem('cartItems');
