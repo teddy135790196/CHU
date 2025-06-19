@@ -4,7 +4,6 @@ const orderModel = require('../model/memberPurchaseModel');
 const { OrderDTO, OrderDetailDTO } = require('../dto/memberPurchaseDTO');
 
 function getOrdersByUserId(userId) {
-  console.log('Service getOrdersByUserId:', userId);
   return new Promise((resolve, reject) => {
     orderModel.selectOrdersByUserId(userId, (err, rows) => {
       if (err) {

@@ -20,9 +20,9 @@ exports.updateUserSettingInfo = async (req, res) => {
     };
 
     // 轉換 birth 格式，只取年月日
-    if (formData.birth) {
-      formData.birth = formData.birth.slice(0, 10);
-    }
+    // if (formData.birth) {
+    //   formData.birth = formData.birth.slice(0, 10);
+    // }
 
     const result = await memberSettingService.updateUserSettingInfo(formData);
     res.status(200).json({ success: true, data: result });
