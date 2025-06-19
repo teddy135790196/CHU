@@ -9,7 +9,7 @@ import ForgotPasswordView from '@/views/ForgotPasswordView.vue';
 import IndexView from '@/views/IndexView.vue';
 import LoginView from '@/views/LoginView.vue';
 import MembersView from '@/views/MembersView.vue';		// 會員可視
-import sub_page from '@/views/sub_page.vue';		
+import sub_page from '@/views/sub_page.vue';
 // import ProductsView from '@/views/ProductsView.vue';		// 會員可視
 import RegisterView from '@/views/RegisterView.vue';
 import ShoppingCartView from '@/views/ShoppingCartView.vue';
@@ -80,10 +80,10 @@ const router = new Router({
 			props: true,
 		},
 		{
-			path: "/:sub",
+			path: "/:sub", //:sub 為動態路由參數
 			component: sub_page,
 			props: true,
-		},{
+		}, {
 			path: "/author/:author",
 			component: author_page,
 			props: true,
@@ -93,13 +93,13 @@ const router = new Router({
 			name: 'TestView',
 			component: TestView,
 		},
-		// http://localhost:8080/?q=ds&scope=name
-	
+		// http://localhost:8080/search?q=ds&scope=name
 		{
-			path: '/?q=:q&scope=:scope',
-			name: 'search',
+			path: '/search',
 			component: search_page,
-		},
+			// 使用 props 傳遞查詢參數
+			props: route => ({ q: route.query.q, scope: route.query.scope })
+		}
 	],
 });
 

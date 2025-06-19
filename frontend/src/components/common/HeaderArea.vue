@@ -80,8 +80,9 @@ export default {
 			}
 
 			// 透過路由傳遞搜尋內容和範圍
+      // /search?q=ds&scope=name
 			this.$router.push({
-				name: 'MyProduct', // 商品頁面的路由名稱
+				name: 'search', // 商品頁面的路由名稱
 				query: {
 					q: this.searchText,
 					scope: this.searchScope

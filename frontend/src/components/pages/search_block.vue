@@ -1,5 +1,6 @@
 <template>
   <div class="row smProduct" v-if="books.length > 0">
+    <h2>共{{ books.length }}本書符合資料</h2>
     <!-- 單個商品圖版型 -->
 
     <div class="col3" v-for="n in books" v-bind:key="n.ISBN_id">
@@ -32,17 +33,15 @@ export default {
       total: null,
     };
   },
-  props: ["category"], //子元件，等待父傳資料
+ props:{"q","scope"},//子元件，等待父傳資料
   mounted() {
     this.fetchData();
   }, // 元件進來時也要抓一次資料
   watch: {
-    // 當分類變了就重新查詢
-    category() {
-      //<-每次變動都要重新抓資料
-      this.fetchData();
-    },
-  },
+    '$route.query.q'(newVal) {
+    this.fetchData();},
+    '$route.query.scope'(newVal) {
+    this.fetchData();}},
   methods: {
     //函數庫
     // 抓網址內資料 的自訂函數
@@ -50,19 +49,12 @@ export default {
       try {
         // http://localhost:3000/api/products/search/con=:author&kw=:心
         let url = "/api/products/search/";
-        if (this.category) {
-          url += `/con=${encodeURIComponent(this.q)}&kw=${this.scope}`;
-        }
-        // const response = await fetch(url);
+        url += `con=${encodeURIComponent(this.q)}&kw=${this.scope}`;
         const response = await this.$axios.get(url);
-
-        // axios 回傳資料存在 response.data
         this.data = response.data;
-        // this.data = await response.json();
-        //取出一個個
         this.books = this.data.books;
 
-        this.total = this.data.total;
+        // this.total = this.data.total;
 
       } catch (error) {
         console.error("失敗內容:", error);
