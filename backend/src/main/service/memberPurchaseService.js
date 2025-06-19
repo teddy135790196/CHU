@@ -1,12 +1,16 @@
 // backend/src/main/service/orderAllService.js
 
-const orderModel = require('../model/orderAllModel');
-const { OrderDTO, OrderDetailDTO } = require('../dto/orderAllDTO');
+const orderModel = require('../model/memberPurchaseModel');
+const { OrderDTO, OrderDetailDTO } = require('../dto/memberPurchaseDTO');
 
-function getAllOrders() {
+function getOrdersByUserId(userId) {
+  console.log('Service getOrdersByUserId:', userId);
   return new Promise((resolve, reject) => {
-    orderModel.selectAllOrders((err, rows) => {
-      if (err) return reject(err);
+    orderModel.selectOrdersByUserId(userId, (err, rows) => {
+      if (err) {
+        console.error('DAO 取得資料錯誤：', err);
+        return reject(err);
+      }
 
       const orderMap = new Map();
 
@@ -22,6 +26,7 @@ function getAllOrders() {
           });
         }
 
+        
         const detail = new OrderDetailDTO({
           ISBN_id: row.ISBN_id,
           name: row.title,
@@ -38,7 +43,7 @@ function getAllOrders() {
   });
 }
 
-// 狀態轉文字
+// 狀態碼轉文字
 function getStatusText(status) {
   switch (status) {
     case 0: return '已下單';
@@ -50,5 +55,5 @@ function getStatusText(status) {
 }
 
 module.exports = {
-  getAllOrders
+  getOrdersByUserId
 };
