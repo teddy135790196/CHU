@@ -65,11 +65,11 @@ export default {
       interval: null, //輪播計時器
       carouselIndex: 0, //輪播圖片id
       carouselUrl: [
-        "https://lh3.googleusercontent.com/pw/AP1GczOD0O5aJr_3w2Hg0mEYeC7BO20PMazSANcR24Pk2ODmMWSA9e2cnwOKVNs1H7iqnpr5Ml2tlhU6I8MomNn4x_BNuznQ-q1o7HyfmZV8AzavB9MlPvwTnHzVUFFXEwK6P5Fl7QGzvwYops_dr2iHHrmc=w1024-h528-s-no-gm?authuser=0",
-        "https://lh3.googleusercontent.com/pw/AP1GczOcgbypEEZMW5nKDjl178V3MvVKQk1Z3TtDrEL6iPzEf20rn5cPYXVQ2pvB1sIdTA5TDwYjWwzV_0IUZ-VnqPNSd2GbP28d49xK0HhcS3Y-iO33esHSCFdFpfYmsWvtZjYxUoU4jtM85Szr-zryq13Z=w1013-h754-s-no-gm?authuser=0",
-        "https://lh3.googleusercontent.com/pw/AP1GczObW6R8ISPk64-E_yQU1WE8mxfR48Y-gXrXxdJLxNjdsRRjdgfI9mkVQxFzx7jEhegubH6z3W6CG_ONIpCvDQAyz0LK00sXG0vKkkn5J0KkqTDOR2kb81NaFDIUuY0EPTIlocZlxEvHTwYvz826Lb4M=w1334-h890-s-no-gm?authuser=0",
-        "https://lh3.googleusercontent.com/pw/AP1GczNzDAevB84GaSI0bRBIPvp0R89Dp-Bx0hGAsy87c74E8x54EqjUFL8M_MvtQRk0MtK6AdC4PkbKyKuRmMsHkqFWA2zAVd_tZJO3Y0Jhbnr327wVNXGPtaJXccoruain-JRVH0ssC609JsdkeJK01qzX=w664-h666-s-no-gm?authuser=0",
-        "https://lh3.googleusercontent.com/pw/AP1GczO4U6XUxknnXgg-SvguLKJhuj6Pg6lwmucu-PI5cDSKc3N0gM7bE1BI-qOrP0QvA5JjymOiSVQ3wwScsToeJHf_kuwLHdKjIuFPfz1L1iV2Yhu_Wf0dhzPkre_568h6KOWM1zpHLRFMLScTCUjLvriG=w890-h890-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczNn6UsvEXrSehRcghBIjBqJYL4ODJTAhIgNjWBalKTy81WHak6B2ITdBKGOVKLDp9lM0ExUfIGu4N_0IHG-ZdKMSFy-hnr9M8dgS8D_P7IH-UmfusLYw3vvsU8Inh76V0gcKbD61H60bXnyZAKsdnWg=w900-h600-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczOYLkNPrgMnr1fr0JBkhzyjL6YoaUBHt1VT4bof0WEwYU8uSxznE8H-YsqYNpS6YOWjt0SWkwvjzG0kObUeCQvyiVjQgtYlyOToaSHk0Mz8xzUEtiAJABB0thmMP5UP54NTQPUpeRLytJfQc6SoG7Q0=w900-h600-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczPC-9AbZdzYAR6b6gcAPqctEsLxwXbv3PTLWl2TUaIfSVpbNAb4VsylSFo3oPVL-RhP1V2hEIQW2FZf6_61d-M6_TRXPq0Mtu7IhPiIaZBWBQkI0qnorGXbWTvj1A_2r7tO9WPOjuZs8-MUEY5dOp8S=w900-h600-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczMoVXeyhi405RYNmyRYdb60fOsTfdiH1iQUjfIfyVM-opsqtzxHhza2JxE9XE_91SahqWUhVLXocXtOP8Glwy6slwkuLI8ojw-XUqlubSvr-8k1pHkS18o0XyqLZ65V-pc9QwX53JHbc0v4cUGCKFDV=w900-h600-s-no-gm?authuser=0",
+        "https://lh3.googleusercontent.com/pw/AP1GczPXxGCHbqgWwswsUJpJCeDpIsw8N1EXDWItXvNIeQymOYcGK8Q1tsQLQ-PbunQKKx0XJ7FuX-9EjLRhukKnM81FB0ttaYken_65VokQ8NirjccLZFmoGPnkps0yR2LfNe1UpFqF9MI3zIAQaQ5g9kik=w900-h600-s-no-gm?authuser=0",
       ],
       carouselAlt: ["紅樓夢推廣", "三國演義推廣", "AI淘汰人類推廣", "經典文學特展", "少年隊防詐騙"],
       slide: "slideLeft", //動畫方向
@@ -286,7 +286,6 @@ export default {
 /* 改尺寸 */
 /* 659~577 */
 @media (min-width: 577px) and (max-width: 670px) {
-
   /* 分類頁的作者跟價格 */
   .PandChartBtn {
     flex-direction: column;
@@ -317,7 +316,6 @@ export default {
 
 /* 中尺寸 */
 @media (min-width: 670px) and (max-width: 992px) {
-
   /* 分類頁的作者跟價格 */
   /* 書名超連結 */
   .smProduct span {
@@ -399,10 +397,10 @@ a {
 /* 輪播 */
 .carousel {
   width: 100%;
-  height: 50vw;
+  height: 52vw;
   /* 隨寬度調整，因為手機都是高度較長，而我的圖片是寬度較長 */
   position: relative;
-  top: 70px;
+  top: 5px;
 }
 
 /* 因為輪播圖的大小沒有統一，因此要設定盒子和圖片寬高，然後設定拉伸樣式，避免盒子大小變動導致頁面變動 */
@@ -506,7 +504,6 @@ a {
 }
 
 @media (min-width: 576px) {
-
   .lastImg,
   .nextImg {
     font-size: 2em;
@@ -514,7 +511,6 @@ a {
 }
 
 @media (min-width: 992px) {
-
   .lastImg,
   .nextImg {
     font-size: 3em;
@@ -548,7 +544,7 @@ a {
   background-color: hsl(353, 100%, 29.2%);
 }
 
-.setCarouselIndex+.setCarouselIndex {
+.setCarouselIndex + .setCarouselIndex {
   margin-left: 1vw;
 }
 
@@ -594,7 +590,7 @@ a {
   background-color: hsl(353, 0%, 100%);
 }
 
-.setBroadcastIndex+.setBroadcastIndex {
+.setBroadcastIndex + .setBroadcastIndex {
   margin-left: 1vw;
 }
 </style>
