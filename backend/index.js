@@ -41,13 +41,15 @@ app.use(express.json());
 // 5. 掛載 API 路由
 app.use('/api', require('./src/routes/_index')); // ⚠️ 改為 /api 路徑以區分 API 與前端頁面
 
-// 6. 靜態前端檔案（Vue 打包產物 frontend/dist）
-app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
+if (process.env.NODE_ENV === 'production') {
+  // 6. 靜態前端檔案（Vue 打包產物 frontend/dist）
+  app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
 
-// 7. SPA fallback(同台部屬才需要)：所有未命中 API 的路徑都回傳 index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
-});
+  // 7. SPA fallback(同台部屬才需要)：所有未命中 API 的路徑都回傳 index.html
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
+  });
+}
 
 // 8. 全局錯誤處理
 app.use((err, req, res, next) => {

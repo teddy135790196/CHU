@@ -67,10 +67,15 @@ export default {
   },
   methods: {
     fetchOrders() {
-      this.$axios
-        .get('/api/orders-all')
-        .then((res) => {
-          // 從 res.data.data 取訂單清單
+      const userId = localStorage.getItem('user_id');
+      if (!userId) {
+        console.error('使用者 ID 不存在');
+        return;
+      }
+
+      this.$axios.get(`/api/memberPurchase/user/${userId}`)
+        .then(res => {
+          // console.log('前端接收到 data:', res.data);
           this.orders = res.data.data || [];
         })
         .catch((err) => {

@@ -1,4 +1,4 @@
-// backend/src/main/service/memberSettingService.js
+// backend/src/main/service/memberSettingervice.js
 
 const UserSettingDTO = require('../dto/memberSettingDTO');
 const memberSettingModel = require('../model/memberSettingModel');
