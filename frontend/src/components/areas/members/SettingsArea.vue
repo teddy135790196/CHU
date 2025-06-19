@@ -115,7 +115,7 @@
 				<div class="d-flex align-items-center w-100">
 					<input type="email" value="myusername" class="edit-input" style="display:none;">
 					<p class="display-text">myusername</p>
-					<button id="toggleAccountEditBtn" class="btn btn-sm btn-outline-primary ms-2">修改帳號</button>
+					<!-- <button id="toggleAccountEditBtn" class="btn btn-sm btn-outline-primary ms-2">修改帳號</button> -->
 				</div>
 			</div>
 
@@ -170,7 +170,8 @@ export default {
 					: "";
 			},
 			set(value) {
-				this.user.birth = value ? dayjs(value).toISOString() : "";
+				// 直接存純字串，避免時區問題
+				this.user.birth = value; // value 已經是 YYYY-MM-DD 字串
 			},
 		},
 		userSummary() {
@@ -197,7 +198,7 @@ export default {
 				const payload = {
 					nickname: this.user.nickname,
 					gender: this.user.gender,
-					birth: this.user.birth,
+					birth: this.formattedBirth,
 					summary: this.user.summary
 				};
 
