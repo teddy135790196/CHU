@@ -36,7 +36,7 @@ app.get("/search/con=:con&kw=:keyWord", (req, res) => {
   db.query(str_spans, [BkeyWord, Bcon], (err, results) => {
     if (err) return res.status(500).json({ error: "查詢失敗", details: err });
     res.json({
-      books: results[0]
+      books: results[0],total: results[1][0].totalBook
     });
   });
 });

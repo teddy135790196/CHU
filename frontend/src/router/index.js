@@ -3,11 +3,13 @@ import Router from 'vue-router';
 
 
 import book_detail from '@/views/book_detail.vue';
+import search_page from '@/views/search_page.vue';
+import author_page from '@/views/author_page.vue';
 import ForgotPasswordView from '@/views/ForgotPasswordView.vue';
 import IndexView from '@/views/IndexView.vue';
 import LoginView from '@/views/LoginView.vue';
 import MembersView from '@/views/MembersView.vue';		// 會員可視
-import sub_page from '@/views/sub_page.vue';		// 會員可視
+import sub_page from '@/views/sub_page.vue';		
 // import ProductsView from '@/views/ProductsView.vue';		// 會員可視
 import RegisterView from '@/views/RegisterView.vue';
 import ShoppingCartView from '@/views/ShoppingCartView.vue';
@@ -81,11 +83,22 @@ const router = new Router({
 			path: "/:sub",
 			component: sub_page,
 			props: true,
+		},{
+			path: "/author/:author",
+			component: author_page,
+			props: true,
 		},
 		{
 			path: '/test',
 			name: 'TestView',
 			component: TestView,
+		},
+		// http://localhost:8080/?q=ds&scope=name
+	
+		{
+			path: '/?q=:q&scope=:scope',
+			name: 'search',
+			component: search_page,
 		},
 	],
 });

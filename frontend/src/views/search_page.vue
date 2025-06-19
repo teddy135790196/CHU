@@ -1,25 +1,26 @@
 <template>
   <div class="container">
     <div class="row">
-      <sub_nav class="col-sm-2" />
-      <book_info :isbn="isbn" @buy_isbn="buyIsbn" class="col-sm-10" />
+      <search_block :isbn="isbn" @buy_isbn="buyIsbn" class="col-sm-12" />
     </div>
   </div>
 </template>
 <script>
-import sub_nav from "@/components/common/sub_nav.vue";
-import book_info from "@/components/pages/book_info.vue";
+
+import search_block from "@/components/pages/search_block.vue";
 
 // 輸出到外面
 export default {
-  name: "book_detail",
+  name: "search_page",
   props:['isbn'],
-  components: { sub_nav,book_info },
+  components: { search_block },
   
-  // mounted() {
-  //   document.title = this.isbn;
-  methods:{
-    
+  methods: {
+    getIsbn(isbn) {
+      //取到這個isbn了我要跳轉到isbn頁! -->現在的路由要改成...
+      console.log('選擇的ISBN:', isbn); // 這裡是接在前端路由後
+      this.$router.push(`/book/${encodeURIComponent(isbn)}`);
+    },
     buyIsbn(isbn){
       // 取到這個IBSN了我要放到購物車
       console.log('選擇要買的ISBN:', isbn); 
