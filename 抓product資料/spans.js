@@ -57,10 +57,10 @@ BEGIN
         SIGNAL SQLSTATE '45000' 
         SET MESSAGE_TEXT = '不支援的欄位';
     END IF;
-SET @sql = CONCAT('SELECT ISBN_id,name,description,price,author,imgUrl,series FROM products WHERE ', con, ' LIKE ?');
-SET @search = CONCAT('%', str, '%');
+SET @sql = CONCAT('SELECT ISBN_id,name,description,price,author,imgUrl,series,COUNT(*) OVER () AS totalBook
+FROM products WHERE ', con, ' LIKE ',QUOTE(CONCAT('%',str,'%')));
     PREPARE stmt FROM @sql;
-    EXECUTE stmt USING @search;
+    EXECUTE stmt ;
     DEALLOCATE PREPARE stmt;
 END
 `;
