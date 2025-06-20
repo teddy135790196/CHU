@@ -8,6 +8,7 @@ router.get('/', (req, res) => res.send('Hello from backend with MySQL!'));
 
 // 資料庫路由(/api)
 router.use('/railwayDB', require('./railwayRoute'));
+router.use('/azureDB', require('./azureRoute'));
 
 // 各功能路由(/api)
 router.use('/captcha', require('../main/route/captchaRoute'));

@@ -2,6 +2,8 @@
 
 const db = require('../../connection/_index');
 
+
+// 檢查使用者是否存在，準備寄送驗證信
 function findUserByEmail(email, callback) {
   const sql = `SELECT * FROM users WHERE email = ? LIMIT 1`;
   db.query(sql, [email], (err, results) => {
@@ -11,6 +13,8 @@ function findUserByEmail(email, callback) {
   });
 }
 
+
+// 儲存隨機產生的驗證 token 與過期時間
 function updateUserVerificationToken(userId, token, expires, callback) {
   const sql = `
     UPDATE users 
@@ -23,6 +27,8 @@ function updateUserVerificationToken(userId, token, expires, callback) {
   });
 }
 
+
+// 當使用者點擊驗證連結時，用 token 查找符合且未過期的使用者
 function findUserByToken(token, callback) {
   const sql = `
     SELECT * FROM users 
@@ -37,6 +43,10 @@ function findUserByToken(token, callback) {
   });
 }
 
+
+// 驗證成功後：
+// - 設定 isEmailVerified = 1
+// - 清空 emailVerificationToken 與 emailVerificationExpires
 function verifyUserEmail(token, callback) {
   const sql = `
     UPDATE users 
@@ -48,6 +58,8 @@ function verifyUserEmail(token, callback) {
     callback(null, result);
   });
 }
+
+
 
 module.exports = {
   findUserByEmail,

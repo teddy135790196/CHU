@@ -3,21 +3,8 @@
 		<!-- 背景層 -->
 		<!-- <div class="back-img"></div> -->
 
-		<AccessAlert
-  v-if="showAccessAlert"
-  :title="access.title"
-  :message="access.message"
-  :button-text="access.button"
-  :showButton="true"
-  :closeOnOverlay="false"
-  @action="goToPublisherApply" /> 
-
-		<!-- 頁首區 -->
-		<!-- <div class="container-fluid">
-			<div class="row">
-				<HeaderArea />
-			</div>
-		</div> -->
+		<AccessAlert v-if="showAccessAlert" :title="access.title" :message="access.message" :button-text="access.button"
+			:showButton="true" :closeOnOverlay="false" @action="goToPublisherApply" />
 
 		<div class="container">
 			<div class="row">
@@ -25,12 +12,6 @@
 			</div>
 		</div>
 
-		<!-- 頁尾區 -->
-		<!-- <div class="container-fluid">
-			<div class="row">
-				<FooterArea />
-			</div>
-		</div> -->
 	</div>
 </template>
 
@@ -51,7 +32,7 @@ export default {
 	},
 	data() {
 		return {
-			showAccessAlert: true, // 一進來就顯示彈窗
+			showAccessAlert: false, // 等資料檢查完再決定是否顯示
 			access: {
 				title: '歡迎來到棲遲書屋！',
 				message: '您已完成註冊！為保障帳戶安全與完整功能<br>請至個人設定完成【信箱驗證】與【手機驗證】',
@@ -59,9 +40,29 @@ export default {
 			},
 		};
 	},
+	created() {
+		this.checkVerificationStatus();
+	},
 	methods: {
+		async checkVerificationStatus() {
+			try {
+				const user_id = localStorage.getItem('user_id');
+				const response = await this.$axios.get(`/api/memberSetting/${user_id}`);
+
+				const user = response.data.data;
+
+				// 如果未驗證，顯示警示
+				if (!user.isEmailVerified) {
+					this.showAccessAlert = true;
+				}
+			} catch (error) {
+				console.error('取得驗證狀態失敗：', error);
+			}
+		},
 		// 關閉浮窗
-		goToPublisherApply() { this.showAccessAlert = false; }
+		goToPublisherApply() {
+			this.showAccessAlert = false;
+		},
 	}
 };
 </script>

@@ -71,7 +71,7 @@ function sendVerificationEmail(toEmail) {
 			if (!user) return reject(new Error('找不到使用者'));
 
 			const token = crypto.randomBytes(32).toString('hex');
-			const expires = new Date(Date.now() + 60 * 60 * 1000); // 1 小時有效
+			const expires = new Date(Date.now() + 5 * 60 * 1000); // 驗證碼 5分鐘 有效
 
 			emailVerificationModel.updateUserVerificationToken(user.user_id, token, expires, (err) => {
 				if (err) return reject(err);

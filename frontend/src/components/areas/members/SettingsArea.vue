@@ -285,7 +285,7 @@ export default {
 					toEmail,
 				});
 
-				alert('驗證信已寄出，請檢查您的信箱');
+				alert('我們已發送驗證信至您的信箱🎉\n請在 5 分鐘內點擊信中的連結完成驗證。\n如未收到，請檢查垃圾郵件匣。');
 
 				// 啟動倒數 60 秒
 				this.startCountdown(60);
@@ -297,7 +297,7 @@ export default {
 			}
 		},
 
-		// 驗證信倒數
+		// 驗證信冷卻倒數
 		startCountdown(seconds) {		// 輸入秒數
 			this.countdown = seconds;
 
