@@ -9,14 +9,19 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 // 後端設置
 import axios from 'axios';
 
-// 根據環境變數設定 API 的基礎 URL
-// 在 production 環境中，它會使用 .env.production 中定義的 VUE_APP_API_BASE_URL
-// 在 development 環境中，它是 undefined，axios 會使用相對路徑，請求將由 vue.config.js 中的 proxy 處理
-axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
+// --- 根據當前網域，動態設定後端 API 位址 ---
+let baseURL = 'http://localhost:3000'; // 本地開發的預設值
+
+// 當程式碼在瀏覽器中執行時，判斷當前的網域名稱
+if (typeof window !== 'undefined' && window.location.hostname === 'chu-production.up.railway.app') {
+  baseURL = 'https://bookstore-backend-production-f711.up.railway.app'; // Railway 正式環境
+}
+
+axios.defaults.baseURL = baseURL;
 
 Vue.prototype.$axios = axios;
 // 把 baseURL 也綁到 Vue 原型方便全局取用
-Vue.prototype.$apiBaseUrl = process.env.VUE_APP_API_BASE_URL;
+Vue.prototype.$apiBaseUrl = baseURL;
 
 
 
