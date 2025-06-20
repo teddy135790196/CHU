@@ -4,7 +4,6 @@ import apiClient from '@/api'; // 匯入統一設定的 axios 實例
 export const draftOrderService = {
   // 保存草稿訂單
   saveDraft(draftData) {
-    // baseURL 已經在 apiClient 中設定好了
     return apiClient.post('/draft-orders', draftData);
   },
 
@@ -28,3 +27,4 @@ export const draftOrderService = {
     return apiClient.delete(`/draft-orders/${draftId}`);
   }
 };
+
