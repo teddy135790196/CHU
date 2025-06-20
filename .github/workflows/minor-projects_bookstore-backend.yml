@@ -30,4 +30,4 @@ jobs:
           app-name: 'bookstore-backend'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_XXXX }}
           package: .
-          type: zip
+
