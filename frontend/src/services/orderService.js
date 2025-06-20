@@ -3,8 +3,7 @@ import axios from 'axios';
 
 const API_URL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:3000/api'  // 本地開發用
-  : 'https://bookstore-backend-production.up.railway.app/api'; // 雲端部署用
-
+  : 'https://bookstore-backend-production-f711.up.railway.app/api'; // 雲端部署用 (修正後的正確網址)
 // 創建 axios 實例
 const api = axios.create({
   baseURL: API_URL,
