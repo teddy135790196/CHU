@@ -1,41 +1,5 @@
 // services/orderService.js
-import axios from 'axios';
-
-const API_URL = process.env.NODE_ENV === 'development'
-  ? 'http://localhost:3000/api'  // 本地開發用
-  : 'https://bookstore-backend-production-f711.up.railway.app/api'; // 雲端部署用 (修正後的正確網址)
-// 創建 axios 實例
-const api = axios.create({
-  baseURL: API_URL,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
-
-// 請求攔截器
-api.interceptors.request.use(
-  config => {
-    console.log('發送請求:', config.url, config.data);
-    return config;
-  },
-  error => {
-    console.error('請求錯誤:', error);
-    return Promise.reject(error);
-  }
-);
-
-// 響應攔截器
-api.interceptors.response.use(
-  response => {
-    console.log('收到響應:', response.data);
-    return response;
-  },
-  error => {
-    console.error('響應錯誤:', error);
-    return Promise.reject(error);
-  }
-);
+import apiClient from '@/api'; // 匯入統一設定的 axios 實例
 
 export const orderService = {
   /**
@@ -44,7 +8,11 @@ export const orderService = {
    * @returns {Promise} Axios Promise
    */
   createOrder(orderData) {
-    return api.post('/orders', orderData);
+    // 注意：因為 baseURL 已經在 apiClient 中設定好了，
+    // 這裡的路徑應該是相對於 baseURL 的路徑。
+    // 根據您的後端路由，這裡可能需要是 '/api/orders' 或 '/orders'
+    // 我先假設是 '/orders'，如果出錯可以輕易調整。
+    return apiClient.post('/orders', orderData);
   },
 
   /**
@@ -53,7 +21,7 @@ export const orderService = {
    * @returns {Promise} Axios Promise
    */
   getOrder(orderId) {
-    return api.get(`/orders/${orderId}`);
+    return apiClient.get(`/orders/${orderId}`);
   },
 
   /**
@@ -62,6 +30,6 @@ export const orderService = {
    * @returns {Promise} Axios Promise
    */
   getUserOrders(userId) {
-    return api.get(`/orders/user/${userId}`);
+    return apiClient.get(`/orders/user/${userId}`);
   }
-}; 
+};
