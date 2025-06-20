@@ -1,15 +1,14 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
-  publicPath: '/', // 確保部署路徑正確
+  publicPath: '/',
 
   devServer: {
-    allowedHosts: 'all', // 允許所有主機頭，解決部署時 "Invalid Host header" 的問題
+    allowedHosts: 'all',
     proxy: {
-      '/api': { // 將 /api 的請求代理到後端服務
+      '/api': {
         target: 'http://localhost:3000',
         changeOrigin: true,
-        pathRewrite: { '^/api': '' },
       }
     }
   }
