@@ -70,32 +70,36 @@ export default {
 
         // http://localhost:3000/api/products/search/con=author&kw=關鍵字
         //http://localhost:3000/api/products/author/作者
-        
+
         // 搜尋
         if (q || scope) {
           url += `search/con=${encodeURIComponent(scope)}&kw=${encodeURIComponent(q)}`;
           console.log("抓取的網址:", url);
           const response = await this.$axios.get(url);
           this.data = response.data;
-        this.books = this.data.books;
+          this.books = this.data.books;
         }
         else if (this.$route.name === 'author' && authorName) { //抓作者頁
           // this.$route.name是路由的路徑名稱(就是那個path:,name:...中的name)
           url += `author/${encodeURIComponent(authorName)}`;
           console.log("抓取的網址:", url);
-          const response = await this.$axios.get(url);this.data = response.data || {};
-        this.books = Array.isArray(this.data.books) ? this.data.books : [];
-        //取下作者的姓名、簡介並傳到page
-        if(this.books.length>0){
-          this.$emit('author_info',{
-            name:this.book[0].author,
-            introduce:this.books[0].introduce
-          });
-        }
+          const response = await this.$axios.get(url); this.data = response.data || {};
+          this.books = Array.isArray(this.data.books) ? this.data.books : [];
+          //取下作者的姓名、簡介並傳到page
+          // 一定要是陣列       且        陣列內容一定要有至少一本書
+          if (Array.isArray(this.books) && this.books.length > 0) {
+            // console.log("作者:",this.books[0].author);
+            // console.log("作者介紹:",this.books[0].introduce);
+            // if(this.books.length>0){
+            this.$emit('author_info', {
+              name: this.books[0].author,
+              introduce: this.books[0].introduce
+            });
+          }
         }
 
-        
-        
+
+
 
         // this.total = this.data.total;
       } catch (error) {
