@@ -1,4 +1,4 @@
-name: Build and deploy Node.js app to Azure Web App - bookstore-backend
+name: Deploy Node.js App to Azure Web App
 
 on:
   push:
@@ -13,19 +13,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20'
 
-      - name: Install dependencies (backend root)
-        run: npm install
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
 
       - name: Build frontend
         run: npm run build:frontend
 
-      - name: Zip artifact for deployment
-        run: zip -r release.zip .
+      - name: Create zip package
+        run: |
+          zip -r release.zip . -x "*.git*" "node_modules/*"
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
@@ -33,6 +36,7 @@ jobs:
           app-name: 'bookstore-backend'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D64775C5E44F4F5C9E7715E4E8EB2B1C }}
           package: release.zip
+
 
 
 
