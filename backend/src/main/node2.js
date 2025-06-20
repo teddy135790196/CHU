@@ -88,7 +88,25 @@ app.get("/book/:id", (req, res) => {
     });
   });
 });
+//精確找作者
 
+/* call 預存_作者_精確(作者名)
+SELECT ISBN_id,name,description,price,award,author,imgUrl,series FROM products WHERE author = str;
+*/
+app.get("/author/:name", (req, res) => {
+  const Bname = req.params.name;
+  const str_spans = "CALL 預存_作者_精確(?)";
+
+  db.query(str_spans, [Bname], (err, results) => {
+    if (err) {
+      console.error("❌ 資料庫查詢錯誤：", err); // ← 加這行來看詳細錯誤
+      return res.status(500).json({ error: "查詢失敗", details: err });
+    }
+    res.json({
+      book: results[0]
+    });
+  });
+});
 // ✅ 匯出 router
 module.exports = app;
 // app.listen(port, () => {
