@@ -1,0 +1,32 @@
+// frontend/src/api/index.js
+import axios from 'axios';
+
+// --- 根據當前網域，動態設定後端 API 位址 ---
+// 這是整個應用程式 API 設定的唯一來源
+let baseURL = 'http://localhost:3000'; // 本地開發的預設值
+
+// 當程式碼在瀏覽器中執行時，判斷當前的網域名稱
+// 'chu-production.up.railway.app' 是您前端服務的網址
+if (typeof window !== 'undefined' && window.location.hostname === 'chu-production.up.railway.app') {
+  // 'bookstore-backend-production-f711.up.railway.app' 是您後端服務的網址
+  baseURL = 'https://bookstore-backend-production-f711.up.railway.app';
+}
+
+const apiClient = axios.create({
+  baseURL: baseURL
+});
+
+// 將所有攔截器 (interceptors) 統一放在這裡管理
+apiClient.interceptors.request.use(config => {
+  // 在每個請求發送前，自動帶上 token
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, error => {
+  return Promise.reject(error);
+});
+
+// 匯出這個已經設定好的 axios 實例
+export default apiClient;
