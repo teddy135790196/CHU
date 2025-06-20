@@ -63,7 +63,10 @@ export default {
       try {
         // const baseUrl = "http://localhost:3000";
         // let url = baseUrl + "/api/products/book";
-        let url = "/api/products/books";
+        
+        // 移除寫死的 /api，因為 baseURL 中已經包含了
+        let url = "/products/books"; 
+        
         if (this.category) {
           url += `/${encodeURIComponent(this.category)}?page=${this.page}`;
         }
