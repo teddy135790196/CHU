@@ -6,22 +6,13 @@ import '@/assets/styles/base/main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-// 後端設置
-import axios from 'axios';
+// 後端設置：直接匯入已統一設定好的 axios 實例
+import apiClient from '@/api';
 
-// --- 根據當前網域，動態設定後端 API 位址 ---
-let baseURL = 'http://localhost:3000'; // 本地開發的預設值
-
-// 當程式碼在瀏覽器中執行時，判斷當前的網域名稱
-if (typeof window !== 'undefined' && window.location.hostname === 'chu-production.up.railway.app') {
-  baseURL = 'https://bookstore-backend-production-f711.up.railway.app'; // Railway 正式環境
-}
-
-axios.defaults.baseURL = baseURL;
-
-Vue.prototype.$axios = axios;
-// 把 baseURL 也綁到 Vue 原型方便全局取用
-Vue.prototype.$apiBaseUrl = baseURL;
+// 將統一的 axios 實例掛載到 Vue 原型上，方便在元件中用 this.$axios 呼叫
+Vue.prototype.$axios = apiClient;
+// 也可以將 baseURL 掛載上去，方便在模板中取用
+Vue.prototype.$apiBaseUrl = apiClient.defaults.baseURL;
 
 
 
@@ -45,15 +36,8 @@ console.log("測試印出vue-lazyload directive:", Vue.options.directives.lazy);
 Vue.config.productionTip = false;
 
 
-// 設定 axios 請求攔截器，將 token 加入到請求頭中
-// 這樣可以在每次發送請求時自動攜帶 token
-axios.interceptors.request.use(config => {
-	const token = localStorage.getItem('token');
-	if (token) {
-		config.headers.Authorization = `Bearer ${token}`;
-	}
-	return config;
-});
+// 注意：請求攔截器 (Request Interceptor) 的邏輯已經統一移至 src/api/index.js
+// 所以這裡不再需要重複設定
 
 
 // 權限驗證（後台）
