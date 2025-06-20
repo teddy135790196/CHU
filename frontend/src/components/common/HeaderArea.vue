@@ -7,7 +7,7 @@
 		<ul class="titleNavIcon">
 			<li class="logo">
 				<h1>
-					<router-link to="/"><img src="icon/logo.png" alt="棲" /></router-link>
+					<router-link to="/"><img src="@/assets/images/icon/logo.png" alt="棲" /></router-link>
 				</h1>
 				<div class="logoUpArror">▲</div>
 				<div class="logoDialog">回到首頁</div>
@@ -33,7 +33,7 @@
 				<div class="productDialog">書籍一覽</div>
 			</li>
 			<li class="titleNavEmoji member">
-				<router-link to="/members" class="emojiIcon"><img src="icon/user.png" alt="🙍‍♂️"></router-link>
+				<router-link to="/members" class="emojiIcon"><img src="@/assets/images/icon/user.png" alt="🙍‍♂️"></router-link>
 				<div class="memberUpArror">▲</div>
 				<div class="memberDialog">會員資料</div>
 			</li>

@@ -2,8 +2,9 @@
   "name": "chu-kang900320-bookstore",
   "version": "1.0.0",
   "description": "Full-stack bookstore application with Vue.js frontend and Node.js backend",
+  "main": "backend/index.js",
   "scripts": {
-    "start": "npm run start:backend",
+    "start": "node backend/index.js",
     "start:backend": "cd backend && npm start",
     "start:frontend": "cd frontend && npm run serve",
     "build:frontend": "cd frontend && npm install && npm run build",

@@ -70,7 +70,7 @@ export default {
   .space {
     height: 90px
   }
-}
+} 
 
 
 
