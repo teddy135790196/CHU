@@ -13,18 +13,18 @@
           <h4>
             <span>{{ n.name }}</span>
           </h4>
-          <a class="authorColor" @="goToAuthor(n.author)">
-            {{ n.author }}</a>
+          <a class="authorColor" @click="goToAuthor(n.author)"> {{ n.author }}</a>
           <p>{{ n.description.slice(0, 80) }}...</p>
           <div class="PandChartBtn">
             <i>
               <h3><small>$</small>{{ intPrice(n.price) }}</h3>
             </i>
-            <div><i @click="putInCart(n.ISBN_id)" class="fa-solid fa-heart"></i>
+            <!-- <i @click="putInCart(n.ISBN_id)" class="fa-solid fa-heart"></i> -->
+            <i class="fa-solid fa-heart"></i>
+            <div>
               <button @click="putInCart(n.ISBN_id)">加入購物車</button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       data: null,
-      books: []
+      books: [],
     };
   },
 
@@ -44,8 +44,8 @@ export default {
   }, // 元件進來時也要抓一次資料
   /**/
   watch: {
-    '$route.query.q': 'fetchData',
-    '$route.query.scope': 'fetchData',
+    "$route.query.q": "fetchData",
+    "$route.query.scope": "fetchData",
   },
   methods: {
     //函數庫
@@ -56,7 +56,7 @@ export default {
         const scope = this.$route.query.scope;
         // 有宣告就一定要用到變數，若是空值也要return不然vue不執行
         if (!q || !scope) {
-          console.log('沒有搜尋條件');
+          console.log("沒有搜尋條件");
           return;
         }
         // http://localhost:3000/api/products/search/con=author&kw=關鍵字
@@ -68,7 +68,6 @@ export default {
         this.books = this.data.books;
 
         // this.total = this.data.total;
-
       } catch (error) {
         console.error("失敗內容:", error);
         this.books = [];
@@ -96,7 +95,7 @@ export default {
 
     addToCart(book) {
       // 從 localStorage 讀取現有購物車
-      let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+      let cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
 
       // 檢查商品是否已存在購物車中
       const existingItemIndex = cartItems.findIndex(item => item.id === book.ISBN_id);
@@ -104,7 +103,7 @@ export default {
       if (existingItemIndex > -1) {
         // 如果已存在，增加數量
         cartItems[existingItemIndex].count++;
-        alert('商品數量已增加！');
+        alert("商品數量已增加！");
       } else {
         // 如果不存在，添加新商品
         const cartItem = {
@@ -112,18 +111,18 @@ export default {
           itemName: book.name,
           price: book.price,
           count: 1,
-          imgUrl: book.imgUrl || 'https://via.placeholder.com/100x100?text=書籍封面'
+          imgUrl: book.imgUrl || "https://via.placeholder.com/100x100?text=書籍封面",
         };
         cartItems.push(cartItem);
-        alert('商品已加入購物車！');
+        alert("商品已加入購物車！");
       }
 
       // 保存到 localStorage
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
       // 觸發 storage 事件來更新其他組件（如導航欄的購物車數量）
-      window.dispatchEvent(new Event('storage'));
-    }
+      window.dispatchEvent(new Event("storage"));
+    },
   },
 };
 </script>
@@ -139,17 +138,29 @@ export default {
   padding: 0 auto;
 }
 
-.col_d {
-  display: flex;
+.smProduct > div {
+  padding: 0px;
 }
 
 .context {
+  margin: auto;
   padding: 20px;
-  width: 60%;
+  width: 300px;
 }
 
 .block_img {
+  margin: auto;
   width: 300px;
+}
+
+@media (min-width: 576px) {
+  .col_d {
+    display: flex;
+  }
+
+  .context {
+    width: 60%;
+  }
 }
 
 .authorColor {
@@ -169,6 +180,12 @@ export default {
   /* 垂直置中 */
 }
 
+@media (min-width: 576px) {
+  .PandChartBtn {
+    width: 270px;
+  }
+}
+
 /* 分類頁的價格 */
 .PandChartBtn h3 {
   font-weight: bold;
@@ -185,6 +202,7 @@ export default {
   padding: 10px 15px;
   border-radius: 20px;
   transition: all 0.7s;
+  margin-left: 20px;
 }
 
 .PandChartBtn button:hover {
@@ -193,7 +211,7 @@ export default {
 
 /* 加入收藏 */
 .fa-heart {
-  margin: 0 40px;
+  /* margin: 0 40px; */
   padding: 10px;
   color: indianred;
   border: 1px solid hsl(353, 100%, 29.2%);
@@ -208,8 +226,14 @@ export default {
 .smProduct img {
   /* width: 150px; */
   width: 100%;
-  padding: 40px;
+  /* padding: 40px; */
   transition: all 0.5s;
+}
+
+@media (min-width: 768px) {
+  .smProduct img {
+    padding: 40px;
+  }
 }
 
 .smProduct {
@@ -230,8 +254,7 @@ export default {
 }
 
 #block:hover {
-  background-color:
-    hsla(36, 51%, 71%, 0.45);
+  background-color: hsla(36, 51%, 71%, 0.45);
 }
 
 .smProduct h4 span {
