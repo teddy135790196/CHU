@@ -41,37 +41,20 @@ export default {
 	},
 	methods: {
 		async login() {
-			console.log(this.form)
 			try {
 				const res = await this.$axios.post('/api/login', this.form);
-				console.log('登入成功', res.data);
-
-				// 後端controller回傳的資料格式為 { success: true, data: '<id>' }
-				const { success, data } = res.data;
-
-
-				// success 是「有成功的訊號嗎？」
-				// data 是「有資料嗎？」
-				// data.id 是「資料裡有使用者 ID 嗎？」
-				if (success && data && data.id) {
-					const user_id = data.id;
-					// 儲存到 localStorage 或狀態管理
-					localStorage.setItem('user_id', user_id);
-
-					// 導去會員頁
+				if (res.data.success && res.data.data && res.data.data.id) {
+					localStorage.setItem('user_id', res.data.data.id);
 					this.$router.push('/members');
-					this.form.username = '';
-					this.form.password = '';
 				} else {
-					throw new Error('登入失敗，請稍後再試');
+					alert('登入失敗，請確認帳號密碼');
 				}
-
 			} catch (error) {
-				alert('帳號或密碼錯誤！');
-				console.error('登入失敗', error);
+				alert('登入失敗，請確認帳號密碼');
+				console.error(error);
 			}
-		}
-	}
+		},
+	},
 };
 </script>
 

@@ -4,7 +4,7 @@ const db = require('../../connection/_index');
 
 function selectUserSettingData(userForm, callback) {
 	const sql = `
-		SELECT user_id AS id, nickname, gender, birth, summary, email, phone, address
+		SELECT user_id AS id, nickname, gender, birth, summary, email, phone, address, isEmailVerified
 		FROM users
 		WHERE user_id = ?
 		LIMIT 1
