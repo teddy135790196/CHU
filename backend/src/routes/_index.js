@@ -13,7 +13,7 @@ router.use('/railwayDB', require('./railwayRoute'));
 router.use('/captcha', require('../main/route/captchaRoute'));
 router.use('/login', require('../main/route/loginRoute'));
 router.use('/forgot-password', require('../main/route/forgotPasswordRoute'));
-router.use('/verify-gmail', require('../main/route/gmailRoute'));
+router.use('/email-verification', require('../main/route/emailVerificationRoute'));
 router.use('/memberSetting', require('../main/route/memberSettingRoute'));
 router.use('/memberPurchase', require('../main/route/memberPurchaseRoute'));
 router.use('/orders', require('../main/route/orderRoute'));

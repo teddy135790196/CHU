@@ -1,7 +1,7 @@
 // backend/src/main/dto/memberSettingDTO.js
 
 class UserSettingDTO {
-  constructor({ id, nickname, gender, birth, summary, email, phone, address }) {
+  constructor({ id, nickname, gender, birth, summary, email, phone, address, isEmailVerified }) {
     this.id = id;
     this.nickname = nickname;
     this.gender = gender;
@@ -10,6 +10,7 @@ class UserSettingDTO {
     this.email = email;
     this.phone = phone;
     this.address = address;
+    this.isEmailVerified = isEmailVerified;
   }
 }
 
