@@ -24,11 +24,15 @@ jobs:
       - name: Build frontend
         run: npm run build:frontend
 
+      - name: Zip artifact for deployment
+        run: zip -r release.zip .
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'bookstore-backend'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D64775C5E44F4F5C9E7715E4E8EB2B1C }}
-          package: .
-          type: zip
+          package: release.zip
+
+
 
