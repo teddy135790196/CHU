@@ -5,9 +5,9 @@
         <div class="col-md-8">
           <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="cart-title">購物車</h2>
-            <button class="btn btn-primary add-product-btn" @click="addTestProduct">
+            <!-- <button class="btn btn-primary add-product-btn" @click="addTestProduct">
               <i class="bi bi-plus-circle me-2"></i>添加測試商品
-            </button>
+            </button> -->
           </div>
           
           <div v-if="itemList.length === 0" class="empty-cart text-center py-5">
@@ -361,3 +361,4 @@ export default {
   }
 }
 </style>
+
