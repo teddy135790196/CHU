@@ -34,8 +34,31 @@ function sendMail(toEmail, token) {
 		from: `棲遲書屋 <${process.env.GMAIL_USER}>`,
 		to: toEmail,
 		subject: '【棲遲書屋】電子郵箱驗證信',
-		text: `您好，\n\n請點擊以下連結完成您的電子郵箱驗證：\n${verificationUrl}\n\n如果您沒有申請此郵件，請忽略此信件。`,
-		html: `<p>您好，</p><p>請點擊以下連結完成您的電子郵箱驗證：</p><p><a href="${verificationUrl}">點此驗證電子郵箱</a></p><p>如果您沒有申請此郵件，請忽略此信件。</p>`,
+		text: `
+			您好，
+
+			您於個人頁面請求驗證電子郵箱，請點擊以下連結完成驗證：
+
+			${verificationUrl}
+
+			如果您沒有申請此郵件，請忽略此信件。
+
+			謝謝您！
+
+			棲遲書屋團隊
+		`,
+
+		html: `
+			<p>您好，</p>
+			<p>您於個人頁面請求驗證電子郵箱，請點擊以下連結完成驗證：</p>
+			<p><a href="${verificationUrl}" target="_blank" rel="noopener noreferrer">
+				點此驗證電子郵箱
+			</a></p>
+			<p>如果您沒有申請此郵件，請忽略此信件。</p>
+			<br/>
+			<p>謝謝您！</p>
+			<p>棲遲書屋團隊</p>
+		`,
 	};
 
 	return transporter.sendMail(mailOptions);

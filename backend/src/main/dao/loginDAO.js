@@ -2,30 +2,23 @@
 
 const db = require('../../connection/_index');
 
-function selectLoginUsername(loginForm, callback) {		// loginForm => 前端傳來的表單
-	const sql = `
-		SELECT * FROM users 
-		WHERE username = ? 
-		LIMIT 1 
-	`;
+function selectLoginUsername(loginForm, callback) {
+  const sql = `
+    SELECT * FROM users
+    WHERE username = ? OR email = ?
+    LIMIT 1
+  `;
 
-	const params = [
-		loginForm.username,
-	];
+  // 用同一個值對應 username 和 email
+  const params = [loginForm.username, loginForm.username];
 
-	db.query(sql, params, (err, result) => {
-		if(err) {
-			callback(err, null);
-			return;
-		}
-		if(result.length === 0) {
-			callback(null, null);
-			return;
-		}
-		callback(null, result[0]);
-	});
-};
+  db.query(sql, params, (err, result) => {
+    if (err) return callback(err, null);
+    if (result.length === 0) return callback(null, null);
+    callback(null, result[0]);
+  });
+}
 
 module.exports = {
-	selectLoginUsername,
+  selectLoginUsername,
 };
