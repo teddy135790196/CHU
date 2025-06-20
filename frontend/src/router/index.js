@@ -83,15 +83,15 @@ const router = new Router({
 			path: '/search',
 			name: 'search', // 
 			component: search_page
-			},
+		},
 		{
-			path: "/:sub", //:sub 為動態路由參數
-			component: sub_page,
+			path: "/author/:name",
+			name: 'author',
+			component: author_page,
 			props: true,
 		}, {
-			path: "/author/:name",
-			name: 'author', 
-			component: author_page,
+			path: "/:sub", //:sub 為動態路由參數
+			component: sub_page,
 			props: true,
 		},
 		{
@@ -99,7 +99,7 @@ const router = new Router({
 			name: 'TestView',
 			component: TestView,
 		},
-		
+
 	],
 });
 

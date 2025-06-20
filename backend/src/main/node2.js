@@ -103,7 +103,7 @@ app.get("/author/:name", (req, res) => {
       return res.status(500).json({ error: "查詢失敗", details: err });
     }
     res.json({
-      book: results[0]
+      books: results[0]
     });
   });
 });

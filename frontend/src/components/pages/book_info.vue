@@ -13,11 +13,13 @@
         <h1 class="bookTitle">{{ n.name }} <span v-if="n.hit>5">
         <abbr title="多人查看"> <i class="fa-solid fa-fire"></i></abbr>
         </span></h1>
-        
+        <div v-if="n.award">
+        <h4>榮獲{{ n.award }}</h4>
+        </div>
         <div class="row prodFlex">
           <div>
             <ul>
-              <li>作者/ <a href="#">{{ n.author }}</a></li>
+              <li>作者/  <author_a :name="n.author" class="authorColor"> {{ n.author }}</author_a></li>
               <li>系列/ <a href="#">{{ n.series }}</a></li>
               <li>出版社/ <a href="">{{n.publisher}}</a></li>
               <li>出版日期/ {{n.created_at.slice(0,10)}}</li>
@@ -105,8 +107,10 @@
   </div>
 </template>
 <script>
-// import
+import author_a from "@/components/pages/authorA.vue";
 export default {
+  components: { author_a },
+name: "book_info",
   data() { return { data: null, book: [] } },
   props: ["isbn"],
   mounted() { 
@@ -206,7 +210,7 @@ a {
   text-decoration: none;
 }
 /* 商品頁 */
-span{color: hsl(36, 50.7%, 50%);}
+span, h4 {color: hsl(36, 50.7%, 50%);}
 /* 產品頁面 */
 .prodP {
 padding: 0 30px;

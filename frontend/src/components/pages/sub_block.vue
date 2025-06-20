@@ -21,8 +21,8 @@
         </div>
       </div>
       <!-- 點下就導入到name為author的路由，參數為n.author -->
-       <router-link class="authorColor" :to="{name:'author',params:{name:n.author}}">
-           {{ n.author.length > 17 ? n.author.slice(0, 17) + "..." : n.author }}</router-link>
+       <author_a :name="n.author">
+           {{ n.author.length > 17 ? n.author.slice(0, 17) + "..." : n.author }}</author_a>
             <!--  
       <a href="#" class="authorColor">
         若作者超過20就:用三元運算寫 
@@ -37,7 +37,9 @@
   </div>
 </template>
 <script>
+import author_a from './authorA.vue';
 export default {
+  components:{author_a},  
   data() {
     return {
       data: null,

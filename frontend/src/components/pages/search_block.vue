@@ -1,6 +1,6 @@
 <template>
   <div class="row smProduct">
-    <h2>共{{ books.length }}本書符合資料</h2>
+    <h2>共{{ books.length }}本書</h2>
     <!-- 單個商品圖版型 -->
 
     <div v-for="n in books" v-bind:key="n.ISBN_id">
@@ -12,8 +12,14 @@
         <div class="context">
           <h4>
             <span>{{ n.name }}</span>
+            <span v-if="n.hit>5">
+        <abbr title="多人查看"> <i class="fa-solid fa-fire"></i></abbr>
+        </span>
+        <span v-if="n.award">
+        <abbr :title="n.award"> <i class="fa-solid fa-award"></i></abbr>
+        </span>
           </h4>
-          <a class="authorColor" @click="goToAuthor(n.author)"> {{ n.author }}</a>
+          <author_a :name="n.author" class="authorColor"> {{ n.author }}</author_a>
           <p>{{ n.description.slice(0, 80) }}...</p>
           <div class="PandChartBtn">
             <i>
@@ -31,7 +37,9 @@
   </div>
 </template>
 <script>
+import author_a from "./authorA.vue";
 export default {
+  components: { author_a },
   data() {
     return {
       data: null,
@@ -46,26 +54,36 @@ export default {
   watch: {
     "$route.query.q": "fetchData",
     "$route.query.scope": "fetchData",
+    "$route.params.name": "fetchData"
   },
   methods: {
     //函數庫
     // 抓網址內資料 的自訂函數
     async fetchData() {
       try {
+        // 抓路由的查詢參數 ?q=關鍵字 &scope=欄位
         const q = this.$route.query.q;
         const scope = this.$route.query.scope;
-        // 有宣告就一定要用到變數，若是空值也要return不然vue不執行
-        if (!q || !scope) {
-          console.log("沒有搜尋條件");
-          return;
-        }
+        // 抓路由的路徑 /:name
+        const authorName = this.$route.params.name;
+        let url = "/api/products/";
+        
         // http://localhost:3000/api/products/search/con=author&kw=關鍵字
-        let url = "/api/products/search/";
-        url += `con=${encodeURIComponent(scope)}&kw=${encodeURIComponent(q)}`;
+        //http://localhost:3000/api/products/author/作者
+        if (q || scope) {
+          url += `search/con=${encodeURIComponent(scope)}&kw=${encodeURIComponent(q)}`;
+        }
+        else if (this.$route.name === 'author' && authorName) {
+          // this.$route.name是路由的路徑名稱(就是那個path:,name:...中的name)
+          url += `author/${encodeURIComponent(authorName)}`;
+
+        }
         console.log("抓取的網址:", url);
         const response = await this.$axios.get(url);
-        this.data = response.data;
-        this.books = this.data.books;
+        // this.data = response.data;
+        // this.books = this.data.books;
+        this.data = response.data || {};
+        this.books = Array.isArray(this.data.books) ? this.data.books : [];
 
         // this.total = this.data.total;
       } catch (error) {
@@ -138,7 +156,7 @@ export default {
   padding: 0 auto;
 }
 
-.smProduct > div {
+.smProduct>div {
   padding: 0px;
 }
 
