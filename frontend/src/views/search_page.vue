@@ -33,9 +33,10 @@ export default {
 
 /* 設定寬度跟置中 */
 .container {
-  margin: 150px auto;
+  margin: 0 auto;
   width: 1400px;
 }
 @media (max-width: 670px)
-{.container{width: 100%;}}
+{.container{width: 100%;
+margin-top: 20px;}}
 </style>
