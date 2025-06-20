@@ -6,19 +6,17 @@ import '@/assets/styles/base/main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-
 // 後端設置
 import axios from 'axios';
 
-// const BASE_URL = process.env.BACKEND_URL;
-// const BASE_URL = 'https://bookstore-backend-production-f711.up.railway.app';
-const BASE_URL = 'http://localhost:3000';
-// this.$axios.post
-axios.defaults.baseURL = BASE_URL;
+// 根據環境變數設定 API 的基礎 URL
+// 在 production 環境中，它會使用 .env.production 中定義的 VUE_APP_API_BASE_URL
+// 在 development 環境中，它是 undefined，axios 會使用相對路徑，請求將由 vue.config.js 中的 proxy 處理
+axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
 
 Vue.prototype.$axios = axios;
 // 把 baseURL 也綁到 Vue 原型方便全局取用
-Vue.prototype.$apiBaseUrl = BASE_URL;
+Vue.prototype.$apiBaseUrl = process.env.VUE_APP_API_BASE_URL;
 
 
 
