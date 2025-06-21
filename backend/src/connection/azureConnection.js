@@ -12,6 +12,7 @@ const pool = mysql.createPool({
   user: process.env.AZURE_DB_USER,
   password: process.env.AZURE_DB_PASSWORD,
   database: process.env.AZURE_DB_DATABASE,
+  port: process.env.AZURE_DB_PORT || 3306,
   ssl: {
     // ca: fs.readFileSync(path.resolve(__dirname, '../../BaltimoreCyberTrustRoot.crt.pem')),
   //   minVersion: 'TLSv1.2',
