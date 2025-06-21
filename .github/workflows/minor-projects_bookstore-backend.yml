@@ -18,30 +18,37 @@ jobs:
         with:
           node-version: '20'
 
+      # 🔧 建置 frontend 並搬到 backend 專案中
+      - name: Build frontend and move to backend
+        run: |
+          cd frontend
+          npm install
+          npm run build
+          mkdir -p ../backend/frontend/dist
+          cp -r dist/* ../backend/frontend/dist/
+
+      # 📦 安裝 backend 相依套件
       - name: Install backend dependencies
         run: |
           cd backend
           npm install
 
-      - name: Build frontend
-        run: |
-          cd frontend
-          npm install
-          npm run build
-          mkdir -p ../backend/public
-          cp -r dist/* ../backend/public/
-
+      # 🗜 建立部署 zip 包，包含 frontend/dist
       - name: Create zip package
         run: |
           cd backend
-          zip -r ../release.zip . -x "*.git*" "node_modules/*"
+          zip -r ../release.zip . -x "*.git*" "node_modules/*" "*.env"
 
+      # 🚀 部署到 Azure App Service
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'bookstore-backend'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: release.zip
+          # 👇 加上環境變數讓你的程式能進入 production 模式
+          startup-command: 'NODE_ENV=production npm start'
+
 
 
 
