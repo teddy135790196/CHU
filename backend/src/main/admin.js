@@ -10,9 +10,40 @@ router.use(cors());
 router.use(bodyParser.json());
 
 
-const ADMIN_ACCOUNT = {
-	username: 'admin', password: '1234',
-};
+const ADMIN_ACCOUNTS = [
+	{ username: 'admin', password: '1234' },
+	{ username: 'test', password: '0000' },
+];
+
+router.post('/login', (req, res) => {
+	const { username, password } = req.body;
+	const matchedUser = ADMIN_ACCOUNTS.find(
+		user => user.username === username && user.password === password
+	);
+
+	if (matchedUser) {
+		const token = createToken(username);
+		return res.json({ token });
+	}
+
+	//  403 Forbidden 表示使用者沒有通行權限
+	return res.status(403).json({ message: '帳號或密碼錯誤' });
+});
+
+function verifyToken(token) {
+	try {
+		const decoded = Buffer.from(token, 'base64').toString('utf8');
+		const [username, expiry] = decoded.split('.');
+		if (Date.now() > parseInt(expiry)) return null;
+
+		const valid = ADMIN_ACCOUNTS.some(user => user.username === username);
+		if (!valid) return null;
+
+		return { username };
+	} catch (e) {
+		return null;
+	}
+}
 
 
 // 產生 token
@@ -21,29 +52,6 @@ function createToken(username) {
 	const expiry = Date.now() + 1 * 30 * 1000; // 5 分鐘後過期
 	return Buffer.from(`${username}.${expiry}`).toString('base64');
 }
-
-// 驗證 token
-function verifyToken(token) {
-	try {
-		const decoded = Buffer.from(token, 'base64').toString('utf8');
-		const [username, expiry] = decoded.split('.');
-		if (Date.now() > parseInt(expiry)) {
-			return null; // 過期
-		}
-		return { username };
-	} catch (e) {
-		return null; // 格式錯誤
-	}
-}
-
-router.post('/login', (req, res) => {
-	const { username, password } = req.body;
-	if (username === ADMIN_ACCOUNT.username && password === ADMIN_ACCOUNT.password) {
-		const token = createToken(username);
-		return res.json({ token });
-	}
-	return res.status(401).json({ message: '帳號或密碼錯誤' });
-});
 
 function authenticateToken(req, res, next) {
 	const authHeader = req.headers['authorization'];

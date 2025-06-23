@@ -2,7 +2,7 @@
 	<div class="container d-flex justify-content-center align-items-center vh-100">
 		<div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
 			<h3 class="text-center mb-4">後台登入</h3>
-			<form @submit.prevent="login">
+			<form @submit.prevent="login" autocomplete="off">
 				<div class="mb-3">
 					<label for="username" class="form-label">管理者帳號</label>
 					<input type="text" id="username" v-model="username" class="form-control" autocomplete="off"
@@ -10,7 +10,8 @@
 				</div>
 				<div class="mb-3">
 					<label for="password" class="form-label">管理者密碼</label>
-					<input type="password" id="password" v-model="password" class="form-control" required />
+					<input type="password" id="password" v-model="password" class="form-control"
+						autocomplete="new-password" required />
 				</div>
 				<button type="submit" class="btn btn-primary w-100">登入</button>
 			</form>
@@ -42,9 +43,14 @@ export default {
 					localStorage.setItem('isAdmin', 'true');
 					this.$router.push('/admin/home');
 				})
-				.catch(() => {
-					this.error = '帳號或密碼錯誤';
+				.catch(err => {
+					if (err.response && err.response.status === 403) {
+						this.error = '帳號或密碼錯誤';
+					} else {
+						this.error = '登入失敗，請稍後再試';
+					}
 				});
+
 		}
 	}
 };

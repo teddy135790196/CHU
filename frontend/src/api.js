@@ -2,7 +2,7 @@
 import axios from 'axios';
 import router from './router'; // 載入 router 以便攔截器中導航
 
-const BASE_URL = process.env.VUE_APP_BACKEND_URL || 'http://localhost:3000';
+const BASE_URL = process.env.VUE_APP_BACKEND_URL;
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -19,6 +19,7 @@ api.interceptors.request.use(config => {
 
 
 // 響應攔截器：管理者：遇到 401 清除資料並跳登入頁
+// api.js 響應攔截器中的錯誤處理
 api.interceptors.response.use(
   response => response,
   error => {
@@ -26,10 +27,15 @@ api.interceptors.response.use(
       alert('登入過期，請重新登入');
       localStorage.removeItem('token');
       localStorage.removeItem('isAdmin');
-      router.push('/admin');  // 用 router 導航
+
+      // ✅ 避免 NavigationDuplicated 錯誤
+      if (router.currentRoute.path !== '/admin') {
+        router.push('/admin');
+      }
     }
     return Promise.reject(error);
   }
 );
+
 
 export default api;
