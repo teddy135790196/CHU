@@ -14,45 +14,56 @@
 			</div>
 		</div>
 
-		<table class="table table-bordered table-hover fixed-table">
-			<thead class="table-info">
-				<tr>
-					<th @click="sortBy('order_id')" class="sortable">訂單ID <span class="sort-icon">{{
-						getSortSymbol('order_id') }}</span></th>
-					<th @click="sortBy('user_name')" class="sortable">使用者名稱 <span class="sort-icon">{{
-						getSortSymbol('user_name') }}</span></th>
-					<th @click="sortBy('user_tel')" class="sortable">電話 <span class="sort-icon">{{
-						getSortSymbol('user_tel') }}</span></th>
-					<th @click="sortBy('user_email')" class="sortable">Email <span class="sort-icon">{{
-						getSortSymbol('user_email') }}</span></th>
-					<th @click="sortBy('user_address')" class="sortable">地址 <span class="sort-icon">{{
-						getSortSymbol('user_address') }}</span></th>
-					<th @click="sortBy('payment_method')" class="sortable">付款方式 <span class="sort-icon">{{
-						getSortSymbol('payment_method') }}</span></th>
-					<th @click="sortBy('status')" class="sortable">訂單狀態 <span class="sort-icon">{{
-						getSortSymbol('status') }}</span></th>
-					<th @click="sortBy('created_at')" class="sortable">建立時間 <span class="sort-icon">{{
-						getSortSymbol('created_at') }}</span></th>
-				</tr>
-			</thead>
+		<!-- ✅ responsive 包裝 -->
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover fixed-table">
+				<thead class="table-info">
+					<tr>
+						<th @click="sortBy('order_id')" class="sortable" style="width: 8%">
+							訂單ID <span class="sort-icon">{{ getSortSymbol('order_id') }}</span>
+						</th>
+						<th @click="sortBy('user_name')" class="sortable" style="width: 12%">
+							使用者名稱 <span class="sort-icon">{{ getSortSymbol('user_name') }}</span>
+						</th>
+						<th @click="sortBy('user_tel')" class="sortable" style="width: 10%">
+							電話 <span class="sort-icon">{{ getSortSymbol('user_tel') }}</span>
+						</th>
+						<th @click="sortBy('user_email')" class="sortable" style="width: 15%">
+							Email <span class="sort-icon">{{ getSortSymbol('user_email') }}</span>
+						</th>
+						<th @click="sortBy('user_address')" class="sortable" style="width: 20%">
+							地址 <span class="sort-icon">{{ getSortSymbol('user_address') }}</span>
+						</th>
+						<th @click="sortBy('payment_method')" class="sortable" style="width: 10%">
+							付款方式 <span class="sort-icon">{{ getSortSymbol('payment_method') }}</span>
+						</th>
+						<th @click="sortBy('status')" class="sortable" style="width: 10%">
+							訂單狀態 <span class="sort-icon">{{ getSortSymbol('status') }}</span>
+						</th>
+						<th @click="sortBy('created_at')" class="sortable" style="width: 15%">
+							建立時間 <span class="sort-icon">{{ getSortSymbol('created_at') }}</span>
+						</th>
+					</tr>
+				</thead>
 
-			<tbody>
-				<tr v-for="order in paginatedFilteredOrders" :key="order.order_id"
-					@click="toggleDetails(order.order_id)" class="clickable-row">
-					<td>{{ order.order_id }}</td>
-					<td>{{ order.user_name }}</td>
-					<td>{{ order.user_tel }}</td>
-					<td>{{ order.user_email }}</td>
-					<td>{{ order.user_address }}</td>
-					<td>{{ order.payment_method }}</td>
-					<td>{{ order.status }}</td>
-					<td>{{ formatDate(order.created_at) }}</td>
-				</tr>
-				<tr v-for="n in emptyRows" :key="'empty' + n" class="empty-row">
-					<td colspan="8">&nbsp;</td>
-				</tr>
-			</tbody>
-		</table>
+				<tbody>
+					<tr v-for="order in paginatedFilteredOrders" :key="order.order_id"
+						@click="toggleDetails(order.order_id)" class="clickable-row">
+						<td>{{ order.order_id }}</td>
+						<td>{{ order.user_name }}</td>
+						<td>{{ order.user_tel }}</td>
+						<td>{{ order.user_email }}</td>
+						<td>{{ order.user_address }}</td>
+						<td>{{ order.payment_method }}</td>
+						<td>{{ order.status }}</td>
+						<td>{{ formatDate(order.created_at) }}</td>
+					</tr>
+					<tr v-for="n in emptyRows" :key="'empty' + n" class="empty-row">
+						<td colspan="8">&nbsp;</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
 		<div class="d-flex justify-content-between align-items-center mt-3 mb-5">
 			<div class="ms-2">顯示第 {{ pageStart + 1 }} 筆至第 {{ pageEnd }} 筆，共 {{ filteredOrders.length }} 筆</div>
@@ -74,8 +85,23 @@
 
 		<div v-if="expandedOrderId" class="overlay" @click.self="closeDetails">
 			<div class="details-card">
-				<h5>訂單 {{ expandedOrderId }} 明細</h5>
-				<table class="table table-sm table-bordered mt-2">
+				<h3 class="mb-4">訂單 {{ expandedOrderId }} 明細</h3>
+
+				<!-- 新增訂單基本資訊 -->
+				<div>
+					<div class="row g-2">
+						<div class="col-6 col-md-3"><strong>使用者名稱：</strong> {{ getExpandedOrder?.user_name }}</div>
+						<div class="col-6 col-md-3"><strong>電話：</strong> {{ getExpandedOrder?.user_tel }}</div>
+						<div class="col-6 col-md-3"><strong>Email：</strong> {{ getExpandedOrder?.user_email }}</div>
+						<div class="col-6 col-md-3"><strong>建立時間：</strong> {{ formatDate(getExpandedOrder?.created_at)
+						}}</div>
+						<div class="col-6 col-md-3"><strong>地址：</strong> {{ getExpandedOrder?.user_address }}</div>
+						<div class="col-6 col-md-3"><strong>付款方式：</strong> {{ getExpandedOrder?.payment_method }}</div>
+						<div class="col-6 col-md-3"><strong>訂單狀態：</strong> {{ getExpandedOrder?.status }}</div>
+					</div>
+				</div>
+
+				<table class="table table-sm table-bordered mt-4 mb-4">
 					<thead>
 						<tr>
 							<th>明細ID</th>
@@ -92,13 +118,20 @@
 							<td>{{ item.ISBN_id }}</td>
 							<td>{{ item.book_name }}</td>
 							<td>{{ item.quantity }}</td>
-							<td>{{ item.price_at_order_time }}</td>
-							<td>{{ item.subtotal }}</td>
+							<td>{{ formatPrice(item.price_at_order_time) }}</td>
+							<td>{{ formatPrice(item.subtotal) }}</td>
 						</tr>
 					</tbody>
 				</table>
+
+				<!-- 運費和總計 -->
+				<div class="d-flex justify-content-end gap-4 mt-3">
+					<div><strong>運費：</strong> {{ formatPrice(getExpandedOrder?.shipping_fee || 0) }}</div>
+					<div><strong>總計：</strong> {{ formatPrice(calculateTotal()) }}</div>
+				</div>
 			</div>
 		</div>
+
 	</div>
 </template>
 
@@ -150,7 +183,10 @@ export default {
 		},
 		pageEnd() {
 			return Math.min(this.pageStart + this.pageSize, this.filteredOrders.length)
-		}
+		},
+		getExpandedOrder() {
+			return this.orders.find(o => o.order_id === this.expandedOrderId) || {}
+		},
 	},
 	methods: {
 		formatDate(dateStr) {
@@ -184,6 +220,25 @@ export default {
 		getSortSymbol(key) {
 			if (this.sortKey === key) return this.sortAsc ? '▲' : '▼'
 			return '━'
+		},
+
+		// 計算總計（含運費）
+		calculateTotal() {
+			if (!this.orderDetails[this.expandedOrderId]) return 0;
+			const itemsTotal = this.orderDetails[this.expandedOrderId].reduce((sum, item) => {
+				return sum + Number(item.subtotal || 0);
+			}, 0);
+			return itemsTotal + Number(this.getExpandedOrder?.shipping_fee || 0);
+		},
+
+		// 格式化價格，千分位
+		formatPrice(value) {
+			const num = Number(value)
+			if (Number.isInteger(num)) {
+				return `$${num.toLocaleString()}`
+			} else {
+				return `$${num.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 2 })}`
+			}
 		}
 	},
 	watch: {
@@ -195,6 +250,11 @@ export default {
 </script>
 
 <style scoped>
+.fixed-table {
+	width: 100%;
+	table-layout: fixed;
+}
+
 .fixed-table th,
 .fixed-table td {
 	white-space: nowrap;

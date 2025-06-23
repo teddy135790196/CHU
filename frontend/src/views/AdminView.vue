@@ -3,15 +3,15 @@
     <!-- 導覽列 -->
     <nav class="d-flex justify-content-around mb-5 shadow-sm nav-dark">
       <router-link class="nav-item text-center" to="/admin/home">🏠 後台首頁</router-link>
-      <router-link class="nav-item text-center" to="/admin/orders">📃 訂單管理</router-link>
+      <router-link class="nav-item text-center" to="/admin/orders">📃 訂單總覽</router-link>
       <router-link class="nav-item text-center" to="/admin/dash">📌 圖表測試</router-link>
-      <a class="nav-item text-center" href="#" @click.prevent="logout">
+      <a class="nav-item text-center" href="#" @click.prevent="logoutWithConfirm">
         🚪 登出
         <small class="text-white">({{ formattedTime }})</small>
       </a>
     </nav>
 
-    <!-- 這裡用 router-view 顯示子頁面，於 index.js 中設定 -->
+    <!-- 用來顯示子頁面 -->
     <router-view />
   </div>
 </template>
@@ -22,15 +22,20 @@ export default {
   data() {
     return {
       idleTime: 0,
-      idleMax: 5 * 60,
+      idleMinutes: 5, // 測試用 .5 分鐘（30 秒），正式可設為 5
       timer: null,
     };
   },
   computed: {
+    // 閒置秒數上限
+    idleMax() {
+      return this.idleMinutes * 60;
+    },
+    // 顯示倒數時間（mm:ss）
     formattedTime() {
       const remaining = this.idleMax - this.idleTime;
       const min = String(Math.floor(remaining / 60)).padStart(2, '0');
-      const sec = String(remaining % 60).padStart(2, '0');
+      const sec = String(Math.floor(remaining % 60)).padStart(2, '0');
       return `${min}:${sec}`;
     },
   },
@@ -41,24 +46,31 @@ export default {
     this.clearIdleTimer();
   },
   methods: {
-    logout() {
+    // 手動點選登出（會詢問）
+    logoutWithConfirm() {
       const isLogout = window.confirm('確定要登出嗎？');
       if (!isLogout) return;
-
+      this.forceLogout();
+    },
+    // 自動登出（不詢問）
+    forceLogout() {
       localStorage.removeItem('token');
       localStorage.removeItem('isAdmin');
       this.clearIdleTimer();
       this.$router.push('/admin');
     },
+    // 開始監聽閒置時間
     startIdleTimer() {
       this.idleTime = 0;
       this.timer = setInterval(() => {
         this.idleTime++;
         if (this.idleTime >= this.idleMax) {
-          alert('閒置超過 30 秒，自動登出');
-          this.logout();
+          alert(`閒置超過 ${this.idleMinutes} 分鐘，自動登出`);
+          this.forceLogout();
         }
       }, 1000);
+
+      // 有互動就重設閒置時間
       ['mousemove', 'keydown', 'click'].forEach(evt => {
         window.addEventListener(evt, this.resetIdleTime);
       });

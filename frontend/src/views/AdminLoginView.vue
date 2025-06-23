@@ -1,7 +1,7 @@
 <template>
 	<div class="container d-flex justify-content-center align-items-center vh-100">
 		<div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
-			<h3 class="text-center mb-4">後台登入</h3>
+			<h3 class="text-center mb-4">棲遲書屋後台登入</h3>
 			<form @submit.prevent="login" autocomplete="off">
 				<div class="mb-3">
 					<label for="username" class="form-label">管理者帳號</label>
