@@ -12,6 +12,7 @@
     "axios": "^1.9.0",
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
+    "chart.js": "^4.5.0",
     "core-js": "^3.8.3",
     "dayjs": "^1.11.13",
     "vue": "^2.6.16",

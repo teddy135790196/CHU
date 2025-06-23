@@ -48,8 +48,8 @@ function verifyToken(token) {
 
 // 產生 token
 function createToken(username) {
-	//   const expiry = Date.now() + 5 * 60 * 1000; // 5 分鐘後過期
-	const expiry = Date.now() + 1 * 30 * 1000; // 5 分鐘後過期
+	  const expiry = Date.now() + 5 * 60 * 1000; // 5 分鐘後過期
+	// const expiry = Date.now() + 1 * 30 * 1000; // 5 分鐘後過期
 	return Buffer.from(`${username}.${expiry}`).toString('base64');
 }
 

@@ -2,10 +2,13 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 
+import AdminView from '@/views/AdminView.vue';
+import AdminLoginView from '@/views/AdminLoginView.vue';
+import AdminHomePage from '@/components/pages/admin/AdminHomePage.vue';
+import AdminOrderPage from '@/components/pages/admin/AdminOrderPage.vue';
+
 import book_detail from '@/views/book_detail.vue';
 import search_page from '@/views/search_page.vue';
-import AdminHomeView from '@/views/AdminHomeView.vue';
-import AdminView from '@/views/AdminView.vue';
 import author_page from '@/views/author_page.vue';
 import ForgotPasswordView from '@/views/ForgotPasswordView.vue';
 import IndexView from '@/views/IndexView.vue';
@@ -37,15 +40,35 @@ const router = new Router({
 			component: IndexView,
 		},
 		{
-			path: '/admin/home',
-			name: 'AdminHomeView',
-			component: AdminHomeView,
-			meta: { requiresAdmin: true } // 標記需要管理員身份
-		},
-		{
 			path: '/admin',
-			name: 'AdminView',
-			component: AdminView,
+			name: 'AdminLoginView',
+			component: AdminLoginView,
+		},
+		{	// 後台管理者頁面
+			path: '/admin',
+			component: AdminView, // 導覽列和共用功能
+			meta: { requiresAdmin: true },	// 需要管理員身份
+			children: [
+				{
+					path: '',
+					redirect: 'home', // 預設 /admin 轉到 /admin/home
+				},
+				{
+					path: 'home',
+					name: 'AdminHomePage',
+					component: AdminHomePage,
+				},
+				{
+					path: 'orders',
+					name: 'AdminOrderPage',
+					component: AdminOrderPage,
+				},
+				{	// 圖表測試
+					path: 'dash',
+					name: 'AdminDashboard',
+					component: () => import('@/components/pages/admin/AdminDashboard.vue'),
+				}
+			],
 		},
 		{
 			path: '/login',
@@ -112,7 +135,7 @@ const router = new Router({
 			name: 'TestView',
 			component: TestView,
 		},
-		
+
 
 	],
 });
