@@ -2,15 +2,15 @@
   <div id="app">
     <PopupArea />
 
-    <!-- 所有組件都要下移52px，因為抬頭導航不佔位 -->
-    <HeaderArea />
-    <div class="space"></div>
+    <!-- 所有組件都要下移，因為抬頭導航不佔位 -->
+    <HeaderArea v-if="showHeaderFooter" />
+    <div class="space" v-if="showHeaderFooter" ></div>
 
 
     <router-view />
 
 
-    <FooterArea />
+    <FooterArea v-if="showHeaderFooter" />
   </div>
 </template>
 
@@ -34,6 +34,12 @@ export default {
   },
   mounted() {
     document.title = '棲遲書屋';
+  },
+  computed: {
+    showHeaderFooter() {
+      // 不在 admin 區域才顯示 header/footer
+      return !this.$route.path.startsWith('/admin');
+    }
   },
   provide() {
     return {

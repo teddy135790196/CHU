@@ -7,18 +7,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 
-// 後端設置
-import axios from 'axios';
+import api from './api'; // 引入 api.js
 
-const BASE_URL = process.env.VUE_APP_BACKEND_URL;
+Vue.prototype.$axios = api;
+Vue.prototype.$apiBaseUrl = api.defaults.baseURL;
+
+
+
+// const BASE_URL = process.env.VUE_APP_BACKEND_URL;
 // const BASE_URL = 'https://bookstore-backend-production-f711.up.railway.app';
 // const BASE_URL = 'http://localhost:3000';
 // this.$axios.post
-axios.defaults.baseURL = BASE_URL;
+// axios.defaults.baseURL = BASE_URL;
 
-Vue.prototype.$axios = axios;
+// Vue.prototype.$axios = axios;
 // 把 baseURL 也綁到 Vue 原型方便全局取用
-Vue.prototype.$apiBaseUrl = BASE_URL;
+// Vue.prototype.$apiBaseUrl = BASE_URL;
 
 
 
@@ -44,13 +48,13 @@ Vue.config.productionTip = false;
 
 // 設定 axios 請求攔截器，將 token 加入到請求頭中
 // 這樣可以在每次發送請求時自動攜帶 token
-axios.interceptors.request.use(config => {
-	const token = localStorage.getItem('token');
-	if (token) {
-		config.headers.Authorization = `Bearer ${token}`;
-	}
-	return config;
-});
+// axios.interceptors.request.use(config => {
+// 	const token = localStorage.getItem('token');
+// 	if (token) {
+// 		config.headers.Authorization = `Bearer ${token}`;
+// 	}
+// 	return config;
+// });
 
 
 // 權限驗證（後台）

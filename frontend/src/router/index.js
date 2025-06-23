@@ -4,6 +4,8 @@ import Router from 'vue-router';
 
 import book_detail from '@/views/book_detail.vue';
 import search_page from '@/views/search_page.vue';
+import AdminHomeView from '@/views/AdminHomeView.vue';
+import AdminView from '@/views/AdminView.vue';
 import author_page from '@/views/author_page.vue';
 import ForgotPasswordView from '@/views/ForgotPasswordView.vue';
 import IndexView from '@/views/IndexView.vue';
@@ -33,6 +35,17 @@ const router = new Router({
 			path: '/',
 			name: 'Index',
 			component: IndexView,
+		},
+		{
+			path: '/admin/home',
+			name: 'AdminHomeView',
+			component: AdminHomeView,
+			meta: { requiresAdmin: true } // 標記需要管理員身份
+		},
+		{
+			path: '/admin',
+			name: 'AdminView',
+			component: AdminView,
 		},
 		{
 			path: '/login',
@@ -99,8 +112,23 @@ const router = new Router({
 			name: 'TestView',
 			component: TestView,
 		},
+		
 
 	],
+});
+
+// ✅ 加入導航守衛(管理者未應用)
+router.beforeEach((to, from, next) => {
+	if (to.meta.requiresAdmin) {
+		const isAdmin = localStorage.getItem('isAdmin');
+		if (isAdmin) {
+			next(); // 有權限，繼續
+		} else {
+			next('/admin'); // 無權限，跳回登入
+		}
+	} else {
+		next(); // 不需要權限，直接進入
+	}
 });
 
 // 會員需登入
