@@ -28,38 +28,47 @@
 						<th @click="sortBy('user_tel')" class="sortable" style="width: 10%">
 							電話 <span class="sort-icon">{{ getSortSymbol('user_tel') }}</span>
 						</th>
-						<th @click="sortBy('user_email')" class="sortable" style="width: 15%">
+						<th @click="sortBy('user_email')" class="sortable" style="width: 14%">
 							Email <span class="sort-icon">{{ getSortSymbol('user_email') }}</span>
 						</th>
-						<th @click="sortBy('user_address')" class="sortable" style="width: 20%">
+						<th @click="sortBy('user_address')" class="sortable" style="width: 18%">
 							地址 <span class="sort-icon">{{ getSortSymbol('user_address') }}</span>
 						</th>
 						<th @click="sortBy('payment_method')" class="sortable" style="width: 10%">
 							付款方式 <span class="sort-icon">{{ getSortSymbol('payment_method') }}</span>
 						</th>
-						<th @click="sortBy('status')" class="sortable" style="width: 10%">
+						<th @click="sortBy('status')" class="sortable" style="width: 8%">
 							訂單狀態 <span class="sort-icon">{{ getSortSymbol('status') }}</span>
 						</th>
-						<th @click="sortBy('created_at')" class="sortable" style="width: 15%">
+						<th @click="sortBy('created_at')" class="sortable" style="width: 12%">
 							建立時間 <span class="sort-icon">{{ getSortSymbol('created_at') }}</span>
 						</th>
+						<th style="width: 8%">操作</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<tr v-for="order in paginatedFilteredOrders" :key="order.order_id"
-						@click="toggleDetails(order.order_id)" class="clickable-row">
-						<td>{{ order.order_id }}</td>
-						<td>{{ order.user_name }}</td>
-						<td>{{ order.user_tel }}</td>
-						<td>{{ order.user_email }}</td>
-						<td>{{ order.user_address }}</td>
-						<td>{{ order.payment_method }}</td>
-						<td>{{ order.status }}</td>
-						<td>{{ formatDate(order.created_at) }}</td>
+					<tr v-for="order in paginatedFilteredOrders" :key="order.order_id">
+						<td @click="toggleDetails(order.order_id)" class="clickable-cell">{{ order.order_id }}</td>
+						<td @click="toggleDetails(order.order_id)" class="clickable-cell">{{ order.user_name }}</td>
+						<td @click="toggleDetails(order.order_id)" class="clickable-cell">{{ order.user_tel }}</td>
+						<td @click="toggleDetails(order.order_id)" class="clickable-cell">{{ order.user_email }}</td>
+						<td @click="toggleDetails(order.order_id)" class="clickable-cell">{{ order.user_address }}</td>
+						<td @click="toggleDetails(order.order_id)" class="clickable-cell">{{ order.payment_method }}</td>
+						<td @click="toggleDetails(order.order_id)" class="clickable-cell">{{ order.status }}</td>
+						<td @click="toggleDetails(order.order_id)" class="clickable-cell">{{ formatDate(order.created_at) }}</td>
+						<td>
+							<button 
+								@click="confirmDeleteOrder(order.order_id)" 
+								class="btn btn-danger btn-sm" 
+								:disabled="isDeleting"
+								title="刪除訂單">
+								{{ isDeleting ? '刪除中...' : '刪除' }}
+							</button>
+						</td>
 					</tr>
 					<tr v-for="n in emptyRows" :key="'empty' + n" class="empty-row">
-						<td colspan="8">&nbsp;</td>
+						<td colspan="9">&nbsp;</td>
 					</tr>
 				</tbody>
 			</table>
@@ -136,6 +145,8 @@
 </template>
 
 <script>
+import { orderService } from '@/services/orderService'
+
 export default {
 	name: 'OrderTableArea',
 	props: {
@@ -150,6 +161,9 @@ export default {
 			sortKey: '',
 			sortAsc: true,
 			expandedOrderId: null,
+			isDeleting: false,
+			showDeleteConfirm: false,
+			orderToDelete: null,
 		}
 	},
 	computed: {
@@ -239,6 +253,37 @@ export default {
 			} else {
 				return `$${num.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 2 })}`
 			}
+		},
+
+		confirmDeleteOrder(orderId) {
+			if (confirm(`確定要刪除訂單 ${orderId} 嗎？\n\n⚠️ 此操作將永久刪除訂單資料，無法復原！`)) {
+				this.deleteOrder(orderId)
+			}
+		},
+
+		async deleteOrder(orderId) {
+			this.isDeleting = true
+			try {
+				const response = await orderService.deleteOrder(orderId)
+				
+				if (response.data.success) {
+					// 刪除成功，通知父組件重新載入資料
+					this.$emit('order-deleted', orderId)
+					alert('訂單刪除成功！')
+					
+					// 如果刪除的是當前展開的訂單，關閉明細
+					if (this.expandedOrderId === orderId) {
+						this.expandedOrderId = null
+					}
+				} else {
+					throw new Error(response.data.message || '刪除失敗')
+				}
+			} catch (error) {
+				console.error('刪除訂單錯誤：', error)
+				alert(`刪除訂單失敗：${error.message || '未知錯誤'}`)
+			} finally {
+				this.isDeleting = false
+			}
 		}
 	},
 	watch: {
@@ -285,12 +330,12 @@ export default {
 	pointer-events: none;
 }
 
-.clickable-row {
+.clickable-cell {
 	cursor: pointer;
 	transition: background-color .2s;
 }
 
-.clickable-row:hover {
+.clickable-cell:hover {
 	background-color: #f1f9ff;
 }
 
@@ -325,6 +370,17 @@ export default {
 	border-color: #0d6efd;
 	color: #fff;
 }
+
+.pagination .page-link {
+	cursor: pointer;
+}
+
+.btn-danger:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+</style>
+
 
 .pagination .page-link {
 	cursor: pointer;
