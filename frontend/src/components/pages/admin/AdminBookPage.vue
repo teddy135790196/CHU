@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <BookInsertArea/>
+    <BookInsertArea :books="books"/>
 <BookTablesArea :books="books"/>
 </div>
 </template>

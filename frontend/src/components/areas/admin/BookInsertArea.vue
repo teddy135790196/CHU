@@ -109,19 +109,22 @@
                                     </select>
                                 </td>
                                 <td><select v-model="Book.original_language">
-                                     <option disabled value="">語言</option>
+                                        <option disabled value="">語言</option>
                                         <option>中文</option>
                                         <option>英文</option>
                                         <option>日文</option>
                                     </select>
                                 </td>
-                                <td><input v-model="Book.pub_type" placeholder="請輸入網址">
+                                <td><select v-model="Book.pub_type">
+                                    <option v-for="p in pubSet" :key="p" :value="p">{{ p }}</option>
+                                    
+                                </select>
                                 </td>
                                 <td><select v-model="Book.award">
-                                 <option disabled value=""></option>
+                                        <option disabled value=""></option>
                                         <option>中文</option>
                                         <option>英文</option>
-                                        <option>日文</option>
+                                        <option>日文</option><option>其他</option>
                                     </select></td>
 
                             </tr>
@@ -141,6 +144,8 @@
 <script>
 export default {
     props: {
+        books: { type: Array, required: true }//required: true保證必須傳入prop，否則警告
+
     },
     data() {
         return {
@@ -189,6 +194,10 @@ export default {
             return [...new Set(this.BkSubCat.map(item => item.type))]//this.BkSubCat.map(item=>item.type)取出type
         }, filteredSubCategories() {
             return this.BkSubCat.filter(item => item.type === this.Book.major_category);
+        }, pubSet() {
+            //如果是api回傳空值或不是陣列則回傳空值
+            if (!this.books || !Array.isArray(this.books)) return [];
+            return [...new Set(this.books.map(item => item.pub_type))]
         }
     }
 
