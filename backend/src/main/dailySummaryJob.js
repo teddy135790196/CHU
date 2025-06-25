@@ -1,5 +1,3 @@
-// backend/src/main/dailySummaryJob.js
-
 const db = require('../connection/_index');
 
 const TAIPEI_TZ_OFFSET = 8 * 60; // 台北 +08:00 分鐘數
@@ -19,7 +17,6 @@ function formatDateTimeStr(date) {
 
 // YYYY-MM-DD HH:00 - HH:59 格式 (用於印出)
 function formatSummaryRange(date) {
-  const ymd = formatDateStr(date); // 如果不想印日期，可以省略這行跟 ymd 用法
   const start = padZero(date.getHours()) + ':00';
   const end = padZero(date.getHours()) + ':59';
   return `${start} - ${end}`;
@@ -62,17 +59,13 @@ function doSummary() {
           return console.error('❌ 無效的 visit_summary 資料:', rows[0]);
         }
 
-        // 將 visit_date 轉成 YYYY-MM-DD 字串，避免直接用 Date 解析錯誤
         const visitDateStr = formatDateStr(new Date(visit_date));
-
-        // 將最後統計時間視為台北時區時間（因為資料本身是台北時間）
-        // 建立完整時間字串並解析成 Date（含時區）
         const lastSummaryTaipei = new Date(`${visitDateStr}T${padZero(hour)}:00:00+08:00`);
+
         if (isNaN(lastSummaryTaipei.getTime())) {
           return console.error('❌ 時間轉換失敗:', lastSummaryTaipei);
         }
 
-        // 理論最新時間為台北時區（現在整點前一小時）
         console.log('🧪 最後統計時間 (台北時區):', formatSummaryRange(lastSummaryTaipei));
         console.log('🧪 理論最新時間 (台北時區):', formatSummaryRange(nowTaipei));
 
@@ -82,7 +75,6 @@ function doSummary() {
           return;
         }
 
-        // 從最後統計時間下一小時開始補齊（轉成 UTC 時間，因 SQL 用 UTC）
         const nextStartUTC = new Date(lastSummaryTaipei.getTime() + 60 * 60 * 1000);
 
         console.log('🧪 將從 UTC', formatDateTimeStr(nextStartUTC), '開始補齊');
@@ -98,40 +90,40 @@ function processHourlySummary(startTimeUTC, endTaipei) {
     return;
   }
 
-  // 將 startTimeUTC 轉成台北時間做比較（因為 endTaipei 是台北時間）
   const startTaipei = getTaipeiDate(startTimeUTC);
 
   if (startTaipei > endTaipei) {
-    console.log('✅ 小時統計完成，資料皆已補齊');
+    console.log('✅ 數據統計完成，資料皆已補齊\n');
     cleanupOldData();
     return;
   }
 
   const rangeStr = formatSummaryRange(startTaipei);
-
   const startUtcStr = formatDateTimeStr(startTimeUTC);
   const endUTC = new Date(startTimeUTC.getTime() + 60 * 60 * 1000);
   const endUtcStr = formatDateTimeStr(endUTC);
 
-  console.log(`📊 正在統計 ${rangeStr} 的資料...`);
+  console.log(`📊 正在統計 ${rangeStr} 的資料，查詢範圍 UTC 時間：${startUtcStr} ~ ${endUtcStr}`);
 
   const sql = `
-    INSERT INTO visit_summary (visit_date, hour, visit_count)
-    SELECT
-      DATE(DATE_ADD(created_at, INTERVAL 8 HOUR)) AS visit_date,
-      HOUR(DATE_ADD(created_at, INTERVAL 8 HOUR)) AS hour,
-      COUNT(*) AS visit_count
-    FROM visits
-    WHERE created_at >= ? AND created_at < ?
-    GROUP BY visit_date, hour
-    ON DUPLICATE KEY UPDATE visit_count = VALUES(visit_count)
-  `;
+  INSERT INTO visit_summary (visit_date, hour, visit_count)
+  SELECT
+    DATE(DATE_ADD(created_at, INTERVAL 8 HOUR)) AS visit_date,
+    HOUR(DATE_ADD(created_at, INTERVAL 8 HOUR)) AS hour,
+    COUNT(*) AS visit_count
+  FROM visits
+  WHERE DATE_ADD(created_at, INTERVAL 8 HOUR) >= ? AND DATE_ADD(created_at, INTERVAL 8 HOUR) < ?
+  GROUP BY DATE(DATE_ADD(created_at, INTERVAL 8 HOUR)), HOUR(DATE_ADD(created_at, INTERVAL 8 HOUR))
+  ON DUPLICATE KEY UPDATE visit_count = VALUES(visit_count)
+`;
 
-  db.query(sql, [startUtcStr, endUtcStr], (err) => {
+  db.query(sql, [startUtcStr, endUtcStr], (err, result) => {
     if (err) {
       console.error(`❌ 統計 ${rangeStr} 資料出錯:`, err);
       return;
     }
+
+    console.log(`▶️ 統計 ${rangeStr} 完成，新增/更新列數: ${result.affectedRows || 0}`);
 
     // 下一小時繼續
     const nextStartUTC = new Date(startTimeUTC.getTime() + 60 * 60 * 1000);
@@ -146,7 +138,7 @@ function cleanupOldData() {
 
   db.query(`DELETE FROM visit_summary WHERE visit_date < ?`, [oldDateStr], (err) => {
     if (err) return console.error('❌ 刪除舊資料失敗:', err);
-    console.log('🧹 舊資料清理完成');
+    // console.log('🧹 舊資料清理完成');
   });
 }
 

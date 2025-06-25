@@ -5,7 +5,9 @@ import Router from 'vue-router';
 import AdminView from '@/views/AdminView.vue';
 import AdminLoginView from '@/views/AdminLoginView.vue';
 import AdminHomePage from '@/components/pages/admin/AdminHomePage.vue';
+import AdminMemberPage from '@/components/pages/admin/AdminMemberPage.vue';
 import AdminOrderPage from '@/components/pages/admin/AdminOrderPage.vue';
+import AdminVisitPage from '@/components/pages/admin/AdminVisitPage.vue';
 import AdminBookPage from '@/components/pages/admin/AdminBookPage.vue';
 
 import book_detail from '@/views/book_detail.vue';
@@ -60,14 +62,19 @@ const router = new Router({
 					component: AdminHomePage,
 				},
 				{
+					path: 'member',
+					name: 'AdminMemberPage',
+					component: AdminMemberPage,
+				},
+				{
 					path: 'orders',
 					name: 'AdminOrderPage',
 					component: AdminOrderPage,
 				},
-				{	// 圖表測試
-					path: 'dash',
-					name: 'AdminDashboard',
-					component: () => import('@/components/pages/admin/AdminVisitPage.vue'),
+				{
+					path: 'visit',
+					name: 'AdminVisitPage',
+					component: AdminVisitPage,
 				},// /admin/books 書本管理
 				{	// 圖表測試
 					path: 'books',

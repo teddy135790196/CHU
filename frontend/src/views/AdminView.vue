@@ -3,8 +3,9 @@
     <!-- 導覽列 -->
     <nav class="d-flex justify-content-around mb-5 shadow-sm nav-dark">
       <router-link class="nav-item text-center" to="/admin/home">🏠 後台首頁</router-link>
+      <router-link class="nav-item text-center" to="/admin/visit">📊 瀏覽數據</router-link>
+      <router-link class="nav-item text-center" to="/admin/member">🧑‍💼 會員管理</router-link>
       <router-link class="nav-item text-center" to="/admin/orders">📃 訂單總覽</router-link>
-      <router-link class="nav-item text-center" to="/admin/dash">📊 瀏覽數據</router-link>
       <router-link class="nav-item text-center" to="/admin/books">📚 書本管理</router-link>
       <a class="nav-item text-center" href="#" @click.prevent="logoutWithConfirm">
         🚪 登出

@@ -44,7 +44,9 @@ export default {
 			try {
 				const res = await this.$axios.post('/api/login', this.form);
 				if (res.data.success && res.data.data && res.data.data.id) {
-					localStorage.setItem('user_id', res.data.data.id);
+					const userId = res.data.data.id;
+					localStorage.setItem('user_id', userId);
+
 					this.$router.push('/members');
 				} else {
 					alert('登入失敗，請確認帳號密碼');
@@ -53,7 +55,8 @@ export default {
 				alert('登入失敗，請確認帳號密碼');
 				console.error(error);
 			}
-		},
+		}
+
 	},
 };
 </script>
