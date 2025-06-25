@@ -1,13 +1,16 @@
 <template>
 <div class="container">
+    <BookInsertArea/>
 <BookTablesArea :books="books"/>
 </div>
 </template>
 <script>
 import BookTablesArea from '@/components/areas/admin/BookTablesArea.vue';
+import BookInsertArea from '@/components/areas/admin/BookInsertArea.vue';
+
 export default{
     name: 'AdminBookPage',
-    components:{BookTablesArea},
+    components:{BookTablesArea,BookInsertArea},
     data(){
         return{books:[]}
         
