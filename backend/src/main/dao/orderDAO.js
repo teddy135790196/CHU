@@ -82,36 +82,42 @@ function insertOrder(orderData, callback) {
 				return callback(err);
 			}
 
-			// 插入主訂單到 orders 表
-			const insertOrderSql = `
-				INSERT INTO orders (
-					order_id, user_id, ISBN_id, delivery_id, user_name, user_tel, 
-					user_email, user_address, payment_method, message, 
-					delivery_method, carrier, estimated_weight, shipping_fee, 
-					total_amount, status, created_at
-				) VALUES (?, 1, ?, 'DEL001', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())
-			`;
+					// 插入主訂單到 orders 表
+		const insertOrderSql = `
+			INSERT INTO orders (
+				order_id, user_id, ISBN_id, delivery_id, user_name, user_tel, 
+				user_email, user_address, payment_method, message, 
+				delivery_method, carrier, estimated_weight, shipping_fee, 
+				total_amount, status, created_at
+			) VALUES (?, 1, ?, 'DEL001', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?)
+		`;
 
-			// 使用第一個商品的 ISBN_id 作為主要商品
-			const firstItem = orderData.items[0];
-			const delivery = orderData.delivery || {};
-			const user = orderData.user || {};
+		// 使用第一個商品的 ISBN_id 作為主要商品
+		const firstItem = orderData.items[0];
+		const delivery = orderData.delivery || {};
+		const user = orderData.user || {};
 
-			const orderValues = [
-				orderId,
-				firstItem.id, // ISBN_id
-				user.name || '訪客',
-				user.tel || '',
-				user.email || '',
-				user.address || '',
-				orderData.payment || 'online',
-				orderData.message || '',
-				delivery.delivery_method || 'standard',
-				delivery.carrier || '',
-				delivery.estimated_weight || 0,
-				delivery.shipping_fee || 0,
-				orderData.totalAmount
-			];
+		// 產生台灣時間
+		const now = new Date();
+		const taiwanTime = new Date(now.getTime() + (8 * 60 * 60 * 1000)); // UTC + 8 小時
+		const formattedTime = taiwanTime.toISOString().slice(0, 19).replace('T', ' '); // 格式化為 MySQL DATETIME 格式
+
+		const orderValues = [
+			orderId,
+			firstItem.id, // ISBN_id
+			user.name || '訪客',
+			user.tel || '',
+			user.email || '',
+			user.address || '',
+			orderData.payment || 'online',
+			orderData.message || '',
+			delivery.delivery_method || 'standard',
+			delivery.carrier || '',
+			delivery.estimated_weight || 0,
+			delivery.shipping_fee || 0,
+			orderData.totalAmount,
+			formattedTime // 加入台灣時間
+		];
 
 			connection.query(insertOrderSql, orderValues, (err, orderResult) => {
 				if (err) {
