@@ -6,6 +6,9 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// 啟動定時統計工作，只要 require 執行就會開始
+require('./src/main/dailySummaryJob');
+
 // 🔍 Debug 用：監控所有 app.use 呼叫
 // const originalUse = app.use;
 // app.use = function (...args) {

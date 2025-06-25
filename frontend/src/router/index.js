@@ -67,7 +67,7 @@ const router = new Router({
 				{	// 圖表測試
 					path: 'dash',
 					name: 'AdminDashboard',
-					component: () => import('@/components/pages/admin/AdminDashboard.vue'),
+					component: () => import('@/components/pages/admin/AdminVisitPage.vue'),
 				},// /admin/books 書本管理
 				{	// 圖表測試
 					path: 'books',
