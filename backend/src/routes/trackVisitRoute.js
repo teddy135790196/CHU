@@ -61,6 +61,24 @@ router.get('/visits_total', (req, res) => {
 });
 
 
+router.get('/active_users_recent', (req, res) => {
+	const sql = `
+    SELECT visit_date, hour, active_user_count
+    FROM visit_summary
+    ORDER BY visit_date DESC, hour DESC
+    LIMIT 24
+  `;
+
+	db.query(sql, (err, results) => {
+		if (err) {
+			console.error('讀取活躍用戶資料錯誤:', err);
+			return res.status(500).json({ message: '伺服器錯誤', error: err.message });
+		}
+		// 反轉陣列，讓資料從最早到最新（畫折線圖順序）
+		res.json(results.reverse());
+	});
+});
+
 
 
 module.exports = router;

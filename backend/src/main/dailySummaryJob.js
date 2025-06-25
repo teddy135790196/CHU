@@ -106,18 +106,28 @@ function processHourlySummary(startTimeUTC, endTaipei) {
   console.log(`📊 正在統計 ${rangeStr} 的資料，查詢範圍 UTC 時間：${startUtcStr} ~ ${endUtcStr}`);
 
   const sql = `
-  INSERT INTO visit_summary (visit_date, hour, visit_count)
+  INSERT INTO visit_summary (visit_date, hour, visit_count, active_user_count)
   SELECT
     DATE(DATE_ADD(created_at, INTERVAL 8 HOUR)) AS visit_date,
     HOUR(DATE_ADD(created_at, INTERVAL 8 HOUR)) AS hour,
-    COUNT(*) AS visit_count
+    COUNT(*) AS visit_count,
+    (
+      SELECT COUNT(DISTINCT id)
+      FROM users
+      WHERE lastLogin_time >= ? AND lastLogin_time < ?
+    ) AS active_user_count
   FROM visits
   WHERE DATE_ADD(created_at, INTERVAL 8 HOUR) >= ? AND DATE_ADD(created_at, INTERVAL 8 HOUR) < ?
   GROUP BY DATE(DATE_ADD(created_at, INTERVAL 8 HOUR)), HOUR(DATE_ADD(created_at, INTERVAL 8 HOUR))
-  ON DUPLICATE KEY UPDATE visit_count = VALUES(visit_count)
-`;
+  ON DUPLICATE KEY UPDATE
+    visit_count = VALUES(visit_count),
+    active_user_count = VALUES(active_user_count)
+  `;
 
-  db.query(sql, [startUtcStr, endUtcStr], (err, result) => {
+  // 傳入參數，lastLogin_time 範圍 + visits 範圍
+  const params = [startUtcStr, endUtcStr, startUtcStr, endUtcStr];
+
+  db.query(sql, params, (err, result) => {
     if (err) {
       console.error(`❌ 統計 ${rangeStr} 資料出錯:`, err);
       return;
@@ -130,6 +140,7 @@ function processHourlySummary(startTimeUTC, endTaipei) {
     processHourlySummary(nextStartUTC, endTaipei);
   });
 }
+
 
 function cleanupOldData() {
   const now = new Date();
