@@ -1,42 +1,5 @@
 // services/orderService.js
-import axios from 'axios';
-
-const API_URL = process.env.NODE_ENV === 'development'
-  ? 'http://localhost:3000/api'  // 本地開發用
-  : 'https://bookstore-backend-production.up.railway.app/api'; // 雲端部署用
-
-// 創建 axios 實例
-const api = axios.create({
-  baseURL: API_URL,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
-
-// 請求攔截器
-api.interceptors.request.use(
-  config => {
-    console.log('發送請求:', config.url, config.data);
-    return config;
-  },
-  error => {
-    console.error('請求錯誤:', error);
-    return Promise.reject(error);
-  }
-);
-
-// 響應攔截器
-api.interceptors.response.use(
-  response => {
-    console.log('收到響應:', response.data);
-    return response;
-  },
-  error => {
-    console.error('響應錯誤:', error);
-    return Promise.reject(error);
-  }
-);
+import api from '@/api.js';
 
 export const orderService = {
   /**
@@ -45,7 +8,7 @@ export const orderService = {
    * @returns {Promise} Axios Promise
    */
   createOrder(orderData) {
-    return api.post('/orders', orderData);
+    return api.post('/api/orders', orderData);
   },
 
   /**
@@ -54,7 +17,7 @@ export const orderService = {
    * @returns {Promise} Axios Promise
    */
   getOrder(orderId) {
-    return api.get(`/orders/${orderId}`);
+    return api.get(`/api/orders/${orderId}`);
   },
 
   /**
@@ -63,6 +26,39 @@ export const orderService = {
    * @returns {Promise} Axios Promise
    */
   getUserOrders(userId) {
-    return api.get(`/orders/user/${userId}`);
+    return api.get(`/api/orders/user/${userId}`);
+  },
+
+  /**
+   * 刪除訂單
+   * @param {string} orderId 訂單 ID
+   * @returns {Promise} Axios Promise
+   */
+  deleteOrder(orderId) {
+    return api.delete(`/api/orders/${orderId}`);
+  },
+
+  /**
+   * 取得所有訂單（管理員用）
+   * @returns {Promise} Axios Promise
+   */
+  getAllOrders() {
+    return api.get('/api/orders');
+  },
+
+  /**
+   * 取得所有訂單明細（管理員用）
+   * @returns {Promise} Axios Promise
+   */
+  getAllOrderDetails() {
+    return api.get('/api/orders/details');
+  },
+
+  /**
+   * 取得所有商品資訊（管理員用）
+   * @returns {Promise} Axios Promise
+   */
+  getAllProducts() {
+    return api.get('/api/orders/products');
   }
 }; 
