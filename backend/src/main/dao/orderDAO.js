@@ -89,18 +89,13 @@ function insertOrder(orderData, callback) {
 				user_email, user_address, payment_method, message, 
 				delivery_method, carrier, estimated_weight, shipping_fee, 
 				total_amount, status, created_at
-			) VALUES (?, 1, ?, 'DEL001', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?)
+			) VALUES (?, 1, ?, 'DEL001', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())
 		`;
 
 		// 使用第一個商品的 ISBN_id 作為主要商品
 		const firstItem = orderData.items[0];
 		const delivery = orderData.delivery || {};
 		const user = orderData.user || {};
-
-		// 產生台灣時間
-		const now = new Date();
-		const taiwanTime = new Date(now.getTime() + (8 * 60 * 60 * 1000)); // UTC + 8 小時
-		const formattedTime = taiwanTime.toISOString().slice(0, 19).replace('T', ' '); // 格式化為 MySQL DATETIME 格式
 
 		const orderValues = [
 			orderId,
@@ -115,8 +110,7 @@ function insertOrder(orderData, callback) {
 			delivery.carrier || '',
 			delivery.estimated_weight || 0,
 			delivery.shipping_fee || 0,
-			orderData.totalAmount,
-			formattedTime // 加入台灣時間
+			orderData.totalAmount
 		];
 
 			connection.query(insertOrderSql, orderValues, (err, orderResult) => {
