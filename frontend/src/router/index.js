@@ -6,6 +6,7 @@ import AdminView from '@/views/AdminView.vue';
 import AdminLoginView from '@/views/AdminLoginView.vue';
 import AdminHomePage from '@/components/pages/admin/AdminHomePage.vue';
 import AdminOrderPage from '@/components/pages/admin/AdminOrderPage.vue';
+import AdminBookPage from '@/components/pages/admin/AdminBookPage.vue';
 
 import book_detail from '@/views/book_detail.vue';
 import search_page from '@/views/search_page.vue';
@@ -70,8 +71,8 @@ const router = new Router({
 				},// /admin/books 書本管理
 				{	// 圖表測試
 					path: 'books',
-					name: 'AdminDashboard',
-					component: () => import('@/components/pages/admin/AdminDashboard.vue'),
+					name: 'AdminBookPage',
+					component: AdminBookPage,
 				}
 				
 			],
