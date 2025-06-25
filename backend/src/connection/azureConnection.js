@@ -13,6 +13,7 @@ const pool = mysql.createPool({
   password: process.env.AZURE_DB_PASSWORD,
   database: process.env.AZURE_DB_DATABASE,
   port: process.env.AZURE_DB_PORT || 3306,
+  timezone: '+08:00', // 設定為台灣時區 (GMT+8)
   ssl: {
     // ca: fs.readFileSync(path.resolve(__dirname, '../../BaltimoreCyberTrustRoot.crt.pem')),
   //   minVersion: 'TLSv1.2',
@@ -32,3 +33,4 @@ pool.getConnection((err, conn) => {
 });
 
 module.exports = pool;
+
