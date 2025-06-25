@@ -15,14 +15,23 @@ function selectLoginUsername(loginForm) {
       const isMatch = await bcrypt.compare(dto.password, result.password);
       if (!isMatch) return reject(new Error('密碼錯誤'));
 
-      resolve({
-        id: result.user_id,
-        username: result.username,
-        message: '登入成功',
+      // 登入成功後，更新登入時間
+      loginModel.updateLastLoginTime(result.user_id, (updateErr) => {
+        if (updateErr) {
+          console.error('更新登入時間失敗:', updateErr);
+          // 不影響登入流程，只記錄錯誤
+        }
+
+        resolve({
+          id: result.user_id,
+          username: result.username,
+          message: '登入成功',
+        });
       });
     });
   });
 }
+
 
 module.exports = {
   selectLoginUsername,

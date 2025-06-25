@@ -25,6 +25,7 @@ router.use('/register/check', require('../main/route/registerCheckRoute'));
 router.use('/register', require('../main/route/registerRoute'));
 router.use('/products', require('../main/node2'));
 router.use('/admin', require('../main/admin'));
+router.use('/adminMember', require('../main/adminMember'));
 
 
 module.exports = router;

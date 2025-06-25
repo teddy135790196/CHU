@@ -1,4 +1,5 @@
-// backend/routes/memberSetting.js
+// backend/src/main/memberSetting.js
+
 router.put('/:id/info', async (req, res) => {
 	const userId = req.params.id;
 	const { nickname, gender, birth, summary } = req.body;

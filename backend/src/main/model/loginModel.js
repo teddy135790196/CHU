@@ -6,6 +6,11 @@ function selectLoginUsername(loginForm, callback) {	  // loginForm => 前端傳�
   loginDAO.selectLoginUsername(loginForm, callback);
 };
 
+function updateLastLoginTime(userId, callback) {
+  loginDAO.updateLastLoginTime(userId, callback);
+}
+
 module.exports = {
   selectLoginUsername,
+  updateLastLoginTime,
 };

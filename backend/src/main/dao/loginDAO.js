@@ -19,6 +19,16 @@ function selectLoginUsername(loginForm, callback) {
   });
 }
 
+function updateLastLoginTime(userId, callback) {
+  const sql = `UPDATE users SET lastLogin_time = NOW() WHERE user_id = ?`;
+  db.query(sql, [userId], (err, result) => {
+    if (err) return callback(err);
+    callback(null, result);
+  });
+}
+
+
 module.exports = {
   selectLoginUsername,
+  updateLastLoginTime,
 };
