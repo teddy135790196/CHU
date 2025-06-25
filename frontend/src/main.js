@@ -32,9 +32,9 @@ import VueLazyloadModule from "vue-lazyload";
 const VueLazyload = VueLazyloadModule.default || VueLazyloadModule;
 // ✅ 延遲加載先啟用（在 new Vue 之前！
 Vue.use(VueLazyload, {
-  // loading:'/images/loadGo.svg'//匯入加載預設圖
-  loading: "@/assets/images/load.jpg", //匯入加載預設圖
-  error: "@/assets/images/load_fail.jpg", //匯入錯誤預設圖;
+	// loading:'/images/loadGo.svg'//匯入加載預設圖
+	loading: "@/assets/images/load.jpg", //匯入加載預設圖
+	error: "@/assets/images/load_fail.jpg", //匯入錯誤預設圖;
 });
 console.log("是物件或函式嗎", typeof VueLazyload);
 console.log("測試印出vue-lazyload directive:", Vue.options.directives.lazy);
@@ -77,6 +77,21 @@ router.beforeEach((to, from, next) => {
 });
 
 new Vue({
-	render: h => h(App),
 	router,
+	render: h => h(App),
+
+	// 新增 mounted 鉤子，在應用啟動時呼叫訪問記錄 API
+	mounted() {
+		// 排除 /admin 及其子路由
+		if (!this.$router.currentRoute.path.startsWith('/admin')) {
+			this.$axios.post('/api/trackVisit')
+				.then(() => {
+					console.log('訪問紀錄成功');
+				})
+				.catch(() => {
+					console.warn('訪問紀錄失敗');
+				});
+		}
+	}
 }).$mount('#app');
+

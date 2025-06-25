@@ -1,10 +1,13 @@
-// backend/sre/routes/_index.js
+// backend/src/routes/_index.js
 
 const express = require('express');
 const router = express.Router();
 
 // 根路由(/api)
 router.get('/', (req, res) => res.send('Hello from backend with MySQL!'));
+
+// 統計訪問數據(/api)
+router.use('/trackVisit', require('./trackVisitRoute'));
 
 // 資料庫路由(/api)
 router.use('/railwayDB', require('./railwayRoute'));
