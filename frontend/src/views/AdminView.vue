@@ -5,6 +5,7 @@
       <router-link class="nav-item text-center" to="/admin/home">🏠 後台首頁</router-link>
       <router-link class="nav-item text-center" to="/admin/orders">📃 訂單總覽</router-link>
       <router-link class="nav-item text-center" to="/admin/dash">📌 圖表測試</router-link>
+      <router-link class="nav-item text-center" to="/admin/books">📚 書本管理</router-link>
       <a class="nav-item text-center" href="#" @click.prevent="logoutWithConfirm">
         🚪 登出
         <small class="text-white">({{ formattedTime }})</small>
