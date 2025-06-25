@@ -148,17 +148,21 @@ const router = new Router({
 
 // ✅ 加入導航守衛(管理者未應用)
 router.beforeEach((to, from, next) => {
-	if (to.meta.requiresAdmin) {
+	// 檢查所有 matched 的路由，是否有一個 requiresAdmin
+	// 用 .some(...) 就能正確攔截整條鏈裡的任何一個需要權限的設定。
+	const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
+	if (requiresAdmin) {
 		const isAdmin = localStorage.getItem('isAdmin');
 		if (isAdmin) {
-			next(); // 有權限，繼續
+			next(); // 有管理員身分，放行
 		} else {
-			next('/admin'); // 無權限，跳回登入
+			next('/admin'); // 沒有身分，導回登入頁
 		}
 	} else {
-		next(); // 不需要權限，直接進入
+		next(); // 不需權限，放行
 	}
 });
+
 
 // 會員需登入
 // router.beforeEach((to, from, next) => {
