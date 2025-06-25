@@ -307,6 +307,8 @@ export default {
 
         // 清空購物車
         localStorage.removeItem('cartItems');
+        // 手動觸發 storage 事件來通知 HeaderArea 更新購物車徽章
+        window.dispatchEvent(new Event('storage'));
         
         // 跳轉到確認頁面（避免重複導航）
         if (this.$route.path !== '/checkout-success') {
