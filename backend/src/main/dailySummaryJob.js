@@ -194,7 +194,7 @@ function cleanupOldData() {
 
 function runHourlyJob() {
   const now = new Date();
-  if (now.getMinutes() === 5) {
+  if (now.getMinutes() === 1) {
     doSummary();
   }
 }

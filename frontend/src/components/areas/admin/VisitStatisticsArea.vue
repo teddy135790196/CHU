@@ -54,14 +54,23 @@ export default {
 	watch: {
 		tableData: {
 			handler() {
-				this.renderCharts();
+				// 確保 $refs 存在才執行
+				if (this.$refs.lineChart && this.$refs.barChart) {
+					this.renderCharts();
+				}
 			},
 			deep: true,
-			immediate: true
+			immediate: false  // 改成 false，改在 mounted 呼叫初始化
 		},
 		todayHasData() {
-			this.renderCharts();
+			if (this.$refs.lineChart && this.$refs.barChart) {
+				this.renderCharts();
+			}
 		}
+	},
+	mounted() {
+		// 確保組件掛載後第一次渲染
+		this.renderCharts();
 	},
 	methods: {
 		renderCharts() {
@@ -73,8 +82,8 @@ export default {
 			const ctx = this.$refs.lineChart.getContext('2d');
 			if (this.lineChartInstance) this.lineChartInstance.destroy();
 
-			console.log('台北時間小時:', this.currentTaipeiHour);
-			console.log('目前 tableData 資料:', this.tableData);
+			// console.log('台北時間小時:', this.currentTaipeiHour);
+			// console.log('目前 tableData 資料:', this.tableData);
 
 			// 整理 { x, y } 格式
 			const formatLine = (fieldName, limitHour = 23) => {
@@ -91,10 +100,12 @@ export default {
 
 			const todayLine = formatLine('today', Math.max(this.currentTaipeiHour - 1, 0));
 			const yesterdayLine = formatLine('yesterday');
+
+			const limitHour = Math.max(this.currentTaipeiHour - 1, 0);
 			const dayBeforeYesterdayLine = this.tableData.map(row => {
-				return row.hour >= this.currentTaipeiHour
+				return row.hour >= limitHour
 					? (typeof row.dayBeforeYesterday === 'number' ? row.dayBeforeYesterday : 0)
-					: null; // 過去時段為 null
+					: null;
 			});
 			const colors = {
 				今天: 'rgba(75, 192, 192, 1)',

@@ -4,7 +4,8 @@
       :totalUsers="summary.totalUsers" :registerLabels="registerLabels" :registerData="registerData"
       :newUserLabels="newUserLabels" :newUserData="newUserData" />
 
-    <MemberTableArea :users="users" :currentSortKey="sortKey" :sortAsc="sortAsc" @sort="handleSort" />
+    <MemberTableArea :users="users" :currentSortKey="sortKey" :sortAsc="sortAsc" @sort="handleSort"
+      @delete="handleDeleteUser" />
   </div>
 </template>
 
@@ -53,7 +54,6 @@ export default {
 
       try {
         const res = await this.$axios.get('/api/adminMember');
-        console.log('會員資料結構與內容：', res.data);
 
         this.users = res.data.users.map(u => ({
           id: u.user_id,
@@ -137,13 +137,32 @@ export default {
       }
     },
 
-
+    // 排序函式
     handleSort(key) {
       if (this.sortKey === key) {
         this.sortAsc = !this.sortAsc;
       } else {
         this.sortKey = key;
         this.sortAsc = true;
+      }
+    },
+
+    // 刪除函式
+    async handleDeleteUser(id) {
+      if (!confirm('確定要刪除這個會員嗎？')) return;
+
+      try {
+        await this.$axios.delete(`/api/adminMember/${id}`);
+        // 刪除成功後，更新 users 陣列
+        this.users = this.users.filter(u => u.id !== id);
+
+        // 若需要重新計算統計，可以呼叫fetchMemberData()
+        // await this.fetchMemberData();
+
+        alert('刪除成功');
+      } catch (error) {
+        console.error('刪除失敗', error);
+        alert('刪除失敗，請稍後再試');
       }
     }
   }

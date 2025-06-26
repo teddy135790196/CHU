@@ -39,6 +39,8 @@
             <th @click="$emit('sort', 'registration_time')" class="sortable" style="width: 14%">
               註冊時間 <span class="sort-icon">{{ getSortSymbol('registration_time') }}</span>
             </th>
+            <!-- ...其他欄位... -->
+            <th style="width: 4%">操作</th> <!-- 多一欄刪除按鈕 -->
           </tr>
         </thead>
         <tbody>
@@ -50,9 +52,14 @@
             <td>{{ user.address }}</td>
             <td>{{ user.status }}</td>
             <td>{{ formatDate(user.registration_time) }}</td>
+            <td>
+              <button class="btn btn-sm btn-danger w-100" @click.stop="deleteUser(user.id)">
+                刪除
+              </button>
+            </td>
           </tr>
           <tr v-for="n in emptyRows" :key="'empty' + n" class="empty-row">
-            <td colspan="7">&nbsp;</td>
+            <td colspan="8">&nbsp;</td> <!-- colspan 改成8 -->
           </tr>
         </tbody>
       </table>
@@ -118,7 +125,7 @@ export default {
     },
     emptyRows() {
       const count = this.pageSize - this.paginatedFilteredUsers.length;
-      return count > 0 ? Array.from({ length: count }) : [];
+      return count > 0 ? Array.from({ length: count }, (_, i) => i) : [];
     },
     totalPages() {
       return Math.ceil(this.filteredUsers.length / this.pageSize) || 1;
@@ -152,7 +159,11 @@ export default {
       const date = new Date(dateStr);
       if (isNaN(date)) return dateStr;
       return date.toLocaleString();
-    }
+    },
+    // 按鈕：刪除會員
+    deleteUser(id) {
+      this.$emit('delete', id);
+    },
   }
 };
 </script>
