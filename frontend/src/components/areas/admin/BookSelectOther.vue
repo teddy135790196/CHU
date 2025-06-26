@@ -66,13 +66,18 @@ export default {
         },
         // 每次從外部傳進來的新值（v-model）變動時，就執行這段邏輯。
         value(newVal) {
-            if (this.options.includes(newVal)) {
-                this.selectValue = newVal;
+            //回到預設值，若為空的話
+            if (newVal === "") {
+                this.selectValue = "";// ✅ 確保會回到「請選擇」
                 this.customValue = "";
-            } else {
-                this.selectValue = "__OTHER__";
-                this.customValue = newVal;
-            }
+            } else
+                if (this.options.includes(newVal)) {
+                    this.selectValue = newVal;
+                    this.customValue = "";
+                } else {
+                    this.selectValue = "__OTHER__";
+                    this.customValue = newVal;
+                }
         }
     }
 }

@@ -27,5 +27,6 @@ router.use('/products', require('../main/node2'));
 router.use('/admin', require('../main/admin'));
 router.use('/adminMember', require('../main/adminMember'));
 
+router.use('/bookinsert', require('../main/bookHandle'));
 
 module.exports = router;

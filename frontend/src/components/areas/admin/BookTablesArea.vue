@@ -46,7 +46,8 @@
                     <td>{{ n.page }}</td>
                     <td>{{ n.hit }}</td>
                     <td><button class="btn btn-danger btn-sm" @click.stop="confirmDeleteBook(n.ISBN_id)">
-                            {{ isDeleting ? '刪除中...' : '刪除' }}
+                            <!-- {{ isDeleting ? '刪除中...' : '刪除' }} -->
+                              刪除中
                         </button></td>
                 </tr>
 

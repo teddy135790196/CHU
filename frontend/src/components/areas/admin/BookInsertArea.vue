@@ -1,38 +1,28 @@
 <template>
     <div>
-
-        <div>
-            <div class="card text-center">
-
-                <div class="card-body">
-
+        <div class="card text-center">
+            <div class="card-body">
+                <form v-on:submit.prevent="inserToProduct">
                     <div class="rowl">
                         <div>
                             <img :src="Book.img">
                             <p>封面預覽</p>
                         </div>
                         <div class="right-text">
-                            <h1 class="card-title">書名 <input v-model="Book.name" placeholder="書名"></h1>
-                            書號: <input v-model="Book.ISBN" placeholder="例:999-000-012345-6	">
+                            <h1 class="card-title">書名 <input v-model="Book.name" placeholder="書名" required></h1>
+                            書號: <input v-model="Book.ISBN" placeholder="例:999-000-012345-6" required>
                             封面連結:<input v-model="Book.img" placeholder="請輸入網址">
-                            <p>作者: <input v-model="Book.author" placeholder="">
+                            <p>作者: <input v-model="Book.author" placeholder="" required>
                                 系列:
                                 <BookSelectOther v-model="Book.series" :options="typeSet('series')"
                                     placeholderStr="請輸入系列名" />
                             </p>
-                            <p> 價格:<input v-model="Book.price" placeholder="請輸入數字">
-
-                                庫存:<input v-model="Book.stock" placeholder="請輸入數字">
+                            <p> 價格:<input v-model="Book.price" placeholder="請輸入數字" required>
+                                庫存:<input v-model="Book.stock" placeholder="請輸入數字" required>
                             </p>
-
                             頁數:<input v-model="Book.page" placeholder="請輸入數字">
-
-
                             <h5>簡介</h5>
                             <textarea class="descr-text" v-model="Book.desc" placeholder="書內簡介"></textarea>
-                            <div>
-
-                            </div>
                         </div>
                     </div>
 
@@ -47,19 +37,13 @@
 
                                 <th>庫存</th>
                                 <th>頁數</th>
-
-
-
                             </tr>
                         </thead>
                         <tbody>
-
                             <tr>
-
                                 <td>{{ Book.ISBN }}</td>
                                 <td>{{ Book.name }}</td>
                                 <td>{{ Book.series }}</td>
-
                                 <td>{{ Book.author }}</td>
                                 <td>{{ Book.price }}</td>
                                 <td>{{ Book.stock }}</td>
@@ -133,21 +117,24 @@
 
                         </tbody>
                     </table>
-                    <!-- <button class="btn btn-info btn-sm" @click="在這裡執行新增">
-                        新增 
-                    </button>-->
+
+
                     <button class="btn btn-danger btn-sm" @click="truncBook()">
                         清空
                     </button>
-
-                </div>
+                    <button type="submit" class="btn btn-info btn-sm">
+                        新增
+                    </button>
+                </form>
             </div>
         </div>
+
     </div>
 
 </template>
 <script>
 import BookSelectOther from '@/components/areas/admin/BookSelectOther.vue';
+import axios from 'axios';
 
 export default {
     props: {
@@ -208,6 +195,16 @@ export default {
             //如果是api回傳空值或不是陣列則回傳空值
             if (!this.books || !Array.isArray(this.books)) return [];
             return [...new Set(this.books.map(item => item[SQLwhere]))]
+        }, inserToProduct() {
+            //傳書本資料到資料庫上
+            // console.log(this.Book.ISBN)
+            axios.post('http://localhost:3000/api/bookinsert', this.Book)// 直接送整個 Book 物件
+                .then(res => { console.log("新增成功", res.data); 
+                    alert("✅ 新增成功！");
+                })
+                .catch(err => { console.error("新增失敗", err); 
+                    alert("❌ 新增失敗：" + (err.response?.data?.error || err.message));
+                });
         }
     }, computed: {
         majorTypes() { //new Set 只保留不重複的值 ...陣列或物件打開攤平
