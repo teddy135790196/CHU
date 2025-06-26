@@ -14,7 +14,7 @@ import MemberStatisticsArea from '@/components/areas/admin/MemberStatisticsArea.
 import MemberTableArea from '@/components/areas/admin/MemberTableArea.vue';
 
 export default {
-  name: 'MemberDashboard',
+  name: 'AdminMemberPage',
   components: {
     MemberStatisticsArea,
     MemberTableArea

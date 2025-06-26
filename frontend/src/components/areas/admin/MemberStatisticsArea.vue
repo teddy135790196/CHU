@@ -1,23 +1,19 @@
 <template>
-  <div class="row" style="height: 500px;">
-
-    <div class="col-md-4 d-flex flex-column" style="height: 100%;">
-      <!-- 橫條圖 -->
-      <div class="p-3 bg-white rounded shadow-sm d-flex align-items-center h-100">
+  <div class="row g-3">
+    <!-- 左邊 -->
+    <div class="col-md-4 d-flex flex-column">
+      <div class="p-3 bg-white rounded shadow-sm flex-grow-1 d-flex align-items-center">
         <canvas ref="newUserBarChart" class="w-100" style="max-height: 100%;"></canvas>
       </div>
     </div>
 
-
-    <div class="col-md-8 d-flex flex-column" style="height: 100%; gap: 1rem;">
-
-      <!-- 折線圖 -->
-      <div class="p-3 bg-white rounded shadow-sm d-flex align-items-center" style="flex-grow: 1; max-height: 60%;">
+    <!-- 右邊 -->
+    <div class="col-md-8 d-flex flex-column" style="gap: 1rem;">
+      <div class="p-3 bg-white rounded shadow-sm flex-grow-1 d-flex align-items-center">
         <canvas ref="registerChart" class="w-100" style="max-height: 100%;"></canvas>
       </div>
 
-      <!-- 數據卡 -->
-      <div class="card d-flex flex-row justify-content-around p-3 shadow-sm" style="flex-grow: 1; max-height: 40%;">
+      <div class="card d-flex flex-row justify-content-around p-3 shadow-sm">
         <div v-for="(card, index) in cards" :key="card.title"
           class="card-item d-flex flex-column justify-content-center align-items-center px-3"
           :class="{ 'with-border': index !== cards.length - 1 }">
@@ -27,9 +23,7 @@
           </p>
         </div>
       </div>
-
     </div>
-
   </div>
 </template>
 
