@@ -112,9 +112,9 @@ export default {
         this.dateLabels.dayBeforeYesterday = dayBeforeYesterdayStr;
 
         this.tableData.forEach(row => {
-          row.today = 0;
-          row.yesterday = 0;
-          row.dayBeforeYesterday = 0;
+          row.today = null;
+          row.yesterday = null;
+          row.dayBeforeYesterday = null;
         });
 
         data.forEach(item => {
@@ -134,9 +134,10 @@ export default {
 
         let todaySum = 0;
         let last3DaysSum = 0;
+
         this.tableData.forEach(row => {
-          todaySum += row.today;
-          last3DaysSum += row.today + row.yesterday + row.dayBeforeYesterday;
+          todaySum += row.today ?? 0;
+          last3DaysSum += (row.today ?? 0) + (row.yesterday ?? 0) + (row.dayBeforeYesterday ?? 0);
         });
 
         this.summary.today = todaySum;

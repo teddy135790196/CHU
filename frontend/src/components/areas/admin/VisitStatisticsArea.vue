@@ -38,7 +38,7 @@ ChartJS.register(
 );
 
 export default {
-	name: 'VisitCharts',
+	name: 'VisitStatisticsArea',
 	props: {
 		tableData: { type: Array, required: true },
 		dateLabels: { type: Object, required: true },
@@ -81,11 +81,19 @@ export default {
 			});
 
 			const todayLine = this.tableData.map(row =>
-				row.hour <= lastTodayHour ? row.today : null
+				row.today !== null && row.today !== undefined
+					? row.today
+					: null
 			);
+
 			const dayBeforeYesterdayLine = this.tableData.map(row =>
-				row.hour > lastTodayHour ? row.dayBeforeYesterday : null
+				row.today !== null && row.today !== undefined
+					? null
+					: row.dayBeforeYesterday
 			);
+
+
+
 			const yesterdayLine = this.tableData.map(row => row.yesterday);
 
 			const colors = {
@@ -96,29 +104,29 @@ export default {
 
 			let daysToShow = [];
 			if (this.todayHasData) {
-				daysToShow = ['昨天', '今天'];
+				daysToShow = ['今天', '昨天'];
 			} else {
-				daysToShow = ['前天', '昨天'];
+				daysToShow = ['昨天', '前天'];
 			}
 
 			let datasets = [];
 
 			if (daysToShow.includes('今天')) {
 				datasets.push({
-					label: '昨天 瀏覽量',
-					data: yesterdayLine,
-					borderColor: colors['昨天'],
-					backgroundColor: colors['昨天'].replace('1)', '0.2)'),
+					label: '今天 瀏覽量',
+					data: todayLine,
+					borderColor: colors['今天'],
+					backgroundColor: colors['今天'].replace('1)', '0.2)'),
 					tension: 0.4,
 					fill: false,
 					pointRadius: 3,
 					pointHoverRadius: 6
 				});
 				datasets.push({
-					label: '今天 瀏覽量',
-					data: todayLine,
-					borderColor: colors['今天'],
-					backgroundColor: colors['今天'].replace('1)', '0.2)'),
+					label: '昨天 瀏覽量',
+					data: yesterdayLine,
+					borderColor: colors['昨天'],
+					backgroundColor: colors['昨天'].replace('1)', '0.2)'),
 					tension: 0.4,
 					fill: false,
 					pointRadius: 3,
@@ -137,16 +145,6 @@ export default {
 				});
 			} else if (daysToShow.includes('前天')) {
 				datasets.push({
-					label: '前天 瀏覽量',
-					data: this.tableData.map(row => row.dayBeforeYesterday),
-					borderColor: colors['前天'],
-					backgroundColor: colors['前天'].replace('1)', '0.2)'),
-					tension: 0.4,
-					fill: false,
-					pointRadius: 3,
-					pointHoverRadius: 6
-				});
-				datasets.push({
 					label: '昨天 瀏覽量',
 					data: yesterdayLine,
 					borderColor: colors['昨天'],
@@ -156,6 +154,17 @@ export default {
 					pointRadius: 3,
 					pointHoverRadius: 6
 				});
+				datasets.push({
+					label: '前天 瀏覽量',
+					data: this.tableData.map(row => row.dayBeforeYesterday),
+					borderColor: colors['前天'],
+					backgroundColor: colors['前天'].replace('1)', '0.2)'),
+					tension: 0.4,
+					fill: false,
+					pointRadius: 3,
+					pointHoverRadius: 6
+				});
+
 			}
 
 			this.lineChartInstance = new ChartJS(ctx, {
@@ -190,9 +199,9 @@ export default {
 
 			let daysToShow = [];
 			if (this.todayHasData) {
-				daysToShow = ['昨天', '今天'];
+				daysToShow = ['今天', '昨天'];
 			} else {
-				daysToShow = ['前天', '昨天'];
+				daysToShow = ['昨天', '前天'];
 			}
 
 			const datasets = daysToShow.map(day => ({

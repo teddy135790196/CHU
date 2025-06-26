@@ -79,7 +79,7 @@
 
 <script>
 export default {
-  name: 'MemberTable',
+  name: 'MemberTableArea',
   props: {
     users: { type: Array, required: true },
     currentSortKey: { type: String, required: true },

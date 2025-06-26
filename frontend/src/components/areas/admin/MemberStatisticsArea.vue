@@ -1,27 +1,35 @@
 <template>
   <div class="row" style="height: 500px;">
+
     <div class="col-md-4 d-flex flex-column" style="height: 100%;">
+      <!-- 橫條圖 -->
       <div class="p-3 bg-white rounded shadow-sm d-flex align-items-center h-100">
         <canvas ref="newUserBarChart" class="w-100" style="max-height: 100%;"></canvas>
       </div>
     </div>
 
+
     <div class="col-md-8 d-flex flex-column" style="height: 100%; gap: 1rem;">
+
+      <!-- 折線圖 -->
       <div class="p-3 bg-white rounded shadow-sm d-flex align-items-center" style="flex-grow: 1; max-height: 60%;">
         <canvas ref="registerChart" class="w-100" style="max-height: 100%;"></canvas>
       </div>
 
+      <!-- 數據卡 -->
       <div class="card d-flex flex-row justify-content-around p-3 shadow-sm" style="flex-grow: 1; max-height: 40%;">
-        <div v-for="card in cards" :key="card.title"
-          class="card-item d-flex flex-column justify-content-center align-items-center border-end px-3"
-          :style="{ borderRight: card.title === cards[cards.length - 1].title ? 'none' : '' }">
+        <div v-for="(card, index) in cards" :key="card.title"
+          class="card-item d-flex flex-column justify-content-center align-items-center px-3"
+          :class="{ 'with-border': index !== cards.length - 1 }">
           <h5 class="card-title">{{ card.title }}</h5>
           <p :class="['card-text', 'display-5', card.textClass]">
             {{ card.value }}
           </p>
         </div>
       </div>
+
     </div>
+
   </div>
 </template>
 
@@ -44,7 +52,7 @@ ChartJS.register(
 );
 
 export default {
-  name: 'MemberSummaryCharts',
+  name: 'MemberStatisticsArea',
   props: {
     todayNewUsers: { type: Number, required: true },
     verifiedUsers: { type: Number, required: true },
@@ -182,10 +190,9 @@ export default {
                 callback(value) {
                   const label = this.getLabelForValue(value);
                   if (label.endsWith('00:00')) {
-                    return label.slice(0, 10);
+                    return label.slice(0, 10);  // 零時顯示日期
                   } else {
-                    return label.slice(11);
-                    // 或 return ''; // 不顯示其他時間標籤
+                    return label.slice(11, 13); // 只顯示 HH
                   }
                 }
               }
@@ -204,33 +211,34 @@ export default {
 
     renderNewUserBarChart() {
       const ctx = this.$refs.newUserBarChart.getContext('2d');
-      if (this.newUserBarChartInstance) this.newUserBarChartInstance.destroy();
+      if (this.newUserBarChartInstance) this.newUserBarChartInstance.destroy(); // 如果已經存在圖表實例，就銷毀它
 
       this.newUserBarChartInstance = new ChartJS(ctx, {
-        type: 'bar',
+        type: 'bar', // 圖表類型：橫條圖
         data: {
-          labels: this.newUserLabels,
+          labels: this.newUserLabels, // X 軸標籤，顯示日期
           datasets: [{
-            label: '新增會員人數',
-            data: this.newUserData,
-            backgroundColor: '#198754'
+            label: '新增會員人數', // 數據的標籤
+            data: this.newUserData, // Y 軸數據，顯示新增會員數
+            backgroundColor: '#198754' // 條形圖的顏色
           }]
         },
         options: {
-          indexAxis: 'y',
-          responsive: true,
-          maintainAspectRatio: false,
+          indexAxis: 'y', // 設置為橫向條形圖
+          responsive: true, // 自適應大小
+          maintainAspectRatio: false, // 允許圖表在大小變化時調整比例
           plugins: {
-            title: { display: true, text: '近十五日新會員人數' },
-            legend: { display: false }
+            title: { display: true, text: '近十五日新會員人數' }, // 顯示圖表標題
+            legend: { display: false } // 隱藏圖例
           },
           scales: {
-            x: { beginAtZero: true, title: { display: true, text: '人數' } },
-            y: { title: { display: true, text: '日期' } }
+            x: { beginAtZero: true, title: { display: true, text: '人數' } }, // X 軸設定為 0 開始，並顯示 '人數'
+            y: { title: { display: true, text: '日期' } } // Y 軸顯示 '日期'
           }
         }
       });
     }
+
   }
 };
 </script>
@@ -253,7 +261,7 @@ export default {
 .card {
   min-height: unset;
   border: none;
-  background: none;
+  background-color: rgb(243, 244, 221);
   box-shadow: none;
 }
 
@@ -261,6 +269,11 @@ export default {
   flex: 1;
   text-align: center;
 }
+
+.card-item.with-border {
+  border-right: 1px solid #b7c3d0 !important;
+}
+
 
 .border-end {
   border-right: 1px solid #b7c3d0 !important;
