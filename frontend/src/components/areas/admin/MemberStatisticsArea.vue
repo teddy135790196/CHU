@@ -123,25 +123,28 @@ export default {
       this.renderRegisterChart();
       this.renderNewUserBarChart();
     },
+
+    // 繪製折線圖
     renderRegisterChart() {
       const ctx = this.$refs.registerChart.getContext('2d');
-      if (this.registerChartInstance) this.registerChartInstance.destroy();
+      if (this.registerChartInstance) this.registerChartInstance.destroy(); // 如果已經存在圖表實例，就銷毀它
 
+      // 午夜高亮插件
       const highlightMidnight = {
         id: 'highlightMidnight',
         afterDatasetsDraw(chart) {
           const { ctx, chartArea: { left, right, top, bottom }, scales: { x } } = chart;
 
+          // 找出零時的索引
           const midnightIndexes = [];
           chart.data.labels.forEach((label, index) => {
-            if (label.endsWith('00:00')) {
-              midnightIndexes.push(index);
-            }
+            if (label.endsWith('00:00')) midnightIndexes.push(index);
           });
 
           ctx.save();
-          ctx.fillStyle = 'rgba(200, 200, 200, 0.35)';
+          ctx.fillStyle = 'rgba(200, 200, 200, 0.35)'; // 高亮顏色
 
+          // 在零時位置高亮顯示
           midnightIndexes.forEach((idx) => {
             const xPos = x.getPixelForValue(idx);
             let leftBound = left;
@@ -154,65 +157,67 @@ export default {
               const nextX = x.getPixelForValue(idx + 1);
               rightBound = (xPos + nextX) / 2;
             }
-            ctx.fillRect(leftBound, top, rightBound - leftBound, bottom - top);
+            ctx.fillRect(leftBound, top, rightBound - leftBound, bottom - top); // 畫出高亮區域
           });
 
           ctx.restore();
         }
       };
 
+      // new ChartJS 建立圖表
       this.registerChartInstance = new ChartJS(ctx, {
-        type: 'line',
+        type: 'line', // 圖表類型：折線圖
         data: {
-          labels: this.registerLabelsLocal,
+          labels: this.registerLabelsLocal, // X 軸標籤，顯示時間
           datasets: [{
-            label: '活躍會員數（近24小時）',
-            data: this.registerDataLocal,
-            borderColor: 'rgba(54, 162, 235, 1)',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            tension: 0.3,
-            fill: true,
-            pointRadius: 3,
+            label: '活躍會員數（近24小時）', // 數據標籤
+            data: this.registerDataLocal, // Y 軸數據，顯示活躍會員數
+            borderColor: 'rgba(54, 162, 235, 1)', // 線條顏色
+            backgroundColor: 'rgba(54, 162, 235, 0.2)', // 填充顏色
+            tension: 0.3, // 線條彎曲度
+            fill: true, // 填充顏色
+            pointRadius: 3, // 點的半徑
           }]
         },
         options: {
-          responsive: true,
-          maintainAspectRatio: false,
+          responsive: true, // 自適應
+          maintainAspectRatio: false, // 允許調整圖表比例
           plugins: {
-            title: { display: true, text: '會員活躍度（近24小時）' },
-            legend: { display: false },
-            highlightMidnight
+            title: { display: true, text: '會員活躍度（近24小時）' }, // 顯示標題
+            legend: { display: false }, // 隱藏圖例
+            highlightMidnight // 使用自定義插件
           },
           scales: {
             x: {
-              title: { display: true, text: '時間' },
+              title: { display: true, text: '時間' }, // X 軸標題為 "時間"
               ticks: {
                 callback(value) {
                   const label = this.getLabelForValue(value);
                   if (label.endsWith('00:00')) {
-                    return label.slice(0, 10);  // 零時顯示日期
+                    return label.slice(0, 10); // 零時顯示日期
                   } else {
-                    return label.slice(11, 13); // 只顯示 HH
+                    return label.slice(11, 13); // 顯示小時
                   }
                 }
               }
-
             },
             y: {
-              beginAtZero: true,
-              title: { display: true, text: '活躍會員數' }
+              beginAtZero: true, // Y 軸從 0 開始
+              title: { display: true, text: '活躍會員數' } // Y 軸標題
             }
           }
         },
-        plugins: [highlightMidnight]
+        plugins: [highlightMidnight] // 使用午夜高亮插件
       });
     },
 
 
+    // 繪製橫條圖
     renderNewUserBarChart() {
       const ctx = this.$refs.newUserBarChart.getContext('2d');
       if (this.newUserBarChartInstance) this.newUserBarChartInstance.destroy(); // 如果已經存在圖表實例，就銷毀它
 
+      // new ChartJS 建立圖表
       this.newUserBarChartInstance = new ChartJS(ctx, {
         type: 'bar', // 圖表類型：橫條圖
         data: {

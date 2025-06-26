@@ -73,41 +73,36 @@ export default {
 			const ctx = this.$refs.lineChart.getContext('2d');
 			if (this.lineChartInstance) this.lineChartInstance.destroy();
 
-			let lastTodayHour = -1;
-			this.tableData.forEach(row => {
-				if (row.today > 0 && row.hour > lastTodayHour) {
-					lastTodayHour = row.hour;
-				}
+			console.log('台北時間小時:', this.currentTaipeiHour);
+			console.log('目前 tableData 資料:', this.tableData);
+
+			// 整理 { x, y } 格式
+			const formatLine = (fieldName, limitHour = 23) => {
+				limitHour = Math.max(limitHour, 0); // 避免負數
+				return this.tableData.map(row => {
+					if (row.hour > limitHour) return null;
+					const value = row[fieldName];
+					return {
+						x: `${row.hour}:00 - ${row.hour}:59`,
+						y: typeof value === 'number' ? value : 0
+					};
+				}).filter(v => v !== null); // 排除 null 點
+			};
+
+			const todayLine = formatLine('today', Math.max(this.currentTaipeiHour - 1, 0));
+			const yesterdayLine = formatLine('yesterday');
+			const dayBeforeYesterdayLine = this.tableData.map(row => {
+				return row.hour >= this.currentTaipeiHour
+					? (typeof row.dayBeforeYesterday === 'number' ? row.dayBeforeYesterday : 0)
+					: null; // 過去時段為 null
 			});
-
-			const todayLine = this.tableData.map(row =>
-				row.today !== null && row.today !== undefined
-					? row.today
-					: null
-			);
-
-			const dayBeforeYesterdayLine = this.tableData.map(row =>
-				row.today !== null && row.today !== undefined
-					? null
-					: row.dayBeforeYesterday
-			);
-
-
-
-			const yesterdayLine = this.tableData.map(row => row.yesterday);
-
 			const colors = {
 				今天: 'rgba(75, 192, 192, 1)',
 				昨天: 'rgba(255, 159, 64, 1)',
 				前天: 'rgba(153, 102, 255, 1)'
 			};
 
-			let daysToShow = [];
-			if (this.todayHasData) {
-				daysToShow = ['今天', '昨天'];
-			} else {
-				daysToShow = ['昨天', '前天'];
-			}
+			let daysToShow = ['今天', '昨天', '前天'];
 
 			let datasets = [];
 
@@ -122,6 +117,8 @@ export default {
 					pointRadius: 3,
 					pointHoverRadius: 6
 				});
+			}
+			if (daysToShow.includes('昨天')) {
 				datasets.push({
 					label: '昨天 瀏覽量',
 					data: yesterdayLine,
@@ -132,6 +129,8 @@ export default {
 					pointRadius: 3,
 					pointHoverRadius: 6
 				});
+			}
+			if (daysToShow.includes('前天')) {
 				datasets.push({
 					label: '前天 瀏覽量',
 					data: dayBeforeYesterdayLine,
@@ -143,49 +142,37 @@ export default {
 					pointRadius: 3,
 					pointHoverRadius: 6
 				});
-			} else if (daysToShow.includes('前天')) {
-				datasets.push({
-					label: '昨天 瀏覽量',
-					data: yesterdayLine,
-					borderColor: colors['昨天'],
-					backgroundColor: colors['昨天'].replace('1)', '0.2)'),
-					tension: 0.4,
-					fill: false,
-					pointRadius: 3,
-					pointHoverRadius: 6
-				});
-				datasets.push({
-					label: '前天 瀏覽量',
-					data: this.tableData.map(row => row.dayBeforeYesterday),
-					borderColor: colors['前天'],
-					backgroundColor: colors['前天'].replace('1)', '0.2)'),
-					tension: 0.4,
-					fill: false,
-					pointRadius: 3,
-					pointHoverRadius: 6
-				});
-
 			}
 
 			this.lineChartInstance = new ChartJS(ctx, {
 				type: 'line',
 				data: {
-					labels: this.tableData.map(d => `${d.hour}:00 - ${d.hour}:59`),
 					datasets
 				},
 				options: {
 					responsive: true,
 					scales: {
-						y: { beginAtZero: true, title: { display: true, text: '瀏覽量' } },
-						x: { title: { display: true, text: '時段' } }
+						y: {
+							beginAtZero: true,
+							title: { display: true, text: '瀏覽量' }
+						},
+						x: {
+							type: 'category',
+							title: { display: true, text: '時段' }
+						}
 					},
 					plugins: {
 						legend: { position: 'top' },
-						title: { display: true, text: '📈 每日每小時瀏覽量折線圖' }
+						title: {
+							display: true,
+							text: '📈 每日每小時瀏覽量折線圖'
+						}
 					}
 				}
 			});
 		},
+
+
 
 		renderBarChart() {
 			const ctx = this.$refs.barChart.getContext('2d');
