@@ -150,7 +150,6 @@ export default {
         const res = await this.$axios.get('/api/trackVisit/visits_last_3_days');
         const data = res.data;
 
-        // 你原本整理 tableData 的程式碼，使用 data
         this.processLast3DaysData(data);
 
         // 取得近30天每日總瀏覽量
@@ -166,7 +165,9 @@ export default {
           }).replace(/\//g, '-'),
           totalViews: Number(item.daily_visit_count)
         }));
-        // console.log('父元件 monthlyData:', this.monthlyData);
+
+        // 計算總瀏覽量
+        this.summary.total = this.monthlyData.reduce((sum, item) => sum + (item.totalViews || 0), 0);
 
       } catch (err) {
         console.error('讀取統計資料錯誤', err);
