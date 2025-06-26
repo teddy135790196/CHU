@@ -92,23 +92,30 @@ export default {
 
 <style scoped>
 .nav-dark {
-  background-color: #343a40;
-  color: white;
+  background-color: #ffffff;
+  color: #dc3545;
   gap: 5px;
+  padding: 5px 0;
 }
 
 .nav-item {
   flex: 1;
   padding: 15px 0;
-  color: white;
+  color: #dc3545;
   text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease;
+  font-family: '標楷體', 'DFKai-SB', 'BiauKai', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .nav-item:hover {
-  background-color: rgb(170, 111, 1);
-  transform: translateY(-2px);
+  background-color: #ffe6e6;
   text-decoration: none;
-  color: #f8f9fa;
+  color: #dc3545;
+}
+
+.nav-item small {
+  color: #000000 !important;
 }
 </style>

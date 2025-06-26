@@ -22,6 +22,10 @@ function formatSummaryRange(date) {
   return `${start} - ${end}`;
 }
 
+function toUtc(date) {
+  return new Date(date.getTime() - TAIPEI_TZ_OFFSET * 60000);
+}
+
 // 取得台北時區的日期物件（修正時區差）
 function getTaipeiDate(date) {
   const utc = date.getTime() + date.getTimezoneOffset() * 60000;
@@ -90,6 +94,7 @@ function processHourlySummary(startTimeUTC, endTaipei) {
     return;
   }
 
+  // 台北時間
   const startTaipei = getTaipeiDate(startTimeUTC);
 
   if (startTaipei > endTaipei) {
@@ -99,11 +104,22 @@ function processHourlySummary(startTimeUTC, endTaipei) {
   }
 
   const rangeStr = formatSummaryRange(startTaipei);
-  const startUtcStr = formatDateTimeStr(startTimeUTC);
-  const endUTC = new Date(startTimeUTC.getTime() + 60 * 60 * 1000);
-  const endUtcStr = formatDateTimeStr(endUTC);
 
-  console.log(`📊 正在統計 ${rangeStr} 的資料，查詢範圍 UTC 時間：${startUtcStr} ~ ${endUtcStr}`);
+  // 轉換成 UTC 時間區間，用於查 users.lastLogin_time
+  const startUtcDate = toUtc(startTaipei);
+  const endUtcDate = new Date(startUtcDate.getTime() + 60 * 60 * 1000);
+
+  const startUtcStr = formatDateTimeStr(startUtcDate);
+  const endUtcStr = formatDateTimeStr(endUtcDate);
+
+  // visits 用台北時間條件（created_at +8 小時）
+  const startTaipeiStr = formatDateTimeStr(startTaipei);
+  const endTaipeiPlus1Hour = new Date(startTaipei.getTime() + 60 * 60 * 1000);
+  const endTaipeiStr = formatDateTimeStr(endTaipeiPlus1Hour);
+
+  console.log(`📊 正在統計 ${rangeStr} 的資料`);
+  console.log(`    查 users lastLogin_time 用 UTC 範圍：${startUtcStr} ~ ${endUtcStr}`);
+  console.log(`    查 visits.created_at 用台北時間範圍：${startTaipeiStr} ~ ${endTaipeiStr}`);
 
   const sql = `
   INSERT INTO visit_summary (visit_date, hour, visit_count, active_user_count)
@@ -112,7 +128,7 @@ function processHourlySummary(startTimeUTC, endTaipei) {
     HOUR(DATE_ADD(created_at, INTERVAL 8 HOUR)) AS hour,
     COUNT(*) AS visit_count,
     (
-      SELECT COUNT(DISTINCT id)
+      SELECT COUNT(DISTINCT user_id)
       FROM users
       WHERE lastLogin_time >= ? AND lastLogin_time < ?
     ) AS active_user_count
@@ -124,8 +140,8 @@ function processHourlySummary(startTimeUTC, endTaipei) {
     active_user_count = VALUES(active_user_count)
   `;
 
-  // 傳入參數，lastLogin_time 範圍 + visits 範圍
-  const params = [startUtcStr, endUtcStr, startUtcStr, endUtcStr];
+  // 帶入參數：users 用 UTC 範圍，visits 用台北時間範圍
+  const params = [startUtcStr, endUtcStr, startTaipeiStr, endTaipeiStr];
 
   db.query(sql, params, (err, result) => {
     if (err) {
@@ -133,13 +149,53 @@ function processHourlySummary(startTimeUTC, endTaipei) {
       return;
     }
 
-    console.log(`▶️ 統計 ${rangeStr} 完成，新增/更新列數: ${result.affectedRows || 0}`);
+    if ((result.affectedRows || 0) === 0) {
+      // 沒有 visits，補上 visit_count = 0，但仍要查 active_user_count
+      db.query(
+        `
+        SELECT COUNT(DISTINCT user_id) AS active_user_count
+        FROM users
+        WHERE lastLogin_time >= ? AND lastLogin_time < ?
+        `,
+        [startUtcStr, endUtcStr],
+        (err2, rows) => {
+          if (err2) {
+            console.error(`❌ 補空時段 active_user_count 查詢錯誤:`, err2);
+            return;
+          }
 
-    // 下一小時繼續
-    const nextStartUTC = new Date(startTimeUTC.getTime() + 60 * 60 * 1000);
-    processHourlySummary(nextStartUTC, endTaipei);
+          const activeUserCount = rows[0]?.active_user_count || 0;
+
+          db.query(
+            `
+            INSERT INTO visit_summary (visit_date, hour, visit_count, active_user_count)
+            VALUES (?, ?, 0, ?)
+            ON DUPLICATE KEY UPDATE
+              visit_count = VALUES(visit_count),
+              active_user_count = VALUES(active_user_count)
+            `,
+            [formatDateStr(startTaipei), startTaipei.getHours(), activeUserCount],
+            (err3, result2) => {
+              if (err3) {
+                console.error(`❌ 補空時段 insert 出錯:`, err3);
+                return;
+              }
+
+              console.log(`🈳 補空時段 ${rangeStr} 完成，active_user_count=${activeUserCount}`);
+              const nextStartUTC = new Date(startTimeUTC.getTime() + 60 * 60 * 1000);
+              processHourlySummary(nextStartUTC, endTaipei);
+            }
+          );
+        }
+      );
+    } else {
+      console.log(`▶️ 統計 ${rangeStr} 完成，新增/更新列數: ${result.affectedRows || 0}`);
+      const nextStartUTC = new Date(startTimeUTC.getTime() + 60 * 60 * 1000);
+      processHourlySummary(nextStartUTC, endTaipei);
+    }
   });
 }
+
 
 
 function cleanupOldData() {
@@ -155,7 +211,7 @@ function cleanupOldData() {
 
 function runHourlyJob() {
   const now = new Date();
-  if (now.getMinutes() === 5) {
+  if (now.getMinutes() === 1) {
     doSummary();
   }
 }

@@ -43,7 +43,7 @@
 
 <script>
 export default {
-	name: 'VisitTable',
+	name: 'VisitTableArea',
 	props: {
 		tableData: { type: Array, required: true },
 		dateLabels: { type: Object, required: true },

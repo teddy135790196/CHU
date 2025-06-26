@@ -19,7 +19,7 @@ api.interceptors.request.use(config => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-  console.log('API 請求:', config.method?.toUpperCase(), config.url, config.data);
+  // console.log('API 請求:', config.method?.toUpperCase(), config.url, config.data);
   return config;
 });
 
@@ -28,7 +28,7 @@ api.interceptors.request.use(config => {
 // api.js 響應攔截器中的錯誤處理
 api.interceptors.response.use(
   response => {
-    console.log('API 回應:', response.status, response.config.url);
+    // console.log('API 回應:', response.status, response.config.url);
     return response;
   },
   error => {
