@@ -33,8 +33,8 @@ const VueLazyload = VueLazyloadModule.default || VueLazyloadModule;
 // ✅ 延遲加載先啟用（在 new Vue 之前！
 Vue.use(VueLazyload, {
 	// loading:'/images/loadGo.svg'//匯入加載預設圖
-	loading: "@/assets/images/load.jpg", //匯入加載預設圖
-	error: "@/assets/images/load_fail.jpg", //匯入錯誤預設圖;
+	loading: require('@/assets/images/load.jpg'), //匯入加載預設圖
+	error: require('@/assets/images/load_fail.jpg'), //匯入錯誤預設圖;
 });
 // console.log("是物件或函式嗎", typeof VueLazyload);
 // console.log("測試印出vue-lazyload directive:", Vue.options.directives.lazy);
