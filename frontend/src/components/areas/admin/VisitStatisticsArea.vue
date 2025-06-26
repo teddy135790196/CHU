@@ -298,11 +298,14 @@ export default {
 						}
 					},
 					plugins: {
-						legend: { position: 'top' },
+						legend: { 
+							position: 'top',
+							display: false // 🚫 不顯示圖例，因為只有一條線，不需要額外說明
+						},
 						title: {
 							display: true,
 							text: '📊 近30天每日瀏覽量直條圖'
-						}
+						},
 					}
 				},
 				plugins: [highlightFirstDay]

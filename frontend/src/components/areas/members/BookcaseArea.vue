@@ -1,340 +1,199 @@
 <template>
-	<!-- 區塊：書櫃管理－始 -->
-	<div class="selectContent" id="bookcase">
-		<!-- <h5 class="mb-3">書櫃展示（僅展示效果，未實作，等設計好的商品卡片。這段會刪掉）</h5> -->
-		<div class="section-divider mb-4">
-			<h5 class="section-title accordion-header" id="headingOne">
-				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-					我的最愛
-				</button>
-			</h5>
-		</div>
-		<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" >
-			<div class="accordion-body">
-				<div class="row mb-5 g-3">
-					<div class="position-relative">
-						<!-- 左右按鈕 -->
-						<button
-							class="scroll-btn left btn btn-light position-absolute top-50 start-0 translate-middle-y z-3">←</button>
-						<button
-							class="scroll-btn right btn btn-light position-absolute top-50 end-0 translate-middle-y z-3">→</button>
+  <div class="selectContent" id="bookcase">
+    <div class="section-divider mb-4">
+      <h5 class="section-title">我的最愛</h5>
+    </div>
 
-						<!-- 可水平捲動的容器 -->
-						<div class="d-flex overflow-auto gap-3 px-4 scroll-container" style="scroll-behavior: smooth;">
-							<!-- 一本書 -->
-							<div class="card" style="width: 12rem; flex: 0 0 auto;">
-								<img src="@/assets/images/book3.png" class="card-img-top" alt="書封">
-								<div class="card-body">
-									<h5 class="card-title fw-bold text-truncate">秋山煙嵐</h5>
-									<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
-									<div class="d-flex justify-content-between align-items-center">
-										<select class="form-select form-select-sm w-auto">
-											<option>❤想看</option>
-											<option>👁在讀</option>
-											<option selected>🏅已讀</option>
-										</select>
-										<button class="btn btn-sm btn-outline-danger">移除</button>
-									</div>
-								</div>
-							</div>
-							<!-- 加更多卡片 -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    <div class="row mb-5 g-3 position-relative">
+      <!-- 左右按鈕 -->
+      <button
+        class="scroll-btn left btn btn-light position-absolute top-50 start-0 translate-middle-y"
+        @click="scrollLeft"
+      >←</button>
+      <button
+        class="scroll-btn right btn btn-light position-absolute top-50 end-0 translate-middle-y"
+        @click="scrollRight"
+      >→</button>
 
-
-		<div class="section-divider mb-4">
-			<h5 class="section-title accordion-header" id="headingTwo">
-				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-					願望清單書籍
-				</button>
-			</h5>
-		</div>
-		<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" >
-			<div class="accordion-body">
-				<div class="row mb-5 g-3">
-					<div class="position-relative">
-						<!-- 左右按鈕 -->
-						<button
-							class="scroll-btn left btn btn-light position-absolute top-50 start-0 translate-middle-y z-3">←</button>
-						<button
-							class="scroll-btn right btn btn-light position-absolute top-50 end-0 translate-middle-y z-3">→</button>
-
-						<!-- 可水平捲動的容器 -->
-						<div class="d-flex overflow-auto gap-3 px-4 scroll-container" style="scroll-behavior: smooth;">
-							<!-- 一本書 -->
-							<div class="card" style="width: 12rem; flex: 0 0 auto;">
-								<img src="@/assets/images/book5.png" class="card-img-top" alt="書封">
-								<div class="card-body">
-									<h5 class="card-title fw-bold text-truncate">信仰的仰望：在光與影中追尋</h5>
-									<p class="card-text text-end text-truncate"><small>薇薇安·夜歌</small>
-									</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<select class="form-select form-select-sm w-auto">
-											<option>❤想看</option>
-											<option>👁在讀</option>
-											<option>🏅已讀</option>
-										</select>
-										<button class="btn btn-sm btn-outline-danger">移除</button>
-									</div>
-								</div>
-							</div>
-							<!-- 一本書 -->
-							<div class="card" style="width: 12rem; flex: 0 0 auto;">
-								<img src="@/assets/images/book6.png" class="card-img-top" alt="書封">
-								<div class="card-body">
-									<h5 class="card-title fw-bold text-truncate">潮汐的印記：探尋古老信仰的邊界</h5>
-									<p class="card-text text-end text-truncate"><small>薇薇安·夜歌</small>
-									</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<select class="form-select form-select-sm w-auto">
-											<option>❤想看</option>
-											<option>👁在讀</option>
-											<option>🏅已讀</option>
-										</select>
-										<button class="btn btn-sm btn-outline-danger">移除</button>
-									</div>
-								</div>
-							</div>
-							<!-- 加更多卡片 -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-		<div class="section-divider mb-4">
-			<h5 class="section-title accordion-header" id="headingThree">
-				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-					擁有書籍
-				</button>
-			</h5>
-		</div>
-		<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingTwo" >
-			<div class="accordion-body">
-				<div class="row mb-5 g-3">
-					<div class="position-relative">
-						<!-- 左右按鈕 -->
-						<button
-							class="scroll-btn left btn btn-light position-absolute top-50 start-0 translate-middle-y z-3">←</button>
-						<button
-							class="scroll-btn right btn btn-light position-absolute top-50 end-0 translate-middle-y z-3">→</button>
-
-						<!-- 可水平捲動的容器 -->
-						<div class="d-flex overflow-auto gap-3 px-4 scroll-container" style="scroll-behavior: smooth;">
-							<!-- 一本書 -->
-							<div class="card" style="width: 12rem; flex: 0 0 auto;">
-								<img src="@/assets/images/book1.png" class="card-img-top" alt="書封">
-								<div class="card-body">
-									<h5 class="card-title fw-bold text-truncate">春水遊鯉</h5>
-									<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
-									<div class="d-flex justify-content-between align-items-center">
-										<select class="form-select form-select-sm w-auto">
-											<option>❤想看</option>
-											<option selected>👁在讀</option>
-											<option>🏅已讀</option>
-										</select>
-										<button class="btn btn-sm btn-outline-danger">移除</button>
-									</div>
-								</div>
-							</div>
-							<!-- 一本書 -->
-							<div class="card" style="width: 12rem; flex: 0 0 auto;">
-								<img src="@/assets/images/book2.png" class="card-img-top" alt="書封">
-								<div class="card-body">
-									<h5 class="card-title fw-bold text-truncate">夏木幽亭</h5>
-									<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
-									<div class="d-flex justify-content-between align-items-center">
-										<select class="form-select form-select-sm w-auto">
-											<option>❤想看</option>
-											<option>👁在讀</option>
-											<option selected>🏅已讀</option>
-										</select>
-										<button class="btn btn-sm btn-outline-danger">移除</button>
-									</div>
-								</div>
-							</div>
-							<!-- 一本書 -->
-							<div class="card" style="width: 12rem; flex: 0 0 auto;">
-								<img src="@/assets/images/book3.png" class="card-img-top" alt="書封">
-								<div class="card-body">
-									<h5 class="card-title fw-bold text-truncate">秋山煙嵐</h5>
-									<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
-									<div class="d-flex justify-content-between align-items-center">
-										<select class="form-select form-select-sm w-auto">
-											<option>❤想看</option>
-											<option>👁在讀</option>
-											<option selected>🏅已讀</option>
-										</select>
-										<button class="btn btn-sm btn-outline-danger">移除</button>
-									</div>
-								</div>
-							</div>
-							<!-- 一本書 -->
-							<div class="card" style="width: 12rem; flex: 0 0 auto;">
-								<img src="@/assets/images/book4.png" class="card-img-top" alt="書封">
-								<div class="card-body">
-									<h5 class="card-title fw-bold text-truncate">冬日翠峰</h5>
-									<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
-									<div class="d-flex justify-content-between align-items-center">
-										<select class="form-select form-select-sm w-auto">
-											<option>❤想看</option>
-											<option>👁在讀</option>
-											<option selected>🏅已讀</option>
-										</select>
-										<button class="btn btn-sm btn-outline-danger">移除</button>
-									</div>
-								</div>
-							</div>
-							<!-- 加更多卡片 -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		
-		<div class="section-divider mb-4">
-			<h5 class="section-title accordion-header" id="headingFour">
-				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-					閱讀紀錄
-				</button>
-			</h5>
-		</div>
-		<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingTwo" >
-			<div class="accordion-body">
-				<div class="row mb-5 g-3">
-					<div class="position-relative">
-						<!-- 左右按鈕 -->
-						<button
-							class="scroll-btn left btn btn-light position-absolute top-50 start-0 translate-middle-y z-3">←</button>
-						<button
-							class="scroll-btn right btn btn-light position-absolute top-50 end-0 translate-middle-y z-3">→</button>
-
-						<!-- 可水平捲動的容器 -->
-						<div class="d-flex overflow-auto gap-3 px-4 scroll-container" style="scroll-behavior: smooth;">
-							<!-- 一本書 -->
-							<div class="card" style="width: 12rem; flex: 0 0 auto;">
-								<img src="@/assets/images/book1.png" class="card-img-top" alt="書封">
-								<div class="card-body">
-									<h5 class="card-title fw-bold text-truncate">春水遊鯉</h5>
-									<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
-									<div class="d-flex justify-content-end align-items-center">
-										<button class="btn btn-sm btn-outline-danger">移除</button>
-									</div>
-								</div>
-							</div>
-							<!-- 一本書 -->
-							<div class="card" style="width: 12rem; flex: 0 0 auto;">
-								<img src="@/assets/images/book2.png" class="card-img-top" alt="書封">
-								<div class="card-body">
-									<h5 class="card-title fw-bold text-truncate">夏木幽亭</h5>
-									<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
-									<div class="d-flex justify-content-end align-items-center">
-										<button class="btn btn-sm btn-outline-danger">移除</button>
-									</div>
-								</div>
-							</div>
-							<!-- 一本書 -->
-							<div class="card" style="width: 12rem; flex: 0 0 auto;">
-								<img src="@/assets/images/book3.png" class="card-img-top" alt="書封">
-								<div class="card-body">
-									<h5 class="card-title fw-bold text-truncate">秋山煙嵐</h5>
-									<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
-									<div class="d-flex justify-content-end align-items-center">
-										<button class="btn btn-sm btn-outline-danger">移除</button>
-									</div>
-								</div>
-							</div>
-							<!-- 一本書 -->
-							<div class="card" style="width: 12rem; flex: 0 0 auto;">
-								<img src="@/assets/images/book4.png" class="card-img-top" alt="書封">
-								<div class="card-body">
-									<h5 class="card-title fw-bold text-truncate">冬日翠峰</h5>
-									<p class="card-text text-end text-truncate"><small>清笛吹夜</small></p>
-									<div class="d-flex justify-content-end align-items-center">
-										<button class="btn btn-sm btn-outline-danger">移除</button>
-									</div>
-								</div>
-							</div>
-							<!-- 加更多卡片 -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+      <!-- 捲動容器 -->
+      <div
+        ref="scrollContainer"
+        class="d-flex overflow-auto gap-3 px-4 scroll-container"
+      >
+        <book-card
+          v-for="book in favorites"
+          :key="book.ISBN_id"
+          :book="book"
+          :showDelete="true"
+          @select_isbn="goToDetail"
+          @buy_isbn="addToCart"
+          @delete_book="removeFromFavorites"
+        />
+        <div v-if="favorites.length === 0" class="text-center p-4 w-100">目前沒有收藏書籍</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import BookCard from '@/components/common/BookCard.vue';
+
 export default {
-	name: "BookcaseArea",
-	mounted() {
-		this.setupScrollButtons();
-	},
-	methods: {
-		setupScrollButtons() {
-			this.$nextTick(() => {
-				const scrollBlocks = this.$el.querySelectorAll('.position-relative');
+  name: "BookcaseArea",
+  components: { BookCard },
+  data() {
+    return {
+      favorites: [],
+      scrollAmount: 200,
+    };
+  },
+  mounted() {
+    this.fetchFavorites();
+  },
+  methods: {
+    async fetchFavorites() {
+      const user_id = localStorage.getItem('user_id');
+      if (!user_id) {
+        alert('請先登入');
+        return;
+      }
+      try {
+        const response = await this.$axios.get(`/api/memberBookCase/favorites/${user_id}`);
+        this.favorites = response.data.favorites.map(item => ({
+          ISBN_id: item.ISBN_id,
+          name: item.name || '無書名',
+          author: item.author || '未知作者',
+          imgUrl: item.imgUrl || '',
+          price: item.price || 0,
+          status: item.status || 'wish',
+        }));
+      } catch (error) {
+        console.error('讀取收藏失敗:', error);
+        alert('讀取收藏失敗，請稍後再試');
+      }
+    },
+    scrollLeft() {
+      this.$refs.scrollContainer.scrollLeft -= this.scrollAmount;
+    },
+    scrollRight() {
+      this.$refs.scrollContainer.scrollLeft += this.scrollAmount;
+    },
+    goToDetail(ISBN_id) {
+      this.$router.push(`/book/${encodeURIComponent(ISBN_id)}`);
+      console.log('前往書籍詳細:', ISBN_id);
+    },
+    addToCart(ISBN_id) {
+      const book = this.favorites.find(b => b.ISBN_id === ISBN_id);
+      if (book) {
+        let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 
-				scrollBlocks.forEach(block => {
-					const container = block.querySelector('.scroll-container');
-					const btnLeft = block.querySelector('.scroll-btn.left');
-					const btnRight = block.querySelector('.scroll-btn.right');
-					const scrollAmount = 200;
+        const existingIndex = cartItems.findIndex(item => item.id === ISBN_id);
+        if (existingIndex > -1) {
+          cartItems[existingIndex].count++;
+          alert('商品數量已增加！');
+        } else {
+          cartItems.push({
+            id: book.ISBN_id,
+            itemName: book.name,
+            price: book.price,
+            count: 1,
+            imgUrl: book.imgUrl || 'https://via.placeholder.com/100x100?text=書籍封面'
+          });
+          alert('商品已加入購物車！');
+        }
 
-					if (btnLeft && btnRight && container) {
-						btnLeft.addEventListener('click', () => {
-							container.scrollLeft -= scrollAmount;
-						});
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        window.dispatchEvent(new Event('storage'));
+      }
+    },
+    async removeFromFavorites(ISBN_id) {
+      if (!confirm('確定要從我的最愛移除這本書嗎？')) return;
 
-						btnRight.addEventListener('click', () => {
-							container.scrollLeft += scrollAmount;
-						});
-					}
-				});
-			});
-		}
-	}
+      const user_id = localStorage.getItem('user_id');
+      if (!user_id) {
+        alert('請先登入');
+        return;
+      }
+
+      try {
+        await this.$axios.delete(`/api/memberBookCase/favorites/${user_id}/${encodeURIComponent(ISBN_id)}`);
+        // 刪除成功後再從 favorites 移除該書
+        this.favorites = this.favorites.filter(book => book.ISBN_id !== ISBN_id);
+        alert('已從我的最愛移除');
+      } catch (error) {
+        console.error('刪除失敗:', error);
+        alert('刪除失敗，請稍後再試');
+        // 失敗時重新抓一次清單
+        this.fetchFavorites();
+      }
+    }
+  }
 };
 </script>
 
-<style scoped>
 
+<style scoped>
 #bookcase {
   padding: 20px;
 }
 
 .section-divider {
-	display: flex;
-	align-items: center;
-	text-align: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
-/* 置中 */
 .section-divider h5 {
-	line-height: 28px;
-	margin: 0;
-	color: var(--second-color);
-	font-family: "王翰宗中仿宋";
-
-	button{
-		font-size: 30px;
-	}
+  line-height: 28px;
+  margin: 0;
+  color: var(--second-color);
+  font-family: "王翰宗中仿宋";
 }
 
 .section-divider::before,
 .section-divider::after {
-	content: "";
-	flex: 1;
-	border-top: 3px solid var(--second-color);
+  content: "";
+  flex: 1;
+  border-top: 3px solid var(--second-color);
 }
 
 .section-title {
-	padding: 0 1rem;
-	white-space: nowrap;
+  padding: 0 1rem;
+  white-space: nowrap;
+}
+
+.scroll-container {
+  scroll-behavior: smooth;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  min-height: 250px;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.scroll-container > * {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.card {
+  width: 200px;
+  flex: 0 0 auto;
+  margin-right: 12px;
+}
+
+
+.scroll-btn {
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  opacity: 0.8;
+  transition: all 0.2s;
+}
+
+.scroll-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
 </style>

@@ -107,6 +107,42 @@ app.get("/author/:name", (req, res) => {
     });
   });
 });
+
+
+// 亘：加入收藏
+app.post('/favorites', (req, res) => {
+  const { user_id, ISBN_id } = req.body;
+
+  // 先確認使用者是否存在
+  db.query('SELECT * FROM users WHERE user_id = ?', [user_id], (err, users) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: '伺服器錯誤' });
+    }
+
+    if (users.length === 0) {
+      return res.status(404).json({ error: '找不到使用者' });
+    }
+
+    // 再插入收藏
+    db.query(
+      'INSERT INTO user_favorites (user_id, ISBN_id) VALUES (?, ?)',
+      [user_id, ISBN_id],
+      (err2, result) => {
+        if (err2) {
+          if (err2.code === 'ER_DUP_ENTRY') {
+            return res.status(409).json({ error: '已收藏過' });
+          } else {
+            console.error(err2);
+            return res.status(500).json({ error: '伺服器錯誤' });
+          }
+        }
+        res.status(201).json({ message: '已收藏' });
+      }
+    );
+  });
+});
+
 // ✅ 匯出 router
 module.exports = app;
 // app.listen(port, () => {

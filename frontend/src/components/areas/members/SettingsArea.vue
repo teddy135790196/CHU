@@ -323,7 +323,7 @@ export default {
 			try {
 				const res = await this.$axios.get(`/api/memberSetting/${user_id}`);
 				this.user = res.data.data || {};
-				console.log("會員資料：", res.data.data);
+				// console.log("會員資料：", res.data.data);
 			} catch (err) {
 				console.error("取得會員資料失敗", err);
 				// alert("資料載入錯誤");
