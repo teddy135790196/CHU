@@ -21,17 +21,20 @@
         </div>
       </div>
       <!-- 點下就導入到name為author的路由，參數為n.author -->
-       <author_a :name="n.author">
-           {{ n.author.length > 17 ? n.author.slice(0, 17) + "..." : n.author }}</author_a>
-            <!--  
+      <!-- <author_a :name="n.author">
+           {{ n.author.length > 17 ? n.author.slice(0, 17) + "..." : n.author }}</author_a> -->
+      <author_a :name="n.author">
+        {{ n.author ? (n.author.length > 17 ? n.author.slice(0, 17) + "..." : n.author) : '' }}
+      </author_a>
+      <!--  
       <a href="#" class="authorColor">
         若作者超過20就:用三元運算寫 
         {{ n.author.length > 17 ? n.author.slice(0, 17) + "..." : n.author }}</a
       >-->
       <div class="PandChartBtn">
         <i>
-          <h3><small>$</small>{{ intPrice(n.price) }}</h3> </i
-        ><button @click="putInCart(n.ISBN_id)">加入購物車</button>
+          <h3><small>$</small>{{ intPrice(n.price) }}</h3>
+        </i><button @click="putInCart(n.ISBN_id)">加入購物車</button>
       </div>
     </div>
   </div>
@@ -39,7 +42,7 @@
 <script>
 import author_a from './authorA.vue';
 export default {
-  components:{author_a},  
+  components: { author_a },
   data() {
     return {
       data: null,
@@ -102,24 +105,24 @@ export default {
       // div回傳的資料
       this.$emit("select_isbn", ISBN_id); //通知父元件
     },
-    putInCart(ISBN_id){
-    // 加入購物車回傳的資料
+    putInCart(ISBN_id) {
+      // 加入購物車回傳的資料
       this.$emit("buy_isbn", ISBN_id); //通知父元件
-      
+
       // 新增：直接加入購物車功能
       const bookData = this.books.find(book => book.ISBN_id === ISBN_id);
       if (bookData) {
         this.addToCart(bookData);
       }
     },
-    
+
     addToCart(book) {
       // 從 localStorage 讀取現有購物車
       let cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
-      
+
       // 檢查商品是否已存在購物車中
       const existingItemIndex = cartItems.findIndex(item => item.id === book.ISBN_id);
-      
+
       if (existingItemIndex > -1) {
         // 如果已存在，增加數量
         cartItems[existingItemIndex].count++;
@@ -136,10 +139,10 @@ export default {
         cartItems.push(cartItem);
         alert('商品已加入購物車！');
       }
-      
+
       // 保存到 localStorage
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      
+
       // 觸發 storage 事件來更新其他組件（如導航欄的購物車數量）
       window.dispatchEvent(new Event('storage'));
     }
@@ -157,19 +160,24 @@ export default {
   margin: 10px auto;
   padding: 0 auto;
 }
+
 .authorColor {
   color: hsl(36, 50.7%, 50%);
   transition: all 0.55s;
 }
+
 .authorColor:hover {
   color: hsl(38, 74%, 24%);
 }
+
 .PandChartBtn {
   margin-top: auto;
   display: flex;
   justify-content: space-between;
-  align-items: end; /* 垂直置中 */
+  align-items: end;
+  /* 垂直置中 */
 }
+
 /* 分類頁的價格 */
 .PandChartBtn h3 {
   font-weight: bold;
@@ -177,6 +185,7 @@ export default {
   color: hsl(353, 100%, 29.2%);
   transition: all 1s;
 }
+
 /* 分類頁的加入購物車按鈕 */
 .PandChartBtn button {
   color: white;
@@ -186,9 +195,11 @@ export default {
   border-radius: 20px;
   transition: all 0.7s;
 }
+
 .PandChartBtn button:hover {
   background-color: hsl(353, 100%, 29.2%);
 }
+
 /*  */
 
 /* 商品小圖 */
@@ -198,6 +209,7 @@ export default {
   margin: 15px auto;
   transition: all 0.5s;
 }
+
 .smProduct {
   margin-bottom: 50px;
   padding: 30px;
@@ -210,12 +222,15 @@ export default {
   display: inline-block;
   transition: all 0.55s;
 }
+
 #block:hover span {
   color: hsl(353, 100%, 29.2%);
 }
+
 .smProduct h4 span {
   font-size: 20px;
 }
+
 /* 動態產生線 */
 .smProduct h4::after {
   background-color: hsl(353, 100%, 29.2%);
@@ -225,6 +240,7 @@ export default {
   height: 2px;
   transition: all 0.4s;
 }
+
 #block:hover h4::after {
   width: 100%;
 }
