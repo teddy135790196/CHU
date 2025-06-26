@@ -16,8 +16,9 @@
                             書號: <input v-model="Book.ISBN" placeholder="例:999-000-012345-6	">
                             封面連結:<input v-model="Book.img" placeholder="請輸入網址">
                             <p>作者: <input v-model="Book.author" placeholder="">
-
-                                系列: <input v-model="Book.series" placeholder="若無可填空">
+                                系列:
+                                <BookSelectOther v-model="Book.series" :options="typeSet('series')"
+                                    placeholderStr="請輸入系列名" />
                             </p>
                             <p> 價格:<input v-model="Book.price" placeholder="請輸入數字">
 
@@ -31,7 +32,6 @@
                             <textarea class="descr-text" v-model="Book.desc" placeholder="書內簡介"></textarea>
                             <div>
 
-                                <button>修改</button>
                             </div>
                         </div>
                     </div>
@@ -87,10 +87,12 @@
 
                             <tr>
 
-
+                                <!-- 出版社 -->
                                 <td> <select v-model="Book.publisher">
                                         <option disabled value="">請選擇出版社</option>
-                                        <option v-for="o in publishers" :key="o" :value="o">{{ o }}</option>
+                                        <!-- <option v-for="o in publishers" :key="o" :value="o">{{ o }}</option> -->
+                                        <option v-for="bg in typeSet('publisher')" :key="bg" :value="bg">{{ bg }}
+                                        </option>
                                     </select>
                                 </td>
                                 <!-- type -->
@@ -108,31 +110,34 @@
 
                                     </select>
                                 </td>
-                                <td><select v-model="Book.original_language">
-                                        <option disabled value="">語言</option>
-                                        <option>中文</option>
-                                        <option>英文</option>
-                                        <option>日文</option>
+                                <!-- 語言 -->
+                                <td>
+                                    <BookSelectOther v-model="Book.original_language"
+                                        :options="typeSet('original_language')" placeholderStr="請輸入語言" />
+                                </td>
+
+                                <!-- 出版類型 -->
+                                <td><select v-model="Book.pub_type">
+                                        <option v-for="p in pubTypes" :key="p" :value="p">{{ p }}</option>
+
                                     </select>
                                 </td>
-                                <td><select v-model="Book.pub_type">
-                                    <option v-for="p in pubSet" :key="p" :value="p">{{ p }}</option>
-                                    
-                                </select>
+                                <!-- 獎項 -->
+                                <td>
+                                    <BookSelectOther v-model="Book.award" :options="typeSet('award')"
+                                        placeholderStr="請輸入獎項" />
                                 </td>
-                                <td><select v-model="Book.award">
-                                        <option disabled value=""></option>
-                                        <option>中文</option>
-                                        <option>英文</option>
-                                        <option>日文</option><option>其他</option>
-                                    </select></td>
+
 
                             </tr>
 
                         </tbody>
                     </table>
-                    <button class="btn btn-danger btn-sm" @click="confirmDeleteBook(selectBook.ISBN_id)">
-                        {{ '刪除' }}
+                    <!-- <button class="btn btn-info btn-sm" @click="在這裡執行新增">
+                        新增 
+                    </button>-->
+                    <button class="btn btn-danger btn-sm" @click="truncBook()">
+                        清空
                     </button>
 
                 </div>
@@ -142,11 +147,13 @@
 
 </template>
 <script>
+import BookSelectOther from '@/components/areas/admin/BookSelectOther.vue';
+
 export default {
     props: {
         books: { type: Array, required: true }//required: true保證必須傳入prop，否則警告
 
-    },
+    }, components: { BookSelectOther },
     data() {
         return {
             Book: {
@@ -157,9 +164,10 @@ export default {
                 author: '', stock: '',
                 publisher: '', page: '',
                 major_category: '', minor_category: '',
-                original_language: '', pub_type: '',
-                award: ''
-            }, publishers: ['出版社0', '出版社1', '出版社2'],
+                original_language: '',
+                pub_type: '',
+                award: '',
+            }, pubTypes: ['書籍', '小說', '漫畫', '繪本', '雜誌', '其他出版物'],
 
             // 小分類選項
             BkSubCat: [
@@ -183,25 +191,35 @@ export default {
         };
     }, methods: {
 
-        confirmDeleteBook(isbn) {
-            if (confirm(`確定要刪除書本 ${isbn} 嗎？\n\n⚠️ 此操作將永久刪除書本資料，無法復原！`)) {
-                //執行刪除的函數
-                console.log(`刪除書本 ${isbn} `);
-            }
+        truncBook() {
+            this.Book = {
+                ISBN: '',
+                name: '',
+                img: '',
+                series: '', price: '',
+                author: '', stock: '',
+                publisher: '', page: '',
+                major_category: '', minor_category: '',
+                original_language: '',
+                pub_type: '',
+                award: ''
+            };
+        }, typeSet(SQLwhere) { //獎項選項
+            //如果是api回傳空值或不是陣列則回傳空值
+            if (!this.books || !Array.isArray(this.books)) return [];
+            return [...new Set(this.books.map(item => item[SQLwhere]))]
         }
     }, computed: {
         majorTypes() { //new Set 只保留不重複的值 ...陣列或物件打開攤平
             return [...new Set(this.BkSubCat.map(item => item.type))]//this.BkSubCat.map(item=>item.type)取出type
         }, filteredSubCategories() {
             return this.BkSubCat.filter(item => item.type === this.Book.major_category);
-        }, pubSet() {
-            //如果是api回傳空值或不是陣列則回傳空值
-            if (!this.books || !Array.isArray(this.books)) return [];
-            return [...new Set(this.books.map(item => item.pub_type))]
         }
-    }
 
+    }
 }
+
+
 </script>
 <style scoped>
 .overlay {
