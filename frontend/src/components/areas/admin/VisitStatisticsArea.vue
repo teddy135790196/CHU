@@ -55,7 +55,8 @@ export default {
 		tableData: { type: Array, required: true },
 		dateLabels: { type: Object, required: true },
 		currentTaipeiHour: { type: Number, required: true },
-		todayHasData: { type: Boolean, required: true }
+		todayHasData: { type: Boolean, required: true },
+		monthlyData: { type: Array, required: true }  // 近30天資料
 	},
 
 	data() {
@@ -75,21 +76,16 @@ export default {
 				}
 			},
 			deep: true,       // 深度監聽，偵測陣列內物件內容變動
-			immediate: false  // 不在監聽器建立時立即觸發，改由 mounted 時呼叫初始化
 		},
-
-		todayHasData() {  // 監聽 todayHasData（今天是否有資料的布林值）
-			// 同樣確保圖表 DOM 元素已存在
-			if (this.$refs.lineChart && this.$refs.barChart) {
-				this.renderCharts(); // 當 todayHasData 變動時重新繪製圖表
-			}
+		monthlyData: {
+			handler() {
+				if (this.$refs.barChart) {
+					this.renderBarChart();
+				}
+			},
+			deep: true,
 		}
-	},
 
-	// Vue 組件生命週期：組件掛載完成後執行
-	mounted() {
-		// 確保 DOM 元素存在後，執行初始圖表繪製
-		this.renderCharts();
 	},
 
 	methods: {
@@ -214,76 +210,105 @@ export default {
 			});
 		},
 
-		
-		// 📊 直條圖：每小時瀏覽量展示
+
+		// 📊 直條圖：近30天瀏覽量展示
 		renderBarChart() {
-			// 取得畫布元素的 2D 繪圖上下文
 			const ctx = this.$refs.barChart.getContext('2d');
 
-			// 如果已有舊的圖表實例，先銷毀避免重疊
 			if (this.barChartInstance) this.barChartInstance.destroy();
 
-			// 定義三天瀏覽量的顏色（帶透明度）
-			const colors = {
-				今天: 'rgba(75, 192, 192, 0.6)',    // 藍綠色
-				昨天: 'rgba(255, 159, 64, 0.6)',    // 橘色
-				前天: 'rgba(153, 102, 255, 0.6)'    // 紫色
+			const labels = this.monthlyData.map(item => item.date);
+			const dataValues = this.monthlyData.map(item => item.totalViews);
+
+			// 🕛 零時標記插件：自定義插件，用來在圖表中每個「00:00」的時間點畫出一個灰色背景區塊
+			const highlightFirstDay = {
+				id: 'highlightFirstDay',
+				afterDatasetsDraw(chart) {
+					const { ctx, chartArea: { left, right, top, bottom }, scales: { x } } = chart;
+
+					const firstDayIndexes = [];
+					chart.data.labels.forEach((label, index) => {
+						const day = Number(label.split('-')[2]);
+						if (day === 1) firstDayIndexes.push(index);
+					});
+
+					ctx.save();
+					ctx.fillStyle = 'rgba(200, 200, 200, 0.35)'; // 淺灰色半透明背景
+
+					firstDayIndexes.forEach(idx => {
+						const xPos = x.getPixelForValue(idx);
+						let leftBound = left;
+						let rightBound = right;
+
+						// 若不是第一筆資料，則設定左邊界為上一個刻度與當前刻度之中點
+						if (idx > 0) {
+							const prevX = x.getPixelForValue(idx - 1);
+							leftBound = (prevX + xPos) / 2;
+						}
+
+						// 若不是最後一筆資料，則設定右邊界為下一個刻度與當前刻度之中點
+						if (idx < chart.data.labels.length - 1) {
+							const nextX = x.getPixelForValue(idx + 1);
+							rightBound = (xPos + nextX) / 2;
+						}
+
+						// 在該區間畫出灰色半透明背景
+						ctx.fillRect(leftBound, top, rightBound - leftBound, bottom - top);
+					});
+
+					ctx.restore();
+				}
 			};
 
-			// 根據是否有今天資料，決定要顯示哪幾天的資料
-			// 有今天資料時顯示「今天」與「昨天」
-			// 沒有則顯示「昨天」與「前天」
-			let daysToShow = [];
-			if (this.todayHasData) {
-				daysToShow = ['今天', '昨天'];
-			} else {
-				daysToShow = ['昨天', '前天'];
-			}
 
-			// 針對要顯示的天數產生 datasets，準備給 ChartJS 使用
-			const datasets = daysToShow.map(day => ({
-				label: `${day} 瀏覽量`,  // 資料標籤，顯示於圖例
-				data: this.tableData.map(row =>
-					day === '今天'
-						? row.today          // 今天的數據
-						: day === '昨天'
-							? row.yesterday    // 昨天的數據
-							: row.dayBeforeYesterday  // 前天的數據
-				),
-				backgroundColor: colors[day], // 使用對應的顏色
-				barPercentage: 0.7,            // 單一條的寬度比例（佔類別寬度的70%）
-				categoryPercentage: 0.7        // 類別佔整個軸區域的比例（控制條間距）
-			}));
-
-			// 使用 ChartJS 建立新的直條圖實例
 			this.barChartInstance = new ChartJS(ctx, {
-				type: 'bar',    // 圖表類型為直條圖
+				type: 'bar',
 				data: {
-					// X 軸標籤，顯示每小時的時間區間文字
-					labels: this.tableData.map(d => `${d.hour}:00 - ${d.hour}:59`),
-					datasets          // 把前面產生的多組資料放入圖表中
+					labels: labels,
+					datasets: [{
+						label: '近30天每日瀏覽量',
+						data: dataValues,
+						backgroundColor: 'rgba(75, 192, 192, 0.6)',
+						barPercentage: 0.7,
+						categoryPercentage: 0.7
+					}]
 				},
 				options: {
-					responsive: true,  // 圖表自動響應父容器大小
+					responsive: true,
 					scales: {
 						y: {
-							beginAtZero: true,  // Y 軸從 0 開始
-							title: { display: true, text: '瀏覽量' }  // Y 軸標題
+							beginAtZero: true,
+							title: { display: true, text: '瀏覽量' }
 						},
 						x: {
-							title: { display: true, text: '時段' }   // X 軸標題
+							title: { display: true, text: '日期' },
+							ticks: {
+								maxRotation: 0,
+								minRotation: 0,
+								autoSkip: false,
+								maxTicksLimit: 30,
+								callback: (tickValue, index) => {
+									const label = labels[index];
+									if (!label) return '';
+									const day = Number(label.split('-')[2]);
+									const pad = (n) => (n < 10 ? '0' + n : n);
+									return pad(day);
+								}
+							}
 						}
 					},
 					plugins: {
-						legend: { position: 'top' },    // 圖例放在上方
+						legend: { position: 'top' },
 						title: {
 							display: true,
-							text: '📊 每日每小時瀏覽量直條圖'   // 圖表標題
+							text: '📊 近30天每日瀏覽量直條圖'
 						}
 					}
-				}
+				},
+				plugins: [highlightFirstDay]
 			});
 		}
+
 
 	}
 };

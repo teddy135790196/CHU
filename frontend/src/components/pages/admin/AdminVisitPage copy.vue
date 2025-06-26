@@ -119,7 +119,7 @@ export default {
     async fetchSummaryData() {
       try {
         // 取得近三日詳細資料
-        const res = await this.$axios.get('/api/trackVisit/visits_summary');
+        const res = await this.$axios.get('/api/trackVisit/visits_last_3_days');
         const data = res.data;
 
         const now = new Date();

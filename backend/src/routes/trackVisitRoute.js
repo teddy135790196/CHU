@@ -21,8 +21,8 @@ router.post('/', (req, res) => {
 	});
 });
 
-// GET：取得最近3天 visits_summary (前天、昨天、今天)，日期以台北時區計算
-router.get('/visits_summary', (req, res) => {
+// GET：取得最近3天 visits_last_3_days (前天、昨天、今天)，日期以台北時區計算
+router.get('/visits_last_3_days', (req, res) => {
 	const sql = `
     SELECT 
       CONVERT_TZ(visit_date, '+00:00', '+08:00') AS visit_date, 
@@ -39,12 +39,41 @@ router.get('/visits_summary', (req, res) => {
 
 	db.query(sql, (err, results) => {
 		if (err) {
-			console.error('讀取 visits_summary 錯誤:', err);
+			console.error('讀取 visits_last_3_days 錯誤:', err);
 			return res.status(500).json({ message: '伺服器錯誤', error: err.message });
 		}
 		res.json(results);
 	});
 });
+
+
+// GET：取得近30天每日瀏覽量總和
+router.get('/visits_last_30_days', (req, res) => {
+	const sql = `
+    WITH RECURSIVE dates AS (
+      SELECT CURDATE() - INTERVAL 29 DAY AS visit_date
+      UNION ALL
+      SELECT visit_date + INTERVAL 1 DAY FROM dates WHERE visit_date + INTERVAL 1 DAY <= CURDATE()
+    )
+    SELECT
+      dates.visit_date,
+      COALESCE(SUM(v.visit_count), 0) AS daily_visit_count
+    FROM dates
+    LEFT JOIN visit_summary v
+      ON DATE(CONVERT_TZ(v.visit_date, '+00:00', '+08:00')) = dates.visit_date
+    GROUP BY dates.visit_date
+    ORDER BY dates.visit_date ASC;
+  `;
+
+	db.query(sql, (err, results) => {
+		if (err) {
+			console.error('讀取近30天瀏覽量錯誤:', err);
+			return res.status(500).json({ message: '伺服器錯誤', error: err.message });
+		}
+		res.json(results);
+	});
+});
+
 
 
 // GET：取得訪問總瀏覽量

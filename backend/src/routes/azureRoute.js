@@ -51,9 +51,9 @@ router.get('/visits', (req, res) => {
   });
 });
 
-// http://localhost:3000/api/azureDB/visits_summary
-router.get('/visits_summary', (req, res) => {
-  database.query('SELECT * FROM visits_summary', (err, results) => {
+// http://localhost:3000/api/azureDB/visits_last_3_days
+router.get('/visits_last_3_days', (req, res) => {
+  database.query('SELECT * FROM visits_last_3_days', (err, results) => {
     if (err) return res.status(500).json({ error: '查詢失敗', details: err });
     res.json(results);
   });
