@@ -9,16 +9,16 @@
                             <p>封面預覽</p>
                         </div>
                         <div class="right-text">
-                            <h1 class="card-title">書名 <input v-model="Book.name" placeholder="書名" required></h1>
-                            書號: <input v-model="Book.ISBN" placeholder="例:999-000-012345-6" required>
-                            封面連結:<input v-model="Book.img" placeholder="請輸入網址">
-                            <p>作者: <input v-model="Book.author" placeholder="" required>
-                                系列:
-                                <BookSelectOther v-model="Book.series" :options="typeSet('series')"
+                            <span class="red-color">*</span>書名 <input v-model="Book.name" placeholder="書名" required>
+                            <span class="red-color">*</span>書號: <input v-model="Book.ISBN" placeholder="例:999-000-012345-6" required>
+                            <p>封面連結:<input v-model="Book.img" placeholder="請輸入網址"></p>
+                            <p>
+                            <span class="red-color">*</span>作者: <input v-model="Book.author" placeholder="" required>
+                              系列:<BookSelectOther v-model="Book.series" :options="typeSet('series')"
                                     placeholderStr="請輸入系列名" />
                             </p>
-                            <p> 價格:<input v-model="Book.price" placeholder="請輸入數字" required>
-                                庫存:<input v-model="Book.stock" placeholder="請輸入數字" required>
+                            <p><span class="red-color">*</span> 價格:<input v-model="Book.price" placeholder="請輸入數字" required>
+                               <span class="red-color">*</span> 庫存:<input v-model="Book.stock" placeholder="請輸入數字" required>
                             </p>
                             頁數:<input v-model="Book.page" placeholder="請輸入數字">
                             <h5>簡介</h5>
@@ -199,10 +199,12 @@ export default {
             //傳書本資料到資料庫上
             // console.log(this.Book.ISBN)
             axios.post('http://localhost:3000/api/bookinsert', this.Book)// 直接送整個 Book 物件
-                .then(res => { console.log("新增成功", res.data); 
+                .then(res => {
+                    console.log("新增成功", res.data);
                     alert("✅ 新增成功！");
                 })
-                .catch(err => { console.error("新增失敗", err); 
+                .catch(err => {
+                    console.error("新增失敗", err);
                     alert("❌ 新增失敗：" + (err.response?.data?.error || err.message));
                 });
         }
@@ -219,6 +221,10 @@ export default {
 
 </script>
 <style scoped>
+.red-color {
+    color: hsl(353, 100%, 29.2%);
+}
+
 .overlay {
     position: fixed;
     inset: 0;

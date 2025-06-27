@@ -34,7 +34,7 @@
                     <td>{{ n.ISBN_id }}</td>
                     <td>{{ n.name }}</td>
                     <!-- <td>{{ n.series }}</td> -->
-                    <td>{{ n.description.slice(0, 25) }}...</td>
+                    <td>{{ n.description ? n.description.slice(0, 25) + '...' : '' }}</td>
                     <td>{{ n.price }}</td>
                     <td>{{ n.author }}</td>
                     <td>{{ n.stock }}</td>
@@ -47,7 +47,7 @@
                     <td>{{ n.hit }}</td>
                     <td><button class="btn btn-danger btn-sm" @click.stop="confirmDeleteBook(n.ISBN_id)">
                             <!-- {{ isDeleting ? '刪除中...' : '刪除' }} -->
-                              刪除中
+                            刪除
                         </button></td>
                 </tr>
 
@@ -55,7 +55,7 @@
         </table>
         <div v-if="selectBook" class="overlay">
             <div class="card text-center">
-               
+
                 <div class="card-body">
 
                     <div class="rowl">
@@ -131,6 +131,8 @@
 
 </template>
 <script>
+ import axios from 'axios';
+
 export default {
     props: {
         books: { type: Array, required: true }//required: true保證必須傳入prop，否則警告
@@ -158,11 +160,18 @@ export default {
             if (confirm(`確定要刪除書本 ${isbn} 嗎？\n\n⚠️ 此操作將永久刪除書本資料，無法復原！`)) {
                 //執行刪除的函數
                 console.log(`刪除書本 ${isbn} `);
+                axios.delete(`http://localhost:3000/api/bookinsert/${isbn}`)
+                .then(res => {
+                    console.log(res.data);
+                    alert("刪除成功");
+                })
+                .catch(err => {
+                    alert("刪除失敗" + (err.response?.data?.error || err.message));
+
+                });
             }
         }, showBookDetail(isbn) {
             //我點了他就取得他的isbn
-
-
             this.selectBook =
                 this.books.find(n => n.ISBN_id === isbn);
             let ppp = this.selectBook.name;

@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../connection/_index'); // 這是 mysql2 callback 版本連線池
-
+const pool = require('../connection/_index').promise(); // 這樣你自己的檔案可以用 await
 console.log('✅ bookHandle 路由已載入');
 // 本來是 router.post('/bookinsert', async (req, res) => { 但會變成路徑/bookinsert/bookinsert
 router.post('/', async (req, res) => {
@@ -13,7 +12,7 @@ router.post('/', async (req, res) => {
 	} else if (!Book.price || !Book.stock) {
 		return res.status(400).json({ error: '庫存&價格' });
 	} else if (!Book.pub_type || !Book.author) { return res.status(400).json({ error: '請填寫作者&出版類型' }); }
-
+console.log('收到的資料:', Book);
 	try {
 		// 使用你自己的 DB 操作語法
 		await pool.query(`insert products(ISBN_id,name,description,price,
@@ -28,10 +27,24 @@ router.post('/', async (req, res) => {
 		res.json({ success: true });
 	} catch (err) {
 		console.error('DB Error:', err);
-		res.status(500).json({ error: '更新失敗' });
+		res.status(500).json({ error: '更新失敗',
+			details: err.message || err.sqlMessage || JSON.stringify(err)   });
 	}
 });
+//刪除資料
 
+router.delete('/:isbn_id', async (req, res) => {
+	
+	const isbnId = req.params.isbn_id;
+	try {
+		await pool.query(`delete from products where ISBN_id=?`,
+			[isbnId]);
+		res.json({ success: true });
+	} catch (err) {
+		console.error('DB Error:', err);
+		res.status(500).json({ error: '刪除失敗 ' });
+	}
+});
 module.exports = router;
 // router.put('/:id/contact', async (req, res) => {
 // 	const userId = req.params.id;
