@@ -9,7 +9,7 @@
               <i class="bi bi-plus-circle me-2"></i>添加測試商品
             </button> -->
           </div>
-          
+
           <div v-if="itemList.length === 0" class="empty-cart text-center py-5">
             <i class="bi bi-cart-x empty-cart-icon"></i>
             <p class="mt-3 text-muted">購物車是空的</p>
@@ -23,9 +23,11 @@
                   <h5 class="cart-item-title">{{ item.itemName }}</h5>
                   <p class="cart-item-price">單價：${{ item.price }}</p>
                   <div class="cart-item-actions">
-                    <button class="btn btn-sm btn-outline-secondary quantity-btn" @click="updateQuantity(item.id, -1)">-</button>
+                    <button class="btn btn-sm btn-outline-secondary quantity-btn"
+                      @click="updateQuantity(item.id, -1)">-</button>
                     <span class="quantity">{{ item.count }}</span>
-                    <button class="btn btn-sm btn-outline-secondary quantity-btn" @click="updateQuantity(item.id, 1)">+</button>
+                    <button class="btn btn-sm btn-outline-secondary quantity-btn"
+                      @click="updateQuantity(item.id, 1)">+</button>
                     <button class="btn btn-sm btn-danger remove-btn" @click="removeItem(item.id)">
                       <i class="bi bi-trash me-1"></i>刪除
                     </button>
@@ -116,6 +118,13 @@ export default {
       this.saveCartToStorage();
     },
     goToCheckout() {
+      const userId = localStorage.getItem('user_id');
+      if (!userId) {
+        alert('請先登入才能結帳！');
+        this.$router.push('/login'); // 可選擇跳轉到登入頁
+        return;
+      }
+
       if (this.itemList.length === 0) {
         alert('購物車是空的！');
         return;
@@ -186,7 +195,7 @@ export default {
 .cart-items {
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .cart-item {
@@ -215,7 +224,7 @@ export default {
   height: 100px;
   object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 2px solid #c41e3a;
 }
 
@@ -269,7 +278,7 @@ export default {
 .order-summary {
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   padding: 1.5rem;
   border: 1px solid #c41e3a;
 }
@@ -342,20 +351,20 @@ export default {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .cart-item-actions {
     justify-content: center;
   }
-  
+
   .cart-item-total {
     margin-top: 1rem;
   }
-  
+
   .cart-actions {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .cart-actions .btn {
     width: 100%;
   }

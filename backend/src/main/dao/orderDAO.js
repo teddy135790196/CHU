@@ -89,7 +89,7 @@ function insertOrder(orderData, callback) {
 				user_email, user_address, payment_method, message, 
 				delivery_method, carrier, estimated_weight, shipping_fee, 
 				total_amount, status, created_at
-			) VALUES (?, 1, ?, 'DEL001', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())
+			) VALUES (?, ?, ?, 'DEL001', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())
 		`;
 
 		// 使用第一個商品的 ISBN_id 作為主要商品
@@ -99,6 +99,7 @@ function insertOrder(orderData, callback) {
 
 		const orderValues = [
 			orderId,
+			user.id,
 			firstItem.id, // ISBN_id
 			user.name || '訪客',
 			user.tel || '',

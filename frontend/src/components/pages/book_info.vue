@@ -33,8 +33,10 @@
             </div>
             <div>
               <h2 class="price">${{ n.price }}</h2>
-              <button class="price" @click="putInCart(n.ISBN_id)">加入購物車</button>
-              <button class="price" @click="addToFavorite(n.ISBN_id)">加入收藏</button>
+              <div class="button-group">
+                <button class="price" @click="putInCart(n.ISBN_id)">加入購物車</button>
+                <button class="price" @click="addToFavorite(n.ISBN_id)">加入收藏</button>
+              </div>
             </div>
           </div>
           <!-- 內文說明 -->
@@ -274,6 +276,30 @@ h4 {
 .bookTitle {
   margin-bottom: 12px;
   /* border-bottom: 1px solid black; */
+}
+
+/* 亘 */
+.button-group {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+
+  .price {
+    flex: 1;
+    font-weight: bold;
+    color: white;
+    background-color: hsl(36, 50.7%, 50%);
+    padding: 15px 45px;
+    /* border: 0; */
+    border-radius: 0px 30px;
+    margin-top: 40px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: hsl(36, 66%, 60%);
+    }
+  }
 }
 
 /* 價格 */

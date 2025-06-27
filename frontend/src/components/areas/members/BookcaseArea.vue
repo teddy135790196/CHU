@@ -172,7 +172,7 @@ export default {
 }
 
 .scroll-container > * {
-  display: inline-block;
+  /* display: inline-block; */
   vertical-align: top;
 }
 
