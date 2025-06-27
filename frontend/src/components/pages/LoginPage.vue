@@ -46,6 +46,7 @@ export default {
 				if (res.data.success && res.data.data && res.data.data.id) {
 					const userId = res.data.data.id;
 					localStorage.setItem('user_id', userId);
+					window.dispatchEvent(new Event('login-status-changed'));	// 全局監聽Header頭像
 
 					this.$router.push('/members');
 				} else {
