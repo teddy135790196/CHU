@@ -134,7 +134,7 @@
 </template>
 <script>
 import BookSelectOther from '@/components/areas/admin/BookSelectOther.vue';
-import axios from 'axios';
+
 
 export default {
     props: {
@@ -146,6 +146,7 @@ export default {
             Book: {
                 ISBN: '',
                 name: '',
+                desc:'',
                 img: '',
                 series: '', price: '',
                 author: '', stock: '',
@@ -181,6 +182,7 @@ export default {
         truncBook() {
             this.Book = {
                 ISBN: '',
+                desc:'',
                 name: '',
                 img: '',
                 series: '', price: '',
@@ -198,7 +200,7 @@ export default {
         }, inserToProduct() {
             //傳書本資料到資料庫上
             // console.log(this.Book.ISBN)
-            axios.post('http://localhost:3000/api/bookinsert', this.Book)// 直接送整個 Book 物件
+            this.$axios.post('/api/bookinsert', this.Book)// 直接送整個 Book 物件
                 .then(res => {
                     console.log("新增成功", res.data);
                     alert("✅ 新增成功！");

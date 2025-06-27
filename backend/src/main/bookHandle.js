@@ -45,6 +45,48 @@ router.delete('/:isbn_id', async (req, res) => {
 		res.status(500).json({ error: '刪除失敗 ' });
 	}
 });
+//更新資料
+router.put('/update/:isbn_id', async (req, res) => {
+	console.log(`PUT /update/${req.params.isbn_id} 被呼叫`);
+	const editBook = req.body;
+	const isbnId = req.params.isbn_id;
+	/*  editBook.name, editBook.desc, editBook.price, editBook.stock,
+			editBook.publisher, editBook.award, editBook.original_language,
+			editBook.major_category, editBook.minor_category, editBook.page, editBook.author,
+			editBook.img, editBook.series, editBook.pub_type
+			*/
+	try {
+		//由於欄位很多，如果更新前的值跟更新後的一樣就不做
+		await pool.query(`
+  UPDATE products SET 
+    name=?, description=?, price=?, stock=?, publisher=?,
+    award=?, original_language=?, major_category=?, minor_category=?,
+    page=?, author=?, imgUrl=?, series=?, pub_type=?
+  WHERE ISBN_id=?
+`, [
+  editBook.name,
+  editBook.description,
+  editBook.price,
+  editBook.stock,
+  editBook.publisher,
+  editBook.award,
+  editBook.original_language,
+  editBook.major_category,
+  editBook.minor_category,
+  editBook.page,
+  editBook.author,
+  editBook.imgUrl,
+  editBook.series,
+  editBook.pub_type,
+  isbnId
+]);
+
+res.json({ success: true });
+	} catch (err) {
+		console.error('DB Error:', err);
+		res.status(500).json({ error: '修改失敗 ' });
+	}
+});
 module.exports = router;
 // router.put('/:id/contact', async (req, res) => {
 // 	const userId = req.params.id;
