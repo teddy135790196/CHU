@@ -2,108 +2,123 @@
 
 <!-- prettier-ignore -->
 <template>
-	<!-- 導航欄 -->
-	<header class="titleNav">
-		<ul class="titleNavIcon">
-			<li class="logo">
-				<h1>
-					<router-link to="/"><img src="@/assets/images/icon/logo.png" alt="棲" /></router-link>
-				</h1>
-				<div class="logoUpArror">▲</div>
-				<div class="logoDialog">回到首頁</div>
-			</li>
+  <!-- 導航欄 -->
+  <header class="titleNav">
+    <ul class="titleNavIcon">
+      <li class="logo">
+        <h1>
+          <router-link to="/"><img src="@/assets/images/icon/logo.png" alt="棲" /></router-link>
+        </h1>
+        <div class="logoUpArror">▲</div>
+        <div class="logoDialog">回到首頁</div>
+      </li>
 
-			<li class="search">
-				<input type="text" v-model="searchText" @keyup.enter="performSearch" placeholder="右邊欄位可選" />
-				<select v-model="searchScope">
-					<!-- <option value="all" >全部欄位</option> -->
-					<option value="name">書名</option>
-					<option value="author">作者</option>
-					<option value="ISBN_id">ISBN</option>
-					<!-- <option value="分類">分類</option>
+      <li class="search">
+        <input type="text" v-model="searchText" @keyup.enter="performSearch" placeholder="右邊欄位可選" />
+        <select v-model="searchScope">
+          <!-- <option value="all" >全部欄位</option> -->
+          <option value="name">書名</option>
+          <option value="author">作者</option>
+          <option value="ISBN_id">ISBN</option>
+          <!-- <option value="分類">分類</option>
           <option value="類型">類型</option> -->
-					<option value="series">系列名稱</option>
-				</select>
-				<span class="searchBtn" @click="performSearch">搜尋</span>
-			</li>
+          <option value="series">系列名稱</option>
+        </select>
+        <span class="searchBtn" @click="performSearch">搜尋</span>
+      </li>
 
-			<li class="product">
-				<router-link to="/products" class="emoji">📚</router-link>
-				<div class="productUpArror">▲</div>
-				<div class="productDialog">書籍一覽</div>
-			</li>
-			<li class="titleNavEmoji member">
-				<router-link to="/members" class="emojiIcon"><img src="@/assets/images/icon/user.png" alt="🙍‍♂️"></router-link>
-				<div class="memberUpArror">▲</div>
-				<div class="memberDialog">會員資料</div>
-			</li>
-			<li class="titleNavEmoji shoppingCart">
-				<router-link to="/shoppingCart" class="emoji">
-					🛒
-					<span v-if="cartCount > 0" class="cart-badge">{{ cartCount }}</span>
-				</router-link>
-				<div class="shoppingCartUpArror">▲</div>
-				<div class="shoppingCartDialog">去購物車</div>
-			</li>
-		</ul>
-	</header>
+      <li class="product">
+        <router-link to="/products" class="emoji">📚</router-link>
+        <div class="productUpArror">▲</div>
+        <div class="productDialog">書籍一覽</div>
+      </li>
+      <li class="titleNavEmoji member">
+        <router-link to="/members" class="emojiIcon">
+          <!-- 如果有 userId，顯示登入後頭像 -->
+          <img v-if="userId" src="@/assets/images/userAvatar_default.jpg" alt="登入頭像" />
+          <!-- 否則顯示預設頭像 -->
+          <img v-else src="@/assets/images/icon/user.png" alt="未登入頭像" />
+        </router-link>
+        <div class="memberUpArror">▲</div>
+        <div class="memberDialog">會員資料</div>
+      </li>
+      <li class="titleNavEmoji shoppingCart">
+        <router-link to="/shoppingCart" class="emoji">
+          🛒
+          <span v-if="cartCount > 0" class="cart-badge">{{ cartCount }}</span>
+        </router-link>
+        <div class="shoppingCartUpArror">▲</div>
+        <div class="shoppingCartDialog">去購物車</div>
+      </li>
+    </ul>
+  </header>
 </template>
 
 <!-- prettier-ignore -->
 <script>
 export default {
-	name: "HeaderArea",
+  name: "HeaderArea",
 
-	data() {
-		return {
-			searchText: '',
-			searchScope: 'name',
-			cartCount: 0
-		};
-	},
-	
-	created() {
-		this.updateCartCount();
-		// 監聽 localStorage 變化
-		window.addEventListener('storage', this.updateCartCount);
-	},
-	
-	beforeDestroy() {
-		window.removeEventListener('storage', this.updateCartCount);
-	},
+  data() {
+    return {
+      searchText: '',
+      searchScope: 'name',
+      cartCount: 0,
+      userId: null
+    };
+  },
 
-	methods: {
-		// /search/con=:con&kw=:keyWord
-		performSearch() {
-			if (this.searchText === "") {
-				return;
-			}
+  created() {
+    this.updateCartCount();
+    this.checkLoginStatus();
+    // 監聽 localStorage 變化
+    window.addEventListener('storage', this.updateCartCount);
 
-			// 透過路由傳遞搜尋內容和範圍
+    window.addEventListener('login-status-changed', this.checkLoginStatus); // 監聽登入登出操作
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('storage', this.updateCartCount);
+    window.removeEventListener('login-status-changed', this.checkLoginStatus); // 監聽登入登出操作
+  },
+
+  methods: {
+    // /search/con=:con&kw=:keyWord
+    performSearch() {
+      if (this.searchText === "") {
+        return;
+      }
+
+      // 透過路由傳遞搜尋內容和範圍
       // /search?q=ds&scope=name
-			this.$router.push({
-				name: 'search', // 商品頁面的路由名稱
-				query: {
-					q: this.searchText,
-					scope: this.searchScope
-				}
-			});
+      this.$router.push({
+        name: 'search', // 商品頁面的路由名稱
+        query: {
+          q: this.searchText,
+          scope: this.searchScope
+        }
+      });
 
-					//重置搜尋框
-		this.searchText = "";
-		this.searchScope = "name";
-	},
-	
-	updateCartCount() {
-		const cartItems = localStorage.getItem('cartItems');
-		if (cartItems) {
-			const items = JSON.parse(cartItems);
-			this.cartCount = items.reduce((total, item) => total + item.count, 0);
-		} else {
-			this.cartCount = 0;
-		}
-	},
-	}
+      //重置搜尋框
+      this.searchText = "";
+      this.searchScope = "name";
+    },
+
+    updateCartCount() {
+      const cartItems = localStorage.getItem('cartItems');
+      if (cartItems) {
+        const items = JSON.parse(cartItems);
+        this.cartCount = items.reduce((total, item) => total + item.count, 0);
+      } else {
+        this.cartCount = 0;
+      }
+    },
+
+    checkLoginStatus() {
+      const id = localStorage.getItem('user_id');
+      this.userId = id || null; // 這樣無論登入或登出都會更新
+    }
+  }
 };
 </script>
 
@@ -170,6 +185,13 @@ li {
   color: hsl(353, 100%, 29.2%);
   background-color: hsl(0, 0%, 100%);
 }
+
+.emojiIcon img {
+  height: 44.8px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 
 @media (min-width: 576px) {
   .search {
@@ -261,6 +283,7 @@ li {
 }
 
 .emojiIcon img {
+  height: 20px;
   width: 20px;
 }
 
@@ -279,6 +302,7 @@ li {
 
   .emojiIcon img {
     width: 33px;
+    height: 33px;
   }
 }
 
@@ -293,6 +317,7 @@ li {
 
   .emojiIcon img {
     width: 44.8px;
+    height: 44.8px;
   }
 }
 

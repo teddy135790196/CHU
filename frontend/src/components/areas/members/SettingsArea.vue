@@ -268,6 +268,8 @@ export default {
 			if (confirm('確定要登出嗎？')) {
 				localStorage.removeItem('token')      // 清除 token
 				localStorage.removeItem('user_id')      // 清除 user_id
+				window.dispatchEvent(new Event('login-status-changed'));	// 全局監聽Header頭像
+				
 				this.$router.push('/login')           // 導向登入頁（路由請依你實際命名）
 			}
 		},

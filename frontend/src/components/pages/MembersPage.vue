@@ -98,7 +98,7 @@ export default {
   methods: {
     // 設定預設頭像
     setDefaultImage(event) {
-      event.target.src = 'images/userAvatar_default.jpg';
+      event.target.src = require('@/assets/images/userAvatar_default.jpg');
     },
 
     // 初始化選單顯示

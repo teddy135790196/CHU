@@ -54,7 +54,7 @@ export default {
     async fetchFavorites() {
       const user_id = localStorage.getItem('user_id');
       if (!user_id) {
-        alert('請先登入');
+        // alert('請先登入');
         return;
       }
       try {
@@ -111,7 +111,7 @@ export default {
 
       const user_id = localStorage.getItem('user_id');
       if (!user_id) {
-        alert('請先登入');
+        // alert('請先登入');
         return;
       }
 
