@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <author_a :name="book.author">
+    <author_a :name="book.author" class="authorColor">
       {{ book.author ? (book.author.length > 17 ? book.author.slice(0, 17) + '...' : book.author) : '' }}
     </author_a>
 
@@ -78,7 +78,7 @@ export default {
   flex-direction: column;
   flex-shrink: 0;
   width: 200px;
-  height: 340px;
+  height: 390px;
   padding: 0 auto;
   position: relative;
 }
@@ -117,7 +117,7 @@ export default {
 }
 
 .PandChartBtn {
-  margin-top: auto;
+  margin-top: auto !important;
   display: flex;
   justify-content: space-between;
   align-items: end;

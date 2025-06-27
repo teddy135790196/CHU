@@ -23,7 +23,7 @@
       <!-- 點下就導入到name為author的路由，參數為n.author -->
       <!-- <author_a :name="n.author">
            {{ n.author.length > 17 ? n.author.slice(0, 17) + "..." : n.author }}</author_a> -->
-      <author_a :name="n.author">
+      <author_a :name="n.author" class="authorColor">
         {{ n.author ? (n.author.length > 17 ? n.author.slice(0, 17) + "..." : n.author) : '' }}
       </author_a>
       <!--  
