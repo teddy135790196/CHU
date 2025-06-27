@@ -15,48 +15,24 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="name" class="form-label">姓名 *</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="name"
-                    v-model="form.user.name"
-                    required
-                    placeholder="請輸入您的姓名"
-                  >
+                  <input type="text" class="form-control" id="name" v-model="form.user.name" required
+                    placeholder="請輸入您的姓名">
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="tel" class="form-label">電話 *</label>
-                  <input
-                    type="tel"
-                    class="form-control"
-                    id="tel"
-                    v-model="form.user.tel"
-                    required
-                    placeholder="例：0912345678"
-                  >
+                  <input type="tel" class="form-control" id="tel" v-model="form.user.tel" required
+                    placeholder="例：0912345678">
                 </div>
               </div>
               <div class="mb-3">
                 <label for="email" class="form-label">電子郵箱 *</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  v-model="form.user.email"
-                  required
-                  placeholder="請輸入您的電子郵箱"
-                >
+                <input type="email" class="form-control" id="email" v-model="form.user.email" required
+                  placeholder="請輸入您的電子郵箱">
               </div>
               <div class="mb-3">
                 <label for="address" class="form-label">地址 *</label>
-                <textarea
-                  class="form-control"
-                  id="address"
-                  v-model="form.user.address"
-                  required
-                  placeholder="請輸入詳細地址"
-                  rows="3"
-                ></textarea>
+                <textarea class="form-control" id="address" v-model="form.user.address" required placeholder="請輸入詳細地址"
+                  rows="3"></textarea>
               </div>
             </div>
 
@@ -79,13 +55,8 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="delivery_method" class="form-label">運送方式 *</label>
-                  <select
-                    class="form-select"
-                    id="delivery_method"
-                    v-model="form.delivery.delivery_method"
-                    required
-                    @change="calculateShippingFee"
-                  >
+                  <select class="form-select" id="delivery_method" v-model="form.delivery.delivery_method" required
+                    @change="calculateShippingFee">
                     <option value="">請選擇運送方式</option>
                     <option value="陸運">陸運 - $60</option>
                     <option value="海運">海運 - $120</option>
@@ -94,12 +65,7 @@
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="carrier" class="form-label">貨運公司 *</label>
-                  <select
-                    class="form-select"
-                    id="carrier"
-                    v-model="form.delivery.carrier"
-                    required
-                  >
+                  <select class="form-select" id="carrier" v-model="form.delivery.carrier" required>
                     <option value="">請選擇貨運公司</option>
                     <option value="大發">大發</option>
                     <option value="六崧">六崧</option>
@@ -110,27 +76,13 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="estimated_weight" class="form-label">預估重量 (kg) *</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="estimated_weight"
-                    v-model.number="form.delivery.estimated_weight"
-                    required
-                    placeholder="請輸入預估重量"
-                    min="0.1"
-                    step="0.1"
-                  >
+                  <input type="number" class="form-control" id="estimated_weight"
+                    v-model.number="form.delivery.estimated_weight" required placeholder="請輸入預估重量" min="0.1" step="0.1">
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="shipping_fee" class="form-label">運費</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="shipping_fee"
-                    v-model.number="form.delivery.shipping_fee"
-                    readonly
-                    placeholder="將根據運送方式自動計算"
-                  >
+                  <input type="number" class="form-control" id="shipping_fee"
+                    v-model.number="form.delivery.shipping_fee" readonly placeholder="將根據運送方式自動計算">
                 </div>
               </div>
             </div>
@@ -139,12 +91,7 @@
             <div class="form-section mb-4">
               <h4 class="section-title mb-3">備註</h4>
               <div class="mb-3">
-                <textarea
-                  class="form-control"
-                  v-model="form.message"
-                  placeholder="如有特殊需求請在此填寫"
-                  rows="3"
-                ></textarea>
+                <textarea class="form-control" v-model="form.message" placeholder="如有特殊需求請在此填寫" rows="3"></textarea>
               </div>
             </div>
 
@@ -202,8 +149,11 @@ export default {
       isLoading: false,
       draftId: null,
       autoSaveTimer: null,
+      isLoggedIn: false, // <--- 新增：是否為登入使用者
+      serverUserData: null, // <--- 新增：儲存從後端抓到的資料
       form: {
         user: {
+          id: '',
           name: '',
           tel: '',
           email: '',
@@ -235,6 +185,13 @@ export default {
     } else {
       alert('購物車是空的，請先添加商品！');
       this.$router.push('/shoppingCart');
+      return;
+    }
+
+    const userId = localStorage.getItem('user_id');
+    if (userId) {
+      this.isLoggedIn = true;
+      this.fetchUserData(userId);
     }
   },
   methods: {
@@ -254,6 +211,23 @@ export default {
       }
     },
 
+    // 亘：抓會員資料來自動填入
+    async fetchUserData(userId) {
+      try {
+        const res = await this.$axios.get(`/api/orders/user/${userId}`);
+        this.serverUserData = res.data;
+
+        // 自動填入表單
+        this.form.user.name = res.data.realName;
+        this.form.user.tel = res.data.phone;
+        this.form.user.email = res.data.email;
+        this.form.user.address = res.data.address;
+      } catch (error) {
+        console.error('讀取使用者資料失敗：', error);
+        alert('無法讀取會員資料，請稍後再試。');
+      }
+    },
+
     async addOrder() {
       if (this.form.items.length === 0) {
         alert('購物車是空的！');
@@ -261,12 +235,14 @@ export default {
       }
 
       // 基本驗證
-      if (!this.form.user.name || !this.form.user.email || !this.form.user.tel || 
-          !this.form.user.address || !this.form.delivery.delivery_method || 
-          !this.form.delivery.carrier || !this.form.delivery.estimated_weight || !this.form.pay) {
+      if (!this.form.user.name || !this.form.user.email || !this.form.user.tel ||
+        !this.form.user.address || !this.form.delivery.delivery_method ||
+        !this.form.delivery.carrier || !this.form.delivery.estimated_weight || !this.form.pay) {
         alert('請填寫所有必填欄位！');
         return;
       }
+
+
 
       // 電話號碼格式驗證
       const phoneNumber = /^(09)[0-9]{8}$/;
@@ -275,8 +251,35 @@ export default {
         return;
       }
 
+      // 亘：如果是登入使用者，比對資料是否與資料庫一致
+      if (this.isLoggedIn && this.serverUserData) {
+        const isDifferent =
+          this.form.user.name !== this.serverUserData.realName ||
+          this.form.user.tel !== this.serverUserData.phone ||
+          this.form.user.email !== this.serverUserData.email ||
+          this.form.user.address !== this.serverUserData.address;
+
+        if (isDifferent) {
+          const shouldUpdate = confirm('您的填寫資料與會員資料不一致，是否要以目前填寫內容覆蓋會員資料？');
+          if (shouldUpdate) {
+            try {
+              await this.$axios.put(`/api/orders/user/${localStorage.getItem('user_id')}`, {
+                realName: this.form.user.name,
+                phone: this.form.user.tel,
+                email: this.form.user.email,
+                address: this.form.user.address
+              });
+              alert('會員資料已更新');
+            } catch (error) {
+              console.error('更新會員資料失敗：', error);
+              alert('會員資料更新失敗');
+            }
+          }
+        }
+      }
+
       this.isLoading = true;
-      
+
       try {
         // 處理購物車項目，確保每個項目都有正確的計算
         const processedItems = this.form.items.map(item => ({
@@ -290,6 +293,7 @@ export default {
         // 計算商品總額
         const itemsTotal = processedItems.reduce((total, item) => total + item.subtotal, 0);
 
+        this.form.user.id = localStorage.getItem('user_id');  // 取出 user_id
         // 準備訂單數據
         const orderData = {
           user: this.form.user,
@@ -309,7 +313,7 @@ export default {
         localStorage.removeItem('cartItems');
         // 手動觸發 storage 事件來通知 HeaderArea 更新購物車徽章
         window.dispatchEvent(new Event('storage'));
-        
+
         // 跳轉到確認頁面（避免重複導航）
         if (this.$route.path !== '/checkout-success') {
           this.$router.push('/checkout-success');
@@ -359,17 +363,18 @@ export default {
   background: #f8f9fa;
   padding: 1.5rem;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   margin-bottom: 1.5rem;
   transition: all 0.3s ease;
   border: 1px solid #e9ecef;
 }
 
 .form-section:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
   border-color: #c41e3a;
   box-shadow: 0 0 0 0.2rem rgba(196, 30, 58, 0.25);
 }
@@ -377,7 +382,7 @@ export default {
 .order-summary-checkout {
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   padding: 1.5rem;
   border: 1px solid #c41e3a;
   position: sticky;
@@ -460,10 +465,10 @@ export default {
   .checkout-card {
     padding: 1rem;
   }
-  
+
   .order-summary-checkout {
     position: static;
     margin-top: 2rem;
   }
 }
-</style> 
+</style>
