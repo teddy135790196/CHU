@@ -145,7 +145,7 @@ export default {
 			// 根據 daysToShow 製作對應的 dataset（線條設定）
 			if (daysToShow.includes('今天')) {
 				datasets.push({
-					label: '今天 瀏覽量',
+					label: '今天',
 					data: todayLine,
 					borderColor: colors['今天'],
 					backgroundColor: colors['今天'].replace('1)', '0.2)'), // 半透明填色
@@ -157,7 +157,7 @@ export default {
 			}
 			if (daysToShow.includes('昨天')) {
 				datasets.push({
-					label: '昨天 瀏覽量',
+					label: '昨天',
 					data: yesterdayLine,
 					borderColor: colors['昨天'],
 					backgroundColor: colors['昨天'].replace('1)', '0.2)'),
@@ -169,7 +169,7 @@ export default {
 			}
 			if (daysToShow.includes('前天')) {
 				datasets.push({
-					label: '前天 瀏覽量',
+					label: '前天',
 					data: dayBeforeYesterdayLine,
 					borderColor: colors['前天'],
 					backgroundColor: colors['前天'].replace('1)', '0.2)'),

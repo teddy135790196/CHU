@@ -86,8 +86,8 @@ export default {
 /* 右上角刪除叉叉按鈕 */
 .delete-btn {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 6px;
+  right: 18px;
   font-size: 22px;
   color: #fff;
   background-color: rgba(0,0,0,0.6);
