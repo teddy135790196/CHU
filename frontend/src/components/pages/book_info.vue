@@ -33,15 +33,16 @@
             </div>
             <div>
               <h2 class="price">${{ n.price }}</h2>
-              <div class="button-group">
-                <button class="price" @click="putInCart(n.ISBN_id)">加入購物車</button>
-                <button class="price" @click="addToFavorite(n.ISBN_id)">加入收藏</button>
-              </div>
+
             </div>
           </div>
           <!-- 內文說明 -->
           <div class="describe">
             <p>{{ n.description }}</p>
+          </div>
+          <div class="button-group">
+            <button id="bgb" @click="putInCart(n.ISBN_id)">加入購物車</button>
+            <div @click="addToFavorite(n.ISBN_id)"><i class="fa-solid fa-heart"></i></div>
           </div>
         </div>
       </div>
@@ -52,7 +53,7 @@
         <!-- 1 -->
         <div class="card" id="card_spe">
           <div class="card-header">
-            <a class="card-link" data-toggle="collapse" data-parent="#card-1" href="#card-element-2">商品規格▼</a>
+            <a class="card-link" href="#card-element-2">商品規格▼</a>
           </div>
           <div id="card-element-2" class="collapse show">
             <div class="card-body">
@@ -279,37 +280,51 @@ h4 {
 }
 
 /* 亘 */
+/* 購物車按鈕 */
 .button-group {
+  margin-top: 10px;
   display: flex;
   gap: 12px;
-  justify-content: space-between;
+  justify-content: space-around;
+}
 
-  .price {
-    flex: 1;
-    font-weight: bold;
-    color: white;
-    background-color: hsl(36, 50.7%, 50%);
-    padding: 15px 45px;
-    /* border: 0; */
-    border-radius: 0px 30px;
-    margin-top: 40px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+#bgb {
+  color: white;
+  background-color: hsl(36, 50.7%, 71.4%);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+  transition: all 0.7s;
+  margin-left: 20px;
+}
 
-    &:hover {
-      background-color: hsl(36, 66%, 60%);
-    }
-  }
+.button-group i:hover,
+#bgb:hover {
+  background-color: hsl(353, 100%, 29.2%);
+}
+
+/* 加入收藏 */
+.fa-heart {
+  /* margin: 0 40px; */
+  padding: 10px;
+  color: indianred;
+  border: 1px solid hsl(353, 100%, 29.2%);
+  border-radius: 50%;
+}
+
+.fa-heart:hover {
+  color: hsl(353, 100%, 29.2%);
 }
 
 /* 價格 */
 .price {
   font-weight: bold;
-  color: white;
-  background-color: hsl(36, 50.7%, 50%);
-  padding: 15px 45px;
-  border-radius: 0px 30px;
-  margin-top: 40px;
+  color: hsl(36, 50.7%, 50%);
+  text-align: right;
+  padding: 2px 50px;
+  border-radius: 30px 30PX 0px 0PX;
+  /* margin-top: 40px; */
+  border-bottom: 2px solid;
 }
 
 /* 庫存 */
