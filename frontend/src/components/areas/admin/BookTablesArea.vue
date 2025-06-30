@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <table class="table table-hover table-bordered">
             <thead class="table-dark ">
                 <tr>
@@ -41,8 +42,7 @@
                     <td>{{ n.publisher }}</td>
                     <td>{{ n.major_category }}</td>
                     <td>{{ n.minor_category }}</td>
-                    <td>{{ n.created_at }}</td>
-                    <!-- <td>{{ formatToLocalTime(n.created_at) }}</td> -->
+                    <td>{{ formatToLocalTime(n.created_at) }}</td>
                     <td>{{ formatToLocalTime(n.updated_at) }}</td>
                     <td>{{ n.page }}</td>
                     <td>{{ n.hit }}</td>
@@ -223,8 +223,10 @@ export default {
         //將utc世界時區轉成台灣時區
         formatToLocalTime(dateString) {
             const date = new Date(dateString);
+            //手動+8小時
+            date.setHours(date.getHours()+8);
             return date.toLocaleString('zh-TW', {
-                timeZone: 'Asia/Taipei',
+                // timeZone: 'Asia/Taipei',由於老舊瀏覽器不支援就註解掉
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
