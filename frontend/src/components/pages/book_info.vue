@@ -47,15 +47,14 @@
         </div>
       </div>
 
-      <hr />
+     
       <!-- 卡片 -->
       <div id="card-1">
         <!-- 1 -->
         <div class="card" id="card_spe">
-          <div class="card-header">
-            <a class="card-link" href="#card-element-2">商品規格▼</a>
+          <div class="card-header">商品規格▼
           </div>
-          <div id="card-element-2" class="collapse show">
+          
             <div class="card-body">
               <p><span>ISBN：</span>{{ n.ISBN_id }}</p>
               <p><span>頁數：</span>{{ n.page }}</p>
@@ -64,16 +63,14 @@
               <p><span>分類細項：</span>{{ n.minor_category }}</p>
               <p><span>語言：</span>{{ n.original_language }}</p>
             </div>
-          </div>
+          
         </div>
 
         <!-- 3 -->
-        <div class="card" id="card_del">
+        <div class="card" id="card_del ">
           <div class="card-header">
-            <a class="collapsed card-link" data-toggle="collapse" data-parent="#card-1" href="#card-element-3">
-              運送與售後▼</a>
+            運送與售後▼
           </div>
-          <div id="card-element-3" class="collapse">
             <div class="card-body">
               <dl>
                 <dt>配送範圍</dt>
@@ -106,7 +103,7 @@
                 </dd>
               </dl>
             </div>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -343,6 +340,7 @@ h4 {
 .prodFlex a,
 .card-body dt {
   color: hsl(353, 100%, 29.2%);
+  margin-top: 13px;
 }
 
 /* .fa-fire {
@@ -356,19 +354,20 @@ h4 {
 
 /* 商品頁的商品規格 */
 #card-1 {
+  margin-top: 33px;
   display: flex;
   justify-content: space-around;
 }
 
 #card_spe {
-  width: 700px;
+  width: 400px;
 }
 
 #card_del {
   width: 1250px;
 }
 
-.card a {
+.card-header {
   font-size: 20px;
   color: white;
 }
@@ -380,7 +379,7 @@ h4 {
 .card-body {
   margin: 10px 30px;
 }
-
+.card-body p{margin-top: 13px;}
 
 
 /* 你可能會喜歡_小圖區 */
