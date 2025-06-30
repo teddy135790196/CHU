@@ -204,6 +204,8 @@ export default {
                 .then(res => {
                     console.log("新增成功", res.data);
                     alert("✅ 新增成功！");
+                     // 通知父元件重新抓取
+                    this.$emit('reFreshBooks');
                 })
                 .catch(err => {
                     console.error("新增失敗", err);

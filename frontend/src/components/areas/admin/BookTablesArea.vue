@@ -41,7 +41,8 @@
                     <td>{{ n.publisher }}</td>
                     <td>{{ n.major_category }}</td>
                     <td>{{ n.minor_category }}</td>
-                    <td>{{ formatToLocalTime(n.created_at) }}</td>
+                    <td>{{ n.created_at }}</td>
+                    <!-- <td>{{ formatToLocalTime(n.created_at) }}</td> -->
                     <td>{{ formatToLocalTime(n.updated_at) }}</td>
                     <td>{{ n.page }}</td>
                     <td>{{ n.hit }}</td>
@@ -241,6 +242,8 @@ export default {
                     .then(res => {
                         console.log(res.data);
                         alert("刪除成功");
+                        // 通知父元件刷新書本列表
+                        this.$emit('reFreshBooks');
                     })
                     .catch(err => {
                         alert("刪除失敗" + (err.response?.data?.error || err.message));
@@ -268,6 +271,8 @@ export default {
                 .then(res => {
                     console.log("修改成功", res.data);
                     alert("✅ 修改成功！");
+                    // 通知父元件刷新書本列表
+                    this.$emit('reFreshBooks');
                 })
                 .catch(err => {
                     console.error("新增失敗", err);

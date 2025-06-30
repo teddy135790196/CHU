@@ -2,7 +2,7 @@
     <div class="container">
         <button @click="change = !change">{{ cha_text }}</button>
         <KeepAlive>
-            <component :is="currentComponent" :books="books"></component>
+            <component :is="currentComponent" :books="books" @reFreshBooks="fetchBooks"></component>
         </KeepAlive>
         <!-- <BookInsertArea :books="books"/>
 <BookTablesArea :books="books"/> -->
@@ -27,6 +27,7 @@ export default {
     }, methods: {
         async fetchBooks() {
             try {
+                this.books = []; // 清空再重新抓，以免資料重複抓重複顯示
                 const products =
                     await this.$axios.get('/api/azureDB/products');
                 this.books = products.data;
