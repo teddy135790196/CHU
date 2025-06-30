@@ -51,11 +51,12 @@
       <!-- 卡片 -->
       <div id="card-1">
         <!-- 1 -->
-        <div class="card" id="card_spe">
-          <div class="card-header">商品規格▼
+        
+        <div class="card card_spe">
+          <div class="card-header" @click="tgc('card1')">商品規格▼
           </div>
-          
-            <div class="card-body">
+           <transition name="slide">
+            <div class="card-body" v-show="openC.card1">
               <p><span>ISBN：</span>{{ n.ISBN_id }}</p>
               <p><span>頁數：</span>{{ n.page }}</p>
               <p><span>出版類型：</span>{{ n.pub_type }}</p>
@@ -63,15 +64,16 @@
               <p><span>分類細項：</span>{{ n.minor_category }}</p>
               <p><span>語言：</span>{{ n.original_language }}</p>
             </div>
-          
+           </transition>
         </div>
 
-        <!-- 3 -->
-        <div class="card" id="card_del ">
-          <div class="card-header">
+        <!-- 2 -->
+        <div class="card card_del">
+          <div class="card-header" @click="tgc('card2')">
             運送與售後▼
           </div>
-            <div class="card-body">
+          <transition name="slide">
+            <div class="card-body" v-show="openC.card2">
               <dl>
                 <dt>配送範圍</dt>
                 <dd>
@@ -103,7 +105,7 @@
                 </dd>
               </dl>
             </div>
-          
+          </transition>
         </div>
       </div>
     </div>
@@ -111,10 +113,12 @@
 </template>
 <script>
 import author_a from "@/components/pages/authorA.vue";
+
 export default {
   components: { author_a },
   name: "book_info",
-  data() { return { data: null, book: [] } },
+  data() { return { data: null, book: [],
+    openC:{card1:false,card2:false} } },
   props: ["isbn"],
   mounted() {
     if (this.isbn) { this.fetchData(); }
@@ -128,7 +132,8 @@ export default {
     }
   },
   methods: {
-    async fetchData() {
+    tgc(key){this.openC[key]=!this.openC[key];}
+    ,async fetchData() {
       try {
         // const baseUrl = "http://localhost:3000";
         // let url = baseUrl + "/api/products/book";
@@ -357,13 +362,15 @@ h4 {
   margin-top: 33px;
   display: flex;
   justify-content: space-around;
+  /* 加上這一行就不會被撐高出空白了 */
+  align-items: flex-start; 
 }
 
-#card_spe {
+.card_spe {
   width: 400px;
 }
 
-#card_del {
+.card_del {
   width: 1250px;
 }
 
@@ -380,8 +387,20 @@ h4 {
   margin: 10px 30px;
 }
 .card-body p{margin-top: 13px;}
-
-
+/* 卡片動畫 */
+.slide-enter-active,.slide-leave-active{
+  transition: all 0.7s ease;
+  overflow: hidden;
+}
+.slide-enter,.slide-leave-to{
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  margin-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.slide-enter-to,.slide-leave{max-height: 1000px;opacity: 1;}
 /* 你可能會喜歡_小圖區 */
 .MaybeLike {
   padding: 10px 0;

@@ -10,15 +10,35 @@
                         </div>
                         <div class="right-text">
                             <span class="red-color">*</span>書名 <input v-model="Book.name" placeholder="書名" required>
-                            <span class="red-color">*</span>書號: <input v-model="Book.ISBN" placeholder="例:999-000-012345-6" required>
-                            <p>封面連結:<input v-model="Book.img" placeholder="請輸入網址"></p>
+                            <span class="red-color">*</span>書號: <input v-model="Book.ISBN"
+                                placeholder="例:999-000-012345-6" required>
+                            <!-- 上傳圖片 -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>封面上傳</h4>
+                                </div>
+                                <div class="card-body">
+                                    <p>圖片網址:<input v-model="Book.img" placeholder="請輸入網址"></p>
+                                    <button @click="triggerFileInput">從電腦上傳</button>
+                                    <!-- <p>上傳封面</p> -->
+                                    <input type="file"
+                                     ref="FileInput" 
+                                     @change="handleImageUpload" 
+                                     accept="image/*"
+                                        style="display: none;"/>
+                                </div>
+                            </div>
                             <p>
-                            <span class="red-color">*</span>作者: <input v-model="Book.author" placeholder="" required>
-                              系列:<BookSelectOther v-model="Book.series" :options="typeSet('series')"
+                                <span class="red-color">*</span>作者: <input v-model="Book.author" placeholder=""
+                                    required>
+                                系列:
+                                <BookSelectOther v-model="Book.series" :options="typeSet('series')"
                                     placeholderStr="請輸入系列名" />
                             </p>
-                            <p><span class="red-color">*</span> 價格:<input v-model="Book.price" placeholder="請輸入數字" required>
-                               <span class="red-color">*</span> 庫存:<input v-model="Book.stock" placeholder="請輸入數字" required>
+                            <p><span class="red-color">*</span> 價格:<input v-model="Book.price" placeholder="請輸入數字"
+                                    required>
+                                <span class="red-color">*</span> 庫存:<input v-model="Book.stock" placeholder="請輸入數字"
+                                    required>
                             </p>
                             頁數:<input v-model="Book.page" placeholder="請輸入數字">
                             <h5>簡介</h5>
@@ -146,7 +166,7 @@ export default {
             Book: {
                 ISBN: '',
                 name: '',
-                desc:'',
+                desc: '',
                 img: '',
                 series: '', price: '',
                 author: '', stock: '',
@@ -178,11 +198,11 @@ export default {
             ],
         };
     }, methods: {
-
+        //清空資料
         truncBook() {
             this.Book = {
                 ISBN: '',
-                desc:'',
+                desc: '',
                 name: '',
                 img: '',
                 series: '', price: '',
@@ -193,24 +213,36 @@ export default {
                 pub_type: '',
                 award: ''
             };
-        }, typeSet(SQLwhere) { //獎項選項
+        }, //獎項選項  
+        typeSet(SQLwhere) {
             //如果是api回傳空值或不是陣列則回傳空值
             if (!this.books || !Array.isArray(this.books)) return [];
             return [...new Set(this.books.map(item => item[SQLwhere]))]
-        }, inserToProduct() {
-            //傳書本資料到資料庫上
+        }, //傳書本資料到資料庫上
+        inserToProduct() {
+
             // console.log(this.Book.ISBN)
             this.$axios.post('/api/bookinsert', this.Book)// 直接送整個 Book 物件
                 .then(res => {
                     console.log("新增成功", res.data);
                     alert("✅ 新增成功！");
-                     // 通知父元件重新抓取
+                    // 通知父元件重新抓取
                     this.$emit('reFreshBooks');
                 })
                 .catch(err => {
                     console.error("新增失敗", err);
                     alert("❌ 新增失敗：" + (err.response?.data?.error || err.message));
                 });
+        },
+
+        // 讓隱藏的 input 被點到
+        triggerFileInput() { this.$refs.FileInput.click(); }, //圖片上傳
+        handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => { this.Book.img = e.target.result; };
+            reader.readAsDataURL(file);
         }
     }, computed: {
         majorTypes() { //new Set 只保留不重複的值 ...陣列或物件打開攤平

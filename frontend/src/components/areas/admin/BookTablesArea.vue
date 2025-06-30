@@ -60,8 +60,13 @@
                 <div class="card-body">
 
                     <div class="rowl">
-                        <div>
-                            <img :src="selectBook.imgUrl"><button>更換封面</button>
+                        <div >
+                            <img :src="selectBook.imgUrl" alt="預覽圖">
+                            <div v-if="isEdit">
+                            <button  @click="triggerFileInput">更換封面</button>
+                        <input type="file" ref="FileInput"
+                        @change="ImageUpload" accept="image/*"  style="display: none"/>
+                        </div>
                         </div>
                         <div class="right-text">
                             <div>
@@ -254,7 +259,7 @@ export default {
             }
         },//我點了他就取得他的isbn
         showBookDetail(isbn) {
-            
+             this.isEdit= false,
             this.selectBook =
                 this.books.find(n => n.ISBN_id === isbn);
             let ppp = this.selectBook.name;
@@ -282,6 +287,18 @@ export default {
                 });
             }
             this.isEdit = !this.isEdit;
+        },
+        //圖片上傳
+        triggerFileInput(){this.$refs.FileInput.click();},
+        ImageUpload(e){
+            // console.log('event:', e, e.target.files);
+            const file=e.target.files[0];
+            if (!file) return;
+            const reader=new FileReader();
+            reader.onload = (e) =>{
+                this.selectBook.imgUrl=e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
     }, computed: {
         majorTypes() { //new Set 只保留不重複的值 ...陣列或物件打開攤平
